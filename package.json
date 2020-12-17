@@ -1,0 +1,13 @@
+{
+  "name": "react-native-owl",
+  "version": "0.0.1",
+  "description": "Visual regression testing for React Native",
+  "main": "index.js",
+  "repository": "https://github.com/FormidableLabs/react-native-owl.git",
+  "author": "Emmanouil Konstantinidis <hello@manos.im>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3"
+  }
+}
