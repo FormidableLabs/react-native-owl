@@ -14,14 +14,20 @@ npm install -D react-native-owl
 
 ### Building the app
 
+##### Options
+
+| Name       | Required | Choices         | Description                              |
+| ---------- | -------- | --------------- | ---------------------------------------- |
+| `platform` | true     | `ios`,`android` | The platform the app should be built on. |
+
 ```bash
-owl build
+owl build --platform ios
 ```
 
 ### Running the tests
 
-```bash
-owl test
+```
+owl test --platform ios
 ```
 
 [github-image]: https://github.com/FormidableLabs/react-native-owl/workflows/Run%20Tests/badge.svg
