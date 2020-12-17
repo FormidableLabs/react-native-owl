@@ -4,9 +4,11 @@
   "description": "Visual regression testing for React Native",
   "main": "index.js",
   "bin": {
-    "owl": "./src.cli.js"
+    "owl": "./lib/cli/index.js"
   },
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
     "prettier:check": "prettier --check 'src/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'src/**/*.{js,ts,tsx}'",
     "test": "yarn jest"
