@@ -1,0 +1,25 @@
+{
+  "name": "react-native-owl",
+  "version": "0.0.1",
+  "description": "Visual regression testing for React Native",
+  "main": "index.js",
+  "scripts": {
+    "prettier:check": "prettier --check 'src/**/*.{js,ts,tsx}'",
+    "prettier:apply": "prettier --write 'src/**/*.{js,ts,tsx}'",
+    "test": "yarn jest"
+  },
+  "repository": "https://github.com/FormidableLabs/react-native-owl.git",
+  "author": "Emmanouil Konstantinidis <hello@manos.im>",
+  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.19",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.3"
+  }
+}
