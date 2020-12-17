@@ -13,7 +13,7 @@ const plaformOption: Options = {
   choices: ['ios', 'android'],
 };
 
-const options = {
+const builderOptions = {
   platform: plaformOption,
 };
 
@@ -22,20 +22,15 @@ argv
   .command({
     command: 'build',
     describe: 'Build the React Native project',
-    builder: {
-      ...options,
-    },
+    builder: builderOptions,
     handler: buildHandler,
   })
   .command({
     command: 'test',
     describe: 'Runs the test suite',
-    builder: {
-      ...options,
-    },
+    builder: builderOptions,
     handler: runHandler,
   })
   .help('h')
   .alias('h', 'help')
   .alias('v', 'version').argv;
-777;

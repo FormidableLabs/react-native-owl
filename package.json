@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Visual regression testing for React Native",
   "main": "index.js",
+  "bin": {
+    "owl": "./src.cli.js"
+  },
   "scripts": {
     "prettier:check": "prettier --check 'src/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'src/**/*.{js,ts,tsx}'",
