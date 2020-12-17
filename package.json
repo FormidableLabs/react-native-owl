@@ -3,7 +3,12 @@
   "version": "0.0.1",
   "description": "Visual regression testing for React Native",
   "main": "index.js",
+  "bin": {
+    "owl": "./lib/cli/index.js"
+  },
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
     "prettier:check": "prettier --check 'src/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'src/**/*.{js,ts,tsx}'",
     "test": "yarn jest"
@@ -15,8 +20,12 @@
     "preset": "ts-jest",
     "testEnvironment": "node"
   },
+  "dependencies": {
+    "yargs": "^16.2.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.19",
+    "@types/yargs": "^15.0.12",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4",

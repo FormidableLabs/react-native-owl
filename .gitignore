@@ -52,3 +52,6 @@ typings/
 .env
 .env.test
 .env*.local
+
+# generated js
+lib
