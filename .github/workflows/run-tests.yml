@@ -27,5 +27,8 @@ jobs:
       - name: Run Prettier (Check)
         run: yarn prettier:check
 
+      - name: Run Typescheck
+        run: yarn tsc --noEmit
+
       - name: Run Unit Tests
         run: yarn test

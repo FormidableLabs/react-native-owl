@@ -8,12 +8,20 @@ import { runHandler } from './run';
 
 const plaformOption: Options = {
   alias: 'p',
-  describe: 'Platform to build the app',
+  describe: 'Platform to build and run the app',
   demandOption: true,
   choices: ['ios', 'android'],
 };
 
+const configOption: Options = {
+  alias: 'c',
+  describe: 'Configuration file to be used',
+  type: 'string',
+  default: './owl.config.json',
+};
+
 const builderOptions = {
+  config: configOption,
   platform: plaformOption,
 };
 
@@ -31,6 +39,7 @@ argv
     builder: builderOptions,
     handler: runHandler,
   })
-  .help('h')
+  .help('help')
   .alias('h', 'help')
+  .showHelpOnFail(false, 'Specify --help for available options')
   .alias('v', 'version').argv;
