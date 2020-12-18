@@ -11,8 +11,9 @@ const validateSchema = (config: {}): Promise<Config> => {
         type: 'object',
         properties: {
           workspace: { type: 'string' },
+          scheme: { type: 'string' },
         },
-        required: ['workspace'],
+        required: ['workspace', 'scheme'],
         nullable: true,
         additionalProperties: false,
       },
