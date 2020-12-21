@@ -10,16 +10,19 @@ const validateSchema = (config: {}): Promise<Config> => {
       ios: {
         type: 'object',
         properties: {
-          workspace: { type: 'string' },
-          scheme: { type: 'string' },
+          workspace: { type: 'string', nullable: true },
+          scheme: { type: 'string', nullable: true },
+          buildCommand: { type: 'string', nullable: true },
         },
-        required: ['workspace', 'scheme'],
+        required: [],
         nullable: true,
         additionalProperties: false,
       },
       android: {
         type: 'object',
-        properties: {},
+        properties: {
+          buildCommand: { type: 'string', nullable: true },
+        },
         required: [],
         nullable: true,
         additionalProperties: false,

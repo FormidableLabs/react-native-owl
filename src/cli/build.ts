@@ -4,12 +4,17 @@ import { getConfig } from './config';
 import { BuildRunOptions, Config } from './types';
 
 const buildIOS = async (config: Config): Promise<void> => {
-  const buildCommand = `xcodebuild -workspace ${config.ios?.workspace} -scheme ${config.ios?.scheme} -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build`;
-  execSync(buildCommand);
+  const buildCommand =
+    config.ios?.buildCommand ||
+    `xcodebuild -workspace ${config.ios?.workspace} -scheme ${config.ios?.scheme} -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`;
+  execSync(buildCommand, { stdio: 'inherit' });
 };
 
 const buildAndroid = async (config: Config): Promise<void> => {
-  throw new Error('Coming Soon');
+  const buildCommand =
+    config.android?.buildCommand ||
+    `cd android/ && ./gradlew assembleDebug && cd -`;
+  execSync(buildCommand, { stdio: 'inherit' });
 };
 
 export const buildHandler = async (args: BuildRunOptions) => {
