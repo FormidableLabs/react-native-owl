@@ -31,4 +31,4 @@ jobs:
         run: yarn tsc --noEmit
 
       - name: Run Unit Tests
-        run: yarn test
+        run: yarn test --coverage

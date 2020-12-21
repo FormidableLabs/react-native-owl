@@ -14,12 +14,14 @@ npm install -D react-native-owl
 
 The config file - which unless specified in the cli should live in `./owl.config.json` - is used to descript how Owl should run your app and your tests. Below you can find all the options the can be specified.
 
-| Name               | Required | Description                                                  |
-| ------------------ | -------- | ------------------------------------------------------------ |
-| **ios config**     |          |                                                              |
-| `ios.workspace`    | true     | Path to the `.xcworkspace` file of your react-native project |
-| **android config** |          |                                                              |
-| -                  |          |                                                              |
+| Name                   | Required | Description                                                                                                                    |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **ios config**         |          |                                                                                                                                |
+| `ios.workspace`        | true     | Path to the `.xcworkspace` file of your react-native project                                                                   |
+| `ios.scheme`           | true     | The name of the scheme you would like to use for building the app                                                              |
+| `ios.buildCommand`     | false    | Will override the `xcodebuild` command making the above options obselete. To be used when the default options are not suitable |
+| **android config**     |          |                                                                                                                                |
+| `android.buildCommand` | false    | Will override the `assembleDebug` gradle command. Should build the apk                                                         |
 
 ## CLI
 

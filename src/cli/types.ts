@@ -6,10 +6,14 @@ export interface BuildRunOptions extends Arguments {
 }
 
 type ConfigIOS = {
-  workspace: string;
+  workspace?: string;
+  scheme?: string;
+  buildCommand?: string;
 };
 
-type ConfigAndroid = {};
+type ConfigAndroid = {
+  buildCommand?: string;
+};
 
 export type Config = {
   ios?: ConfigIOS;
