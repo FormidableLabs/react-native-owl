@@ -1,4 +1,4 @@
-import cp from 'child_process';
+import execa from 'execa';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
 import * as configHelpers from './config';
@@ -6,9 +6,7 @@ import { BuildRunOptions, Config } from './types';
 
 describe('build.ts', () => {
   describe('buildIOS', () => {
-    const execMock = jest
-      .spyOn(cp, 'execSync')
-      .mockImplementation(() => Buffer.from([]));
+    const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
     beforeEach(() => {
       execMock.mockReset();
@@ -50,9 +48,7 @@ describe('build.ts', () => {
   });
 
   describe('buildAndroid', () => {
-    const execMock = jest
-      .spyOn(cp, 'execSync')
-      .mockImplementation(() => Buffer.from([]));
+    const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
     beforeEach(() => {
       execMock.mockReset();

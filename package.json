@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "ajv": "^7.0.1",
+    "execa": "^5.0.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {

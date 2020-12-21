@@ -1,4 +1,4 @@
-import cp from 'child_process';
+import execa from 'execa';
 
 import { getConfig } from './config';
 import { BuildRunOptions, Config } from './types';
@@ -8,14 +8,14 @@ export const buildIOS = async (config: Config): Promise<void> => {
     config.ios?.buildCommand ||
     `xcodebuild -workspace ${config.ios?.workspace} -scheme ${config.ios?.scheme} -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`;
 
-  cp.execSync(buildCommand, { stdio: 'inherit' });
+  await execa.command(buildCommand, { stdio: 'inherit' });
 };
 
 export const buildAndroid = async (config: Config): Promise<void> => {
   const buildCommand =
     config.android?.buildCommand ||
     `cd android/ && ./gradlew assembleDebug && cd -`;
-  cp.execSync(buildCommand, { stdio: 'inherit' });
+  await execa.command(buildCommand, { stdio: 'inherit' });
 };
 
 export const buildHandler = async (args: BuildRunOptions) => {
