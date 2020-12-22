@@ -26,6 +26,26 @@ describe('build.ts', () => {
       expect(
         execMock
       ).toHaveBeenCalledWith(
+        `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build`,
+        { stdio: 'inherit' }
+      );
+    });
+
+    it('builds an iOS project with workspace/scheme - with the quiet arg', async () => {
+      const config: Config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'RNDemo',
+          quiet: true,
+        },
+      };
+
+      await buildIOS(config);
+
+      expect(execMock).toHaveBeenCalledTimes(1);
+      expect(
+        execMock
+      ).toHaveBeenCalledWith(
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`,
         { stdio: 'inherit' }
       );
