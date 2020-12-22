@@ -19,6 +19,8 @@ type ConfigIOS = {
 type ConfigAndroid = {
   /** Overrides the `assembleDebug` gradle command. Should build the apk. */
   buildCommand?: string;
+  /** Passes the quiet flag to `gradlew` */
+  quiet?: boolean;
 };
 
 export type Config = {

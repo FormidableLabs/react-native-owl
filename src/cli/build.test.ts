@@ -78,7 +78,7 @@ describe('build.ts', () => {
       execMock.mockReset();
     });
 
-    it('builds an Android project with workspace/scheme', async () => {
+    it('builds an Android project with the default build command', async () => {
       const config: Config = {
         android: {},
       };
@@ -87,6 +87,22 @@ describe('build.ts', () => {
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug`, {
+        stdio: 'inherit',
+        cwd: path.join(process.cwd(), 'android'),
+      });
+    });
+
+    it('builds an Android project with the default build command - with the quiet arg', async () => {
+      const config: Config = {
+        android: {
+          quiet: true,
+        },
+      };
+
+      await buildAndroid(config, logger);
+
+      expect(execMock).toHaveBeenCalledTimes(1);
+      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug --quiet`, {
         stdio: 'inherit',
         cwd: path.join(process.cwd(), 'android'),
       });

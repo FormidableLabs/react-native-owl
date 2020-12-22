@@ -31,14 +31,19 @@ export const buildAndroid = async (
   config: Config,
   logger: Logger
 ): Promise<void> => {
-  const buildCommand =
-    config.android?.buildCommand || `./gradlew assembleDebug`;
+  const buildCommand = config.android?.buildCommand
+    ? [config.android?.buildCommand]
+    : [`./gradlew`, `assembleDebug`];
+
+  if (!config.android?.buildCommand && config.android?.quiet) {
+    buildCommand.push('--quiet');
+  }
 
   const cwd = config.android?.buildCommand
     ? undefined
     : path.join(process.cwd(), '/android');
 
-  await execa.command(buildCommand, { stdio: 'inherit', cwd });
+  await execa.command(buildCommand.join(' '), { stdio: 'inherit', cwd });
 };
 
 export const buildHandler = async (args: BuildRunOptions) => {

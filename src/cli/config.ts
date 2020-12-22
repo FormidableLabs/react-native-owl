@@ -27,6 +27,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
         type: 'object',
         properties: {
           buildCommand: { type: 'string', nullable: true },
+          quiet: { type: 'boolean', nullable: true },
         },
         required: [],
         nullable: true,
