@@ -1,4 +1,5 @@
 import execa from 'execa';
+import { createLogger } from '../logger';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
 import * as configHelpers from './config';
@@ -6,6 +7,7 @@ import { BuildRunOptions, Config } from './types';
 
 describe('build.ts', () => {
   describe('buildIOS', () => {
+    const logger = createLogger();
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
     beforeEach(() => {
@@ -20,7 +22,7 @@ describe('build.ts', () => {
         },
       };
 
-      await buildIOS(config);
+      await buildIOS(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(
@@ -40,7 +42,7 @@ describe('build.ts', () => {
         },
       };
 
-      await buildIOS(config);
+      await buildIOS(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(
@@ -58,7 +60,7 @@ describe('build.ts', () => {
         },
       };
 
-      await buildIOS(config);
+      await buildIOS(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(`echo 'Hello World'`, {
