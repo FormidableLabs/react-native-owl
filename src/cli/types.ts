@@ -9,6 +9,7 @@ type ConfigIOS = {
   workspace?: string;
   scheme?: string;
   buildCommand?: string;
+  quiet?: boolean;
 };
 
 type ConfigAndroid = {

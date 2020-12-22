@@ -4,11 +4,22 @@ import { getConfig } from './config';
 import { BuildRunOptions, Config } from './types';
 
 export const buildIOS = async (config: Config): Promise<void> => {
-  const buildCommand =
-    config.ios?.buildCommand ||
-    `xcodebuild -workspace ${config.ios?.workspace} -scheme ${config.ios?.scheme} -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`;
+  const buildCommand = config.ios?.buildCommand
+    ? [config.ios?.buildCommand]
+    : [
+        `xcodebuild`,
+        `-workspace ${config.ios?.workspace}`,
+        `-scheme ${config.ios?.scheme}`,
+        `-configuration Debug`,
+        `-sdk iphonesimulator`,
+        `-derivedDataPath ios/build`,
+      ];
 
-  await execa.command(buildCommand, { stdio: 'inherit' });
+  if (!config.ios?.buildCommand && config.ios?.quiet) {
+    buildCommand.push('-quiet');
+  }
+
+  await execa.command(buildCommand.join(' '), { stdio: 'inherit' });
 };
 
 export const buildAndroid = async (config: Config): Promise<void> => {

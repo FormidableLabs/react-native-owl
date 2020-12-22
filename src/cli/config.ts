@@ -13,6 +13,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
           workspace: { type: 'string', nullable: true },
           scheme: { type: 'string', nullable: true },
           buildCommand: { type: 'string', nullable: true },
+          quiet: { type: 'boolean', nullable: true },
         },
         required: [],
         anyOf: [
