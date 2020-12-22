@@ -1,9 +1,13 @@
 import execa from 'execa';
+import { createLogger } from '../logger';
 
 import { getConfig } from './config';
-import { BuildRunOptions, Config } from './types';
+import { BuildRunOptions, Config, Logger } from './types';
 
-export const buildIOS = async (config: Config): Promise<void> => {
+export const buildIOS = async (
+  config: Config,
+  logger: Logger
+): Promise<void> => {
   const buildCommand = config.ios?.buildCommand
     ? [config.ios?.buildCommand]
     : [
@@ -31,11 +35,12 @@ export const buildAndroid = async (config: Config): Promise<void> => {
 
 export const buildHandler = async (args: BuildRunOptions) => {
   const config = await getConfig(args.config);
+  const logger = createLogger(config.debug);
   const buildProject = args.platform === 'ios' ? buildIOS : buildAndroid;
 
-  await buildProject(config);
+  await buildProject(config, logger);
 
-  console.log(
+  logger.info(
     `OWL will build for the ${args.platform} platform. Config file: ${args.config}`
   );
 };

@@ -32,6 +32,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
         nullable: true,
         additionalProperties: false,
       },
+      debug: { type: 'boolean', nullable: true },
     },
     required: [],
     anyOf: [{ required: ['ios'] }, { required: ['android'] }],

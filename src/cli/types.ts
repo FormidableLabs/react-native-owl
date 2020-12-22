@@ -19,4 +19,11 @@ type ConfigAndroid = {
 export type Config = {
   ios?: ConfigIOS;
   android?: ConfigAndroid;
+  debug?: boolean;
+};
+
+export type Logger = {
+  info: (message?: any, ...optionalParams: any[]) => void;
+  warn: (message?: any, ...optionalParams: any[]) => void;
+  error: (message?: any, ...optionalParams: any[]) => void;
 };
