@@ -1,13 +1,15 @@
+import path from 'path';
 import execa from 'execa';
-import { createLogger } from '../logger';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
-import * as configHelpers from './config';
 import { BuildRunOptions, Config } from './types';
+import { createLogger } from '../logger';
+import * as configHelpers from './config';
 
 describe('build.ts', () => {
+  const logger = createLogger();
+
   describe('buildIOS', () => {
-    const logger = createLogger();
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
     beforeEach(() => {
@@ -76,20 +78,34 @@ describe('build.ts', () => {
       execMock.mockReset();
     });
 
-    it('builds an Android project with workspace/scheme', async () => {
+    it('builds an Android project with the default build command', async () => {
       const config: Config = {
         android: {},
       };
 
-      await buildAndroid(config);
+      await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(
-        `cd android/ && ./gradlew assembleDebug && cd -`,
-        {
-          stdio: 'inherit',
-        }
-      );
+      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug`, {
+        stdio: 'inherit',
+        cwd: path.join(process.cwd(), 'android'),
+      });
+    });
+
+    it('builds an Android project with the default build command - with the quiet arg', async () => {
+      const config: Config = {
+        android: {
+          quiet: true,
+        },
+      };
+
+      await buildAndroid(config, logger);
+
+      expect(execMock).toHaveBeenCalledTimes(1);
+      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug --quiet`, {
+        stdio: 'inherit',
+        cwd: path.join(process.cwd(), 'android'),
+      });
     });
 
     it('builds an Android project with a custom build command', async () => {
@@ -99,7 +115,7 @@ describe('build.ts', () => {
         },
       };
 
-      await buildAndroid(config);
+      await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(`echo 'Hello World'`, {
