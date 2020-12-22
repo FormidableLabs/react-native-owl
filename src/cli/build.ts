@@ -1,8 +1,9 @@
+import path from 'path';
 import execa from 'execa';
-import { createLogger } from '../logger';
 
-import { getConfig } from './config';
 import { BuildRunOptions, Config, Logger } from './types';
+import { createLogger } from '../logger';
+import { getConfig } from './config';
 
 export const buildIOS = async (
   config: Config,
@@ -26,11 +27,18 @@ export const buildIOS = async (
   await execa.command(buildCommand.join(' '), { stdio: 'inherit' });
 };
 
-export const buildAndroid = async (config: Config): Promise<void> => {
+export const buildAndroid = async (
+  config: Config,
+  logger: Logger
+): Promise<void> => {
   const buildCommand =
-    config.android?.buildCommand ||
-    `cd android/ && ./gradlew assembleDebug && cd -`;
-  await execa.command(buildCommand, { stdio: 'inherit' });
+    config.android?.buildCommand || `./gradlew assembleDebug`;
+
+  const cwd = config.android?.buildCommand
+    ? undefined
+    : path.join(process.cwd(), '/android');
+
+  await execa.command(buildCommand, { stdio: 'inherit', cwd });
 };
 
 export const buildHandler = async (args: BuildRunOptions) => {
