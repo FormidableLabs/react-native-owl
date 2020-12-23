@@ -5,7 +5,7 @@ import { BuildRunOptions, Config, Logger } from './types';
 import { createLogger } from '../logger';
 import { getConfig } from './config';
 
-const getIOSBundleIdentifier = (appPath: string): string => {
+export const getIOSBundleIdentifier = (appPath: string): string => {
   const { stdout } = execa.commandSync(
     `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`
   );
