@@ -8,19 +8,19 @@ import * as configHelpers from './config';
 
 describe('build.ts', () => {
   const logger = createLogger();
+  const execMock = jest.spyOn(execa, 'command').mockImplementation();
+
+  beforeEach(() => {
+    execMock.mockReset();
+  });
 
   describe('buildIOS', () => {
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('builds an iOS project with workspace/scheme', async () => {
       const config: Config = {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          device: 'iPhone Simulator',
         },
       };
 
@@ -41,6 +41,7 @@ describe('build.ts', () => {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
           quiet: true,
+          device: 'iPhone Simulator',
         },
       };
 
@@ -59,6 +60,7 @@ describe('build.ts', () => {
       const config: Config = {
         ios: {
           buildCommand: "echo 'Hello World'",
+          device: 'iPhone Simulator',
         },
       };
 
@@ -72,12 +74,6 @@ describe('build.ts', () => {
   });
 
   describe('buildAndroid', () => {
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('builds an Android project with the default build command', async () => {
       const config: Config = {
         android: {},
@@ -133,6 +129,7 @@ describe('build.ts', () => {
     const config: Config = {
       ios: {
         buildCommand: "echo 'Hello World'",
+        device: 'iPhone Simulator',
       },
       android: {
         buildCommand: "echo 'Hello World'",

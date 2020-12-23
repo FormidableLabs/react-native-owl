@@ -1,13 +1,16 @@
 import { promises as fs } from 'fs';
 
+import { Config } from './types';
 import { getConfig, readConfigFile, validateSchema } from './config';
 
 describe('config.ts', () => {
   describe('validateSchema', () => {
     it('validates a config', async () => {
-      const config = {
+      const config: Config = {
         ios: {
           buildCommand: 'echo "Hello iOS"',
+          binaryPath: '',
+          device: 'iPhone Simulator',
         },
         android: {
           buildCommand: 'echo "Hello Android"',
@@ -20,7 +23,14 @@ describe('config.ts', () => {
     });
 
     it('accepts an ios config that has workspace/scheme but not a buildCommand', async () => {
-      const config = { ios: { workspace: 'Test', scheme: 'Test' } };
+      const config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'Test',
+
+          device: 'iPhone Simulator',
+        },
+      };
 
       const validate = async () => await validateSchema(config);
 
@@ -28,7 +38,14 @@ describe('config.ts', () => {
     });
 
     it('accepts an ios config that has buildCommand but not workspace/scheme', async () => {
-      const config = { ios: { workspace: 'Test', scheme: 'Test' } };
+      const config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'Test',
+
+          device: 'iPhone Simulator',
+        },
+      };
 
       const validate = async () => await validateSchema(config);
 
@@ -44,7 +61,43 @@ describe('config.ts', () => {
         "should have required property 'workspace'"
       );
       await expect(validate()).rejects.toContain(
-        "should have required property 'workspace'"
+        "should have required property 'buildCommand'"
+      );
+      await expect(validate()).rejects.toContain(
+        'should match some schema in anyOf'
+      );
+    });
+
+    it('rejects an ios config that has a workspace but not a scheme', async () => {
+      const config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      const validate = async () => await validateSchema(config);
+
+      await expect(validate()).rejects.toContain(
+        "should have required property 'scheme'"
+      );
+      await expect(validate()).rejects.toContain(
+        'should match some schema in anyOf'
+      );
+    });
+
+    it('rejects an ios config that has a build command but not a binary path', async () => {
+      const config = {
+        ios: {
+          buildCommand: 'echo "Hello iOS"',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      const validate = async () => await validateSchema(config);
+
+      await expect(validate()).rejects.toContain(
+        "should have required property 'binaryPath'"
       );
       await expect(validate()).rejects.toContain(
         'should match some schema in anyOf'
@@ -93,6 +146,7 @@ describe('config.ts', () => {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          device: 'iPhone Simulator',
         },
         android: {},
       };
