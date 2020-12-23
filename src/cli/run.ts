@@ -32,7 +32,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
   await execa.command(installCommand, { stdio: 'inherit', cwd });
 
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
-  await execa.command(launchCommand, { stdio: 'inherit', cwd });
+  await execa.command(launchCommand, { stdio: 'inherit' });
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {

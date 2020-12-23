@@ -65,7 +65,7 @@ describe('run.ts', () => {
       expect(execMock).toHaveBeenNthCalledWith(
         2,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
-        { cwd, stdio: 'inherit' }
+        { stdio: 'inherit' }
       );
 
       expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(appPath);
@@ -98,7 +98,7 @@ describe('run.ts', () => {
       expect(execMock).toHaveBeenNthCalledWith(
         2,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
-        { cwd, stdio: 'inherit' }
+        { stdio: 'inherit' }
       );
 
       expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(appPath);
@@ -106,13 +106,58 @@ describe('run.ts', () => {
   });
 
   describe('runAndroid', () => {
+    const cwd = path.join(
+      process.cwd(),
+      '/android/app/build/outputs/apk/debug'
+    );
+    const appPath = path.join(cwd, 'app-debug.apk');
+
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
     beforeEach(() => {
       execMock.mockReset();
     });
 
-    pending('runs an Android project');
+    it('runs an Android project - with the default build command', async () => {
+      const config: Config = {
+        android: {
+          packageName: 'com.rndemo',
+        },
+      };
+
+      await run.runAndroid(config, logger);
+
+      expect(execMock).toHaveBeenNthCalledWith(1, `adb install -r ${appPath}`, {
+        stdio: 'ignore',
+      });
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        2,
+        `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
+        { stdio: 'ignore' }
+      );
+    });
+
+    it('runs an Android project - with the default build command', async () => {
+      const config: Config = {
+        android: {
+          packageName: 'com.rndemo',
+          buildCommand: "echo 'Hello World'",
+        },
+      };
+
+      await run.runAndroid(config, logger);
+
+      expect(execMock).toHaveBeenNthCalledWith(1, `adb install -r ${appPath}`, {
+        stdio: 'ignore',
+      });
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        2,
+        `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
+        { stdio: 'ignore' }
+      );
+    });
   });
 
   describe('runHandler', () => {
