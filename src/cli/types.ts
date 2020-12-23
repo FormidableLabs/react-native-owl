@@ -21,6 +21,8 @@ type ConfigIOS = {
 };
 
 type ConfigAndroid = {
+  /** The package name of your Android app. See Manifest.xml. */
+  packageName: string;
   /** Overrides the `assembleDebug` gradle command. Should build the apk. */
   buildCommand?: string;
   /** Passes the quiet flag to `gradlew`. */

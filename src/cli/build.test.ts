@@ -76,7 +76,9 @@ describe('build.ts', () => {
   describe('buildAndroid', () => {
     it('builds an Android project with the default build command', async () => {
       const config: Config = {
-        android: {},
+        android: {
+          packageName: 'com.rndemo',
+        },
       };
 
       await buildAndroid(config, logger);
@@ -91,6 +93,7 @@ describe('build.ts', () => {
     it('builds an Android project with the default build command - with the quiet arg', async () => {
       const config: Config = {
         android: {
+          packageName: 'com.rndemo',
           quiet: true,
         },
       };
@@ -107,6 +110,7 @@ describe('build.ts', () => {
     it('builds an Android project with a custom build command', async () => {
       const config: Config = {
         android: {
+          packageName: 'com.rndemo',
           buildCommand: "echo 'Hello World'",
         },
       };
@@ -132,6 +136,7 @@ describe('build.ts', () => {
         device: 'iPhone Simulator',
       },
       android: {
+        packageName: 'com.rndemo',
         buildCommand: "echo 'Hello World'",
       },
     };

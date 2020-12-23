@@ -21,28 +21,34 @@ export const runIOS = async (config: Config, logger: Logger) => {
       : DEFAULT_BINARY_DIR
   );
 
-  const appFilename = config.ios?.binaryPath
-    ? path.basename(config.ios?.binaryPath)
-    : `${config.ios?.scheme}.app`;
+  const appFilename = config.ios!.binaryPath
+    ? path.basename(config.ios!.binaryPath)
+    : `${config.ios!.scheme}.app`;
   const appPath = path.join(cwd, appFilename);
   const bundleId = getIOSBundleIdentifier(appPath);
-  const simulator = config.ios?.device.replace(/([ /])/g, '\\$1');
+  const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
-  // Uninstall
-  const uninstallCommand = `xcrun simctl uninstall ${simulator} ${bundleId}`;
-  await execa.command(uninstallCommand, { stdio: 'inherit', cwd });
-
-  // Install
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
   await execa.command(installCommand, { stdio: 'inherit', cwd });
 
-  // Launch
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
   await execa.command(launchCommand, { stdio: 'inherit', cwd });
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {
-  // Coming Soon
+  const stdio = config.debug ? 'inherit' : 'ignore';
+  const DEFAULT_APK_DIR = '/android/app/build/outputs/apk/debug/';
+  const cwd = path.join(process.cwd(), DEFAULT_APK_DIR);
+
+  const appFilename = `app-debug.apk`;
+  const appPath = path.join(cwd, appFilename);
+  const { packageName } = config.android!;
+
+  const installCommand = `adb install -r ${appPath}`;
+  await execa.command(installCommand, { stdio });
+
+  const launchCommand = `adb shell monkey -p "${packageName}" -c android.intent.category.LAUNCHER 1`;
+  await execa.command(launchCommand, { stdio });
 };
 
 export const runHandler = async (args: BuildRunOptions) => {

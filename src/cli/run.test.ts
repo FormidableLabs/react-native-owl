@@ -58,18 +58,12 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `xcrun simctl uninstall iPhone\\ Simulator ${bundleIdIOS}`,
-        { cwd, stdio: 'inherit' }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        2,
         'xcrun simctl install iPhone\\ Simulator RNDemo.app',
         { cwd, stdio: 'inherit' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        2,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { cwd, stdio: 'inherit' }
       );
@@ -97,18 +91,12 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `xcrun simctl uninstall iPhone\\ Simulator ${bundleIdIOS}`,
-        { cwd, stdio: 'inherit' }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        2,
         'xcrun simctl install iPhone\\ Simulator RNDemo.app',
         { cwd, stdio: 'inherit' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        2,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { cwd, stdio: 'inherit' }
       );
@@ -140,6 +128,7 @@ describe('run.ts', () => {
         device: 'iPhone Simulator',
       },
       android: {
+        packageName: 'com.rndemo',
         buildCommand: "echo 'Hello World'",
       },
     };

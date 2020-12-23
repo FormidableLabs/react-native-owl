@@ -13,6 +13,7 @@ describe('config.ts', () => {
           device: 'iPhone Simulator',
         },
         android: {
+          packageName: 'com.rndemo',
           buildCommand: 'echo "Hello Android"',
         },
       };
@@ -148,7 +149,9 @@ describe('config.ts', () => {
           scheme: 'RNDemo',
           device: 'iPhone Simulator',
         },
-        android: {},
+        android: {
+          packageName: 'com.rndemo',
+        },
       };
 
       const filePath = './owl.config.json';

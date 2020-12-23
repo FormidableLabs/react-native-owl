@@ -14,8 +14,8 @@ export const validateSchema = (config: {}): Promise<Config> => {
           scheme: { type: 'string', nullable: true },
           buildCommand: { type: 'string', nullable: true },
           binaryPath: { type: 'string', nullable: true },
-          quiet: { type: 'boolean', nullable: true },
           device: { type: 'string' },
+          quiet: { type: 'boolean', nullable: true },
         },
         required: ['device'],
         anyOf: [
@@ -28,10 +28,11 @@ export const validateSchema = (config: {}): Promise<Config> => {
       android: {
         type: 'object',
         properties: {
+          packageName: { type: 'string' },
           buildCommand: { type: 'string', nullable: true },
           quiet: { type: 'boolean', nullable: true },
         },
-        required: [],
+        required: ['packageName'],
         nullable: true,
         additionalProperties: false,
       },
