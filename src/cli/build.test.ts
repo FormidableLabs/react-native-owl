@@ -8,19 +8,19 @@ import * as configHelpers from './config';
 
 describe('build.ts', () => {
   const logger = createLogger();
+  const execMock = jest.spyOn(execa, 'command').mockImplementation();
+
+  beforeEach(() => {
+    execMock.mockReset();
+  });
 
   describe('buildIOS', () => {
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('builds an iOS project with workspace/scheme', async () => {
       const config: Config = {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          device: 'iPhone Simulator',
         },
       };
 
@@ -41,6 +41,7 @@ describe('build.ts', () => {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
           quiet: true,
+          device: 'iPhone Simulator',
         },
       };
 
@@ -59,6 +60,7 @@ describe('build.ts', () => {
       const config: Config = {
         ios: {
           buildCommand: "echo 'Hello World'",
+          device: 'iPhone Simulator',
         },
       };
 
@@ -72,15 +74,11 @@ describe('build.ts', () => {
   });
 
   describe('buildAndroid', () => {
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('builds an Android project with the default build command', async () => {
       const config: Config = {
-        android: {},
+        android: {
+          packageName: 'com.rndemo',
+        },
       };
 
       await buildAndroid(config, logger);
@@ -95,6 +93,7 @@ describe('build.ts', () => {
     it('builds an Android project with the default build command - with the quiet arg', async () => {
       const config: Config = {
         android: {
+          packageName: 'com.rndemo',
           quiet: true,
         },
       };
@@ -111,6 +110,7 @@ describe('build.ts', () => {
     it('builds an Android project with a custom build command', async () => {
       const config: Config = {
         android: {
+          packageName: 'com.rndemo',
           buildCommand: "echo 'Hello World'",
         },
       };
@@ -133,8 +133,10 @@ describe('build.ts', () => {
     const config: Config = {
       ios: {
         buildCommand: "echo 'Hello World'",
+        device: 'iPhone Simulator',
       },
       android: {
+        packageName: 'com.rndemo',
         buildCommand: "echo 'Hello World'",
       },
     };
