@@ -51,9 +51,11 @@ export const buildHandler = async (args: BuildRunOptions) => {
   const logger = createLogger(config.debug);
   const buildProject = args.platform === 'ios' ? buildIOS : buildAndroid;
 
+  logger.info(
+    `[OWL] Will build the app on ${args.platform} platform. Config file: ${args.config}`
+  );
+
   await buildProject(config, logger);
 
-  logger.info(
-    `OWL will build for the ${args.platform} platform. Config file: ${args.config}`
-  );
+  logger.info(`[OWL] Successfully built for the ${args.platform} platform.`);
 };

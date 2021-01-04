@@ -57,7 +57,9 @@ export const runHandler = async (args: BuildRunOptions) => {
   const logger = createLogger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
 
+  logger.info(`[OWL] Will run the app on ${args.platform}.`);
+
   await runProject(config, logger);
 
-  logger.info(`OWL will run the app on ${args.platform}.`);
+  logger.info(`[OWL] Successfully run the app on ${args.platform}.`);
 };
