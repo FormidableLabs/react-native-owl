@@ -72,8 +72,8 @@ describe('run.ts', () => {
     });
 
     it('runs an iOS project - with a custom build command and binaryPath', async () => {
-      const cwd = path.join(process.cwd(), '/ios/path/to');
-      const appPath = path.join(cwd, 'RNDemo.app');
+      const binaryPath = '/Users/Demo/Desktop/RNDemo.app';
+      const cwd = path.dirname(binaryPath);
 
       jest
         .spyOn(run, 'getIOSBundleIdentifier')
@@ -82,7 +82,7 @@ describe('run.ts', () => {
       const config: Config = {
         ios: {
           buildCommand: "echo 'Hello World'",
-          binaryPath: './ios/path/to/RNDemo.app',
+          binaryPath,
           device: 'iPhone Simulator',
         },
       };
@@ -101,7 +101,7 @@ describe('run.ts', () => {
         { stdio: 'inherit' }
       );
 
-      expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(appPath);
+      expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(binaryPath);
     });
   });
 
@@ -110,7 +110,6 @@ describe('run.ts', () => {
       process.cwd(),
       '/android/app/build/outputs/apk/debug'
     );
-    const appPath = path.join(cwd, 'app-debug.apk');
 
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
@@ -119,6 +118,8 @@ describe('run.ts', () => {
     });
 
     it('runs an Android project - with the default build command', async () => {
+      const appPath = path.join(cwd, 'app-debug.apk');
+
       const config: Config = {
         android: {
           packageName: 'com.rndemo',
@@ -138,19 +139,26 @@ describe('run.ts', () => {
       );
     });
 
-    it('runs an Android project - with the default build command', async () => {
+    it('runs an Android project - with a custom build command', async () => {
+      const binaryPath = '/Users/Demo/Desktop/app-debug.apk';
+
       const config: Config = {
         android: {
           packageName: 'com.rndemo',
-          buildCommand: "echo 'Hello World'",
+          buildCommand: './gradlew example',
+          binaryPath,
         },
       };
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb install -r ${appPath}`, {
-        stdio: 'ignore',
-      });
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        `adb install -r ${binaryPath}`,
+        {
+          stdio: 'ignore',
+        }
+      );
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,

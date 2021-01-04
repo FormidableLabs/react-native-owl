@@ -14,12 +14,9 @@ export const getIOSBundleIdentifier = (appPath: string): string => {
 
 export const runIOS = async (config: Config, logger: Logger) => {
   const DEFAULT_BINARY_DIR = '/ios/build/Build/Products/Debug-iphonesimulator';
-  const cwd = path.join(
-    process.cwd(),
-    config.ios?.binaryPath
-      ? path.dirname(config.ios?.binaryPath)
-      : DEFAULT_BINARY_DIR
-  );
+  const cwd = config.ios?.binaryPath
+    ? path.dirname(config.ios?.binaryPath)
+    : path.join(process.cwd(), DEFAULT_BINARY_DIR);
 
   const appFilename = config.ios!.binaryPath
     ? path.basename(config.ios!.binaryPath)
@@ -38,10 +35,13 @@ export const runIOS = async (config: Config, logger: Logger) => {
 export const runAndroid = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
   const DEFAULT_APK_DIR = '/android/app/build/outputs/apk/debug/';
-  const cwd =
-    config.android?.binaryPath || path.join(process.cwd(), DEFAULT_APK_DIR);
+  const cwd = config.android?.binaryPath
+    ? path.dirname(config.android?.binaryPath)
+    : path.join(process.cwd(), DEFAULT_APK_DIR);
 
-  const appFilename = `app-debug.apk`;
+  const appFilename = config.android!.binaryPath
+    ? path.basename(config.android!.binaryPath)
+    : 'app-debug.apk';
   const appPath = path.join(cwd, appFilename);
   const { packageName } = config.android!;
 
