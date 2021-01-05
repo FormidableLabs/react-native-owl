@@ -54,12 +54,21 @@ export const runAndroid = async (config: Config, logger: Logger) => {
 
 export const runHandler = async (args: BuildRunOptions) => {
   const config = await getConfig(args.config);
+  const stdio = config.debug ? 'inherit' : 'ignore';
   const logger = createLogger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
 
   logger.info(`[OWL] Will run the app on ${args.platform}.`);
-
   await runProject(config, logger);
+
+  const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
+  const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()}`;
+  logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
+  logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
+
+  await execa.commandSync(jestCommand, {
+    stdio,
+  });
 
   logger.info(`[OWL] Successfully run the app on ${args.platform}.`);
 };
