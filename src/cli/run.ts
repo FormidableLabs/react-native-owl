@@ -68,6 +68,9 @@ export const runHandler = async (args: BuildRunOptions) => {
 
   await execa.commandSync(jestCommand, {
     stdio,
+    env: {
+      OWL_PLATFORM: args.platform,
+    },
   });
 
   logger.info(`[OWL] Successfully run the app on ${args.platform}.`);

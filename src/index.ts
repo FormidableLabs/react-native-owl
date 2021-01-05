@@ -1,3 +1,1 @@
-export const greetings = (): string => {
-  return 'Hello World';
-};
+export { takeScreenshot } from './take-screenshot';

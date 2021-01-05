@@ -1,7 +1,9 @@
 import { Arguments } from 'yargs';
 
+export type Platform = 'ios' | 'android';
+
 export interface BuildRunOptions extends Arguments {
-  platform: 'ios' | 'android';
+  platform: Platform;
   config: string;
 }
 
