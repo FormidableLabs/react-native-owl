@@ -19,9 +19,14 @@ export const createLogger = (isEnabled: boolean = false): Logger => {
     }
   };
 
+  const print = (message?: any, ...optionalParams: any[]) => {
+    console.log(message, ...optionalParams);
+  };
+
   return {
     info,
     warn,
     error,
+    print,
   };
 };
