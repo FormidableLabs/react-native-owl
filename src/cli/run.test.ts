@@ -182,6 +182,12 @@ describe('run.ts', () => {
       },
     };
 
+    const expectedJestCommand = `jest --config=${path.join(
+      process.cwd(),
+      'src',
+      'jest-config.json'
+    )} --roots=${path.join(process.cwd())}`;
+
     const commandSyncMock = jest.spyOn(execa, 'commandSync');
 
     beforeAll(() => {
@@ -200,12 +206,10 @@ describe('run.ts', () => {
 
       await expect(mockRunIOS).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(
-        commandSyncMock
-      ).toHaveBeenCalledWith(
-        'jest --config=/Users/manos/Projects/react-native-owl/src/jest-config.json --roots=/Users/manos/Projects/react-native-owl',
-        { env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'ios' }, stdio: 'inherit' }
-      );
+      await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
+        env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'ios' },
+        stdio: 'inherit',
+      });
     });
 
     it('runs an Android project', async () => {
@@ -218,13 +222,10 @@ describe('run.ts', () => {
 
       await expect(mockRunAndroid).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(commandSyncMock).toHaveBeenCalledWith(
-        'jest --config=/Users/manos/Projects/react-native-owl/src/jest-config.json --roots=/Users/manos/Projects/react-native-owl',
-        {
-          env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'android' },
-          stdio: 'inherit',
-        }
-      );
+      await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
+        env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'android' },
+        stdio: 'inherit',
+      });
     });
   });
 });
