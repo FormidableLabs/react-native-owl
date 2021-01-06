@@ -8,17 +8,13 @@ import * as run from './run';
 
 describe('run.ts', () => {
   const logger = createLogger();
-  const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
-
-  beforeEach(() => {
-    execMock.mockReset();
-  });
+  const commandSyncMock = jest.spyOn(execa, 'commandSync');
 
   describe('getIOSBundleIdentifier', () => {
     it('should return the bundle identifier', () => {
-      jest.spyOn(execa, 'commandSync').mockReturnValueOnce({
+      commandSyncMock.mockReturnValueOnce({
         stdout: bundleIdIOS,
       } as ExecaSyncReturnValue<any>);
 
@@ -59,13 +55,13 @@ describe('run.ts', () => {
       expect(execMock).toHaveBeenNthCalledWith(
         1,
         'xcrun simctl install iPhone\\ Simulator RNDemo.app',
-        { cwd, stdio: 'inherit' }
+        { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
-        { stdio: 'inherit' }
+        { stdio: 'ignore' }
       );
 
       expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(appPath);
@@ -92,13 +88,13 @@ describe('run.ts', () => {
       expect(execMock).toHaveBeenNthCalledWith(
         1,
         'xcrun simctl install iPhone\\ Simulator RNDemo.app',
-        { cwd, stdio: 'inherit' }
+        { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
-        { stdio: 'inherit' }
+        { stdio: 'ignore' }
       );
 
       expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(binaryPath);
@@ -186,20 +182,49 @@ describe('run.ts', () => {
       },
     };
 
+    const commandSyncMock = jest.spyOn(execa, 'commandSync');
+
+    beforeAll(() => {
+      jest.spyOn(global.console, 'log').mockImplementation();
+    });
+
+    beforeEach(() => {
+      commandSyncMock.mockReset();
+    });
+
     it('runs an iOS project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
-      jest.spyOn(run, 'runIOS').mockImplementation();
-      const call = async () => run.runHandler(args);
-      await expect(call()).resolves.not.toThrow();
-      await expect(run.runIOS).toHaveBeenCalled();
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      await run.runHandler(args);
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(
+        commandSyncMock
+      ).toHaveBeenCalledWith(
+        'jest --config=/Users/manos/Projects/react-native-owl/src/jest-config.json --roots=/Users/manos/Projects/react-native-owl',
+        { env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'ios' }, stdio: 'inherit' }
+      );
     });
 
     it('runs an Android project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
-      jest.spyOn(run, 'runAndroid').mockImplementation();
-      const call = async () => run.runHandler({ ...args, platform: 'android' });
-      await expect(call()).resolves.not.toThrow();
-      await expect(run.runAndroid).toHaveBeenCalled();
+      const mockRunAndroid = jest
+        .spyOn(run, 'runAndroid')
+        .mockResolvedValueOnce();
+
+      await run.runHandler({ ...args, platform: 'android' });
+
+      await expect(mockRunAndroid).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        'jest --config=/Users/manos/Projects/react-native-owl/src/jest-config.json --roots=/Users/manos/Projects/react-native-owl',
+        {
+          env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'android' },
+          stdio: 'inherit',
+        }
+      );
     });
   });
 });

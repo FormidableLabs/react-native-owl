@@ -141,6 +141,10 @@ describe('build.ts', () => {
       },
     };
 
+    beforeAll(() => {
+      jest.spyOn(global.console, 'log').mockImplementation();
+    });
+
     it('builds an iOS project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
       const call = async () => buildHandler(args);
