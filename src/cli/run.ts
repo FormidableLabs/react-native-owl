@@ -1,8 +1,8 @@
 import path from 'path';
 import execa from 'execa';
 
-import { BuildRunOptions, Config, Logger } from './types';
-import { createLogger } from '../logger';
+import { BuildRunOptions, Config } from './types';
+import { Logger } from '../logger';
 import { getConfig } from './config';
 
 export const getIOSBundleIdentifier = (appPath: string): string => {
@@ -13,6 +13,7 @@ export const getIOSBundleIdentifier = (appPath: string): string => {
 };
 
 export const runIOS = async (config: Config, logger: Logger) => {
+  const stdio = config.debug ? 'inherit' : 'ignore';
   const DEFAULT_BINARY_DIR = '/ios/build/Build/Products/Debug-iphonesimulator';
   const cwd = config.ios?.binaryPath
     ? path.dirname(config.ios?.binaryPath)
@@ -26,10 +27,10 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
-  await execa.command(installCommand, { stdio: 'inherit', cwd });
+  await execa.command(installCommand, { stdio, cwd });
 
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
-  await execa.command(launchCommand, { stdio: 'inherit' });
+  await execa.command(launchCommand, { stdio });
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {
@@ -54,12 +55,25 @@ export const runAndroid = async (config: Config, logger: Logger) => {
 
 export const runHandler = async (args: BuildRunOptions) => {
   const config = await getConfig(args.config);
-  const logger = createLogger(config.debug);
+  const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
 
-  logger.info(`[OWL] Will run the app on ${args.platform}.`);
-
+  logger.print(`[OWL] Running tests on ${args.platform}.`);
   await runProject(config, logger);
 
-  logger.info(`[OWL] Successfully run the app on ${args.platform}.`);
+  const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
+  const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()}`;
+
+  logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
+  logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
+
+  await execa.commandSync(jestCommand, {
+    stdio: 'inherit',
+    env: {
+      OWL_PLATFORM: args.platform,
+      OWL_DEBUG: String(!!config.debug),
+    },
+  });
+
+  logger.print(`[OWL] Tests completed on ${args.platform}.`);
 };

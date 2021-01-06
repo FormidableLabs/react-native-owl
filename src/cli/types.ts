@@ -1,7 +1,9 @@
 import { Arguments } from 'yargs';
 
+export type Platform = 'ios' | 'android';
+
 export interface BuildRunOptions extends Arguments {
-  platform: 'ios' | 'android';
+  platform: Platform;
   config: string;
 }
 
@@ -36,10 +38,4 @@ export type Config = {
   android?: ConfigAndroid;
   /** Prevents the CLI/library from printing any logs/output. */
   debug?: boolean;
-};
-
-export type Logger = {
-  info: (message?: any, ...optionalParams: any[]) => void;
-  warn: (message?: any, ...optionalParams: any[]) => void;
-  error: (message?: any, ...optionalParams: any[]) => void;
 };

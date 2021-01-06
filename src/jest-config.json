@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "testMatch": ["**/?(*.)+(owl).[jt]s?(x)"]
+}

@@ -1,8 +1,8 @@
 import path from 'path';
 import execa from 'execa';
 
-import { BuildRunOptions, Config, Logger } from './types';
-import { createLogger } from '../logger';
+import { BuildRunOptions, Config } from './types';
+import { Logger } from '../logger';
 import { getConfig } from './config';
 
 export const buildIOS = async (
@@ -48,12 +48,11 @@ export const buildAndroid = async (
 
 export const buildHandler = async (args: BuildRunOptions) => {
   const config = await getConfig(args.config);
-  const logger = createLogger(config.debug);
+  const logger = new Logger(config.debug);
   const buildProject = args.platform === 'ios' ? buildIOS : buildAndroid;
 
-  logger.info(
-    `[OWL] Will build the app on ${args.platform} platform. Config file: ${args.config}`
-  );
+  logger.print(`[OWL] Building the app on ${args.platform} platform.`);
+  logger.info(`[OWL] Using the config file ${args.config}.`);
 
   await buildProject(config, logger);
 

@@ -1,27 +1,33 @@
-import { Logger } from './cli/types';
+export class Logger {
+  isEnabled: boolean;
 
-export const createLogger = (isEnabled: boolean = false): Logger => {
-  const info = (message?: any, ...optionalParams: any[]) => {
-    if (isEnabled) {
+  constructor(isEnabled: boolean = false) {
+    this.isEnabled = isEnabled;
+  }
+
+  /** Will only output when the debug flag in the config is on. */
+  info(message?: any, ...optionalParams: any[]) {
+    if (this.isEnabled) {
       console.info(message, ...optionalParams);
     }
-  };
+  }
 
-  const warn = (message?: any, ...optionalParams: any[]) => {
-    if (isEnabled) {
+  /** Will only output when the debug flag in the config is on. */
+  warn(message?: any, ...optionalParams: any[]) {
+    if (this.isEnabled) {
       console.warn(message, ...optionalParams);
     }
-  };
+  }
 
-  const error = (message?: any, ...optionalParams: any[]) => {
-    if (isEnabled) {
+  /** Will only output when the debug flag in the config is on. */
+  error(message?: any, ...optionalParams: any[]) {
+    if (this.isEnabled) {
       console.error(message, ...optionalParams);
     }
-  };
+  }
 
-  return {
-    info,
-    warn,
-    error,
-  };
-};
+  /** Will always print output to the terminal - not depending on the debug flag. */
+  print(message?: any, ...optionalParams: any[]) {
+    console.log(message, ...optionalParams);
+  }
+}
