@@ -2,12 +2,12 @@ import path from 'path';
 import execa, { ExecaSyncReturnValue } from 'execa';
 
 import { BuildRunOptions, Config } from './types';
-import { createLogger } from '../logger';
+import * as loggerHelpers from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
 
 describe('run.ts', () => {
-  const logger = createLogger();
+  const logger = loggerHelpers.createLogger();
 
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
   const commandSyncMock = jest.spyOn(execa, 'commandSync');
@@ -191,7 +191,7 @@ describe('run.ts', () => {
     const commandSyncMock = jest.spyOn(execa, 'commandSync');
 
     beforeAll(() => {
-      jest.spyOn(global.console, 'log').mockImplementation();
+      jest.spyOn(loggerHelpers, 'print').mockImplementation();
     });
 
     beforeEach(() => {

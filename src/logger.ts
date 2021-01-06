@@ -1,5 +1,9 @@
 import { Logger } from './cli/types';
 
+export const print = (message?: any, ...optionalParams: any[]) => {
+  console.log(message, ...optionalParams);
+};
+
 export const createLogger = (isEnabled: boolean = false): Logger => {
   const info = (message?: any, ...optionalParams: any[]) => {
     if (isEnabled) {
@@ -17,10 +21,6 @@ export const createLogger = (isEnabled: boolean = false): Logger => {
     if (isEnabled) {
       console.error(message, ...optionalParams);
     }
-  };
-
-  const print = (message?: any, ...optionalParams: any[]) => {
-    console.log(message, ...optionalParams);
   };
 
   return {

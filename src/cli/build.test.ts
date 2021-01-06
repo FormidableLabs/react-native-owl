@@ -3,11 +3,11 @@ import execa from 'execa';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
 import { BuildRunOptions, Config } from './types';
-import { createLogger } from '../logger';
 import * as configHelpers from './config';
+import * as loggerHelpers from '../logger';
 
 describe('build.ts', () => {
-  const logger = createLogger();
+  const logger = loggerHelpers.createLogger();
   const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
   beforeEach(() => {
@@ -142,7 +142,7 @@ describe('build.ts', () => {
     };
 
     beforeAll(() => {
-      jest.spyOn(global.console, 'log').mockImplementation();
+      jest.spyOn(loggerHelpers, 'print').mockImplementation();
     });
 
     it('builds an iOS project', async () => {
