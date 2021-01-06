@@ -1,4 +1,4 @@
-import { createLogger } from './logger';
+import { Logger } from './logger';
 
 describe('logger.ts', () => {
   const logMessage = 'Hello World';
@@ -17,13 +17,13 @@ describe('logger.ts', () => {
 
   describe('info', () => {
     it('should log a message', () => {
-      const logger = createLogger(true);
+      const logger = new Logger(true);
       logger.info(logMessage);
       expect(logInfoMock).toHaveBeenCalledWith(logMessage);
     });
 
     it('should not log a message when disabled', () => {
-      const logger = createLogger(false);
+      const logger = new Logger(false);
       logger.info(logMessage);
       expect(logInfoMock).not.toHaveBeenCalled();
     });
@@ -31,13 +31,13 @@ describe('logger.ts', () => {
 
   describe('warn', () => {
     it('should log a message', () => {
-      const logger = createLogger(true);
+      const logger = new Logger(true);
       logger.warn(logMessage);
       expect(logWarnMock).toHaveBeenCalledWith(logMessage);
     });
 
     it('should not log a message when disabled', () => {
-      const logger = createLogger(false);
+      const logger = new Logger(false);
       logger.warn(logMessage);
       expect(logWarnMock).not.toHaveBeenCalled();
     });
@@ -45,13 +45,13 @@ describe('logger.ts', () => {
 
   describe('error', () => {
     it('should log a message', () => {
-      const logger = createLogger(true);
+      const logger = new Logger(true);
       logger.error(logMessage);
       expect(logErrorMock).toHaveBeenCalledWith(logMessage);
     });
 
     it('should not log a message when disabled', () => {
-      const logger = createLogger(false);
+      const logger = new Logger(false);
       logger.error(logMessage);
       expect(logErrorMock).not.toHaveBeenCalled();
     });
@@ -59,13 +59,13 @@ describe('logger.ts', () => {
 
   describe('print', () => {
     it('should log a message', () => {
-      const logger = createLogger(true);
+      const logger = new Logger(true);
       logger.print(logMessage);
       expect(logPrintMock).toHaveBeenCalledWith(logMessage);
     });
 
     it('should still log a message when disabled', () => {
-      const logger = createLogger(false);
+      const logger = new Logger(false);
       logger.print(logMessage);
       expect(logPrintMock).toHaveBeenCalledWith(logMessage);
     });

@@ -3,13 +3,13 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 import { Platform } from './cli/types';
-import { createLogger } from './logger';
+import { Logger } from './logger';
 
 export const takeScreenshot = async (): Promise<void> => {
   const platform = process.env.OWL_PLATFORM as Platform;
   const debug = process.env.OWL_DEBUG === 'true';
   const stdio = debug ? 'inherit' : 'ignore';
-  const logger = createLogger(!!debug);
+  const logger = new Logger(!!debug);
 
   const DEFAULT_FILENAME = 'screen.png';
   const DIR_NAME = '.owl';
