@@ -13,6 +13,7 @@ export const getIOSBundleIdentifier = (appPath: string): string => {
 };
 
 export const runIOS = async (config: Config, logger: Logger) => {
+  const stdio = config.debug ? 'inherit' : 'ignore';
   const DEFAULT_BINARY_DIR = '/ios/build/Build/Products/Debug-iphonesimulator';
   const cwd = config.ios?.binaryPath
     ? path.dirname(config.ios?.binaryPath)
@@ -26,10 +27,10 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
-  await execa.command(installCommand, { stdio: 'inherit', cwd });
+  await execa.command(installCommand, { stdio, cwd });
 
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
-  await execa.command(launchCommand, { stdio: 'inherit' });
+  await execa.command(launchCommand, { stdio });
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {
@@ -63,6 +64,7 @@ export const runHandler = async (args: BuildRunOptions) => {
 
   const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
   const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()}`;
+
   logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
   logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
 
@@ -70,6 +72,7 @@ export const runHandler = async (args: BuildRunOptions) => {
     stdio,
     env: {
       OWL_PLATFORM: args.platform,
+      OWL_DEBUG: String(!!config.debug),
     },
   });
 
