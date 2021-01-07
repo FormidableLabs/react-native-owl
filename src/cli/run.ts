@@ -1,7 +1,9 @@
+// @ts-nocheck
 import path from 'path';
 import execa from 'execa';
+import { promises as fs } from 'fs';
 
-import { CliRunOptions, Config } from './types';
+import { CliRunOptions, Config, Platform } from './types';
 import { Logger } from '../logger';
 import { getConfig } from './config';
 
@@ -10,6 +12,15 @@ export const getIOSBundleIdentifier = (appPath: string): string => {
     `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`
   );
   return stdout;
+};
+
+export const cleanLatestImages = async (
+  platform: Platform,
+  logger: Logger
+): Promise<void> => {
+  const dirPath = path.join(process.cwd(), '.owl', 'baseline', platform);
+  logger.info(`[OWL] Removing latest images at ${dirPath}.`);
+  await fs.rmdir(dirPath, { recursive: true });
 };
 
 export const runIOS = async (config: Config, logger: Logger) => {
@@ -69,8 +80,10 @@ export const runHandler = async (args: CliRunOptions) => {
       args.update
         ? '(Update mode) Updating baseline images'
         : '(Tests mode) Will compare latest images with the baseline'
-    }`
+    }.`
   );
+
+  await cleanLatestImages(args.platform, logger);
 
   logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
   logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
@@ -85,4 +98,9 @@ export const runHandler = async (args: CliRunOptions) => {
   });
 
   logger.print(`[OWL] Tests completed on ${args.platform}.`);
+  if (args.update) {
+    logger.print(
+      `[OWL] All baseline images for ${args.platform} have been updated successfully.`
+    );
+  }
 };
