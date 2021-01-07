@@ -8,12 +8,14 @@ import { Logger } from './logger';
 export const takeScreenshot = async (): Promise<void> => {
   const platform = process.env.OWL_PLATFORM as Platform;
   const debug = process.env.OWL_DEBUG === 'true';
+  const updateBaseline = process.env.OWL_UPDATE_BASELINE === 'true';
+
   const stdio = debug ? 'inherit' : 'ignore';
   const logger = new Logger(!!debug);
 
   const DEFAULT_FILENAME = 'screen.png';
-  const DIR_NAME = '.owl';
-  const cwd = path.join(process.cwd(), DIR_NAME, platform);
+  const DIR_NAME = updateBaseline ? 'baseline' : 'latest';
+  const cwd = path.join(process.cwd(), '.owl', DIR_NAME, platform);
 
   await fs.mkdir(cwd, { recursive: true });
 
