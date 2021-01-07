@@ -20,9 +20,22 @@ const configOption: Options = {
   default: './owl.config.json',
 };
 
-const builderOptions = {
+const updateOption: Options = {
+  alias: 'u',
+  describe: 'Update the baseline screenshots',
+  type: 'boolean',
+  default: false,
+};
+
+const builderOptionsRun = {
   config: configOption,
   platform: plaformOption,
+};
+
+const builderOptionsTest = {
+  config: configOption,
+  platform: plaformOption,
+  update: updateOption,
 };
 
 argv
@@ -30,13 +43,13 @@ argv
   .command({
     command: 'build',
     describe: 'Build the React Native project',
-    builder: builderOptions,
+    builder: builderOptionsRun,
     handler: buildHandler,
   })
   .command({
     command: 'test',
     describe: 'Runs the test suite',
-    builder: builderOptions,
+    builder: builderOptionsTest,
     handler: runHandler,
   })
   .help('help')

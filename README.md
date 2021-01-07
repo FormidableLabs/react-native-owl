@@ -50,12 +50,14 @@ The config file - which unless specified in the cli should live in `./owl.config
 
 ### Building the app
 
-##### Options
+#### Options
 
-| Name       | Required | Default           | Choices         | Description                             |
-| ---------- | -------- | ----------------- | --------------- | --------------------------------------- |
-| `config`   | false    | ./owl.config.json | -               | Path to the configuration file          |
-| `platform` | true     | -                 | `ios`,`android` | The platform the app should be built on |
+| Name             | Required | Default           | Options/Types   | Description                             |
+| ---------------- | -------- | ----------------- | --------------- | --------------------------------------- |
+| `config`, `-c`   | false    | ./owl.config.json | String          | Path to the configuration file          |
+| `platform`, `-p` | true     | -                 | `ios`,`android` | The platform the app should be built on |
+
+#### Examples
 
 ```
 owl build --platform ios --config ./owl.config.json
@@ -63,8 +65,20 @@ owl build --platform ios --config ./owl.config.json
 
 ### Running the tests
 
+#### Options
+
+| Name             | Required | Default           | Options/Types   | Description                                     |
+| ---------------- | -------- | ----------------- | --------------- | ----------------------------------------------- |
+| `config`, `-c`   | false    | ./owl.config.json | String          | Path to the configuration file                  |
+| `platform`, `-p` | true     | -                 | `ios`,`android` | The platform the app should be built on         |
+| `update`, `-u`   | true     | false             | Boolean         | A flag about rewriting existing baseline images |
+
+#### Examples
+
 ```
+owl test --platform ios
 owl test --platform ios --config ./owl.config.json
+owl test --platform ios --update
 ```
 
 [github-image]: https://github.com/FormidableLabs/react-native-owl/workflows/Run%20Tests/badge.svg

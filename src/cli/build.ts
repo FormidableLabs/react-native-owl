@@ -1,7 +1,7 @@
 import path from 'path';
 import execa from 'execa';
 
-import { BuildRunOptions, Config } from './types';
+import { CliBuildOptions, Config } from './types';
 import { Logger } from '../logger';
 import { getConfig } from './config';
 
@@ -46,7 +46,7 @@ export const buildAndroid = async (
   await execa.command(buildCommand.join(' '), { stdio: 'inherit', cwd });
 };
 
-export const buildHandler = async (args: BuildRunOptions) => {
+export const buildHandler = async (args: CliBuildOptions) => {
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const buildProject = args.platform === 'ios' ? buildIOS : buildAndroid;

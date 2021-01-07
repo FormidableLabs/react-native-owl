@@ -2,9 +2,15 @@ import { Arguments } from 'yargs';
 
 export type Platform = 'ios' | 'android';
 
-export interface BuildRunOptions extends Arguments {
+export interface CliBuildOptions extends Arguments {
   platform: Platform;
   config: string;
+}
+
+export interface CliRunOptions extends Arguments {
+  platform: Platform;
+  config: string;
+  update: boolean;
 }
 
 type ConfigIOS = {

@@ -1,7 +1,7 @@
 import path from 'path';
 import execa from 'execa';
 
-import { BuildRunOptions, Config } from './types';
+import { CliRunOptions, Config } from './types';
 import { Logger } from '../logger';
 import { getConfig } from './config';
 
@@ -53,7 +53,7 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   await execa.command(launchCommand, { stdio });
 };
 
-export const runHandler = async (args: BuildRunOptions) => {
+export const runHandler = async (args: CliRunOptions) => {
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
@@ -64,6 +64,14 @@ export const runHandler = async (args: BuildRunOptions) => {
   const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
   const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()}`;
 
+  logger.print(
+    `[OWL] ${
+      args.update
+        ? '(Update mode) Updating baseline images'
+        : '(Tests mode) Will compare latest images with the baseline'
+    }.`
+  );
+
   logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
   logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
 
@@ -72,8 +80,14 @@ export const runHandler = async (args: BuildRunOptions) => {
     env: {
       OWL_PLATFORM: args.platform,
       OWL_DEBUG: String(!!config.debug),
+      OWL_UPDATE_BASELINE: String(!!args.update),
     },
   });
 
   logger.print(`[OWL] Tests completed on ${args.platform}.`);
+  if (args.update) {
+    logger.print(
+      `[OWL] All baseline images for ${args.platform} have been updated successfully.`
+    );
+  }
 };

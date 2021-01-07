@@ -2,7 +2,7 @@ import path from 'path';
 import execa from 'execa';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
-import { BuildRunOptions, Config } from './types';
+import { CliBuildOptions, Config } from './types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
 
@@ -128,7 +128,7 @@ describe('build.ts', () => {
     const args = {
       platform: 'ios',
       config: './owl.config.json',
-    } as BuildRunOptions;
+    } as CliBuildOptions;
 
     const config: Config = {
       ios: {
