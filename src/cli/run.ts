@@ -92,8 +92,8 @@ export const runHandler = async (args: CliRunOptions) => {
     stdio: 'inherit',
     env: {
       OWL_PLATFORM: args.platform,
-      OWL_DEBUG: String(config.debug),
-      OWL_UPDATE_BASELINE: String(args.update),
+      OWL_DEBUG: String(!!config.debug),
+      OWL_UPDATE_BASELINE: String(!!args.update),
     },
   });
 

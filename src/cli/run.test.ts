@@ -1,7 +1,7 @@
 import path from 'path';
 import execa, { ExecaSyncReturnValue } from 'execa';
 
-import { BuildRunOptions, Config } from './types';
+import { CliRunOptions, Config } from './types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
@@ -167,7 +167,8 @@ describe('run.ts', () => {
     const args = {
       platform: 'ios',
       config: './owl.config.json',
-    } as BuildRunOptions;
+      update: false,
+    } as CliRunOptions;
 
     const config: Config = {
       ios: {
@@ -204,7 +205,11 @@ describe('run.ts', () => {
       await expect(mockRunIOS).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
-        env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'ios' },
+        env: {
+          OWL_DEBUG: 'false',
+          OWL_PLATFORM: 'ios',
+          OWL_UPDATE_BASELINE: 'false',
+        },
         stdio: 'inherit',
       });
     });
@@ -220,7 +225,29 @@ describe('run.ts', () => {
       await expect(mockRunAndroid).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
-        env: { OWL_DEBUG: 'false', OWL_PLATFORM: 'android' },
+        env: {
+          OWL_DEBUG: 'false',
+          OWL_PLATFORM: 'android',
+          OWL_UPDATE_BASELINE: 'false',
+        },
+        stdio: 'inherit',
+      });
+    });
+
+    it('runs with the the update baseline flag on', async () => {
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      await run.runHandler({ ...args, update: true });
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
+        env: {
+          OWL_DEBUG: 'false',
+          OWL_PLATFORM: 'ios',
+          OWL_UPDATE_BASELINE: 'true',
+        },
         stdio: 'inherit',
       });
     });
