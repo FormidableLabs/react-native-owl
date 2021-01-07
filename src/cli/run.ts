@@ -1,4 +1,3 @@
-// @ts-nocheck
 import path from 'path';
 import execa from 'execa';
 import { promises as fs } from 'fs';
