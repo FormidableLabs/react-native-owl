@@ -1,4 +1,7 @@
 import path from 'path';
+import pixelmatch from 'pixelmatch';
+import fs from 'fs';
+import { PNG } from 'pngjs';
 
 import { Platform } from './cli/types';
 
@@ -20,10 +23,32 @@ export const toMatchBaseline = (latestPath: string) => {
     platform,
     path.basename(latestPath)
   );
+  const diffPath = path.join(
+    screenshotsDir,
+    'diff',
+    platform,
+    path.basename(latestPath)
+  );
+
+  const baseline = PNG.sync.read(fs.readFileSync(baselinePath));
+  const latest = PNG.sync.read(fs.readFileSync(latestPath));
+  const diff = new PNG({ width: baseline.width, height: baseline.height });
+
+  const diffPixelsCount = pixelmatch(
+    baseline.data,
+    latest.data,
+    diff.data,
+    baseline.width,
+    baseline.height,
+    { threshold: 0 }
+  );
+
+  fs.mkdirSync(path.dirname(diffPath), { recursive: true });
+  fs.writeFileSync(diffPath, PNG.sync.write(diff));
 
   return {
     message: () => `expected latest to match baseline`,
-    pass: true,
+    pass: diffPixelsCount === 0,
   };
 };
 
