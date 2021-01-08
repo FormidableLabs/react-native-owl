@@ -5,7 +5,7 @@ import path from 'path';
 import { Platform } from './cli/types';
 import { Logger } from './logger';
 
-export const takeScreenshot = async (): Promise<void> => {
+export const takeScreenshot = async (): Promise<string> => {
   const platform = process.env.OWL_PLATFORM as Platform;
   const debug = process.env.OWL_DEBUG === 'true';
   const updateBaseline = process.env.OWL_UPDATE_BASELINE === 'true';
@@ -31,5 +31,7 @@ export const takeScreenshot = async (): Promise<void> => {
     shell: platform === 'android',
   });
 
-  logger.info(`[OWL] Screenshot saved to ${cwd}/${DEFAULT_FILENAME}.`);
+  const screenshotPath = `${cwd}/${DEFAULT_FILENAME}`;
+  logger.info(`[OWL] Screenshot saved to ${screenshotPath}.`);
+  return screenshotPath;
 };
