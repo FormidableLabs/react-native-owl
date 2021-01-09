@@ -1,7 +1,6 @@
 import path from 'path';
-import pixelmatch from 'pixelmatch';
-import fs from 'fs';
-import { PNG } from 'pngjs';
+import { diffImages } from 'native-image-diff';
+import { readPngFileSync, writePngFileSync, rect, xy } from 'node-libpng';
 
 import { Platform } from './cli/types';
 
@@ -30,25 +29,22 @@ export const toMatchBaseline = (latestPath: string) => {
     path.basename(latestPath)
   );
 
-  const baseline = PNG.sync.read(fs.readFileSync(baselinePath));
-  const latest = PNG.sync.read(fs.readFileSync(latestPath));
-  const diff = new PNG({ width: baseline.width, height: baseline.height });
+  const baselineImage = readPngFileSync(baselinePath);
+  const { image: diff, pixels } = diffImages({
+    image1: baselineImage,
+    image2: readPngFileSync(latestPath),
+    colorThreshold: 0.1,
+  });
 
-  const diffPixelsCount = pixelmatch(
-    baseline.data,
-    latest.data,
-    diff.data,
-    baseline.width,
-    baseline.height,
-    { threshold: 0 }
-  );
-
-  fs.mkdirSync(path.dirname(diffPath), { recursive: true });
-  fs.writeFileSync(diffPath, PNG.sync.write(diff));
+  writePngFileSync(diffPath, diff!.data, {
+    width: diff!.width,
+    height: diff!.height,
+  });
 
   return {
-    message: () => `expected latest to match baseline`,
-    pass: diffPixelsCount === 0,
+    message: () =>
+      `Compared screenshot to match baseline. ${pixels} were different.`,
+    pass: pixels === 0,
   };
 };
 
