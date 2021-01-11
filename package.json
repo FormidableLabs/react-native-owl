@@ -24,11 +24,12 @@
     "ajv": "^7.0.3",
     "execa": "^5.0.0",
     "native-image-diff": "^0.1.11",
-    "node-libpng": "^0.2.18",
+    "pngjs": "^6.0.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
+    "@types/pngjs": "^3.4.2",
     "@types/yargs": "^15.0.12",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",

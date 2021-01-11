@@ -1,6 +1,7 @@
+import fs from 'fs';
 import path from 'path';
+import { PNG } from 'pngjs';
 import { diffImages } from 'native-image-diff';
-import { readPngFileSync, writePngFileSync, rect, xy } from 'node-libpng';
 
 import { Platform } from './cli/types';
 
@@ -22,6 +23,7 @@ export const toMatchBaseline = (latestPath: string) => {
     platform,
     path.basename(latestPath)
   );
+
   const diffPath = path.join(
     screenshotsDir,
     'diff',
@@ -29,17 +31,23 @@ export const toMatchBaseline = (latestPath: string) => {
     path.basename(latestPath)
   );
 
-  const baselineImage = readPngFileSync(baselinePath);
+  const baselineData = fs.readFileSync(baselinePath);
+  const baselineImage = PNG.sync.read(baselineData);
+
+  const latestData = fs.readFileSync(latestPath);
+  const latestImage = PNG.sync.read(latestData);
+
   const { image: diff, pixels } = diffImages({
     image1: baselineImage,
-    image2: readPngFileSync(latestPath),
+    image2: latestImage,
     colorThreshold: 0.1,
   });
 
-  writePngFileSync(diffPath, diff!.data, {
-    width: diff!.width,
-    height: diff!.height,
-  });
+  fs.mkdirSync(path.dirname(diffPath), { recursive: true });
+
+  const diffPng = { ...diff! } as PNG;
+  const diffImage = PNG.sync.write(diffPng);
+  fs.writeFileSync(diffPath, diffImage);
 
   return {
     message: () =>
