@@ -40,7 +40,7 @@ describe('matchers.ts', () => {
       diffImagesMock.mockReturnValueOnce({
         image: { data: Buffer.alloc(100), width: 37, height: 11 },
         pixels: 0,
-      } as any);
+      } as nativeImageDiff.DiffResult);
 
       const latestPath = 'latest/ios/screen.png';
 
@@ -61,7 +61,7 @@ describe('matchers.ts', () => {
       diffImagesMock.mockReturnValueOnce({
         image: { data: imageHelloDiffBuffer, width: 37, height: 11 },
         pixels: 55,
-      } as any);
+      } as nativeImageDiff.DiffResult);
 
       const latestPath = 'latest/ios/screen.png';
 

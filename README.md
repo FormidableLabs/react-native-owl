@@ -83,3 +83,31 @@ owl test --platform ios --update
 
 [github-image]: https://github.com/FormidableLabs/react-native-owl/workflows/Run%20Tests/badge.svg
 [github-url]: https://github.com/FormidableLabs/react-native-owl/actions
+
+## Test Suite
+
+### Example
+
+```js
+import { takeScreenshot } from 'react-native-owl';
+
+describe('App.tsx', () => {
+  it('takes a screenshot of the first screen', async () => {
+    const screen = await takeScreenshot();
+
+    expect(screen).toMatchBaseline();
+  });
+});
+```
+
+### Methods
+
+#### `takeScreenshot()`
+
+Grabs a screenshot from the simulator and stores it under `latest` screenshots(ie. `./owl/latest/ios/`). If running the tests using the `--update` or `-u` flag, this will store the screenshot under the `baseline` directory. See example above.
+
+### Jest Matchers
+
+#### `.toMatchBaseline()`
+
+This custom matcher will try to find and compare the baseline screenshot by using the path of the _latest_ screenshot (returned by `takeScreenshot()`). You will have to take a screenshot before using and pass the path of that screenshot to the `expect` method.
