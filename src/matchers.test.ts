@@ -22,14 +22,14 @@ describe('matchers.ts', () => {
     process.env.OWL_PLATFORM = 'ios';
   });
 
+  afterAll(() => {
+    delete process.env.OWL_PLATFORM;
+  });
+
   describe('toMatchBaseline.ts', () => {
     beforeEach(() => {
       readFileMock.mockReset();
       writeFileMock.mockReset();
-    });
-
-    afterAll(() => {
-      delete process.env.OWL_PLATFORM;
     });
 
     it('should compare two identical images', () => {
