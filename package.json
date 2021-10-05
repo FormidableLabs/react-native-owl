@@ -22,18 +22,18 @@
   },
   "dependencies": {
     "ajv": "^7.0.3",
-    "execa": "^5.0.0",
-    "native-image-diff": "^0.1.11",
+    "execa": "^5.1.1",
+    "native-image-diff": "^0.1.14",
     "pngjs": "^6.0.0",
-    "yargs": "^16.2.0"
+    "yargs": "^17.2.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
-    "@types/pngjs": "^3.4.2",
-    "@types/yargs": "^15.0.12",
+    "@types/pngjs": "^6.0.1",
+    "@types/yargs": "^17.0.3",
     "jest": "^26.6.3",
-    "prettier": "^2.2.1",
+    "prettier": "^2.4.1",
     "ts-jest": "^26.4.4",
-    "typescript": "^4.1.3"
+    "typescript": "^4.4.3"
   }
 }
