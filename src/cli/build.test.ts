@@ -27,9 +27,7 @@ describe('build.ts', () => {
       await buildIOS(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(
-        execMock
-      ).toHaveBeenCalledWith(
+      expect(execMock).toHaveBeenCalledWith(
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build`,
         { stdio: 'inherit' }
       );
@@ -48,9 +46,7 @@ describe('build.ts', () => {
       await buildIOS(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(
-        execMock
-      ).toHaveBeenCalledWith(
+      expect(execMock).toHaveBeenCalledWith(
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`,
         { stdio: 'inherit' }
       );
