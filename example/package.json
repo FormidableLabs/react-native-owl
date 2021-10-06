@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "owl": "node ../lib/cli/index.js",
     "owl:build:ios": "yarn owl build --platform ios",
     "owl:test:ios": "yarn owl test --platform ios",
     "owl:build:android": "yarn owl build --platform android",
@@ -15,7 +16,8 @@
   },
   "dependencies": {
     "react": "17.0.2",
-    "react-native": "0.66.0"
+    "react-native": "0.66.0",
+    "react-native-owl": "link:../"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

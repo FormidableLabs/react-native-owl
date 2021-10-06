@@ -10,6 +10,12 @@ First, install the dependencies:
 yarn install
 ```
 
+Then run the metro bundler:
+
+```sh
+yarn start
+```
+
 ### iOS
 
 Install the pods:
@@ -38,13 +44,7 @@ To use a local version of react-native-owl, first, navigate to the local directo
 
 ```sh
 # Assuming you are inside react-native-owl - ie. ~/Projects/react-native-owl
-npm link
-```
-
-Then navigate back to this project and run the following command:
-
-```sh
-npm link react-native-owl
+yarn watch
 ```
 
 Now, this example/demo app will be using the local version of react-native-owl.
