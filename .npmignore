@@ -1,0 +1,5 @@
+.github/
+.prettierrc.js
+example/
+src/
+tsconfig.json
