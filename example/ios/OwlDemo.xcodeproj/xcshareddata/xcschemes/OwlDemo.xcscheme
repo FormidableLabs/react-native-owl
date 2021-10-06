@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "OwlDemoApp.app"
-               BlueprintName = "OwlDemoApp"
-               ReferencedContainer = "container:OwlDemoApp.xcodeproj">
+               BuildableName = "OwlDemo.app"
+               BlueprintName = "OwlDemo"
+               ReferencedContainer = "container:OwlDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "OwlDemoAppTests.xctest"
-               BlueprintName = "OwlDemoAppTests"
-               ReferencedContainer = "container:OwlDemoApp.xcodeproj">
+               BuildableName = "OwlDemoTests.xctest"
+               BlueprintName = "OwlDemoTests"
+               ReferencedContainer = "container:OwlDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "OwlDemoApp.app"
-            BlueprintName = "OwlDemoApp"
-            ReferencedContainer = "container:OwlDemoApp.xcodeproj">
+            BuildableName = "OwlDemo.app"
+            BlueprintName = "OwlDemo"
+            ReferencedContainer = "container:OwlDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "OwlDemoApp.app"
-            BlueprintName = "OwlDemoApp"
-            ReferencedContainer = "container:OwlDemoApp.xcodeproj">
+            BuildableName = "OwlDemo.app"
+            BlueprintName = "OwlDemo"
+            ReferencedContainer = "container:OwlDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

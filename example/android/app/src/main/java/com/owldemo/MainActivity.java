@@ -1,4 +1,4 @@
-package com.owldemoapp;
+package com.owldemo;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "OwlDemoApp";
+    return "OwlDemo";
   }
 }
