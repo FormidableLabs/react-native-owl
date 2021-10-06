@@ -18,7 +18,8 @@
   "license": "MIT",
   "jest": {
     "preset": "ts-jest",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testRegex": "(/src/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$"
   },
   "dependencies": {
     "ajv": "^7.0.3",
