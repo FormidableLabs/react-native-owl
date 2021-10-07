@@ -53,12 +53,18 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        'xcrun simctl install iPhone\\ Simulator RNDemo.app',
+        'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41',
         { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
+        'xcrun simctl install iPhone\\ Simulator RNDemo.app',
+        { cwd, stdio: 'ignore' }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        3,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { stdio: 'ignore' }
       );
@@ -86,12 +92,18 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        'xcrun simctl install iPhone\\ Simulator RNDemo.app',
+        'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41',
         { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
+        'xcrun simctl install iPhone\\ Simulator RNDemo.app',
+        { cwd, stdio: 'ignore' }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        3,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { stdio: 'ignore' }
       );
@@ -123,12 +135,16 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb install -r ${appPath}`, {
+      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
+        stdio: 'ignore',
+      });
+
+      expect(execMock).toHaveBeenNthCalledWith(2, `adb install -r ${appPath}`, {
         stdio: 'ignore',
       });
 
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        3,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );
@@ -147,8 +163,12 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
+      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
+        stdio: 'ignore',
+      });
+
       expect(execMock).toHaveBeenNthCalledWith(
-        1,
+        2,
         `adb install -r ${binaryPath}`,
         {
           stdio: 'ignore',
@@ -156,7 +176,7 @@ describe('run.ts', () => {
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        3,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );

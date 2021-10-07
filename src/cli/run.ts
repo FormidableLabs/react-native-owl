@@ -26,6 +26,10 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const bundleId = getIOSBundleIdentifier(appPath);
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
+  const SIMULATOR_TIME = '9:41';
+  const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
+  await execa.command(setTimeCommand, { stdio, cwd });
+
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
   await execa.command(installCommand, { stdio, cwd });
 
@@ -45,6 +49,10 @@ export const runAndroid = async (config: Config, logger: Logger) => {
     : 'app-debug.apk';
   const appPath = path.join(cwd, appFilename);
   const { packageName } = config.android!;
+
+  const SIMULATOR_TIME = '0941';
+  const setTimeCommand = `adb shell date 0101${SIMULATOR_TIME}`;
+  await execa.command(setTimeCommand, { stdio });
 
   const installCommand = `adb install -r ${appPath}`;
   await execa.command(installCommand, { stdio });
