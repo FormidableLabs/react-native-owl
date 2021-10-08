@@ -70,7 +70,7 @@ export const runHandler = async (args: CliRunOptions) => {
   await runProject(config, logger);
 
   const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
-  const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()}`;
+  const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()} --runInBand`;
 
   logger.print(
     `[OWL] ${
