@@ -73,5 +73,17 @@ describe('matchers.ts', () => {
       expect(result.pass).toBe(false);
       expect(writeFileMock).toHaveBeenCalledTimes(1);
     });
+
+    it('should return early, skipping the comparison if the latestPath is the baseline path (fresh screenshot)', () => {
+      const latestPath = 'baseline/ios/screen.png';
+
+      const result = toMatchBaseline(latestPath);
+
+      expect(result.message()).toBe(
+        'Generated a fresh baseline, skipping comparison.'
+      );
+      expect(result.pass).toBe(true);
+      expect(writeFileMock).toHaveBeenCalledTimes(0);
+    });
   });
 });

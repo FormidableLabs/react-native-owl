@@ -2,8 +2,9 @@ import execa from 'execa';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-import { Platform } from './cli/types';
+import { fileExists } from './utils/file-exists';
 import { Logger } from './logger';
+import { Platform } from './cli/types';
 
 /**
  * Takes a screenshot from the simulator.
@@ -22,7 +23,10 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
   const screenshotsDirPath = path.join(process.cwd(), '.owl');
   await fs.mkdir(screenshotsDirPath, { recursive: true });
 
-  const DIR_NAME = updateBaseline ? 'baseline' : 'latest';
+  const baselineExist = await fileExists(
+    path.join(screenshotsDirPath, 'baseline', platform, screenshotFilename)
+  );
+  const DIR_NAME = updateBaseline || !baselineExist ? 'baseline' : 'latest';
   const cwd = path.join(screenshotsDirPath, DIR_NAME, platform);
   await fs.mkdir(cwd, { recursive: true });
 

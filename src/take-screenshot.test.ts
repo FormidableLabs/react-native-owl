@@ -2,6 +2,7 @@ import execa from 'execa';
 import path from 'path';
 
 import { takeScreenshot } from './take-screenshot';
+import * as fileExistsHelpers from './utils/file-exists';
 
 const SCREENSHOT_FILENAME = 'screen';
 
@@ -75,12 +76,27 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
+        jest.spyOn(fileExistsHelpers, 'fileExists').mockResolvedValueOnce(true);
+
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
           'xcrun simctl io booted screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'latest', 'ios'),
+            shell: false,
+            stdio: 'ignore',
+          }
+        );
+      });
+
+      it('should take a screenshot - baseline does not exist', async () => {
+        await takeScreenshot(SCREENSHOT_FILENAME);
+
+        expect(commandMock).toHaveBeenCalledWith(
+          'xcrun simctl io booted screenshot screen.png',
+          {
+            cwd: path.join(process.cwd(), '.owl', 'baseline', 'ios'),
             shell: false,
             stdio: 'ignore',
           }
@@ -95,12 +111,27 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
+        jest.spyOn(fileExistsHelpers, 'fileExists').mockResolvedValueOnce(true);
+
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
           'adb exec-out screencap -p > screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'latest', 'android'),
+            shell: true,
+            stdio: 'ignore',
+          }
+        );
+      });
+
+      it('should take a screenshot - baseline does not exist', async () => {
+        await takeScreenshot(SCREENSHOT_FILENAME);
+
+        expect(commandMock).toHaveBeenCalledWith(
+          'adb exec-out screencap -p > screen.png',
+          {
+            cwd: path.join(process.cwd(), '.owl', 'baseline', 'android'),
             shell: true,
             stdio: 'ignore',
           }
