@@ -24,6 +24,13 @@ export const toMatchBaseline = (latestPath: string) => {
     path.basename(latestPath)
   );
 
+  if (latestPath === baselinePath) {
+    return {
+      message: () => 'Generated a fresh baseline, skipping comparison.',
+      pass: true,
+    };
+  }
+
   const diffPath = path.join(
     screenshotsDir,
     'diff',
