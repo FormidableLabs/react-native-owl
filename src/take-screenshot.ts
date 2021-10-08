@@ -7,7 +7,7 @@ import { Logger } from './logger';
 
 /**
  * Takes a screenshot from the simulator.
- * @param filename - Required. The filename that will be used to save the screenshot.
+ * @param filename - Required. The filename(excluding the extension) that will be used to save the screenshot. ie. 'homepage'
  * @returns the path to the screenshot.
  */
 export const takeScreenshot = async (filename: string): Promise<string> => {

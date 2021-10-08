@@ -101,7 +101,7 @@ describe('App.tsx', () => {
 
 #### `takeScreenshot(filaname: string)`
 
-Grabs a screenshot from the simulator and stores it under `latest` screenshots(ie. `./owl/latest/ios/`) with the specifie filaname. If running the tests using the `--update` or `-u` flag, this will store the screenshot under the `baseline` directory. See example above.
+Grabs a screenshot from the simulator and stores it under `latest` screenshots(ie. `./owl/latest/ios/`) with the specified filename(without the extension). If running the tests using the `--update` or `-u` flag, this will store the screenshot under the `baseline` directory. See example above.
 
 ### Jest Matchers
 
