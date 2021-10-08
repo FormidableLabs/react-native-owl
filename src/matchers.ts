@@ -50,6 +50,14 @@ export const toMatchBaseline = (latestPath: string) => {
     colorThreshold: 0.1,
   });
 
+  if (pixels === 0) {
+    return {
+      message: () =>
+        `Compared screenshot to match baseline. No differences were found.`,
+      pass: true,
+    };
+  }
+
   fs.mkdirSync(path.dirname(diffPath), { recursive: true });
 
   const diffPng = { ...diff! } as PNG;
