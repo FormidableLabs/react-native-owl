@@ -206,7 +206,7 @@ describe('run.ts', () => {
       process.cwd(),
       'src',
       'jest-config.json'
-    )} --roots=${path.join(process.cwd())}`;
+    )} --roots=${path.join(process.cwd())} --runInBand`;
 
     const commandSyncMock = jest.spyOn(execa, 'commandSync');
 
