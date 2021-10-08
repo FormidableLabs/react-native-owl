@@ -67,11 +67,11 @@ owl build --platform ios --config ./owl.config.json
 
 #### Options
 
-| Name             | Required | Default           | Options/Types   | Description                                     |
-| ---------------- | -------- | ----------------- | --------------- | ----------------------------------------------- |
-| `config`, `-c`   | false    | ./owl.config.json | String          | Path to the configuration file                  |
-| `platform`, `-p` | true     | -                 | `ios`,`android` | The platform the app should be built on         |
-| `update`, `-u`   | true     | false             | Boolean         | A flag about rewriting existing baseline images |
+| Name               | Required | Default           | Options/Types   | Description                                     |
+| ------------------ | -------- | ----------------- | --------------- | ----------------------------------------------- |
+| `--config`, `-c`   | false    | ./owl.config.json | String          | Path to the configuration file                  |
+| `--platform`, `-p` | true     | -                 | `ios`,`android` | The platform the app should be built on         |
+| `--update`, `-u`   | true     | false             | Boolean         | A flag about rewriting existing baseline images |
 
 #### Examples
 
@@ -90,7 +90,7 @@ import { takeScreenshot } from 'react-native-owl';
 
 describe('App.tsx', () => {
   it('takes a screenshot of the first screen', async () => {
-    const screen = await takeScreenshot();
+    const screen = await takeScreenshot('homescreen');
 
     expect(screen).toMatchBaseline();
   });
@@ -99,9 +99,9 @@ describe('App.tsx', () => {
 
 ### Methods
 
-#### `takeScreenshot()`
+#### `takeScreenshot(filename: string)`
 
-Grabs a screenshot from the simulator and stores it under `latest` screenshots(ie. `./owl/latest/ios/`). If running the tests using the `--update` or `-u` flag, this will store the screenshot under the `baseline` directory. See example above.
+Grabs a screenshot from the simulator and stores it under `latest` screenshots(ie. `./owl/latest/ios/`) with the specified filename(without the extension). If running the tests using the `--update` or `-u` flag, this will store the screenshot under the `baseline` directory. See example above.
 
 ### Jest Matchers
 

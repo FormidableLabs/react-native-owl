@@ -3,6 +3,8 @@ import path from 'path';
 
 import { takeScreenshot } from './take-screenshot';
 
+const SCREENSHOT_FILENAME = 'screen';
+
 describe('take-screenshot.ts', () => {
   const commandMock = jest.spyOn(execa, 'command');
 
@@ -27,7 +29,7 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        await takeScreenshot();
+        await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
           'xcrun simctl io booted screenshot screen.png',
@@ -47,7 +49,7 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        await takeScreenshot();
+        await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
           'adb exec-out screencap -p > screen.png',
@@ -73,7 +75,7 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        await takeScreenshot();
+        await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
           'xcrun simctl io booted screenshot screen.png',
@@ -93,7 +95,7 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        await takeScreenshot();
+        await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
           'adb exec-out screencap -p > screen.png',
