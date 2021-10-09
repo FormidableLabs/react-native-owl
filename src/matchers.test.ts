@@ -47,10 +47,10 @@ describe('matchers.ts', () => {
       const result = toMatchBaseline(latestPath);
 
       expect(result.message()).toBe(
-        'Compared screenshot to match baseline. 0 were different.'
+        'Compared screenshot to match baseline. No differences were found.'
       );
       expect(result.pass).toBe(true);
-      expect(writeFileMock).toHaveBeenCalledTimes(1);
+      expect(writeFileMock).toHaveBeenCalledTimes(0);
     });
 
     it('should compare two different images', () => {
