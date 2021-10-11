@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
-import { diffImages } from 'native-image-diff';
 
 import { Platform } from './cli/types';
 
@@ -44,13 +44,21 @@ export const toMatchBaseline = (latestPath: string) => {
   const latestData = fs.readFileSync(latestPath);
   const latestImage = PNG.sync.read(latestData);
 
-  const { image: diff, pixels } = diffImages({
-    image1: baselineImage,
-    image2: latestImage,
-    colorThreshold: 0.1,
+  const diffImage = new PNG({
+    width: baselineImage.width,
+    height: baselineImage.height,
   });
 
-  if (pixels === 0) {
+  const diffPixelsCount = pixelmatch(
+    baselineImage.data,
+    latestImage.data,
+    diffImage.data,
+    baselineImage.width,
+    baselineImage.height,
+    { threshold: 0 }
+  );
+
+  if (diffPixelsCount === 0) {
     return {
       message: () =>
         `Compared screenshot to match baseline. No differences were found.`,
@@ -59,15 +67,12 @@ export const toMatchBaseline = (latestPath: string) => {
   }
 
   fs.mkdirSync(path.dirname(diffPath), { recursive: true });
-
-  const diffPng = { ...diff! } as PNG;
-  const diffImage = PNG.sync.write(diffPng);
-  fs.writeFileSync(diffPath, diffImage);
+  fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
 
   return {
     message: () =>
-      `Compared screenshot to match baseline. ${pixels} were different.`,
-    pass: pixels === 0,
+      `Compared screenshot to match baseline. ${diffPixelsCount} were different.`,
+    pass: diffPixelsCount === 0,
   };
 };
 
