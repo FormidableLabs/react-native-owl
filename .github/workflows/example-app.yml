@@ -1,9 +1,9 @@
-name: Example App
+name: Demo App
 
 on: [pull_request]
 
 jobs:
-  run-unit-tests:
+  run-visual-regression:
     runs-on: macos-latest
 
     steps:
@@ -23,6 +23,10 @@ jobs:
 
       - name: Install Dependencies (Library)
         run: yarn install --frozen-lockfile
+        working-directory: ./
+
+      - name: Compile the library
+        run: yarn build
         working-directory: ./
 
       - name: Install Dependencies (Example App)
@@ -51,7 +55,7 @@ jobs:
         run: yarn owl:test:ios
         working-directory: ./example
 
-      - name: Store Cypress Artifacts
+      - name: Store screenshots as artifacts
         uses: actions/upload-artifact@v2
         if: failure()
         with:
