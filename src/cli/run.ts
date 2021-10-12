@@ -14,7 +14,7 @@ export const getIOSBundleIdentifier = (appPath: string): string => {
 
 export const runIOS = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
-  const DEFAULT_BINARY_DIR = '/ios/build/Build/Products/Debug-iphonesimulator';
+  const DEFAULT_BINARY_DIR = `/ios/build/Build/Products/${config.ios?.configuration}-iphonesimulator`;
   const cwd = config.ios?.binaryPath
     ? path.dirname(config.ios?.binaryPath)
     : path.join(process.cwd(), DEFAULT_BINARY_DIR);

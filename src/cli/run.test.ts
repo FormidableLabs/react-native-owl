@@ -45,6 +45,7 @@ describe('run.ts', () => {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          configuration: 'Debug',
           device: 'iPhone Simulator',
         },
       };

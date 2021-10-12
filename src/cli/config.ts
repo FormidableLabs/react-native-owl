@@ -11,6 +11,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
         type: 'object',
         properties: {
           workspace: { type: 'string', nullable: true },
+          configuration: { type: 'string', nullable: true, default: 'Debug' },
           scheme: { type: 'string', nullable: true },
           buildCommand: { type: 'string', nullable: true },
           binaryPath: { type: 'string', nullable: true },
@@ -45,7 +46,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
     additionalProperties: false,
   };
 
-  const ajv = new Ajv();
+  const ajv = new Ajv({ useDefaults: true });
   const validate = ajv.compile(configSchema);
 
   return new Promise((resolve, reject) => {
