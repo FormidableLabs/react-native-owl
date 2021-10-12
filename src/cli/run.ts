@@ -1,7 +1,7 @@
 import path from 'path';
 import execa from 'execa';
 
-import { bootIOSSimulator } from './simulator';
+// import { bootIOSSimulator } from './simulator';
 import { CliRunOptions, Config } from './types';
 import { getConfig } from './config';
 import { Logger } from '../logger';
