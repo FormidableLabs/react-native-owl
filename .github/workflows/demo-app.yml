@@ -47,17 +47,17 @@ jobs:
         run: pod install
         working-directory: ./example/ios
 
-      - name: Run Owl Build
-        run: yarn owl:build:ios
-        working-directory: ./example
+      # - name: Run Owl Build
+      #   run: yarn owl:build:ios
+      #   working-directory: ./example
 
-      - uses: futureware-tech/simulator-action@v1
-        with:
-          model: 'iPhone 12 Pro'
+      # - uses: futureware-tech/simulator-action@v1
+      #   with:
+      #     model: 'iPhone 12 Pro'
 
-      - name: Run Owl Test
-        run: yarn owl:test:ios
-        working-directory: ./example
+      # - name: Run Owl Test
+      #   run: yarn owl:test:ios
+      #   working-directory: ./example
 
       - name: Setup tmate session
         if: ${{ failure() }}
