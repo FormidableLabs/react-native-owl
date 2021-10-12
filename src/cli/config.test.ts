@@ -65,7 +65,7 @@ describe('config.ts', () => {
 
       const result = await validateSchema(config);
 
-      expect(result.ios.configuration).toEqual('Release');
+      expect(result?.ios?.configuration).toEqual('Release');
     });
 
     it('defaults the target to Debug for iOS', async () => {
@@ -79,7 +79,7 @@ describe('config.ts', () => {
 
       const result = await validateSchema(config);
 
-      expect(result.ios.configuration).toEqual('Debug');
+      expect(result?.ios?.configuration).toEqual('Debug');
     });
 
     it("rejects an ios config that doesn't have either workspace/scheme or buildCommand", async () => {
