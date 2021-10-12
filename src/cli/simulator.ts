@@ -8,7 +8,9 @@ export const bootIOSSimulator = async (
   logger: Logger,
   stdio: 'inherit' | 'ignore'
 ): Promise<void> => {
-  const { stdout } = await execa.command('xcrun simctl list devices --json');
+  const { stdout } = await execa.command(
+    'xcrun simctl list devices available --json'
+  );
   const parsedOutput: SimCtlList = JSON.parse(stdout);
   const devices = Object.values(parsedOutput.devices).flat();
   const device = devices.find((item: { name: string }) => item.name === name);

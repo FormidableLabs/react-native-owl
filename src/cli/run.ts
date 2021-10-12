@@ -27,7 +27,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const bundleId = getIOSBundleIdentifier(appPath);
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
-  await bootIOSSimulator(config.ios?.device!, logger, stdio);
+  // await bootIOSSimulator(config.ios?.device!, logger, stdio);
 
   const SIMULATOR_TIME = '9:41';
   const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
