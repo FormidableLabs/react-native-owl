@@ -15,7 +15,7 @@ export const buildIOS = async (
         `xcodebuild`,
         `-workspace ${config.ios?.workspace}`,
         `-scheme ${config.ios?.scheme}`,
-        `-configuration Debug`,
+        `-configuration ${config.ios?.configuration}`,
         `-sdk iphonesimulator`,
         `-derivedDataPath ios/build`,
       ];
@@ -23,6 +23,8 @@ export const buildIOS = async (
   if (!config.ios?.buildCommand && config.ios?.quiet) {
     buildCommand.push('-quiet');
   }
+
+  logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
 
   await execa.command(buildCommand.join(' '), { stdio: 'inherit' });
 };
@@ -42,6 +44,8 @@ export const buildAndroid = async (
   const cwd = config.android?.buildCommand
     ? undefined
     : path.join(process.cwd(), '/android');
+
+  logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
 
   await execa.command(buildCommand.join(' '), { stdio: 'inherit', cwd });
 };

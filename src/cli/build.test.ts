@@ -20,6 +20,7 @@ describe('build.ts', () => {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          configuration: 'Debug',
           device: 'iPhone Simulator',
         },
       };
@@ -38,6 +39,7 @@ describe('build.ts', () => {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          configuration: 'Debug',
           quiet: true,
           device: 'iPhone Simulator',
         },

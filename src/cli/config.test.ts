@@ -53,6 +53,35 @@ describe('config.ts', () => {
       await expect(validate()).resolves.toEqual(config);
     });
 
+    it('accepts a target for iOS', async () => {
+      const config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'Test',
+          configuration: 'Release',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      const result = await validateSchema(config);
+
+      expect(result?.ios?.configuration).toEqual('Release');
+    });
+
+    it('defaults the target to Debug for iOS', async () => {
+      const config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'Test',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      const result = await validateSchema(config);
+
+      expect(result?.ios?.configuration).toEqual('Debug');
+    });
+
     it("rejects an ios config that doesn't have either workspace/scheme or buildCommand", async () => {
       const config = { ios: {} };
 
@@ -143,10 +172,11 @@ describe('config.ts', () => {
 
   describe('getConfig', () => {
     it('returns a validated config', async () => {
-      const expectedConfig = {
+      const expectedConfig: Config = {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
+          configuration: 'Debug',
           device: 'iPhone Simulator',
         },
         android: {
