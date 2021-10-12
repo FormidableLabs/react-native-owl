@@ -38,7 +38,7 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ./apps/lisa/ios/Pods
+          path: ./example/ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-

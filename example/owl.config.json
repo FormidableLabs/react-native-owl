@@ -3,7 +3,7 @@
     "workspace": "ios/OwlDemo.xcworkspace",
     "scheme": "OwlDemo",
     "configuration": "Release",
-    "device": "iPhone 13 Pro",
+    "device": "iPhone 12 Pro",
     "quiet": true
   },
   "android": {
