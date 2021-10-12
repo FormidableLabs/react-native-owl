@@ -9,10 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup tmate session
-        if: ${{ failure() }}
-        uses: mxschmitt/action-tmate@v3
-
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -58,6 +54,10 @@ jobs:
       - name: Run Owl Test
         run: yarn owl:test:ios
         working-directory: ./example
+
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
 
       - name: Store screenshots as artifacts
         uses: actions/upload-artifact@v2
