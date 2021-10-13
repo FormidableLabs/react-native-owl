@@ -22,6 +22,7 @@
     "testRegex": "(/src/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$"
   },
   "dependencies": {
+    "@babel/runtime": "^7.15.4",
     "ajv": "^7.0.3",
     "execa": "^5.1.1",
     "pixelmatch": "^5.2.1",
