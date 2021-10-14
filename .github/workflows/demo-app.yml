@@ -52,12 +52,8 @@ jobs:
 
       - uses: futureware-tech/simulator-action@v1
         with:
-          model: 'iPhone 12 Pro'
-          os_version: '>=15.0'
-
-      - name: Setup tmate session
-        if: ${{ failure() }}
-        uses: mxschmitt/action-tmate@v3
+          model: 'iPhone 13 Pro'
+          os_version: '=15.0'
 
       - name: Run Owl Build
         run: yarn owl:build:ios
@@ -66,6 +62,10 @@ jobs:
       - name: Run Owl Test
         run: yarn owl:test:ios
         working-directory: ./example
+
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
 
       - name: Store screenshots as artifacts
         uses: actions/upload-artifact@v2
