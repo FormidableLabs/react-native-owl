@@ -38,6 +38,12 @@ export const runIOS = async (config: Config, logger: Logger) => {
 
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
   await execa.command(launchCommand, { stdio });
+
+  await execa.command('xcrun simctl ui booted appearance dark', { stdio, cwd });
+  await execa.command('xcrun simctl ui booted appearance light', {
+    stdio,
+    cwd,
+  });
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {
