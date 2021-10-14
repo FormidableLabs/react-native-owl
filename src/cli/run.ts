@@ -1,7 +1,6 @@
 import path from 'path';
 import execa from 'execa';
 
-// import { bootIOSSimulator } from './simulator';
 import { CliRunOptions, Config } from './types';
 import { getConfig } from './config';
 import { Logger } from '../logger';
@@ -26,8 +25,6 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const appPath = path.join(cwd, appFilename);
   const bundleId = getIOSBundleIdentifier(appPath);
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
-
-  // await bootIOSSimulator(config.ios?.device!, logger, stdio);
 
   const SIMULATOR_TIME = '9:41';
   const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
