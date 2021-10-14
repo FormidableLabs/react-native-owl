@@ -54,6 +54,7 @@ jobs:
       - uses: futureware-tech/simulator-action@v1
         with:
           model: 'iPhone 12 Pro'
+          os_version: '>=15.0'
 
       - name: Run Owl Test
         run: yarn owl:test:ios
