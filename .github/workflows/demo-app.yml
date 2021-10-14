@@ -47,6 +47,9 @@ jobs:
         run: pod install
         working-directory: ./example/ios
 
+      - name: Switch to XCode 13
+        run: sudo xcode-select --switch /Applications/Xcode_13.0.app/Contents/Developer
+
       - uses: futureware-tech/simulator-action@v1
         with:
           model: 'iPhone 12 Pro'
