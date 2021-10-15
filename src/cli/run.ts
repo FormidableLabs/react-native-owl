@@ -15,17 +15,13 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const appFilename = config.ios!.binaryPath
     ? path.basename(config.ios!.binaryPath)
     : `${config.ios!.scheme}.app`;
-  const appPath = path.join(cwd, appFilename);
+  const plistPath = path.join(cwd, appFilename, 'Info.plist');
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
   const { stdout: bundleId } = await execa.command(
-    `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`,
-    { cwd }
+    `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
+    { shell: true, cwd: '/usr/libexec' }
   );
-
-  if (!bundleId) {
-    throw new Error(`Could not find bundle id for the path: ${appPath}`);
-  }
 
   logger.print(`[OWL] Found bundle id: ${bundleId}`);
 

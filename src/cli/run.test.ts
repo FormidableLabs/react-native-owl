@@ -23,7 +23,7 @@ describe('run.ts', () => {
         process.cwd(),
         '/ios/build/Build/Products/Debug-iphonesimulator'
       );
-      const appPath = path.join(cwd, 'RNDemo.app');
+      const plistPath = path.join(cwd, 'RNDemo.app', 'Info.plist');
 
       execMock.mockResolvedValueOnce(mockBundleIdResponse);
 
@@ -40,8 +40,8 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`,
-        { cwd }
+        `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
+        { cwd: '/usr/libexec', shell: true }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
@@ -81,8 +81,8 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `mdls -name kMDItemCFBundleIdentifier -r ${binaryPath}`,
-        { cwd }
+        `./PlistBuddy -c 'Print CFBundleIdentifier' ${binaryPath}/Info.plist`,
+        { cwd: '/usr/libexec', shell: true }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
@@ -102,33 +102,6 @@ describe('run.ts', () => {
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { stdio: 'ignore' }
       );
-    });
-
-    it('fails to get the bundle id of an iOS project', async () => {
-      const cwd = path.join(
-        process.cwd(),
-        '/ios/build/Build/Products/Debug-iphonesimulator'
-      );
-      const appPath = path.join(cwd, 'RNDemo.app');
-
-      execMock.mockResolvedValueOnce({ stdout: null } as ExecaReturnValue<any>);
-
-      const config: Config = {
-        ios: {
-          workspace: 'ios/RNDemo.xcworkspace',
-          scheme: 'RNDemo',
-          configuration: 'Debug',
-          device: 'iPhone Simulator',
-        },
-      };
-
-      const call = async () => await run.runIOS(config, logger);
-
-      await expect(call()).rejects.toThrow(
-        `Could not find bundle id for the path: ${appPath}`
-      );
-
-      expect(execMock).toHaveBeenCalledTimes(1);
     });
   });
 
