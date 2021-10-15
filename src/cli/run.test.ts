@@ -1,5 +1,5 @@
 import path from 'path';
-import execa, { ExecaSyncReturnValue } from 'execa';
+import execa, { ExecaReturnValue } from 'execa';
 
 import { CliRunOptions, Config } from './types';
 import { Logger } from '../logger';
@@ -9,19 +9,7 @@ import * as run from './run';
 describe('run.ts', () => {
   const logger = new Logger();
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
-  const commandSyncMock = jest.spyOn(execa, 'commandSync');
-
-  describe('getIOSBundleIdentifier', () => {
-    it('should return the bundle identifier', () => {
-      commandSyncMock.mockReturnValueOnce({
-        stdout: bundleIdIOS,
-      } as ExecaSyncReturnValue<any>);
-
-      const result = run.getIOSBundleIdentifier('./path/to/RNDemo.app');
-
-      expect(result).toBe(bundleIdIOS);
-    });
-  });
+  const mockBundleIdResponse = { stdout: bundleIdIOS } as ExecaReturnValue<any>;
 
   describe('runOS', () => {
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
@@ -37,9 +25,7 @@ describe('run.ts', () => {
       );
       const appPath = path.join(cwd, 'RNDemo.app');
 
-      jest
-        .spyOn(run, 'getIOSBundleIdentifier')
-        .mockReturnValueOnce(bundleIdIOS);
+      execMock.mockResolvedValueOnce(mockBundleIdResponse);
 
       const config: Config = {
         ios: {
@@ -54,32 +40,34 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
+        `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`,
+        { cwd }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        2,
         'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41',
         { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        3,
         'xcrun simctl install iPhone\\ Simulator RNDemo.app',
         { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        4,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { stdio: 'ignore' }
       );
-
-      expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(appPath);
     });
 
     it('runs an iOS project - with a custom build command and binaryPath', async () => {
-      const binaryPath = '/Users/Demo/Desktop/RNDemo.app';
+      const binaryPath = 'custom/path/RNDemo.app';
       const cwd = path.dirname(binaryPath);
 
-      jest
-        .spyOn(run, 'getIOSBundleIdentifier')
-        .mockReturnValueOnce(bundleIdIOS);
+      execMock.mockResolvedValueOnce(mockBundleIdResponse);
 
       const config: Config = {
         ios: {
@@ -93,23 +81,54 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
+        `mdls -name kMDItemCFBundleIdentifier -r ${binaryPath}`,
+        { cwd }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        2,
         'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41',
         { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        3,
         'xcrun simctl install iPhone\\ Simulator RNDemo.app',
         { cwd, stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        4,
         `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
         { stdio: 'ignore' }
       );
+    });
 
-      expect(run.getIOSBundleIdentifier).toHaveBeenCalledWith(binaryPath);
+    it('fails to get the bundle id of an iOS project', async () => {
+      const cwd = path.join(
+        process.cwd(),
+        '/ios/build/Build/Products/Debug-iphonesimulator'
+      );
+      const appPath = path.join(cwd, 'RNDemo.app');
+
+      execMock.mockResolvedValueOnce({ stdout: null } as ExecaReturnValue<any>);
+
+      const config: Config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'RNDemo',
+          configuration: 'Debug',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      const call = async () => await run.runIOS(config, logger);
+
+      await expect(call()).rejects.toThrow(
+        `Could not find bundle id for the path: ${appPath}`
+      );
+
+      expect(execMock).toHaveBeenCalledTimes(1);
     });
   });
 

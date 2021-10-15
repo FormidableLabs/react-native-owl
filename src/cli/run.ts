@@ -5,13 +5,6 @@ import { CliRunOptions, Config } from './types';
 import { getConfig } from './config';
 import { Logger } from '../logger';
 
-export const getIOSBundleIdentifier = (appPath: string): string => {
-  const { stdout } = execa.commandSync(
-    `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`
-  );
-  return stdout;
-};
-
 export const runIOS = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
   const DEFAULT_BINARY_DIR = `/ios/build/Build/Products/${config.ios?.configuration}-iphonesimulator`;
@@ -23,8 +16,18 @@ export const runIOS = async (config: Config, logger: Logger) => {
     ? path.basename(config.ios!.binaryPath)
     : `${config.ios!.scheme}.app`;
   const appPath = path.join(cwd, appFilename);
-  const bundleId = getIOSBundleIdentifier(appPath);
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
+
+  const { stdout: bundleId } = await execa.command(
+    `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`,
+    { cwd }
+  );
+
+  if (!bundleId) {
+    throw new Error(`Could not find bundle id for the path: ${appPath}`);
+  }
+
+  logger.print(`[OWL] Found bundle id: ${bundleId}`);
 
   const SIMULATOR_TIME = '9:41';
   const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
