@@ -19,10 +19,8 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/example/",
-      "/lib/"
+    "testMatch": [
+      "**/src/**/*.test.[jt]s"
     ]
   },
   "dependencies": {
