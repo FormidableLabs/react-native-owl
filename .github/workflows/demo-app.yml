@@ -124,12 +124,12 @@ jobs:
       - name: Emulator - Boot
         run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_30_AOSP &
 
-      - name: Emulator / ADB Root
-        run: adb root
-
       - name: Run Owl Build
         run: yarn owl:build:android
         working-directory: ./example
+
+      - name: Emulator / ADB Root
+        run: adb root
 
       - name: Run Owl Test
         run: yarn owl:test:android
