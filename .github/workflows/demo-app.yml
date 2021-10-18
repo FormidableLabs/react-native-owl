@@ -37,7 +37,7 @@ jobs:
         run: yarn install --frozen-lockfile
         working-directory: ./example
 
-      - name: Install CocoaPods
+      - name: Install CocoaPods Gem
         run: gem install cocoapods -v 1.11.0
 
       - uses: actions/cache@v2
@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Install CocoaPods
+      - name: Install Pods
         run: pod install
         working-directory: ./example/ios
 
@@ -113,7 +113,7 @@ jobs:
         run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-30;default;x86_64"
 
       - name: SDKs - accept licenses
-        run: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+        run: y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
       - name: Emulator - Create
         run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30_AOSP -d pixel --package "system-images;android-30;default;x86_64"
