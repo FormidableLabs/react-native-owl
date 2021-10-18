@@ -122,7 +122,7 @@ jobs:
         run: $ANDROID_HOME/emulator/emulator -list-avds
 
       - name: Emulator - Boot
-        run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_30_AOSP &
+        run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_28_AOSP &
 
       - name: Run Owl Build
         run: yarn owl:build:android
