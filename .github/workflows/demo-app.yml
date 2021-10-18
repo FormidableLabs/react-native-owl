@@ -116,12 +116,13 @@ jobs:
         run: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
       - name: Emulator - Create
-          $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_28_AOSP -d pixel --package "system-images;android-30;default;x86_64"
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_28_AOSP -d pixel --package "system-images;android-30;default;x86_64"
+
+      - name: Emulator - List
+        run: $ANDROID_HOME/emulator/emulator -list-avds
 
       - name: Emulator - Boot
-        run: |
-          $ANDROID_HOME/emulator/emulator -list-avds
-          $ANDROID_HOME/emulator/emulator -avd Pixel_API_30_AOSP &
+        run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_30_AOSP &
 
       - name: Run Owl Build
         run: yarn owl:build:android
