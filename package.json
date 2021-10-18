@@ -19,7 +19,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testRegex": "(/src/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$"
+    "testMatch": [
+      "**/src/**/*.test.[jt]s"
+    ]
   },
   "dependencies": {
     "ajv": "^7.0.3",

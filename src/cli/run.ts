@@ -2,15 +2,8 @@ import path from 'path';
 import execa from 'execa';
 
 import { CliRunOptions, Config } from './types';
-import { Logger } from '../logger';
 import { getConfig } from './config';
-
-export const getIOSBundleIdentifier = (appPath: string): string => {
-  const { stdout } = execa.commandSync(
-    `mdls -name kMDItemCFBundleIdentifier -r ${appPath}`
-  );
-  return stdout;
-};
+import { Logger } from '../logger';
 
 export const runIOS = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
@@ -22,9 +15,15 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const appFilename = config.ios!.binaryPath
     ? path.basename(config.ios!.binaryPath)
     : `${config.ios!.scheme}.app`;
-  const appPath = path.join(cwd, appFilename);
-  const bundleId = getIOSBundleIdentifier(appPath);
+  const plistPath = path.join(cwd, appFilename, 'Info.plist');
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
+
+  const { stdout: bundleId } = await execa.command(
+    `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
+    { shell: true, cwd: '/usr/libexec' }
+  );
+
+  logger.print(`[OWL] Found bundle id: ${bundleId}`);
 
   const SIMULATOR_TIME = '9:41';
   const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
@@ -35,6 +34,11 @@ export const runIOS = async (config: Config, logger: Logger) => {
 
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
   await execa.command(launchCommand, { stdio });
+
+  // Workaround to force the virtual home button's color to become consistent
+  const appearanceCommand = 'xcrun simctl ui booted appearance';
+  await execa.command(`${appearanceCommand} dark`, { stdio, cwd });
+  await execa.command(`${appearanceCommand} light`, { stdio, cwd });
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {

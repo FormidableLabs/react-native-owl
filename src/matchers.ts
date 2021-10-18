@@ -54,8 +54,7 @@ export const toMatchBaseline = (latestPath: string) => {
     latestImage.data,
     diffImage.data,
     baselineImage.width,
-    baselineImage.height,
-    { threshold: 0 }
+    baselineImage.height
   );
 
   if (diffPixelsCount === 0) {
