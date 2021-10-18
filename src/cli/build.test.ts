@@ -82,10 +82,13 @@ describe('build.ts', () => {
       await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug`, {
-        stdio: 'inherit',
-        cwd: path.join(process.cwd(), 'android'),
-      });
+      expect(execMock).toHaveBeenCalledWith(
+        `./gradlew assembleDebug --console plain`,
+        {
+          stdio: 'inherit',
+          cwd: path.join(process.cwd(), 'android'),
+        }
+      );
     });
 
     it('builds an Android project with the default build command - with the quiet arg', async () => {
@@ -99,10 +102,13 @@ describe('build.ts', () => {
       await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug --quiet`, {
-        stdio: 'inherit',
-        cwd: path.join(process.cwd(), 'android'),
-      });
+      expect(execMock).toHaveBeenCalledWith(
+        `./gradlew assembleDebug --console plain --quiet`,
+        {
+          stdio: 'inherit',
+          cwd: path.join(process.cwd(), 'android'),
+        }
+      );
     });
 
     it('builds an Android project with a custom build command', async () => {

@@ -40,6 +40,7 @@ export const buildAndroid = async (
         config.android?.buildType === 'Release'
           ? `assembleRelease`
           : 'assembleDebug',
+        '--console plain',
       ];
 
   if (!config.android?.buildCommand && config.android?.quiet) {

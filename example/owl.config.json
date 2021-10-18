@@ -9,7 +9,7 @@
   "android": {
     "packageName": "com.owldemo",
     "buildType": "Release",
-    "quiet": true
+    "quiet": false
   },
   "debug": true
 }
