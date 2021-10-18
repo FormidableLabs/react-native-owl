@@ -109,6 +109,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: SKDs - download required images
+        run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-30;default;x86_64"
+
+      - name: SDKs - accept licenses
+        run: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
+      - name: Emulator - Create
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30_AOSP -d pixel --package "system-images;android-30;default;x86_64"
+
+      - name: Emulator - Boot
+        run: emulator -avd Pixel_API_30_AOSP
+
       - name: Run Owl Build
         run: yarn owl:build:android
         working-directory: ./example
