@@ -16,6 +16,8 @@
   --ifm-code-font-size: 95%;
 
   --ifm-navbar-height: 4.25rem;
+
+  --ifm-h3-font-size: 2.2rem;
 }
 
 html[data-theme='dark'] {

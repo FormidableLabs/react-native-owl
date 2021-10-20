@@ -42,8 +42,8 @@ export const HomepageFeatures = () => {
     return (
       <section className="container" key={idx}>
         <div className={styles.feature}>
-          <h3 className="hero__title">{title}</h3>
-          <p>{description}</p>
+          <h3>{title}</h3>
+          <p className="hero__subtitle">{description}</p>
 
           <div className="padding--md">
             <Svg
