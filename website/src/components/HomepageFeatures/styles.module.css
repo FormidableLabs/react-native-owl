@@ -1,0 +1,18 @@
+.feature {
+  background-color: var(--ifm-color-secondary);
+  padding: 3rem;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.featureSvg {
+  width: 100%;
+  max-width: 10rem;
+  height: 10rem;
+}
+
+.visualExample {
+  width: 100%;
+  max-width: 35rem;
+  max-height: 15rem;
+}

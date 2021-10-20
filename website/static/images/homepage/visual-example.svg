@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1250 550" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="40" y="54" width="300" height="390" rx="8"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="300" height="390" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Base" transform="translate(0.000000, 53.000000)">
+            <text id="Title" font-family="ChalkboardSE-Regular, Chalkboard SE" font-size="35" font-weight="normal" fill="#000000">
+                <tspan x="126.41989" y="40">Baseline</tspan>
+            </text>
+            <rect id="Container" stroke="#333333" stroke-width="8" x="44" y="58" width="292" height="382" rx="8"></rect>
+            <rect id="Thumbnail" fill="#A5A5A5" x="73" y="87" width="80" height="75" rx="8"></rect>
+            <g id="Text" transform="translate(73.000000, 192.000000)" fill="#A5A5A5">
+                <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
+            </g>
+        </g>
+        <g id="New" transform="translate(435.000000, 53.000000)">
+            <text id="Title" font-family="ChalkboardSE-Regular, Chalkboard SE" font-size="35" font-weight="normal" fill="#000000">
+                <tspan x="141.812155" y="40">Latest</tspan>
+            </text>
+            <rect id="Container" stroke="#12A287" stroke-width="8" x="44" y="58" width="292" height="382" rx="8"></rect>
+            <rect id="Thumbnail" fill="#12A287" x="73" y="87" width="80" height="75" rx="8"></rect>
+            <g id="Text" transform="translate(73.000000, 192.000000)" fill="#12A287">
+                <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="90" width="234" height="25" rx="8"></rect>
+            </g>
+        </g>
+        <g id="Diff" transform="translate(870.000000, 53.000000)">
+            <text id="Title" font-family="ChalkboardSE-Regular, Chalkboard SE" font-size="35" font-weight="normal" fill="#000000">
+                <tspan x="160.723757" y="40">Diff</tspan>
+            </text>
+            <use id="Container" stroke="#CA3E74" mask="url(#mask-2)" stroke-width="16" stroke-dasharray="30" xlink:href="#path-1"></use>
+            <rect id="Thumbnail" fill="#12A287" x="73" y="87" width="80" height="75" rx="8"></rect>
+            <rect id="Thumbnail" fill="#D15B8B" opacity="0.751074" x="73" y="87" width="150" height="75" rx="8"></rect>
+            <g id="Text-Diff" transform="translate(73.000000, 192.000000)" fill="#A5A5A5">
+                <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
+            </g>
+            <g id="Text-Base" opacity="0.75" transform="translate(73.000000, 192.000000)" fill="#D15B8B">
+                <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="90" width="234" height="25" rx="8"></rect>
+            </g>
+        </g>
+        <g id="Arrows" transform="translate(370.000000, 283.000000)" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+            <g id="Arrow" transform="translate(-0.000000, -0.000000)">
+                <path d="M4.26325641e-14,44.916 C2.254,29.168 7.447,23.106 23.566,23.482 C46.395,24.015 60.049,19.261 77.501,3.916" id="Path"></path>
+                <path d="M78.423,11.755 C77.831,7.407 80.717,4.189 80.977,0 C77.98,1.132 71.802,3.154 68.517,2.399" id="Path"></path>
+            </g>
+            <g id="Arrow" transform="translate(430.000000, -0.000000)">
+                <path d="M4.26325641e-14,44.916 C2.254,29.168 7.447,23.106 23.566,23.482 C46.395,24.015 60.049,19.261 77.501,3.916" id="Path"></path>
+                <path d="M78.423,11.755 C77.831,7.407 80.717,4.189 80.977,0 C77.98,1.132 71.802,3.154 68.517,2.399" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

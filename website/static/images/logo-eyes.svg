@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 155 98" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>logo-eyes</title>
+    <g id="logo-eyes" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(0.000000, -1.000000)">
+            <g transform="translate(0.000000, 1.000000)">
+                <g id="Nose" transform="translate(64.000000, 47.792496)">
+                    <polygon id="Triangle" fill="#000000" transform="translate(14.000000, 35.000000) scale(1, -1) translate(-14.000000, -35.000000) " points="14 20 28 50 0 50"></polygon>
+                    <polygon id="Triangle" fill="#6D734F" opacity="0.5" transform="translate(14.000000, 35.000000) scale(1, -1) translate(-14.000000, -35.000000) " points="14 20 28 50 0 50"></polygon>
+                    <polygon id="Triangle" fill="#6D734F" transform="translate(14.000000, 10.000000) scale(-1, 1) translate(-14.000000, -10.000000) " points="14 0 28 20 -5.05151476e-15 20"></polygon>
+                </g>
+                <g id="Eyes" transform="translate(0.000000, 0.000000)">
+                    <g id="Eye-/-Right">
+                        <circle id="Oval" fill="#6D734F" cx="32.5" cy="32.5" r="32.5"></circle>
+                        <circle id="Oval---BL" fill="#000000" cx="32.5" cy="32.5" r="22.5"></circle>
+                        <circle id="Oval" fill="#6D734F" opacity="0.5" cx="32.5" cy="32.5" r="22.5"></circle>
+                        <circle id="Oval" fill="#6D734F" cx="32.5" cy="32.5" r="12.5"></circle>
+                    </g>
+                    <g id="Eye-/-Left" transform="translate(90.000000, 0.000000)">
+                        <circle id="Oval" fill="#6D734F" cx="32.5" cy="32.5" r="32.5"></circle>
+                        <circle id="Oval---BL" fill="#000000" cx="32.5" cy="32.5" r="22.5"></circle>
+                        <circle id="Oval" fill="#6D734F" opacity="0.5" cx="32.5" cy="32.5" r="22.5"></circle>
+                        <circle id="Oval" fill="#6D734F" cx="32.5" cy="32.5" r="12.5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
