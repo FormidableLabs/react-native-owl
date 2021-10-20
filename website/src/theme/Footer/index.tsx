@@ -47,7 +47,7 @@ export default function Footer() {
 
       <div className="container container--fluid">
         <small className="footer__copyright">
-          Copyright © ${new Date().getFullYear()} Formidable Labs, LLC.
+          Copyright © {new Date().getFullYear()} Formidable Labs, LLC.
         </small>
       </div>
     </footer>

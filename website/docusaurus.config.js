@@ -27,6 +27,12 @@ const config = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/FormidableLabs/react-native-owl/edit/main/website/',
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
+          ],
+        },
+        pages: {
+          remarkPlugins: [require('@docusaurus/remark-plugin-npm2yarn')],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
