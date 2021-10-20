@@ -4,8 +4,7 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+  padding: 2rem 0 4rem;
   position: relative;
   overflow: hidden;
 }
@@ -19,5 +18,16 @@
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.logoBadge {
+  max-width: 8rem;
+  margin-bottom: 0.75rem;
+}
+
+@media screen and (min-width: 1025px) {
+  .codeSampleWrapper {
+    display: flex;
+    align-items: center;
+  }
 }

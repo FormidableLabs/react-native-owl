@@ -39,7 +39,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: 'light',
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
@@ -79,55 +79,45 @@ const config = {
           },
           {
             href: 'https://github.com/FormidableLabs/react-native-owl',
-            label: 'GitHub',
+
+            className: 'header-github-link',
+            'aria-label': 'GitHub Repository',
             position: 'right',
           },
         ],
       },
       footer: {
         style: 'dark',
+        logo: {
+          href: 'https://www.formidable.com/',
+        },
         links: [
           {
-            title: 'Docs',
+            title: null,
             items: [
               {
-                label: 'Tutorial',
+                label: 'Getting Started',
                 to: '/docs/introduction/getting-started',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Config File',
+                to: '/docs/introduction/config-file/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'CLI',
+                to: '/docs/cli/build/',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
+                label: 'Methods',
+                to: '/docs/api/methods/',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/FormidableLabs/react-native-owl',
+                label: 'Matchers',
+                to: '/docs/api/matchers/',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} React Native Owl. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
