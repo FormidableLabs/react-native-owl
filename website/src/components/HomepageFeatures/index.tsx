@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: 'Take screenshots from your app',
     Svg: require('../../../static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
@@ -15,7 +15,7 @@ const FeatureList = [
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Compare screenshots taken',
     Svg: require('../../../static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
@@ -25,8 +25,9 @@ const FeatureList = [
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('../../../static/img/undraw_docusaurus_react.svg').default,
+    title: 'Find the differences',
+    Svg: require('../../../static/images/homepage/visual-example.svg').default,
+    svgClassName: styles.visualExample,
     description: (
       <>
         Extend or customize your website layout by reusing React. Docusaurus can
@@ -36,30 +37,22 @@ const FeatureList = [
   },
 ];
 
-function Feature({ Svg, title, description }) {
-  return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} alt={title} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-    </div>
-  );
-}
-
 export const HomepageFeatures = () => {
-  return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
+  return FeatureList.map(({ Svg, svgClassName, title, description }, idx) => {
+    return (
+      <section className="container" key={idx}>
+        <div className={styles.feature}>
+          <h3 className="hero__title">{title}</h3>
+          <p>{description}</p>
+
+          <div className="padding--md">
+            <Svg
+              className={svgClassName ? svgClassName : styles.featureSvg}
+              alt={title}
+            />
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  });
 };

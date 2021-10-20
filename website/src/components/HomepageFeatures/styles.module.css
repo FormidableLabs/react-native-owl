@@ -1,11 +1,18 @@
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+.feature {
+  background-color: var(--ifm-color-secondary);
+  padding: 3rem;
+  margin: 1rem auto;
+  text-align: center;
 }
 
 .featureSvg {
-  height: 200px;
-  width: 200px;
+  width: 100%;
+  max-width: 10rem;
+  height: 10rem;
+}
+
+.visualExample {
+  width: 100%;
+  max-width: 35rem;
+  max-height: 15rem;
 }

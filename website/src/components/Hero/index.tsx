@@ -36,13 +36,11 @@ export const Hero = () => {
               </Link>
             </div>
           </div>
-          {/* <div className="col col--6"> */}
-          <div className={clsx('col col--6', styles.exampleWrapper)}>
-            <div className="padding-vert--md">
-              <CodeBlock title="App.owl.ts" className="typescript">
-                {heroExample}
-              </CodeBlock>
-            </div>
+
+          <div className={clsx('col col--6', styles.codeSampleWrapper)}>
+            <CodeBlock title="App.owl.ts" className="typescript">
+              {heroExample}
+            </CodeBlock>
           </div>
         </div>
       </div>
