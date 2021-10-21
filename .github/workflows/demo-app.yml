@@ -52,8 +52,8 @@ jobs:
 
       - uses: futureware-tech/simulator-action@v1
         with:
-          model: 'iPhone 12 Pro'
-          os_version: '=14.5'
+          model: 'iPhone 13 Pro'
+          os_version: '=15.0'
 
       - name: Run Owl Build
         run: yarn owl:build:ios
@@ -65,6 +65,7 @@ jobs:
 
       - name: Store screenshots as artifacts
         uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: owl-screenshots
           path: example/.owl
