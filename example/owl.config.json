@@ -10,5 +10,6 @@
     "packageName": "com.owldemo",
     "quiet": true
   },
-  "debug": true
+  "debug": true,
+  "report": true
 }

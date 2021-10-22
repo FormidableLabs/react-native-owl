@@ -26,6 +26,7 @@
   "dependencies": {
     "ajv": "^7.0.3",
     "execa": "^5.1.1",
+    "handlebars": "^4.7.7",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",
     "yargs": "^17.2.1"
