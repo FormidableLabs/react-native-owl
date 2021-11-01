@@ -24,9 +24,6 @@
     ]
   },
   "dependencies": {
-    "@parcel/config-default": "^2.0.0",
-    "@parcel/core": "^2.0.0",
-    "@parcel/fs": "^2.0.0",
     "ajv": "^7.0.3",
     "execa": "^5.1.1",
     "handlebars": "^4.7.7",
