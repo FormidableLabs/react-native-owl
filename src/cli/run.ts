@@ -88,8 +88,6 @@ export const runHandler = async (args: CliRunOptions) => {
   logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
   logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
 
-  return await generateReport(logger);
-
   try {
     await execa.commandSync(jestCommand, {
       stdio: 'inherit',
@@ -101,7 +99,7 @@ export const runHandler = async (args: CliRunOptions) => {
     });
   } catch (err) {
     if (config.report) {
-      await generateReport(logger);
+      await generateReport(logger, args.platform);
     }
 
     throw err;

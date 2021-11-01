@@ -3,9 +3,13 @@ import handlebars from 'handlebars';
 import { promises as fs } from 'fs';
 
 import { Logger } from '../logger';
+import { Platform } from './types';
 
-export const generateReport = async (logger: Logger) => {
-  const reportDirPath = path.join(process.cwd(), '.owl', 'report');
+export const generateReport = async (logger: Logger, platform: Platform) => {
+  const cwd = process.cwd();
+  const reportDirPath = path.join(cwd, '.owl', 'report');
+  const screenshotsDirPath = path.join(cwd, '.owl', 'latest', platform);
+  const screenshots = await fs.readdir(screenshotsDirPath);
 
   logger.print(`[OWL] Generating Report`);
 
@@ -16,6 +20,8 @@ export const generateReport = async (logger: Logger) => {
   const htmlContent = templateScript({
     currentYear: new Date().getFullYear(),
     currentDateTime: new Date().toISOString(),
+    platform,
+    screenshots,
   });
   await fs.mkdir(reportDirPath, { recursive: true });
   const reportFilePath = path.join(reportDirPath, 'index.html');

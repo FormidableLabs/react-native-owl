@@ -193,76 +193,80 @@
       </div>
     </div>
 
-    <section class="bg-gray-200">
-      <div
-        class="
-          container
-          mx-auto
-          py-4
-          lg:py-8
-          px-2
-          sm:px-6
-          lg:px-8
-          space-y-4
-          lg:space-y-8
-        "
-      >
-        <h3
-          class="
-            text-2xl
-            sm:text-3xl
-            md:text-4xl
-            leading-snug
-            font-extrabold
-            tracking-tight
-            text-gray-700
-          "
-        >
-          Homepage
-        </h3>
-
+    <main class="space-y-12">
+      {{#each screenshots}}
+      <section class="bg-gray-200">
         <div
           class="
-            flex-1 flex flex-col
-            items-center
-            lg:flex-row
-            justify-center
-            bg-gray-200
-            space-y-8
-            lg:space-y-12 lg:space-x-8
+            container
+            mx-auto
+            py-4
+            lg:py-8
+            px-2
+            sm:px-6
+            lg:px-8
+            space-y-4
+            lg:space-y-8
           "
         >
-          <div class="space-y-2">
-            <h4 class="text-xl font-mono font-semibold">Baseline</h4>
-            <img
-              class="width-auto max-w-xs h-auto"
-              src="https://i.imgur.com/lsp0RCN.png"
-              alt="Baseline screenshot for Homepage"
-            />
-          </div>
+          <h3
+            class="
+              text-2xl
+              sm:text-3xl
+              md:text-4xl
+              leading-snug
+              font-extrabold
+              tracking-tight
+              text-gray-700
+            "
+          >
+            {{this}}
+          </h3>
 
-          <div class="space-y-2">
-            <h4 class="text-xl font-mono font-semibold">Diff</h4>
-            <img
-              class="width-auto max-w-xs h-auto"
-              src="https://i.imgur.com/BMj2OGt.png"
-              alt="Diff screenshot for Homepage"
-            />
-          </div>
+          <div
+            class="
+              flex-1 flex flex-col
+              items-center
+              lg:flex-row
+              justify-center
+              bg-gray-200
+              space-y-8
+              lg:space-y-12 lg:space-x-8
+            "
+          >
+            <div class="space-y-2">
+              <h4 class="text-xl font-mono font-semibold">Baseline</h4>
+              <img
+                class="width-auto max-w-xs h-auto"
+                src="../baseline/{{../platform}}/{{this}}"
+                alt="Baseline screenshot for Homepage"
+              />
+            </div>
 
-          <div class="space-y-2">
-            <h4 class="text-xl font-mono font-semibold">Latest</h4>
-            <img
-              class="width-auto max-w-xs h-auto"
-              src="https://i.imgur.com/ELGcdSe.png"
-              alt="Latest screenshot for Homepage"
-            />
+            <div class="space-y-2">
+              <h4 class="text-xl font-mono font-semibold">Diff</h4>
+              <img
+                class="width-auto max-w-xs h-auto"
+                src="../diff/{{../platform}}/{{this}}"
+                alt="Diff screenshot for Homepage"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xl font-mono font-semibold">Latest</h4>
+              <img
+                class="width-auto max-w-xs h-auto"
+                src="../latest/{{../platform}}/{{this}}"
+                alt="Latest screenshot for Homepage"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      {{/each}}
+    </main>
 
-    <footer class="bg-gray-100 text-gray-800 text-sm py-10 px-3 mt-16">
+    <footer class="bg-gray-100 text-gray-800 text-sm py-10 px-3">
       <div class="container mx-auto flex flex-col items-center">
         <svg
           class="header__StyledFormidableLogoIcon-hmlbf4-2 ilEIvp"
