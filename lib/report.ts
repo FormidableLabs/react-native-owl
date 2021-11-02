@@ -15,8 +15,7 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
 
   const reportFilename = 'index.html';
   const entryFile = path.join(__dirname, 'report', reportFilename);
-
-  const htmlTemplate = await fs.readFile(entryFile, 'utf-8'); // FIXME! File not copied into /lib
+  const htmlTemplate = await fs.readFile(entryFile, 'utf-8');
   const templateScript = handlebars.compile(htmlTemplate);
   const htmlContent = templateScript({
     currentYear: new Date().getFullYear(),
@@ -24,6 +23,7 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
     platform,
     screenshots,
   });
+
   await fs.mkdir(reportDirPath, { recursive: true });
   const reportFilePath = path.join(reportDirPath, 'index.html');
   await fs.writeFile(reportFilePath, htmlContent);
