@@ -1,7 +1,7 @@
 import path from 'path';
 import execa, { ExecaReturnValue } from 'execa';
 
-import { CliRunOptions, Config } from './types';
+import { CliRunOptions, Config } from '../types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
@@ -197,7 +197,7 @@ describe('run.ts', () => {
 
     const expectedJestCommand = `jest --config=${path.join(
       process.cwd(),
-      'src',
+      'lib',
       'jest-config.json'
     )} --roots=${path.join(process.cwd())} --runInBand`;
 

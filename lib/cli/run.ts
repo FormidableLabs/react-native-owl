@@ -1,8 +1,8 @@
 import path from 'path';
 import execa from 'execa';
 
-import { CliRunOptions, Config } from './types';
-import { generateReport } from './report';
+import { CliRunOptions, Config } from '../types';
+import { generateReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
 

@@ -54,4 +54,4 @@ typings/
 .env*.local
 
 # generated js
-lib
+dist/

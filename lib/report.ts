@@ -2,7 +2,7 @@ import path from 'path';
 import handlebars from 'handlebars';
 import { promises as fs } from 'fs';
 
-import { Logger } from '../logger';
+import { Logger } from './logger';
 import { Platform } from './types';
 
 export const generateReport = async (logger: Logger, platform: Platform) => {
