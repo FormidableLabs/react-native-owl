@@ -11,10 +11,11 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   const screenshotsDirPath = path.join(cwd, '.owl', 'latest', platform);
   const screenshots = await fs.readdir(screenshotsDirPath);
 
-  logger.print(`[OWL] Generating Report`);
+  logger.info(`[OWL] Generating Report`);
 
   const reportFilename = 'index.html';
   const entryFile = path.join(__dirname, 'report', reportFilename);
+
   const htmlTemplate = await fs.readFile(entryFile, 'utf-8'); // FIXME! File not copied into /lib
   const templateScript = handlebars.compile(htmlTemplate);
   const htmlContent = templateScript({
