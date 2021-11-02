@@ -1,5 +1,6 @@
 import execa from 'execa';
 import path from 'path';
+import { promises as fs } from 'fs';
 
 import { takeScreenshot } from './take-screenshot';
 import * as fileExistsHelpers from './utils/file-exists';
@@ -8,6 +9,11 @@ const SCREENSHOT_FILENAME = 'screen';
 
 describe('take-screenshot.ts', () => {
   const commandMock = jest.spyOn(execa, 'command');
+  const mkdirMock = jest.spyOn(fs, 'mkdir').mockImplementation();
+
+  const cwdMock = jest
+    .spyOn(process, 'cwd')
+    .mockReturnValue('/Users/johndoe/Projects/my-project');
 
   beforeAll(() => {
     delete process.env.OWL_PLATFORM;
@@ -16,6 +22,11 @@ describe('take-screenshot.ts', () => {
 
   beforeEach(() => {
     commandMock.mockReset();
+    mkdirMock.mockReset();
+  });
+
+  afterAll(() => {
+    cwdMock.mockRestore();
   });
 
   describe('Baseline', () => {
@@ -40,6 +51,16 @@ describe('take-screenshot.ts', () => {
             stdio: 'ignore',
           }
         );
+        expect(mkdirMock).toHaveBeenNthCalledWith(
+          1,
+          '/Users/johndoe/Projects/my-project/.owl',
+          { recursive: true }
+        );
+        expect(mkdirMock).toHaveBeenNthCalledWith(
+          2,
+          '/Users/johndoe/Projects/my-project/.owl/baseline/ios',
+          { recursive: true }
+        );
       });
     });
 
@@ -59,6 +80,16 @@ describe('take-screenshot.ts', () => {
             shell: true,
             stdio: 'ignore',
           }
+        );
+        expect(mkdirMock).toHaveBeenNthCalledWith(
+          1,
+          '/Users/johndoe/Projects/my-project/.owl',
+          { recursive: true }
+        );
+        expect(mkdirMock).toHaveBeenNthCalledWith(
+          2,
+          '/Users/johndoe/Projects/my-project/.owl/baseline/android',
+          { recursive: true }
         );
       });
     });
