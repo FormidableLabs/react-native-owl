@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import Ajv, { ErrorObject, JSONSchemaType } from 'ajv';
 
-import { Config } from './types';
+import { Config } from '../types';
 
 export const validateSchema = (config: {}): Promise<Config> => {
   const configSchema: JSONSchemaType<Config> = {

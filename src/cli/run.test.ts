@@ -1,7 +1,7 @@
 import path from 'path';
 import execa, { ExecaReturnValue } from 'execa';
 
-import { CliRunOptions, Config } from './types';
+import { CliRunOptions, Config } from '../types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
