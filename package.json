@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "postbuild": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
@@ -31,6 +32,7 @@
   "dependencies": {
     "ajv": "^7.0.3",
     "execa": "^5.1.1",
+    "handlebars": "^4.7.7",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",
     "yargs": "^17.2.1"

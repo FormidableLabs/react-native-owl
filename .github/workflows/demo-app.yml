@@ -63,9 +63,9 @@ jobs:
         run: yarn owl:test:ios
         working-directory: ./example
 
-      - name: Store screenshots as artifacts
+      - name: Store screenshots and report as artifacts
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: owl-screenshots
+          name: owl-results
           path: example/.owl

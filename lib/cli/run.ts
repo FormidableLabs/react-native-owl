@@ -2,6 +2,7 @@ import path from 'path';
 import execa from 'execa';
 
 import { CliRunOptions, Config } from '../types';
+import { generateReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
 
@@ -87,14 +88,22 @@ export const runHandler = async (args: CliRunOptions) => {
   logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
   logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
 
-  await execa.commandSync(jestCommand, {
-    stdio: 'inherit',
-    env: {
-      OWL_PLATFORM: args.platform,
-      OWL_DEBUG: String(!!config.debug),
-      OWL_UPDATE_BASELINE: String(!!args.update),
-    },
-  });
+  try {
+    await execa.commandSync(jestCommand, {
+      stdio: 'inherit',
+      env: {
+        OWL_PLATFORM: args.platform,
+        OWL_DEBUG: String(!!config.debug),
+        OWL_UPDATE_BASELINE: String(!!args.update),
+      },
+    });
+  } catch (err) {
+    if (config.report) {
+      await generateReport(logger, args.platform);
+    }
+
+    throw err;
+  }
 
   logger.print(`[OWL] Tests completed on ${args.platform}.`);
   if (args.update) {

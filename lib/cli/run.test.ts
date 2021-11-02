@@ -5,6 +5,7 @@ import { CliRunOptions, Config } from '../types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
+import * as reportHelpers from '../report';
 
 describe('run.ts', () => {
   const logger = new Logger();
@@ -202,11 +203,13 @@ describe('run.ts', () => {
     )} --roots=${path.join(process.cwd())} --runInBand`;
 
     const commandSyncMock = jest.spyOn(execa, 'commandSync');
+    const mockGenerateReport = jest.spyOn(reportHelpers, 'generateReport');
 
     jest.spyOn(Logger.prototype, 'print').mockImplementation();
 
     beforeEach(() => {
       commandSyncMock.mockReset();
+      mockGenerateReport.mockReset();
     });
 
     it('runs an iOS project', async () => {
@@ -247,7 +250,7 @@ describe('run.ts', () => {
       });
     });
 
-    it('runs with the the update baseline flag on', async () => {
+    it('runs with the update baseline flag on', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
       const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
 
@@ -263,6 +266,62 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
+    });
+
+    it('runs generates the report if the config is set to on', async () => {
+      const caseConfig: Config = {
+        ...config,
+        report: true,
+      };
+
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(caseConfig);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      commandSyncMock.mockRejectedValueOnce(undefined!);
+
+      try {
+        await run.runHandler({ ...args, update: true });
+      } catch {
+        await expect(mockRunIOS).toHaveBeenCalled();
+        await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+        await expect(mockGenerateReport).toHaveBeenCalledTimes(1);
+      }
+    });
+
+    it('does not generate the report if the config is set to off', async () => {
+      const caseConfig: Config = {
+        ...config,
+        report: false,
+      };
+
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(caseConfig);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      commandSyncMock.mockRejectedValueOnce(undefined!);
+
+      try {
+        await run.runHandler({ ...args, update: true });
+      } catch {
+        await expect(mockRunIOS).toHaveBeenCalled();
+        await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+        await expect(mockGenerateReport).not.toHaveBeenCalled();
+      }
+    });
+
+    it('does not generate the report if the tests pass', async () => {
+      const caseConfig: Config = {
+        ...config,
+        report: true,
+      };
+
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(caseConfig);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      await run.runHandler({ ...args, update: true });
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(mockGenerateReport).not.toHaveBeenCalled();
     });
   });
 });

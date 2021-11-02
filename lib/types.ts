@@ -44,6 +44,8 @@ type ConfigAndroid = {
 export type Config = {
   ios?: ConfigIOS;
   android?: ConfigAndroid;
+  /** Generate an HTML report, displaying the baseline, latest & diff images. */
+  report?: boolean;
   /** Prevents the CLI/library from printing any logs/output. */
   debug?: boolean;
 };

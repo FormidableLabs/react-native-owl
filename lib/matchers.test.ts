@@ -15,6 +15,7 @@ describe('matchers.ts', () => {
   const imageHello2Data = `iVBORw0KGgoAAAANSUhEUgAAACUAAAALCAYAAAD4OERFAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAJaADAAQAAAABAAAACwAAAADN8bJQAAABsklEQVQ4Ec2UOyhFcRzHj1d5lEEhogyKQqEMyioDxYJBCoMMsngslDvYDQyUYlJsHimURZJQSi6RV15ZxGD0+Hxv///pdDq3bnfhW5/7e/3/5/4fv3Mcx3ESIAX+lWpZzWkcK7pmTiVUw1Uc83uYswZL0ALuwSQT/IXa+dNxgzY3DbkwC06ifpCuMAR3cATlYNWLEzYM2GQUq+dNwDM8wRjo2X7Vk5iEBdiFOWgDV7q+b5iCCliEFZCa4RYaQLVz6AAp6Pr6yR9CIZSAxneBX/kkMjzJZfyQJ3a0qHewp1aHf2kGbGGHjC/TB3bBQYs6od6tgUZa5KYNAmw6uRm4B20kIttTOm6dlvQJaRHPcYqxNTBiYjXjhfGDTBHJA0/hBj/bE3vdMoJ1ULtUwRtEZE/nyyZ89oNYu80x5GEbIZrOKBR4irrCfU9sXW12FYahFdwF4btXJj9IOyT1pqQa5rGDEE3aeSdovBq8CbbBr1ES+hRsgK5QaI4r9ZT3O6WjfDDVLOwevMArqMcyQQrqKZ1SGB5B16xF2lbAdaXaj49jtxqDox3ruEUsSmJQKegNi0u/XtRShUjycDoAAAAASUVORK5CYII=`;
   const imageHello2Buffer = Buffer.from(imageHello2Data, 'base64');
 
+  const mkdirSyncMock = jest.spyOn(fs, 'mkdirSync').mockImplementation();
   const readFileMock = jest.spyOn(fs, 'readFileSync');
   const writeFileMock = jest.spyOn(fs, 'writeFileSync');
 
@@ -28,6 +29,7 @@ describe('matchers.ts', () => {
 
   describe('toMatchBaseline.ts', () => {
     beforeEach(() => {
+      mkdirSyncMock.mockReset();
       readFileMock.mockReset();
       writeFileMock.mockReset();
     });
