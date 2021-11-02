@@ -14,7 +14,7 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   logger.print(`[OWL] Generating Report`);
 
   const reportFilename = 'index.html';
-  const entryFile = path.join(__dirname, `../../src/report/${reportFilename}`);
+  const entryFile = path.join(__dirname, 'report', reportFilename);
   const htmlTemplate = await fs.readFile(entryFile, 'utf-8'); // FIXME! File not copied into /lib
   const templateScript = handlebars.compile(htmlTemplate);
   const htmlContent = templateScript({

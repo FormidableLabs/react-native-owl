@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "postbuild": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",

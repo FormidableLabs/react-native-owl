@@ -182,6 +182,8 @@ describe('config.ts', () => {
         android: {
           packageName: 'com.rndemo',
         },
+        debug: false,
+        report: true,
       };
 
       const filePath = './owl.config.json';
