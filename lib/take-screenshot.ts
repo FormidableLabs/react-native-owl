@@ -4,7 +4,7 @@ import path from 'path';
 
 import { fileExists } from './utils/file-exists';
 import { Logger } from './logger';
-import { Platform } from './cli/types';
+import { Platform } from './types';
 
 /**
  * Takes a screenshot from the simulator.

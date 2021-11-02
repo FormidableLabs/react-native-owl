@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 
-import { Config } from './types';
+import { Config } from '../types';
 import { getConfig, readConfigFile, validateSchema } from './config';
 
 describe('config.ts', () => {

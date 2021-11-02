@@ -3,7 +3,7 @@ import path from 'path';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 
-import { Platform } from './cli/types';
+import { Platform } from './types';
 
 declare global {
   namespace jest {

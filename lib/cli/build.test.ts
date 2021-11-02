@@ -2,7 +2,7 @@ import path from 'path';
 import execa from 'execa';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
-import { CliBuildOptions, Config } from './types';
+import { CliBuildOptions, Config } from '../types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
 
