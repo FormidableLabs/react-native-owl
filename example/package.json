@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "owl": "node ../lib/cli/index.js",
+    "owl": "node ../dist/cli/index.js",
     "owl:build:ios": "yarn owl build --platform ios",
     "owl:test:ios": "yarn owl test --platform ios",
     "owl:build:android": "yarn owl build --platform android",
