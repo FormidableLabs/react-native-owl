@@ -1,5 +1,6 @@
-import { promises as fs } from 'fs';
+import process from 'process';
 import handlebars from 'handlebars';
+import { promises as fs } from 'fs';
 
 import { Logger } from './logger';
 import { generateReport } from './report';
@@ -19,6 +20,10 @@ describe('report.ts', () => {
     .spyOn(handlebars, 'compile')
     .mockImplementationOnce(() => () => '<h1>Hello World Compiled</h1>');
 
+  const cwdMock = jest
+    .spyOn(process, 'cwd')
+    .mockReturnValue('/Users/johndoe/Projects/my-project');
+
   beforeAll(() => {
     readdirMock.mockReset();
     mkdirMock.mockReset();
@@ -27,19 +32,22 @@ describe('report.ts', () => {
     writeFileMock.mockReset();
   });
 
+  afterAll(() => {
+    cwdMock.mockRestore();
+  });
+
   it('should get the screenshots and create the html report', async () => {
     readFileMock.mockResolvedValueOnce(htmlTemplate);
     mkdirMock.mockResolvedValueOnce(undefined);
 
     await generateReport(logger, 'ios');
 
-    expect(readFileMock).toHaveBeenCalledWith(
-      '/Users/manos/Projects/react-native-owl/lib/report/index.html',
-      'utf-8'
+    expect(readdirMock).toHaveBeenCalledWith(
+      '/Users/johndoe/Projects/my-project/.owl/latest/ios'
     );
     expect(handlebarsCompileMock).toHaveBeenCalledTimes(1);
     expect(writeFileMock).toHaveBeenCalledWith(
-      '/Users/manos/Projects/react-native-owl/.owl/report/index.html',
+      '/Users/johndoe/Projects/my-project/.owl/report/index.html',
       '<h1>Hello World Compiled</h1>'
     );
   });
