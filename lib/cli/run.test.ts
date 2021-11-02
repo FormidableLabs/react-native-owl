@@ -197,7 +197,7 @@ describe('run.ts', () => {
 
     const expectedJestCommand = `jest --config=${path.join(
       process.cwd(),
-      'src',
+      'lib',
       'jest-config.json'
     )} --roots=${path.join(process.cwd())} --runInBand`;
 
