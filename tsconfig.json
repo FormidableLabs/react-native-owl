@@ -6,12 +6,12 @@
 
     /* Modules */
     "module": "commonjs",                                /* Specify what module code is generated. */
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    "rootDir": "./lib",                                  /* Specify the root folder within your source files. */
     "resolveJsonModule": true,                           /* Enable importing .json files */
 
     /* Emit */
     "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-    "outDir": "./lib",                                   /* Specify an output folder for all emitted files. */
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
 
     /* Interop Constraints */
     "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
@@ -23,5 +23,6 @@
     "strictNullChecks": true,                            /* When type checking, take into account `null` and `undefined`. */
     "noUnusedLocals": true,                              /* Enable error reporting when a local variables aren't read. */
   },
-  "include": ["src/**/*", "src/jest-config.json"]
+  "include": ["lib/**/*", "lib/jest-config.json"],
+  "exclude": ["node_modules", "dist"]
 }

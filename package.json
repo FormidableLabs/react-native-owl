@@ -2,20 +2,20 @@
   "name": "react-native-owl",
   "version": "0.0.1",
   "description": "Visual regression testing for React Native",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "owl": "./lib/cli/index.js"
+    "owl": "./dist/cli/index.js"
   },
   "files": [
-    "lib/",
+    "dist/",
     "README.md"
   ],
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "prettier:check": "prettier --check 'src/**/*.{js,ts,tsx}'",
-    "prettier:apply": "prettier --write 'src/**/*.{js,ts,tsx}'",
+    "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
+    "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
     "test": "yarn jest"
   },
   "repository": "https://github.com/FormidableLabs/react-native-owl.git",
@@ -25,7 +25,7 @@
     "preset": "ts-jest",
     "testEnvironment": "node",
     "testMatch": [
-      "**/src/**/*.test.[jt]s"
+      "**/lib/**/*.test.[jt]s"
     ]
   },
   "dependencies": {
