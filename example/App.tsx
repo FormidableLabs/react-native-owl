@@ -26,11 +26,13 @@ import {
   Header,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { About } from './src/About';
 
 const Section: React.FC<{
   title: string;
 }> = ({ children, title }) => {
   const isDarkMode = useColorScheme() === 'dark';
+
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -59,13 +61,18 @@ const Section: React.FC<{
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [showAbout, setShowAbout] = React.useState(false);
+
+  if (showAbout) {
+    return <About onClose={() => setShowAbout(false)} />;
+  }
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   return (
-    <SafeAreaView style={{ ...backgroundStyle, flex: 1 }}>
+    <SafeAreaView style={[styles.container, backgroundStyle]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -95,7 +102,7 @@ const App = () => {
             <Pressable
               style={styles.button}
               testID="ABOUT_BUTTON"
-              onPress={() => console.log('HELLO')}
+              onPress={() => setShowAbout(true)}
             >
               <Text style={styles.buttonText}>about ›</Text>
             </Pressable>
@@ -107,6 +114,9 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
