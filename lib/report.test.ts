@@ -43,7 +43,7 @@ describe('report.ts', () => {
     await generateReport(logger, 'ios');
 
     expect(readdirMock).toHaveBeenCalledWith(
-      '/Users/johndoe/Projects/my-project/.owl/latest/ios'
+      '/Users/johndoe/Projects/my-project/.owl/diff/ios'
     );
     expect(handlebarsCompileMock).toHaveBeenCalledTimes(1);
     expect(writeFileMock).toHaveBeenCalledWith(
