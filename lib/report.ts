@@ -8,8 +8,8 @@ import { Platform } from './types';
 export const generateReport = async (logger: Logger, platform: Platform) => {
   const cwd = process.cwd();
   const reportDirPath = path.join(cwd, '.owl', 'report');
-  const screenshotsDirPath = path.join(cwd, '.owl', 'latest', platform);
-  const screenshots = await fs.readdir(screenshotsDirPath);
+  const diffScreenshotsDirPath = path.join(cwd, '.owl', 'diff', platform);
+  const screenshots = await fs.readdir(diffScreenshotsDirPath);
 
   logger.info(`[OWL] Generating Report`);
 
