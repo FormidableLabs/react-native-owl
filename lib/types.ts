@@ -49,3 +49,7 @@ export type Config = {
   /** Prevents the CLI/library from printing any logs/output. */
   debug?: boolean;
 };
+
+export type OwlElement = {
+  tap: () => Promise<void>;
+};

@@ -1,4 +1,4 @@
-import { takeScreenshot } from 'react-native-owl';
+import { getByTestId, takeScreenshot } from 'react-native-owl';
 
 describe('App.tsx', () => {
   it('takes a screenshot of the home screen', async () => {
@@ -8,6 +8,11 @@ describe('App.tsx', () => {
   });
 
   it('takes a screenshot of the about screen', async () => {
+    const buttonTestId = 'ABOUT_BUTTON';
+    const element = getByTestId(buttonTestId);
+
+    await element.tap();
+
     const screen = await takeScreenshot('about');
 
     expect(screen).toMatchBaseline();
