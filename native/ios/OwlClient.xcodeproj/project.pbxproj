@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E0869DC2745139F00AEF9C5 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0869DB2745139F00AEF9C5 /* Actions.swift */; };
 		1EBA027A274510E0005A3858 /* OwlClient.docc in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA0279274510E0005A3858 /* OwlClient.docc */; };
 		1EBA0280274510E0005A3858 /* OwlClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBA0275274510E0005A3858 /* OwlClient.framework */; };
 		1EBA0285274510E0005A3858 /* OwlClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA0284274510E0005A3858 /* OwlClientTests.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1E0869DB2745139F00AEF9C5 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		1EBA0275274510E0005A3858 /* OwlClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OwlClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EBA0278274510E0005A3858 /* OwlClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlClient.h; sourceTree = "<group>"; };
 		1EBA0279274510E0005A3858 /* OwlClient.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = OwlClient.docc; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			children = (
 				1EBA0278274510E0005A3858 /* OwlClient.h */,
 				1EBA0279274510E0005A3858 /* OwlClient.docc */,
+				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
 			);
 			path = OwlClient;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EBA027A274510E0005A3858 /* OwlClient.docc in Sources */,
+				1E0869DC2745139F00AEF9C5 /* Actions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +400,7 @@
 		1EBA028D274510E0005A3858 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -416,6 +421,7 @@
 		1EBA028E274510E0005A3858 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
