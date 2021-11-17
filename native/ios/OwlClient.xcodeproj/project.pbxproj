@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E0869DC2745139F00AEF9C5 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0869DB2745139F00AEF9C5 /* Actions.swift */; };
+		1E0869E1274554B700AEF9C5 /* OwlInit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0869E0274554B700AEF9C5 /* OwlInit.m */; };
+		1E0869E327455FDD00AEF9C5 /* OwlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0869E227455FDD00AEF9C5 /* OwlManager.swift */; };
 		1EBA027A274510E0005A3858 /* OwlClient.docc in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA0279274510E0005A3858 /* OwlClient.docc */; };
 		1EBA0280274510E0005A3858 /* OwlClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBA0275274510E0005A3858 /* OwlClient.framework */; };
 		1EBA0285274510E0005A3858 /* OwlClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA0284274510E0005A3858 /* OwlClientTests.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		1E0869DB2745139F00AEF9C5 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
+		1E0869E0274554B700AEF9C5 /* OwlInit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlInit.m; sourceTree = "<group>"; };
+		1E0869E227455FDD00AEF9C5 /* OwlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwlManager.swift; sourceTree = "<group>"; };
 		1EBA0275274510E0005A3858 /* OwlClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OwlClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EBA0278274510E0005A3858 /* OwlClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlClient.h; sourceTree = "<group>"; };
 		1EBA0279274510E0005A3858 /* OwlClient.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = OwlClient.docc; sourceTree = "<group>"; };
@@ -73,9 +77,11 @@
 		1EBA0277274510E0005A3858 /* OwlClient */ = {
 			isa = PBXGroup;
 			children = (
+				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
+				1E0869E0274554B700AEF9C5 /* OwlInit.m */,
 				1EBA0278274510E0005A3858 /* OwlClient.h */,
 				1EBA0279274510E0005A3858 /* OwlClient.docc */,
-				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
+				1E0869E227455FDD00AEF9C5 /* OwlManager.swift */,
 			);
 			path = OwlClient;
 			sourceTree = "<group>";
@@ -150,6 +156,7 @@
 				TargetAttributes = {
 					1EBA0274274510E0005A3858 = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 					1EBA027E274510E0005A3858 = {
 						CreatedOnToolsVersion = 13.1;
@@ -197,8 +204,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E0869E327455FDD00AEF9C5 /* OwlManager.swift in Sources */,
 				1EBA027A274510E0005A3858 /* OwlClient.docc in Sources */,
 				1E0869DC2745139F00AEF9C5 /* Actions.swift in Sources */,
+				1E0869E1274554B700AEF9C5 /* OwlInit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +355,7 @@
 		1EBA028A274510E0005A3858 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -365,6 +375,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -373,6 +384,7 @@
 		1EBA028B274510E0005A3858 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
