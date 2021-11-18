@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 func getKeyWindow(): UIWindow? {
     let foundWindow : UIWindow? = nil;
@@ -19,11 +18,7 @@ func getKeyWindow(): UIWindow? {
     }
 }
 
-func tap(elementId = "ABOUT_BUTTON") {
-    let predicate = NSPredicate(value: elementId)
-    
-    let views = (UIView.dtx_findViewsInKeySceneWindows(passing: predicate.predicateForQuery()) as! [NSObject])
-    
-    let keyWindow: UIWindow = getKeyWindow()
-    let scene: UIWindowScene = keyWindow ? keyWindow.windowScene : nil;
+
+func tap(elementId: String) {
+    print("Will tap on: \(elementId).")
 }

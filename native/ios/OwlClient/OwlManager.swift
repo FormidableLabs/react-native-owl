@@ -18,8 +18,11 @@ public class OwlManager : NSObject {
         print("Hello from the OWL manager.")
     }
     
-    @objc(sayHello)
-    public func sayHello() {
-        print("Hello World.")
+    @objc(doDemo)
+    public func doDemo() {
+        print("Will do a demo.")
+    
+        let elementId = "ABOUT_BUTTON"
+        tap(elementId: elementId)
     }
 }
