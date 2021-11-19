@@ -15,14 +15,21 @@ public class OwlManager : NSObject {
     }()
     
     public override init() {
-        print("Hello from the OWL manager.")
+        print("---- OWL ----, Hello from the OWL manager.")
     }
     
     @objc(doDemo)
     public func doDemo() {
-        print("Will do a demo.")
+        print("---- OWL ----, Will do a demo.")
     
-        let elementId = "ABOUT_BUTTON"
-        tap(elementId: elementId)
+        let seconds = 5.0
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            print("---- OWL ----, Resuming demo")
+            
+            let elementId = "ABOUT_BUTTON"
+            tap(elementId)
+        }
+        
     }
 }
