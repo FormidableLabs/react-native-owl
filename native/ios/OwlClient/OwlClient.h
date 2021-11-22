@@ -2,8 +2,6 @@
 //  OwlClient.h
 //  OwlClient
 //
-//  Created by Emmanouil Konstantinidis on 17/11/2021.
-//
 
 #import <Foundation/Foundation.h>
 

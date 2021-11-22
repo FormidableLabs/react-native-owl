@@ -2,8 +2,6 @@
 //  OwlClientTests.swift
 //  OwlClientTests
 //
-//  Created by Emmanouil Konstantinidis on 17/11/2021.
-//
 
 import XCTest
 @testable import OwlClient
