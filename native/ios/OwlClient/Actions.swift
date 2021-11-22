@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+
+
 extension UIView {
     class func getAllSubviews<T: UIView>(from parenView: UIView) -> [T] {
         return parenView.subviews.flatMap { subView -> [T] in
@@ -49,15 +51,17 @@ func tap(_ elementId: String) -> Void {
     let matchingViews = getViewsById(elementId, rootView: rootView!)
 
     if (matchingViews.count == 0) {
-      print("---- OWL ----, found no UIViews matching \(elementId) - Nothing to tap!")
+        print("---- OWL ----, found no UIViews matching \(elementId) - Nothing to tap!")
     } else if (matchingViews.count > 1) {
-      print("---- OWL ----, found \(matchingViews.count) UIViews matching \(elementId) - There should only be a single UIView to tap!")
+        print("---- OWL ----, found \(matchingViews.count) UIViews matching \(elementId) - There should only be a single UIView to tap!")
     } else {
-      print("---- OWL ----, found a single \(elementId) UIView - Tap it!")
-      let matchingView = matchingViews.first!
-      let globalPoint = matchingView.superview?.convert(matchingView.frame.origin, to: nil)
-      
-      print("---- OWL ----, TODO: Tap at x:\(globalPoint?.x ?? 0), y: \(globalPoint?.y ?? 0)")
+        print("---- OWL ----, found a single \(elementId) UIView - Tap it!")
+        let matchingView = matchingViews.first!
+        let point = matchingView.superview?.convert(matchingView.frame.origin, to: nil)
+    
+        print("---- OWL ----, Tap at x:\(point?.x ?? 0), y: \(point?.y ?? 0)")
+        
+        OwlSyntheticEvents.touchPath([point ?? CGPoint(x: 0, y: 0)], relativeTo: matchingView.window!, holdDurationOnFirstTouch: 0.0, holdDurationOnLastTouch: 0.0)
     }
   }
 }

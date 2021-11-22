@@ -1,0 +1,9 @@
+framework module OwlClient {
+	umbrella header "OwlClient.h"
+	export *
+
+	explicit module Private {
+		header "OwlAppleInternals.h"
+        header "OwlSyntheticEvents.h"
+	}
+}

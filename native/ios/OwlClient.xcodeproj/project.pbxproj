@@ -14,6 +14,21 @@
 		1EBA0280274510E0005A3858 /* OwlClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBA0275274510E0005A3858 /* OwlClient.framework */; };
 		1EBA0285274510E0005A3858 /* OwlClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA0284274510E0005A3858 /* OwlClientTests.swift */; };
 		1EBA0286274510E0005A3858 /* OwlClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EBA0278274510E0005A3858 /* OwlClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A4E17E02748018D0056EC62 /* OwlClient.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E17DE2748018D0056EC62 /* OwlClient.xcconfig */; };
+		7A787AF5274B8C0300FF60FB /* OwlTouchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787AF1274B8C0200FF60FB /* OwlTouchInfo.m */; };
+		7A787AF6274B8C0300FF60FB /* UITouch+OwlAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */; };
+		7A787AF7274B8C0300FF60FB /* OwlSyntheticEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787AEE274B8C0200FF60FB /* OwlSyntheticEvents.m */; };
+		7A787AF8274B8C0300FF60FB /* UIApplication+OwlAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */; };
+		7A787AF9274B8C0300FF60FB /* OwlRunLoopSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */; };
+		7A787AFA274B8C0300FF60FB /* OwlTouchInjector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787AEF274B8C0200FF60FB /* OwlTouchInjector.m */; };
+		7A787AFD274B8C1900FF60FB /* OwlAppleInternals.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE6274B8BC700FF60FB /* OwlAppleInternals.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787AFE274B8C1B00FF60FB /* OwlRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787AFF274B8C1E00FF60FB /* OwlSyntheticEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B02274B8C2800FF60FB /* OwlTouchInjector.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B04274B8C2B00FF60FB /* UITouch+OwlAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B07274B8CB800FF60FB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A787B06274B8CB800FF60FB /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +50,24 @@
 		1EBA0279274510E0005A3858 /* OwlClient.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = OwlClient.docc; sourceTree = "<group>"; };
 		1EBA027F274510E0005A3858 /* OwlClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwlClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EBA0284274510E0005A3858 /* OwlClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwlClientTests.swift; sourceTree = "<group>"; };
+		7A4E17DC2748018D0056EC62 /* OwlClient.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = OwlClient.modulemap; sourceTree = "<group>"; };
+		7A4E17DE2748018D0056EC62 /* OwlClient.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = OwlClient.xcconfig; sourceTree = "<group>"; };
+		7A4E17E5274807C40056EC62 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A787AE6274B8BC700FF60FB /* OwlAppleInternals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlAppleInternals.h; sourceTree = "<group>"; };
+		7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlRunLoopSpinner.h; sourceTree = "<group>"; };
+		7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+OwlAdditions.h"; sourceTree = "<group>"; };
+		7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITouch+OwlAdditions.h"; sourceTree = "<group>"; };
+		7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlTouchInfo.h; sourceTree = "<group>"; };
+		7A787AEB274B8BD100FF60FB /* OwlTouchInfo-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OwlTouchInfo-Private.h"; sourceTree = "<group>"; };
+		7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlTouchInjector.h; sourceTree = "<group>"; };
+		7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlSyntheticEvents.h; sourceTree = "<group>"; };
+		7A787AEE274B8C0200FF60FB /* OwlSyntheticEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlSyntheticEvents.m; sourceTree = "<group>"; };
+		7A787AEF274B8C0200FF60FB /* OwlTouchInjector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlTouchInjector.m; sourceTree = "<group>"; };
+		7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+OwlAdditions.m"; sourceTree = "<group>"; };
+		7A787AF1274B8C0200FF60FB /* OwlTouchInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlTouchInfo.m; sourceTree = "<group>"; };
+		7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITouch+OwlAdditions.m"; sourceTree = "<group>"; };
+		7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlRunLoopSpinner.m; sourceTree = "<group>"; };
+		7A787B06274B8CB800FF60FB /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A787B07274B8CB800FF60FB /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +96,7 @@
 				1EBA0277274510E0005A3858 /* OwlClient */,
 				1EBA0283274510E0005A3858 /* OwlClientTests */,
 				1EBA0276274510E0005A3858 /* Products */,
+				7A787B05274B8CB800FF60FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,11 +112,28 @@
 		1EBA0277274510E0005A3858 /* OwlClient */ = {
 			isa = PBXGroup;
 			children = (
+				7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */,
+				7A787AEE274B8C0200FF60FB /* OwlSyntheticEvents.m */,
+				7A787AF1274B8C0200FF60FB /* OwlTouchInfo.m */,
+				7A787AEF274B8C0200FF60FB /* OwlTouchInjector.m */,
+				7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */,
+				7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */,
+				7A787AE6274B8BC700FF60FB /* OwlAppleInternals.h */,
+				7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */,
+				7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */,
+				7A787AEB274B8BD100FF60FB /* OwlTouchInfo-Private.h */,
+				7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */,
+				7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */,
+				7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */,
+				7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */,
 				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
 				1E0869E0274554B700AEF9C5 /* OwlInit.m */,
 				1EBA0278274510E0005A3858 /* OwlClient.h */,
 				1EBA0279274510E0005A3858 /* OwlClient.docc */,
 				1E0869E227455FDD00AEF9C5 /* OwlManager.swift */,
+				7A4E17DC2748018D0056EC62 /* OwlClient.modulemap */,
+				7A4E17DE2748018D0056EC62 /* OwlClient.xcconfig */,
+				7A4E17E5274807C40056EC62 /* Info.plist */,
 			);
 			path = OwlClient;
 			sourceTree = "<group>";
@@ -94,6 +146,14 @@
 			path = OwlClientTests;
 			sourceTree = "<group>";
 		};
+		7A787B05274B8CB800FF60FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A787B06274B8CB800FF60FB /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -102,6 +162,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EBA0286274510E0005A3858 /* OwlClient.h in Headers */,
+				7A787AFF274B8C1E00FF60FB /* OwlSyntheticEvents.h in Headers */,
+				7A787AFD274B8C1900FF60FB /* OwlAppleInternals.h in Headers */,
+				7A787AFE274B8C1B00FF60FB /* OwlRunLoopSpinner.h in Headers */,
+				7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */,
+				7A787B02274B8C2800FF60FB /* OwlTouchInjector.h in Headers */,
+				7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */,
+				7A787B04274B8C2B00FF60FB /* UITouch+OwlAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4E17E02748018D0056EC62 /* OwlClient.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,9 +272,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A787AFA274B8C0300FF60FB /* OwlTouchInjector.m in Sources */,
 				1E0869E327455FDD00AEF9C5 /* OwlManager.swift in Sources */,
 				1EBA027A274510E0005A3858 /* OwlClient.docc in Sources */,
+				7A787AF6274B8C0300FF60FB /* UITouch+OwlAdditions.m in Sources */,
 				1E0869DC2745139F00AEF9C5 /* Actions.swift in Sources */,
+				7A787AF5274B8C0300FF60FB /* OwlTouchInfo.m in Sources */,
+				7A787AF8274B8C0300FF60FB /* UIApplication+OwlAdditions.m in Sources */,
+				7A787AF7274B8C0300FF60FB /* OwlSyntheticEvents.m in Sources */,
+				7A787AF9274B8C0300FF60FB /* OwlRunLoopSpinner.m in Sources */,
 				1E0869E1274554B700AEF9C5 /* OwlInit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,19 +436,26 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				ENABLE_BITCODE = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = OwlClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MODULEMAP_FILE = OwlClient/OwlClient.modulemap;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+					"-Wl,-U,_OBJC_CLASS_$_TIPreferencesController",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.formidable.OwlClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -391,19 +472,26 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				ENABLE_BITCODE = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = OwlClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MODULEMAP_FILE = OwlClient/OwlClient.modulemap;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+					"-Wl,-U,_OBJC_CLASS_$_TIPreferencesController",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.formidable.OwlClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

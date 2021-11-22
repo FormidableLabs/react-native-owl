@@ -11,7 +11,7 @@
 
 __attribute__((constructor))
 static void owlInit() {
-    NSLog(@"Hello from the OWL Client.");
+    NSLog(@"---- OWL ----, Hello from the OWL Client.");
     
     [OwlManager.sharedManager doDemo];
 }
