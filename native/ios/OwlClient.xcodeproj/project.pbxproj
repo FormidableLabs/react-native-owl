@@ -112,21 +112,10 @@
 		1EBA0277274510E0005A3858 /* OwlClient */ = {
 			isa = PBXGroup;
 			children = (
-				7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */,
-				7A787AEE274B8C0200FF60FB /* OwlSyntheticEvents.m */,
-				7A787AF1274B8C0200FF60FB /* OwlTouchInfo.m */,
-				7A787AEF274B8C0200FF60FB /* OwlTouchInjector.m */,
-				7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */,
-				7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */,
-				7A787AE6274B8BC700FF60FB /* OwlAppleInternals.h */,
-				7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */,
-				7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */,
-				7A787AEB274B8BD100FF60FB /* OwlTouchInfo-Private.h */,
-				7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */,
-				7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */,
-				7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */,
-				7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */,
-				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
+				7A787B3E274C02C800FF60FB /* Actions */,
+				7A787B3F274C02E800FF60FB /* AppleInternals */,
+				7A787B40274C030D00FF60FB /* Invocation */,
+				7A787B41274C035A00FF60FB /* Utilities */,
 				1E0869E0274554B700AEF9C5 /* OwlInit.m */,
 				1EBA0278274510E0005A3858 /* OwlClient.h */,
 				1EBA0279274510E0005A3858 /* OwlClient.docc */,
@@ -152,6 +141,49 @@
 				7A787B06274B8CB800FF60FB /* IOKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7A787B3E274C02C800FF60FB /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		7A787B3F274C02E800FF60FB /* AppleInternals */ = {
+			isa = PBXGroup;
+			children = (
+				7A787AE6274B8BC700FF60FB /* OwlAppleInternals.h */,
+			);
+			name = AppleInternals;
+			sourceTree = "<group>";
+		};
+		7A787B40274C030D00FF60FB /* Invocation */ = {
+			isa = PBXGroup;
+			children = (
+				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
+			);
+			name = Invocation;
+			sourceTree = "<group>";
+		};
+		7A787B41274C035A00FF60FB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */,
+				7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */,
+				7A787AEB274B8BD100FF60FB /* OwlTouchInfo-Private.h */,
+				7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */,
+				7A787AF1274B8C0200FF60FB /* OwlTouchInfo.m */,
+				7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */,
+				7A787AEF274B8C0200FF60FB /* OwlTouchInjector.m */,
+				7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */,
+				7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */,
+				7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */,
+				7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */,
+				7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */,
+				7A787AEE274B8C0200FF60FB /* OwlSyntheticEvents.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
