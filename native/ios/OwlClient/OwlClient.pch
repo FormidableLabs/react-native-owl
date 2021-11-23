@@ -1,0 +1,23 @@
+//
+//  Owl.pch
+//  OwlClient
+//
+//  Created by Rob Walker on 23/11/2021.
+//
+
+#ifndef Owl_pch
+#define Owl_pch
+
+#define DTXAddressInfo detox_DTXAddressInfo
+
+//#import "DTXLogging.h"
+
+//#import "Swiftier.h"
+
+#ifdef __OBJC__
+#import "DTXAssertionHandler.h"
+#import "NSThread+OwlUtils.h"
+//#import "NSArray+Utils.h"
+#endif
+
+#endif /* Owl_pch */

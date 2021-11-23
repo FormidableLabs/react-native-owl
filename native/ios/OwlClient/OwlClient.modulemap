@@ -3,7 +3,15 @@ framework module OwlClient {
 	export *
 
 	explicit module Private {
+        header "UIView+OwlMatchers.h"
 		header "OwlAppleInternals.h"
         header "OwlSyntheticEvents.h"
+        header "NSObject+OwlUtils.h"
+        header "NSObject+OwlActions.h"
+        header "UIWindow+OwlUtils.h"
+        header "NSURL+OwlUtils.h"
+        header "DTXAssertionHandler.h"
+        header "NSThread+OwlUtils.h"
+        header "UIScrollView+OwlActions.h"
 	}
 }

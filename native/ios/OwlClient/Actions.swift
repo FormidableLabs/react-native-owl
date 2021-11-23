@@ -8,60 +8,62 @@
 import Foundation
 import UIKit
 
-
-
-extension UIView {
-    class func getAllSubviews<T: UIView>(from parenView: UIView) -> [T] {
-        return parenView.subviews.flatMap { subView -> [T] in
-            var result = getAllSubviews(from: subView) as [T]
-            if let view = subView as? T { result.append(view) }
-            return result
-        }
-    }
-}
-
-func getRootView() -> UIView? {
-    let rootUiView = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.view
-    
-    return rootUiView
-}
-
-func getViewsById(_ elementId: String, rootView: UIView) -> [UIView] {
-    let rootView = getRootView()
-    
-    var matchingViews = [] as [UIView]
-    
-    if (rootView != nil) {
-      let allViews = UIView.getAllSubviews(from: rootView!)
-      
-      for view in allViews {
-        if (view.accessibilityIdentifier == elementId) {
-          matchingViews.append(view)
-        }
-      }
-    }
-    
-    return matchingViews
+func getElementById(_ elementId: String) throws -> Element? {
+    return try Element.with(dictionaryRepresentation: [ "predicate": [ "type": "id","value": elementId]])
 }
 
 func tap(_ elementId: String) -> Void {
-  let rootView = getRootView()
-    
-  if (rootView != nil) {
-    let matchingViews = getViewsById(elementId, rootView: rootView!)
-
-    if (matchingViews.count == 0) {
-        print("---- OWL ----, found no UIViews matching \(elementId) - Nothing to tap!")
-    } else if (matchingViews.count > 1) {
-        print("---- OWL ----, found \(matchingViews.count) UIViews matching \(elementId) - There should only be a single UIView to tap!")
-    } else {
-        print("---- OWL ----, found a single \(elementId) UIView - Tap it!")
-        let matchingView = matchingViews.first!
-        let point = matchingView.superview?.convert(matchingView.frame.origin, to: nil)
-    
-        print("---- OWL ----, Tap at x:\(point?.x ?? 0), y: \(point?.y ?? 0)")
+    do {
+        let element = try getElementById(elementId)
         
-        OwlSyntheticEvents.touchPath([point ?? CGPoint(x: 0, y: 0)], relativeTo: matchingView.window!, holdDurationOnFirstTouch: 0.0, holdDurationOnLastTouch: 0.0)
+        print("---- OWL ----, Tap \(element?.dtx_shortDescription ?? "")")
+        
+        element?.tap()
+    } catch {
+        print("---- OWL ----, Error tapping \(elementId)")
     }
-  }
 }
+
+func scrollWithOffset(_ elementId: String, withOffset: CGPoint) -> Void {
+    do {
+        let element = try getElementById(elementId)
+        
+        print("---- OWL ----, scrollWithOffset \(element?.dtx_shortDescription ?? "")")
+        
+        element?.scroll(withOffset: withOffset)
+    } catch {
+        print("---- OWL ----, Error scrolling \(elementId)")
+    }
+}
+
+func scrollTo(_ elementId: String, edge: String) -> Void {
+    do {
+        let element = try getElementById(elementId)
+        
+        print("---- OWL ----, scrollto \(edge) of \(element?.dtx_shortDescription ?? "")")
+        
+        let targetEdge : UIRectEdge
+        switch edge {
+        case "top":
+            targetEdge = UIRectEdge.top.self
+            break;
+        case "bottom":
+            targetEdge = UIRectEdge.bottom.self
+            break;
+        case "left":
+            targetEdge = UIRectEdge.left.self
+            break;
+        case "right":
+            targetEdge = UIRectEdge.right.self
+            break;
+        default:
+            fatalError("Unknown scrollTo edge")
+            break;
+        }
+        
+        element?.scroll(to: targetEdge)
+    } catch {
+        print("---- OWL ----, Error scrolling \(elementId)")
+    }
+}
+

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Error codes for synthetic event injection failures.
  */
 typedef NS_ENUM(NSInteger, GREYSyntheticEventInjectionErrorCode) {
-  kGREYOrientationChangeFailedErrorCode = 0,  // Device orientation change has failed.
+    kGREYOrientationChangeFailedErrorCode = 0,  // Device orientation change has failed.
 };
 
 #pragma mark - Interface
@@ -28,8 +28,10 @@ typedef NS_ENUM(NSInteger, GREYSyntheticEventInjectionErrorCode) {
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-+ (void)touchPath:(NSArray *)touchPath relativeToWindow:(UIWindow *)window holdDurationOnFirstTouch:(NSTimeInterval)firstHoldDuration holdDurationOnLastTouch:(NSTimeInterval)lastHoldDuration;
++ (void)touchAlongPath:(NSArray *)touchPath relativeToWindow:(UIWindow *)window holdDurationOnFirstTouch:(NSTimeInterval)firstHoldDuration holdDurationOnLastTouch:(NSTimeInterval)lastHoldDuration;
++ (void)touchAlongPath:(NSArray *)touchPath relativeToWindow:(UIWindow *)window holdDurationOnFirstTouch:(NSTimeInterval)firstHoldDuration holdDurationOnLastTouch:(NSTimeInterval)lastHoldDuration onTouchCallback:(nullable BOOL (^)(UITouchPhase))callback;
 
++ (void)touchAlongMultiplePaths:(NSArray *)touchPaths relativeToWindow:(UIWindow *)window holdDurationOnFirstTouch:(NSTimeInterval)firstHoldDuration holdDurationOnLastTouch:(NSTimeInterval)lastHoldDuration;
 + (void)touchAlongMultiplePaths:(NSArray *)touchPaths relativeToWindow:(UIWindow *)window holdDurationOnFirstTouch:(NSTimeInterval)firstHoldDuration holdDurationOnLastTouch:(NSTimeInterval)lastHoldDuration onTouchCallback:(nullable BOOL (^)(UITouchPhase))callback;
 
 /**

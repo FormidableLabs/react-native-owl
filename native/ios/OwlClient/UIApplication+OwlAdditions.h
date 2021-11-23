@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Active mode for the main runloop that was pushed by one of the push runloop methods.
  *         May return @c nil when no mode was pushed.
  */
-- (NSString *_Nullable)owl_activeRunLoopMode;
+- (NSString *_Nullable)dtx_activeRunLoopMode;
+
++ (CGFloat)dtx_panVelocity;
 
 @end
 

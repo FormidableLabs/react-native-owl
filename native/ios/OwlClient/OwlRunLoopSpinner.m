@@ -336,16 +336,17 @@ static void (^noopTimerHandler)(CFRunLoopTimerRef timer) = ^(CFRunLoopTimerRef t
  *  @return The active mode for the current runloop.
  */
 - (NSString *)owl_activeRunLoopMode {
-  NSString *activeRunLoopMode = [[UIApplication sharedApplication] owl_activeRunLoopMode];
-  if (!activeRunLoopMode) {
-    // If UIKit does not have any modes on its run loop stack, then consider the default
-    // run loop mode as the active mode. We do not use the current run loop mode because if this
-    // spinner is nested within another spinner, we could get stuck spinning the run loop in a
-    // mode that was active but shouldn't be anymore.
-    // TODO: Do better than just always using the default run loop mode.
-    activeRunLoopMode = NSDefaultRunLoopMode;
-  }
-  return activeRunLoopMode;
+    return NSDefaultRunLoopMode;
+//  NSString *activeRunLoopMode = [[UIApplication sharedApplication] owl_activeRunLoopMode];
+//  if (!activeRunLoopMode) {
+//    // If UIKit does not have any modes on its run loop stack, then consider the default
+//    // run loop mode as the active mode. We do not use the current run loop mode because if this
+//    // spinner is nested within another spinner, we could get stuck spinning the run loop in a
+//    // mode that was active but shouldn't be anymore.
+//    // TODO: Do better than just always using the default run loop mode.
+//    activeRunLoopMode = NSDefaultRunLoopMode;
+//  }
+//  return activeRunLoopMode;
 }
 
 #pragma mark - Getters and Setters

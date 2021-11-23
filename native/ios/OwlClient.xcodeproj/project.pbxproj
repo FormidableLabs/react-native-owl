@@ -24,11 +24,41 @@
 		7A787AFD274B8C1900FF60FB /* OwlAppleInternals.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE6274B8BC700FF60FB /* OwlAppleInternals.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7A787AFE274B8C1B00FF60FB /* OwlRunLoopSpinner.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7A787AFF274B8C1E00FF60FB /* OwlSyntheticEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */; };
 		7A787B02274B8C2800FF60FB /* OwlTouchInjector.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */; };
 		7A787B04274B8C2B00FF60FB /* UITouch+OwlAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7A787B07274B8CB800FF60FB /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A787B06274B8CB800FF60FB /* IOKit.framework */; };
+		7A787B44274C05BA00FF60FB /* NSObject+OwlActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B43274C05BA00FF60FB /* NSObject+OwlActions.m */; };
+		7A787B45274C06C000FF60FB /* NSObject+OwlActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B42274C05AE00FF60FB /* NSObject+OwlActions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B48274C07AE00FF60FB /* NSObject+OwlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B47274C07AE00FF60FB /* NSObject+OwlUtils.m */; };
+		7A787B4C274CF6B200FF60FB /* NSObject+DontCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B4B274CF6B200FF60FB /* NSObject+DontCrash.m */; };
+		7A787B4D274CF86700FF60FB /* NSObject+DontCrash.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B4A274CF6A300FF60FB /* NSObject+DontCrash.h */; };
+		7A787B50274CF91C00FF60FB /* UIWindow+OwlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B4F274CF91C00FF60FB /* UIWindow+OwlUtils.m */; };
+		7A787B51274CF96000FF60FB /* UIWindow+OwlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B4E274CF91100FF60FB /* UIWindow+OwlUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B55274CFA7600FF60FB /* UIView+OwlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B54274CFA7600FF60FB /* UIView+OwlUtils.m */; };
+		7A787B56274CFB0600FF60FB /* UIView+OwlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B53274CFA6A00FF60FB /* UIView+OwlUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B57274CFB5300FF60FB /* NSObject+OwlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B52274CFA3400FF60FB /* NSObject+OwlUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B5A274CFB9F00FF60FB /* UIImage+OwlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B59274CFB9F00FF60FB /* UIImage+OwlUtils.m */; };
+		7A787B5B274CFBDC00FF60FB /* UIImage+OwlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B58274CFB9800FF60FB /* UIImage+OwlUtils.h */; };
+		7A787B5E274CFC6000FF60FB /* UIView+Drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B5D274CFC6000FF60FB /* UIView+Drawing.m */; };
+		7A787B5F274CFC8D00FF60FB /* UIView+Drawing.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B5C274CFC5800FF60FB /* UIView+Drawing.h */; };
+		7A787B63274CFCD300FF60FB /* OwlPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B62274CFCD300FF60FB /* OwlPolicy.m */; };
+		7A787B64274CFD0E00FF60FB /* OwlPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B61274CFCCA00FF60FB /* OwlPolicy.h */; };
+		7A787B67274CFD8700FF60FB /* NSURL+OwlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B66274CFD8700FF60FB /* NSURL+OwlUtils.m */; };
+		7A787B68274CFDBA00FF60FB /* NSURL+OwlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B65274CFD8000FF60FB /* NSURL+OwlUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B6C274CFE7300FF60FB /* DTXAssertionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B6B274CFE7300FF60FB /* DTXAssertionHandler.m */; };
+		7A787B6E274CFE8A00FF60FB /* DTXAssertionHandler+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B6D274CFE8A00FF60FB /* DTXAssertionHandler+Swift.swift */; };
+		7A787B6F274CFEC300FF60FB /* DTXAssertionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B6A274CFE6600FF60FB /* DTXAssertionHandler.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B73274D038100FF60FB /* NSThread+OwlUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B72274D038100FF60FB /* NSThread+OwlUtils.m */; };
+		7A787B74274D03D500FF60FB /* NSThread+OwlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B71274D037700FF60FB /* NSThread+OwlUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B7A274D095C00FF60FB /* UIView+OwlMatchers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B79274D095C00FF60FB /* UIView+OwlMatchers.m */; };
+		7A787B7B274D09A700FF60FB /* UIView+OwlMatchers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B77274D094F00FF60FB /* UIView+OwlMatchers.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B7E274D0CA400FF60FB /* UIScrollView+OwlActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B7D274D0CA400FF60FB /* UIScrollView+OwlActions.m */; };
+		7A787B7F274D0D3E00FF60FB /* UIScrollView+OwlActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B7C274D0C8600FF60FB /* UIScrollView+OwlActions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B81274D0F2B00FF60FB /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B80274D0F2B00FF60FB /* Element.swift */; };
+		7A787B83274D0F4200FF60FB /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B82274D0F4200FF60FB /* Predicate.swift */; };
+		7A787B85274D103D00FF60FB /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B84274D103D00FF60FB /* Modifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +98,37 @@
 		7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITouch+OwlAdditions.m"; sourceTree = "<group>"; };
 		7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlRunLoopSpinner.m; sourceTree = "<group>"; };
 		7A787B06274B8CB800FF60FB /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		7A787B42274C05AE00FF60FB /* NSObject+OwlActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+OwlActions.h"; sourceTree = "<group>"; };
+		7A787B43274C05BA00FF60FB /* NSObject+OwlActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+OwlActions.m"; sourceTree = "<group>"; };
+		7A787B47274C07AE00FF60FB /* NSObject+OwlUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+OwlUtils.m"; sourceTree = "<group>"; };
+		7A787B4A274CF6A300FF60FB /* NSObject+DontCrash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DontCrash.h"; sourceTree = "<group>"; };
+		7A787B4B274CF6B200FF60FB /* NSObject+DontCrash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DontCrash.m"; sourceTree = "<group>"; };
+		7A787B4E274CF91100FF60FB /* UIWindow+OwlUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWindow+OwlUtils.h"; sourceTree = "<group>"; };
+		7A787B4F274CF91C00FF60FB /* UIWindow+OwlUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+OwlUtils.m"; sourceTree = "<group>"; };
+		7A787B52274CFA3400FF60FB /* NSObject+OwlUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+OwlUtils.h"; sourceTree = "<group>"; };
+		7A787B53274CFA6A00FF60FB /* UIView+OwlUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OwlUtils.h"; sourceTree = "<group>"; };
+		7A787B54274CFA7600FF60FB /* UIView+OwlUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+OwlUtils.m"; sourceTree = "<group>"; };
+		7A787B58274CFB9800FF60FB /* UIImage+OwlUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+OwlUtils.h"; sourceTree = "<group>"; };
+		7A787B59274CFB9F00FF60FB /* UIImage+OwlUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+OwlUtils.m"; sourceTree = "<group>"; };
+		7A787B5C274CFC5800FF60FB /* UIView+Drawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Drawing.h"; sourceTree = "<group>"; };
+		7A787B5D274CFC6000FF60FB /* UIView+Drawing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Drawing.m"; sourceTree = "<group>"; };
+		7A787B61274CFCCA00FF60FB /* OwlPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlPolicy.h; sourceTree = "<group>"; };
+		7A787B62274CFCD300FF60FB /* OwlPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwlPolicy.m; sourceTree = "<group>"; };
+		7A787B65274CFD8000FF60FB /* NSURL+OwlUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+OwlUtils.h"; sourceTree = "<group>"; };
+		7A787B66274CFD8700FF60FB /* NSURL+OwlUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURL+OwlUtils.m"; sourceTree = "<group>"; };
+		7A787B6A274CFE6600FF60FB /* DTXAssertionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTXAssertionHandler.h; sourceTree = "<group>"; };
+		7A787B6B274CFE7300FF60FB /* DTXAssertionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DTXAssertionHandler.m; sourceTree = "<group>"; };
+		7A787B6D274CFE8A00FF60FB /* DTXAssertionHandler+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTXAssertionHandler+Swift.swift"; sourceTree = "<group>"; };
+		7A787B70274D02A700FF60FB /* OwlClient.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwlClient.pch; sourceTree = "<group>"; };
+		7A787B71274D037700FF60FB /* NSThread+OwlUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSThread+OwlUtils.h"; sourceTree = "<group>"; };
+		7A787B72274D038100FF60FB /* NSThread+OwlUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSThread+OwlUtils.m"; sourceTree = "<group>"; };
+		7A787B77274D094F00FF60FB /* UIView+OwlMatchers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+OwlMatchers.h"; sourceTree = "<group>"; };
+		7A787B79274D095C00FF60FB /* UIView+OwlMatchers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+OwlMatchers.m"; sourceTree = "<group>"; };
+		7A787B7C274D0C8600FF60FB /* UIScrollView+OwlActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+OwlActions.h"; sourceTree = "<group>"; };
+		7A787B7D274D0CA400FF60FB /* UIScrollView+OwlActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+OwlActions.m"; sourceTree = "<group>"; };
+		7A787B80274D0F2B00FF60FB /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		7A787B82274D0F4200FF60FB /* Predicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
+		7A787B84274D103D00FF60FB /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +175,11 @@
 			children = (
 				7A787B3E274C02C800FF60FB /* Actions */,
 				7A787B3F274C02E800FF60FB /* AppleInternals */,
+				7A787B75274D080F00FF60FB /* AppleTouchEvents */,
+				7A787B69274CFE5300FF60FB /* Assertions */,
 				7A787B40274C030D00FF60FB /* Invocation */,
+				7A787B60274CFCBC00FF60FB /* Policy */,
+				7A787B76274D093C00FF60FB /* Matchers */,
 				7A787B41274C035A00FF60FB /* Utilities */,
 				1E0869E0274554B700AEF9C5 /* OwlInit.m */,
 				1EBA0278274510E0005A3858 /* OwlClient.h */,
@@ -123,6 +188,7 @@
 				7A4E17DC2748018D0056EC62 /* OwlClient.modulemap */,
 				7A4E17DE2748018D0056EC62 /* OwlClient.xcconfig */,
 				7A4E17E5274807C40056EC62 /* Info.plist */,
+				7A787B70274D02A700FF60FB /* OwlClient.pch */,
 			);
 			path = OwlClient;
 			sourceTree = "<group>";
@@ -146,6 +212,10 @@
 		7A787B3E274C02C800FF60FB /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				7A787B42274C05AE00FF60FB /* NSObject+OwlActions.h */,
+				7A787B43274C05BA00FF60FB /* NSObject+OwlActions.m */,
+				7A787B7C274D0C8600FF60FB /* UIScrollView+OwlActions.h */,
+				7A787B7D274D0CA400FF60FB /* UIScrollView+OwlActions.m */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -162,6 +232,9 @@
 			isa = PBXGroup;
 			children = (
 				1E0869DB2745139F00AEF9C5 /* Actions.swift */,
+				7A787B80274D0F2B00FF60FB /* Element.swift */,
+				7A787B82274D0F4200FF60FB /* Predicate.swift */,
+				7A787B84274D103D00FF60FB /* Modifier.swift */,
 			);
 			name = Invocation;
 			sourceTree = "<group>";
@@ -171,19 +244,70 @@
 			children = (
 				7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */,
 				7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */,
+				7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */,
+				7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */,
+				7A787B52274CFA3400FF60FB /* NSObject+OwlUtils.h */,
+				7A787B47274C07AE00FF60FB /* NSObject+OwlUtils.m */,
+				7A787B4A274CF6A300FF60FB /* NSObject+DontCrash.h */,
+				7A787B4B274CF6B200FF60FB /* NSObject+DontCrash.m */,
+				7A787B4E274CF91100FF60FB /* UIWindow+OwlUtils.h */,
+				7A787B4F274CF91C00FF60FB /* UIWindow+OwlUtils.m */,
+				7A787B53274CFA6A00FF60FB /* UIView+OwlUtils.h */,
+				7A787B54274CFA7600FF60FB /* UIView+OwlUtils.m */,
+				7A787B58274CFB9800FF60FB /* UIImage+OwlUtils.h */,
+				7A787B59274CFB9F00FF60FB /* UIImage+OwlUtils.m */,
+				7A787B5C274CFC5800FF60FB /* UIView+Drawing.h */,
+				7A787B5D274CFC6000FF60FB /* UIView+Drawing.m */,
+				7A787B65274CFD8000FF60FB /* NSURL+OwlUtils.h */,
+				7A787B66274CFD8700FF60FB /* NSURL+OwlUtils.m */,
+				7A787B71274D037700FF60FB /* NSThread+OwlUtils.h */,
+				7A787B72274D038100FF60FB /* NSThread+OwlUtils.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		7A787B60274CFCBC00FF60FB /* Policy */ = {
+			isa = PBXGroup;
+			children = (
+				7A787B61274CFCCA00FF60FB /* OwlPolicy.h */,
+				7A787B62274CFCD300FF60FB /* OwlPolicy.m */,
+			);
+			name = Policy;
+			sourceTree = "<group>";
+		};
+		7A787B69274CFE5300FF60FB /* Assertions */ = {
+			isa = PBXGroup;
+			children = (
+				7A787B6A274CFE6600FF60FB /* DTXAssertionHandler.h */,
+				7A787B6B274CFE7300FF60FB /* DTXAssertionHandler.m */,
+				7A787B6D274CFE8A00FF60FB /* DTXAssertionHandler+Swift.swift */,
+			);
+			name = Assertions;
+			sourceTree = "<group>";
+		};
+		7A787B75274D080F00FF60FB /* AppleTouchEvents */ = {
+			isa = PBXGroup;
+			children = (
 				7A787AEB274B8BD100FF60FB /* OwlTouchInfo-Private.h */,
 				7A787AEA274B8BD100FF60FB /* OwlTouchInfo.h */,
 				7A787AF1274B8C0200FF60FB /* OwlTouchInfo.m */,
 				7A787AEC274B8BD100FF60FB /* OwlTouchInjector.h */,
 				7A787AEF274B8C0200FF60FB /* OwlTouchInjector.m */,
-				7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */,
-				7A787AF0274B8C0200FF60FB /* UIApplication+OwlAdditions.m */,
-				7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */,
-				7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */,
 				7A787AED274B8BD200FF60FB /* OwlSyntheticEvents.h */,
 				7A787AEE274B8C0200FF60FB /* OwlSyntheticEvents.m */,
+				7A787AE9274B8BD100FF60FB /* UITouch+OwlAdditions.h */,
+				7A787AF2274B8C0300FF60FB /* UITouch+OwlAdditions.m */,
 			);
-			name = Utilities;
+			name = AppleTouchEvents;
+			sourceTree = "<group>";
+		};
+		7A787B76274D093C00FF60FB /* Matchers */ = {
+			isa = PBXGroup;
+			children = (
+				7A787B77274D094F00FF60FB /* UIView+OwlMatchers.h */,
+				7A787B79274D095C00FF60FB /* UIView+OwlMatchers.m */,
+			);
+			name = Matchers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,10 +321,23 @@
 				7A787AFF274B8C1E00FF60FB /* OwlSyntheticEvents.h in Headers */,
 				7A787AFD274B8C1900FF60FB /* OwlAppleInternals.h in Headers */,
 				7A787AFE274B8C1B00FF60FB /* OwlRunLoopSpinner.h in Headers */,
-				7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */,
 				7A787B02274B8C2800FF60FB /* OwlTouchInjector.h in Headers */,
-				7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */,
 				7A787B04274B8C2B00FF60FB /* UITouch+OwlAdditions.h in Headers */,
+				7A787B45274C06C000FF60FB /* NSObject+OwlActions.h in Headers */,
+				7A787B51274CF96000FF60FB /* UIWindow+OwlUtils.h in Headers */,
+				7A787B57274CFB5300FF60FB /* NSObject+OwlUtils.h in Headers */,
+				7A787B56274CFB0600FF60FB /* UIView+OwlUtils.h in Headers */,
+				7A787B68274CFDBA00FF60FB /* NSURL+OwlUtils.h in Headers */,
+				7A787B6F274CFEC300FF60FB /* DTXAssertionHandler.h in Headers */,
+				7A787B74274D03D500FF60FB /* NSThread+OwlUtils.h in Headers */,
+				7A787B7B274D09A700FF60FB /* UIView+OwlMatchers.h in Headers */,
+				7A787B7F274D0D3E00FF60FB /* UIScrollView+OwlActions.h in Headers */,
+				7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */,
+				7A787B4D274CF86700FF60FB /* NSObject+DontCrash.h in Headers */,
+				7A787B5B274CFBDC00FF60FB /* UIImage+OwlUtils.h in Headers */,
+				7A787B5F274CFC8D00FF60FB /* UIView+Drawing.h in Headers */,
+				7A787B64274CFD0E00FF60FB /* OwlPolicy.h in Headers */,
+				7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,16 +441,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A787B63274CFCD300FF60FB /* OwlPolicy.m in Sources */,
+				7A787B83274D0F4200FF60FB /* Predicate.swift in Sources */,
+				7A787B55274CFA7600FF60FB /* UIView+OwlUtils.m in Sources */,
+				7A787B48274C07AE00FF60FB /* NSObject+OwlUtils.m in Sources */,
 				7A787AFA274B8C0300FF60FB /* OwlTouchInjector.m in Sources */,
 				1E0869E327455FDD00AEF9C5 /* OwlManager.swift in Sources */,
 				1EBA027A274510E0005A3858 /* OwlClient.docc in Sources */,
+				7A787B7A274D095C00FF60FB /* UIView+OwlMatchers.m in Sources */,
+				7A787B50274CF91C00FF60FB /* UIWindow+OwlUtils.m in Sources */,
+				7A787B73274D038100FF60FB /* NSThread+OwlUtils.m in Sources */,
+				7A787B6E274CFE8A00FF60FB /* DTXAssertionHandler+Swift.swift in Sources */,
+				7A787B7E274D0CA400FF60FB /* UIScrollView+OwlActions.m in Sources */,
+				7A787B44274C05BA00FF60FB /* NSObject+OwlActions.m in Sources */,
 				7A787AF6274B8C0300FF60FB /* UITouch+OwlAdditions.m in Sources */,
 				1E0869DC2745139F00AEF9C5 /* Actions.swift in Sources */,
+				7A787B81274D0F2B00FF60FB /* Element.swift in Sources */,
+				7A787B6C274CFE7300FF60FB /* DTXAssertionHandler.m in Sources */,
+				7A787B67274CFD8700FF60FB /* NSURL+OwlUtils.m in Sources */,
 				7A787AF5274B8C0300FF60FB /* OwlTouchInfo.m in Sources */,
 				7A787AF8274B8C0300FF60FB /* UIApplication+OwlAdditions.m in Sources */,
 				7A787AF7274B8C0300FF60FB /* OwlSyntheticEvents.m in Sources */,
+				7A787B5E274CFC6000FF60FB /* UIView+Drawing.m in Sources */,
+				7A787B5A274CFB9F00FF60FB /* UIImage+OwlUtils.m in Sources */,
 				7A787AF9274B8C0300FF60FB /* OwlRunLoopSpinner.m in Sources */,
+				7A787B4C274CF6B200FF60FB /* NSObject+DontCrash.m in Sources */,
 				1E0869E1274554B700AEF9C5 /* OwlInit.m in Sources */,
+				7A787B85274D103D00FF60FB /* Modifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +624,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_PREFIX_HEADER = OwlClient/OwlClient.pch;
 				INFOPLIST_FILE = OwlClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -506,6 +661,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_PREFIX_HEADER = OwlClient/OwlClient.pch;
 				INFOPLIST_FILE = OwlClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

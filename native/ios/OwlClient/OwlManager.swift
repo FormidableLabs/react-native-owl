@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 
 @objc(OwlManager)
 public class OwlManager : NSObject {
@@ -25,9 +26,13 @@ public class OwlManager : NSObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             print("---- OWL ----, Resuming demo")
             
-            let elementId = "ABOUT_BUTTON"
-            tap(elementId)
+            scrollWithOffset("TEST_SCROLL", withOffset: CGPoint(x: 0, y: -200))
+            
+            scrollTo("TEST_SCROLL", edge: "bottom")
+            
+            scrollTo("TEST_SCROLL", edge: "top")
+            
+            tap("ABOUT_BUTTON")
         }
-        
     }
 }

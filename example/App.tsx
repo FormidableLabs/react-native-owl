@@ -77,6 +77,7 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
+        testID="TEST_SCROLL"
       >
         <Header />
         <View
@@ -107,6 +108,20 @@ const App = () => {
               <Text style={styles.buttonText}>about ›</Text>
             </Pressable>
           </View>
+
+          <Section title="Step One">
+            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+            screen and then come back to see your edits.
+          </Section>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
         </View>
       </ScrollView>
     </SafeAreaView>
