@@ -13,5 +13,6 @@ framework module OwlClient {
         header "DTXAssertionHandler.h"
         header "NSThread+OwlUtils.h"
         header "UIScrollView+OwlActions.h"
+        header "ReactNativeSupport.h"
 	}
 }

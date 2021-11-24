@@ -126,17 +126,17 @@ class Element : NSObject {
         view.dtx_longPress(at:normalizedPoint, duration:duration, target:targetElement.view, normalizedTargetPoint:normalizedTargetPoint, velocity:velocity, lastHoldDuration:lastHoldDuration)
     }
     
-//    func swipe(normalizedOffset: CGPoint, velocity: CGFloat = 1.0, normalizedStartingPoint: CGPoint? = nil) {
-//        if let normalizedStartingPoint = normalizedStartingPoint {
-//            view.dtx_swipe(withNormalizedOffset: normalizedOffset, velocity: velocity, normalizedStartingPoint: normalizedStartingPoint)
-//        } else {
-//            view.dtx_swipe(withNormalizedOffset: normalizedOffset, velocity: velocity)
-//        }
-//    }
-//
-//    func pinch(withScale scale: CGFloat, velocity: CGFloat = 2.0, angle: CGFloat = 0.0) {
-//        view.dtx_pinch(withScale: scale, velocity: velocity, angle: angle)
-//    }
+    func swipe(normalizedOffset: CGPoint, velocity: CGFloat = 1.0, normalizedStartingPoint: CGPoint? = nil) {
+        if let normalizedStartingPoint = normalizedStartingPoint {
+            view.dtx_swipe(withNormalizedOffset: normalizedOffset, velocity: velocity, normalizedStartingPoint: normalizedStartingPoint)
+        } else {
+            view.dtx_swipe(withNormalizedOffset: normalizedOffset, velocity: velocity)
+        }
+    }
+
+    func pinch(withScale scale: CGFloat, velocity: CGFloat = 2.0, angle: CGFloat = 0.0) {
+        view.dtx_pinch(withScale: scale, velocity: velocity, angle: angle)
+    }
     
     func scroll(to edge: UIRectEdge) {
         let scrollView = extractScrollView()
@@ -154,18 +154,18 @@ class Element : NSObject {
         }
     }
     
-//    func clearText() {
-//        view.dtx_clearText()
-//    }
-//
-//    func typeText(_ text: String) {
-//        view.dtx_typeText(text)
-//    }
-//
-//    func replaceText(_ text: String) {
-//        view.dtx_replaceText(text)
-//    }
-//
+    func clearText() {
+        view.dtx_clearText()
+    }
+
+    func typeText(_ text: String) {
+        view.dtx_typeText(text)
+    }
+
+    func replaceText(_ text: String) {
+        view.dtx_replaceText(text)
+    }
+
 //    func adjust(toDate date: Date) {
 //        if let view = view as? UIDatePicker {
 //            view.dtx_adjust(to: date)
@@ -181,7 +181,7 @@ class Element : NSObject {
 //            dtx_fatalError("View “\(view.dtx_shortDescription)” is not an instance of “UIPickerView”", viewDescription: debugAttributes)
 //        }
 //    }
-//
+
 //    func adjust(toNormalizedSliderPosition normalizedSliderPosition: Double) {
 //        guard let slider = view as? UISlider else {
 //            dtx_fatalError("View \(view.dtx_shortDescription) is not instance of “UISlider”", viewDescription: debugAttributes)
@@ -220,11 +220,11 @@ class Element : NSObject {
         return rv
     }
     
-//    func takeScreenshot(fileName: String?) -> [String : Any] {
-//        let path: URL = view.dtx_takeScreenshot(fileName)
-//
-//        return ["screenshotPath": path.path]
-//    }
+    func takeScreenshot(fileName: String?) -> [String : Any] {
+        let path: URL = view.dtx_takeScreenshot(fileName)
+
+        return ["screenshotPath": path.path]
+    }
     
     @objc
     var text: String? {

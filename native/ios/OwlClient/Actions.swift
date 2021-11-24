@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import DetoxSync
+
 
 func getElementById(_ elementId: String) throws -> Element? {
     return try Element.with(dictionaryRepresentation: [ "predicate": [ "type": "id","value": elementId]])
@@ -67,3 +69,57 @@ func scrollTo(_ elementId: String, edge: String) -> Void {
     }
 }
 
+func typeText(_ elementId: String, text: String) -> Void {
+    do {
+        let element = try getElementById(elementId)
+        
+        print("---- OWL ----, type text '\(text)' in \(element?.dtx_shortDescription ?? "")")
+        
+        element?.typeText(text)
+    } catch {
+        print("---- OWL ----, Error typing text in \(elementId)")
+    }
+}
+
+func replaceText(_ elementId: String, text: String) -> Void {
+    do {
+        let element = try getElementById(elementId)
+        
+        print("---- OWL ----, replace text '\(text)' in \(element?.dtx_shortDescription ?? "")")
+        
+        element?.replaceText(text)
+    } catch {
+        print("---- OWL ----, Error replacing text in \(elementId)")
+    }
+}
+
+func clearText(_ elementId: String) -> Void {
+    do {
+        let element = try getElementById(elementId)
+        
+        print("---- OWL ----, clear text in \(element?.dtx_shortDescription ?? "")")
+        
+        element?.clearText()
+    } catch {
+        print("---- OWL ----, Error clearing text in \(elementId)")
+    }
+}
+
+func reloadApp() -> Void {
+//    DTXSyncManager.enqueueMainQueueIdleClosure {
+    print("---- OWL ----, reload app")
+    
+    ReactNativeSupport.reloadApp()
+//    }
+    
+    waitForRNLoad()
+    return
+}
+
+private func waitForRNLoad() {
+    ReactNativeSupport.waitForReactNativeLoad {
+        print("---- OWL ----, reloaded")
+        print("---- OWL ----, TODO: Notify via socket that app is ready")
+        
+    }
+}

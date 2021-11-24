@@ -1,0 +1,3 @@
+[submodule "native/ios/DetoxSync"]
+	path = native/ios/DetoxSync
+	url = https://github.com/wix/DetoxSync.git

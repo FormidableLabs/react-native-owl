@@ -10,14 +10,14 @@
 
 #define DTXAddressInfo detox_DTXAddressInfo
 
-//#import "DTXLogging.h"
+#import "DTXLogging.h"
 
-//#import "Swiftier.h"
+#import "Swiftier.h"
 
 #ifdef __OBJC__
 #import "DTXAssertionHandler.h"
 #import "NSThread+OwlUtils.h"
-//#import "NSArray+Utils.h"
+#import "NSArray+Utils.h"
 #endif
 
 #endif /* Owl_pch */

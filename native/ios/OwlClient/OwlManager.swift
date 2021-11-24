@@ -21,18 +21,29 @@ public class OwlManager : NSObject {
     public func doDemo() {
         print("---- OWL ----, Will do a demo.")
     
-        let seconds = 5.0
+        scrollWithOffset("TEST_SCROLL", withOffset: CGPoint(x: 0, y: -200))
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            print("---- OWL ----, Resuming demo")
+        scrollWithOffset("TEST_SCROLL", withOffset: CGPoint(x: 0, y: -50))
             
-            scrollWithOffset("TEST_SCROLL", withOffset: CGPoint(x: 0, y: -200))
+        scrollTo("TEST_SCROLL", edge: "bottom")
+        
+        tap("ABOUT_BUTTON")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+            typeText("TEST_INPUT", text: "Hello world!")
             
-            scrollTo("TEST_SCROLL", edge: "bottom")
-            
-            scrollTo("TEST_SCROLL", edge: "top")
-            
-            tap("ABOUT_BUTTON")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                clearText("TEST_INPUT")
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    replaceText("TEST_INPUT", text: "Hello you!")
+                    
+                    // Pause then reload for demo purposes
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        reloadApp()
+                    }
+                }
+            }
         }
     }
 }

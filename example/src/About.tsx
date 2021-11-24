@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -36,6 +37,12 @@ export const About: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           react-native-owl
         </Text>
         <Text style={styles.footerText}>Brought to you by Formidable.</Text>
+
+        <TextInput
+          testID="TEST_INPUT"
+          placeholder="Test input"
+          style={styles.input}
+        />
       </View>
     </SafeAreaView>
   );
@@ -71,5 +78,13 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 22,
     marginBottom: 12,
+  },
+  input: {
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderWidth: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    fontSize: 20,
   },
 });

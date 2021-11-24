@@ -265,58 +265,58 @@ static void DTXCalcPinchStartEndPoints(CGRect bounds, CGFloat pixelsScale, CGFlo
 }
 
 //DTX_ALWAYS_INLINE
-//static CGFloat clamp(CGFloat v, CGFloat min, CGFloat max)
-//{
-//    return MIN(MAX(v, min), max);
-//}
-//
-//- (void)dtx_pinchWithScale:(CGFloat)scale velocity:(CGFloat)velocity angle:(CGFloat)angle
-//{
-//    NSParameterAssert(velocity > 0.0);
-//    NSParameterAssert(scale > 0.0);
-//    
-//    if(scale == 1.0)
-//    {
-//        return;
-//    }
-//    
-//    UIView* view = self.dtx_view;
-//    UIWindow* window = view.window;
-//    CGRect safeBounds = self.dtx_safeAreaBounds;
-//    
-//    CGPoint startPoint1;
-//    CGPoint endPoint1;
-//    CGPoint startPoint2;
-//    CGPoint endPoint2;
-//    
-//    scale = clamp(scale, 0.5005, 1.9995);
-//    //There is point symmetry in a rectangle and two fingers—normalize angle to [0, pi).
-//    //Negative angles wrap around 180 degrees (pi).
-//    angle = fmod(angle, M_PI);
-//    if(angle < 0)
-//    {
-//        angle += M_PI;
-//    }
-//    
-//    if(scale < 1.0)
-//    {
-//        DTXCalcPinchStartEndPoints(safeBounds, 1.0 - scale, angle, &endPoint1, &startPoint1, &endPoint2, &startPoint2);
-//    }
-//    else
-//    {
-//        DTXCalcPinchStartEndPoints(safeBounds, scale - 1.0, angle, &startPoint1, &endPoint1, &startPoint2, &endPoint2);
-//    }
-//    
-//    [self dtx_assertHittableAtPoint:startPoint1];
-//    [self dtx_assertHittableAtPoint:startPoint2];
-//    
-//    startPoint1 = [window convertPoint:startPoint1 fromView:view];
-//    endPoint1 = [window convertPoint:endPoint1 fromView:view];
-//    startPoint2 = [window convertPoint:startPoint2 fromView:view];
-//    endPoint2 = [window convertPoint:endPoint2 fromView:view];
-//    
-//    _DTXApplyPinch(window, startPoint1, endPoint1, startPoint2, endPoint2, 1.0 / velocity);
-//}
+static CGFloat clamp(CGFloat v, CGFloat min, CGFloat max)
+{
+    return MIN(MAX(v, min), max);
+}
+
+- (void)dtx_pinchWithScale:(CGFloat)scale velocity:(CGFloat)velocity angle:(CGFloat)angle
+{
+    NSParameterAssert(velocity > 0.0);
+    NSParameterAssert(scale > 0.0);
+    
+    if(scale == 1.0)
+    {
+        return;
+    }
+    
+    UIView* view = self.dtx_view;
+    UIWindow* window = view.window;
+    CGRect safeBounds = self.dtx_safeAreaBounds;
+    
+    CGPoint startPoint1;
+    CGPoint endPoint1;
+    CGPoint startPoint2;
+    CGPoint endPoint2;
+    
+    scale = clamp(scale, 0.5005, 1.9995);
+    //There is point symmetry in a rectangle and two fingers—normalize angle to [0, pi).
+    //Negative angles wrap around 180 degrees (pi).
+    angle = fmod(angle, M_PI);
+    if(angle < 0)
+    {
+        angle += M_PI;
+    }
+    
+    if(scale < 1.0)
+    {
+        DTXCalcPinchStartEndPoints(safeBounds, 1.0 - scale, angle, &endPoint1, &startPoint1, &endPoint2, &startPoint2);
+    }
+    else
+    {
+        DTXCalcPinchStartEndPoints(safeBounds, scale - 1.0, angle, &startPoint1, &endPoint1, &startPoint2, &endPoint2);
+    }
+    
+    [self dtx_assertHittableAtPoint:startPoint1];
+    [self dtx_assertHittableAtPoint:startPoint2];
+    
+    startPoint1 = [window convertPoint:startPoint1 fromView:view];
+    endPoint1 = [window convertPoint:endPoint1 fromView:view];
+    startPoint2 = [window convertPoint:startPoint2 fromView:view];
+    endPoint2 = [window convertPoint:endPoint2 fromView:view];
+    
+    _DTXApplyPinch(window, startPoint1, endPoint1, startPoint2, endPoint2, 1.0 / velocity);
+}
 
 static UIView* _isViewOrDescendantFirstResponder(UIView* view)
 {
@@ -365,198 +365,198 @@ static UIView* _ensureFirstResponderIfNeeded(UIView* view)
     return firstResponder;
 }
 
-//static BOOL _assertFirstResponderSupportsTextInput(UIView* firstResponder)
-//{
-//    if([firstResponder conformsToProtocol:@protocol(UITextInput)])
-//    {
-//        return YES;
-//    }
-//    
-//    DTXCViewAssert(NO, firstResponder.dtx_elementDebugAttributes, @"First responder “%@” does not conform to “UITextInput” protocol", firstResponder);
-//    
-//    return NO;
-//}
-//
-//static void _ensureSelectionAtRange(id<UITextInput> textInput, UITextRange* textRange)
-//{
-//    if(textRange == nil)
-//    {
-//        //If none provided, move selection to end of document.
-//        textRange = [textInput textRangeFromPosition:textInput.endOfDocument toPosition:textInput.endOfDocument];
-//    }
-//    
-//    textInput.selectedTextRange = textRange;
-//}
-//
-//__attribute__((constructor))
-//static void _DTXFixupKeyboard(void)
-//{
-//    static char const *const controllerPrefBundlePath = "/System/Library/PrivateFrameworks/TextInput.framework/TextInput";
-//    __unused void *handle = dlopen(controllerPrefBundlePath, RTLD_LAZY);
-//    
-//    TIPreferencesController* controller = TIPreferencesController.sharedPreferencesController;
-//    if([controller respondsToSelector:@selector(setAutocorrectionEnabled:)] == YES)
-//    {
-//        controller.autocorrectionEnabled = NO;
-//    }
-//    else
-//    {
-//        [controller setValue:@NO forPreferenceKey:@"KeyboardAutocorrection"];
-//    }
-//    
-//    if([controller respondsToSelector:@selector(setPredictionEnabled:)])
-//    {
-//        controller.predictionEnabled = NO;
-//    }
-//    else
-//    {
-//        [controller setValue:@NO forPreferenceKey:@"KeyboardPrediction"];
-//    }
-//    
-//    [controller setValue:@YES forPreferenceKey:@"DidShowGestureKeyboardIntroduction"];
-//    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-//    {
-//        [controller setValue:@YES forPreferenceKey:@"DidShowContinuousPathIntroduction"];
-//    }
-//    
-//    [controller synchronizePreferences];
-//}
-//
-//static void _DTXTypeText(NSString* text)
-//{
-//    NSUInteger rangeIdx = 0;
-//    while (rangeIdx < text.length)
-//    {
-//        NSRange range = [text rangeOfComposedCharacterSequenceAtIndex:rangeIdx];
-//        
-//        NSString* grapheme = [text substringWithRange:range];
-//        
-//        [UIKeyboardImpl.sharedInstance setShift:NO autoshift:NO];
-//        
-//        [UIKeyboardImpl.sharedInstance.taskQueue performTask:^(id ctx) {
-//            [UIKeyboardImpl.sharedInstance handleKeyWithString:grapheme forKeyEvent:nil executionContext:ctx];
-//            
-//            NSArray* sounds = @[@1104, @1155, @1156];
-//            
-//            AudioServicesPlaySystemSound([sounds[grapheme.hash % 3] unsignedIntValue]);
-//        }];
-//        [UIKeyboardImpl.sharedInstance.taskQueue waitUntilAllTasksAreFinished];
-//        
-//        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
-//        
-//        
-//        [UIKeyboardImpl.sharedInstance removeCandidateList];
-//        
-//        rangeIdx += range.length;
-//    }
-//}
-//
-//- (void)dtx_clearText
-//{
-//    UIView* view = self.dtx_view;
-//    UIView<UITextInput>* firstResponder = (id)_ensureFirstResponderIfNeeded(view);
-//    _assertFirstResponderSupportsTextInput(firstResponder);
-//    
-//    UITextPosition* beginningOfDocument = firstResponder.beginningOfDocument;
-//    UITextPosition* endOfDocument = firstResponder.endOfDocument;
-//    
-//    UITextRange* range = [firstResponder textRangeFromPosition:beginningOfDocument toPosition:endOfDocument];
-//    if(range.isEmpty == YES)
-//    {
-//        return;
-//    }
-//    
-//    //Select entire text range
-//    firstResponder.selectedTextRange = range;
-//    [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
-//    //Delete it
-//    _DTXTypeText(@"\b");
-//}
-//
-//- (void)dtx_typeText:(NSString*)text
-//{
-//    [self dtx_typeText:text atTextRange:nil];
-//}
-//
-//- (void)dtx_typeText:(NSString*)text atTextRange:(UITextRange*)textRange
-//{
-//    UIView* view = self.dtx_view;
-//    UIView<UITextInput>* firstResponder = (id)_ensureFirstResponderIfNeeded(view);
-//    _assertFirstResponderSupportsTextInput(firstResponder);
-//    _ensureSelectionAtRange(firstResponder, textRange);
-//    
-//    _DTXTypeText(text);
-//}
-//
-//- (void)dtx_replaceText:(NSString*)text
-//{
-//    UIView* view = self.dtx_view;
-//    UIView<UITextInput>* firstResponder = (id)_ensureFirstResponderIfNeeded(view);
-//    _assertFirstResponderSupportsTextInput(firstResponder);
-//    
-//    BOOL isControl = [firstResponder isKindOfClass:UIControl.class];
-//    BOOL isTextField = [firstResponder isKindOfClass:UITextField.class];
-//    BOOL isTextView = [firstResponder isKindOfClass:UITextView.class];
-//    UITextView* textView = (UITextView*)firstResponder;
-//    
-//    if(isControl == YES)
-//    {
-//        [(UIControl*)firstResponder sendActionsForControlEvents:UIControlEventEditingDidBegin];
-//    }
-//    
-//    if(isTextField == YES)
-//    {
-//        [NSNotificationCenter.defaultCenter postNotificationName:UITextFieldTextDidBeginEditingNotification object:firstResponder];
-//    }
-//    
-//    if(isTextView == YES)
-//    {
-//        if([textView.delegate respondsToSelector:@selector(textViewDidBeginEditing:)])
-//        {
-//            [textView.delegate textViewDidBeginEditing:textView];
-//        }
-//    }
-//    
-//    UITextPosition* beginningOfDocument = firstResponder.beginningOfDocument;
-//    UITextPosition* endOfDocument = firstResponder.endOfDocument;
-//    
-//    UITextRange* range = [firstResponder textRangeFromPosition:beginningOfDocument toPosition:endOfDocument];
-//    
-//    [firstResponder replaceRange:range withText:text];
-//    
-//    if(isControl == YES)
-//    {
-//        [(UIControl*)firstResponder sendActionsForControlEvents:UIControlEventEditingChanged];
-//        [(UIControl*)firstResponder sendActionsForControlEvents:UIControlEventEditingDidEnd];
-//    }
-//    
-//    if(isTextField == YES)
-//    {
-//        [NSNotificationCenter.defaultCenter postNotificationName:UITextFieldTextDidChangeNotification object:firstResponder];
-//        [NSNotificationCenter.defaultCenter postNotificationName:UITextFieldTextDidEndEditingNotification object:firstResponder];
-//    }
-//    
-//    if(isTextView == YES)
-//    {
-//        if([textView.delegate respondsToSelector:@selector(textViewDidChange:)])
-//        {
-//            [textView.delegate textViewDidChange:textView];
-//        }
-//        if([textView.delegate respondsToSelector:@selector(textViewDidEndEditing:)])
-//        {
-//            [textView.delegate textViewDidEndEditing:textView];
-//        }
-//    }
-//}
+static BOOL _assertFirstResponderSupportsTextInput(UIView* firstResponder)
+{
+    if([firstResponder conformsToProtocol:@protocol(UITextInput)])
+    {
+        return YES;
+    }
+    
+    DTXCViewAssert(NO, firstResponder.dtx_elementDebugAttributes, @"First responder “%@” does not conform to “UITextInput” protocol", firstResponder);
+    
+    return NO;
+}
 
-//- (NSURL *)dtx_takeScreenshot:(nullable NSString*)name
-//{
-//    UIImage *image = [self.dtx_view dtx_imageFromView];
-//    NSURL *path = [NSURL elementsScreenshotPath];
-//    NSString *fileName = [NSString stringWithFormat:@"ImageScreenshot_%@.png", name != nil ? name : self];
-//    [image dtx_saveToPath:path fileName:fileName];
-//
-//    return [path URLByAppendingPathComponent:fileName isDirectory:false];;
-//}
+static void _ensureSelectionAtRange(id<UITextInput> textInput, UITextRange* textRange)
+{
+    if(textRange == nil)
+    {
+        //If none provided, move selection to end of document.
+        textRange = [textInput textRangeFromPosition:textInput.endOfDocument toPosition:textInput.endOfDocument];
+    }
+    
+    textInput.selectedTextRange = textRange;
+}
+
+__attribute__((constructor))
+static void _DTXFixupKeyboard(void)
+{
+    static char const *const controllerPrefBundlePath = "/System/Library/PrivateFrameworks/TextInput.framework/TextInput";
+    __unused void *handle = dlopen(controllerPrefBundlePath, RTLD_LAZY);
+    
+    TIPreferencesController* controller = TIPreferencesController.sharedPreferencesController;
+    if([controller respondsToSelector:@selector(setAutocorrectionEnabled:)] == YES)
+    {
+        controller.autocorrectionEnabled = NO;
+    }
+    else
+    {
+        [controller setValue:@NO forPreferenceKey:@"KeyboardAutocorrection"];
+    }
+    
+    if([controller respondsToSelector:@selector(setPredictionEnabled:)])
+    {
+        controller.predictionEnabled = NO;
+    }
+    else
+    {
+        [controller setValue:@NO forPreferenceKey:@"KeyboardPrediction"];
+    }
+    
+    [controller setValue:@YES forPreferenceKey:@"DidShowGestureKeyboardIntroduction"];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        [controller setValue:@YES forPreferenceKey:@"DidShowContinuousPathIntroduction"];
+    }
+    
+    [controller synchronizePreferences];
+}
+
+static void _DTXTypeText(NSString* text)
+{
+    NSUInteger rangeIdx = 0;
+    while (rangeIdx < text.length)
+    {
+        NSRange range = [text rangeOfComposedCharacterSequenceAtIndex:rangeIdx];
+        
+        NSString* grapheme = [text substringWithRange:range];
+        
+        [UIKeyboardImpl.sharedInstance setShift:NO autoshift:NO];
+        
+        [UIKeyboardImpl.sharedInstance.taskQueue performTask:^(id ctx) {
+            [UIKeyboardImpl.sharedInstance handleKeyWithString:grapheme forKeyEvent:nil executionContext:ctx];
+            
+            NSArray* sounds = @[@1104, @1155, @1156];
+            
+            AudioServicesPlaySystemSound([sounds[grapheme.hash % 3] unsignedIntValue]);
+        }];
+        [UIKeyboardImpl.sharedInstance.taskQueue waitUntilAllTasksAreFinished];
+        
+        [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+        
+        
+        [UIKeyboardImpl.sharedInstance removeCandidateList];
+        
+        rangeIdx += range.length;
+    }
+}
+
+- (void)dtx_clearText
+{
+    UIView* view = self.dtx_view;
+    UIView<UITextInput>* firstResponder = (id)_ensureFirstResponderIfNeeded(view);
+    _assertFirstResponderSupportsTextInput(firstResponder);
+    
+    UITextPosition* beginningOfDocument = firstResponder.beginningOfDocument;
+    UITextPosition* endOfDocument = firstResponder.endOfDocument;
+    
+    UITextRange* range = [firstResponder textRangeFromPosition:beginningOfDocument toPosition:endOfDocument];
+    if(range.isEmpty == YES)
+    {
+        return;
+    }
+    
+    //Select entire text range
+    firstResponder.selectedTextRange = range;
+    [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+    //Delete it
+    _DTXTypeText(@"\b");
+}
+
+- (void)dtx_typeText:(NSString*)text
+{
+    [self dtx_typeText:text atTextRange:nil];
+}
+
+- (void)dtx_typeText:(NSString*)text atTextRange:(UITextRange*)textRange
+{
+    UIView* view = self.dtx_view;
+    UIView<UITextInput>* firstResponder = (id)_ensureFirstResponderIfNeeded(view);
+    _assertFirstResponderSupportsTextInput(firstResponder);
+    _ensureSelectionAtRange(firstResponder, textRange);
+    
+    _DTXTypeText(text);
+}
+
+- (void)dtx_replaceText:(NSString*)text
+{
+    UIView* view = self.dtx_view;
+    UIView<UITextInput>* firstResponder = (id)_ensureFirstResponderIfNeeded(view);
+    _assertFirstResponderSupportsTextInput(firstResponder);
+    
+    BOOL isControl = [firstResponder isKindOfClass:UIControl.class];
+    BOOL isTextField = [firstResponder isKindOfClass:UITextField.class];
+    BOOL isTextView = [firstResponder isKindOfClass:UITextView.class];
+    UITextView* textView = (UITextView*)firstResponder;
+    
+    if(isControl == YES)
+    {
+        [(UIControl*)firstResponder sendActionsForControlEvents:UIControlEventEditingDidBegin];
+    }
+    
+    if(isTextField == YES)
+    {
+        [NSNotificationCenter.defaultCenter postNotificationName:UITextFieldTextDidBeginEditingNotification object:firstResponder];
+    }
+    
+    if(isTextView == YES)
+    {
+        if([textView.delegate respondsToSelector:@selector(textViewDidBeginEditing:)])
+        {
+            [textView.delegate textViewDidBeginEditing:textView];
+        }
+    }
+    
+    UITextPosition* beginningOfDocument = firstResponder.beginningOfDocument;
+    UITextPosition* endOfDocument = firstResponder.endOfDocument;
+    
+    UITextRange* range = [firstResponder textRangeFromPosition:beginningOfDocument toPosition:endOfDocument];
+    
+    [firstResponder replaceRange:range withText:text];
+    
+    if(isControl == YES)
+    {
+        [(UIControl*)firstResponder sendActionsForControlEvents:UIControlEventEditingChanged];
+        [(UIControl*)firstResponder sendActionsForControlEvents:UIControlEventEditingDidEnd];
+    }
+    
+    if(isTextField == YES)
+    {
+        [NSNotificationCenter.defaultCenter postNotificationName:UITextFieldTextDidChangeNotification object:firstResponder];
+        [NSNotificationCenter.defaultCenter postNotificationName:UITextFieldTextDidEndEditingNotification object:firstResponder];
+    }
+    
+    if(isTextView == YES)
+    {
+        if([textView.delegate respondsToSelector:@selector(textViewDidChange:)])
+        {
+            [textView.delegate textViewDidChange:textView];
+        }
+        if([textView.delegate respondsToSelector:@selector(textViewDidEndEditing:)])
+        {
+            [textView.delegate textViewDidEndEditing:textView];
+        }
+    }
+}
+
+- (NSURL *)dtx_takeScreenshot:(nullable NSString*)name
+{
+    UIImage *image = [self.dtx_view dtx_imageFromView];
+    NSURL *path = [NSURL elementsScreenshotPath];
+    NSString *fileName = [NSString stringWithFormat:@"ImageScreenshot_%@.png", name != nil ? name : self];
+    [image dtx_saveToPath:path fileName:fileName];
+
+    return [path URLByAppendingPathComponent:fileName isDirectory:false];;
+}
 
 @end

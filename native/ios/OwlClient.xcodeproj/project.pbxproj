@@ -59,6 +59,17 @@
 		7A787B81274D0F2B00FF60FB /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B80274D0F2B00FF60FB /* Element.swift */; };
 		7A787B83274D0F4200FF60FB /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B82274D0F4200FF60FB /* Predicate.swift */; };
 		7A787B85274D103D00FF60FB /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B84274D103D00FF60FB /* Modifier.swift */; };
+		7A787B92274E337D00FF60FB /* DetoxSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A787B8F274E337000FF60FB /* DetoxSync.framework */; };
+		7A787B93274E337D00FF60FB /* DetoxSync.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7A787B8F274E337000FF60FB /* DetoxSync.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7A787B98274E346A00FF60FB /* ReactNativeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A787B97274E346A00FF60FB /* ReactNativeSupport.m */; };
+		7A787B9A274E34B300FF60FB /* ReactNativeSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B96274E346200FF60FB /* ReactNativeSupport.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7A787B9B274E34B800FF60FB /* ReactNativeHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787B99274E347300FF60FB /* ReactNativeHeaders.h */; };
+		7A787BB4274E38BE00FF60FB /* NSArray+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787BAE274E38BE00FF60FB /* NSArray+Utils.h */; };
+		7A787BB5274E38BE00FF60FB /* Swiftier.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787BAF274E38BE00FF60FB /* Swiftier.h */; };
+		7A787BB6274E38BE00FF60FB /* DTXAddressInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787BB0274E38BE00FF60FB /* DTXAddressInfo.h */; };
+		7A787BB7274E38BE00FF60FB /* DTXSwizzlingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787BB1274E38BE00FF60FB /* DTXSwizzlingHelper.h */; };
+		7A787BB8274E38BE00FF60FB /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787BB2274E38BE00FF60FB /* fishhook.h */; };
+		7A787BB9274E38BE00FF60FB /* DTXLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A787BB3274E38BE00FF60FB /* DTXLogging.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +80,42 @@
 			remoteGlobalIDString = 1EBA0274274510E0005A3858;
 			remoteInfo = OwlClient;
 		};
+		7A787B8E274E337000FF60FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A787B86274E336F00FF60FB /* DetoxSync.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 39DE8F5222F707DD00780546;
+			remoteInfo = DetoxSync;
+		};
+		7A787B90274E337000FF60FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A787B86274E336F00FF60FB /* DetoxSync.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 602F956A274528ED00BAFA74;
+			remoteInfo = DetoxSyncTests;
+		};
+		7A787B9E274E360600FF60FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A787B86274E336F00FF60FB /* DetoxSync.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 39DE8F5122F707DD00780546;
+			remoteInfo = DetoxSync;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7A787B94274E337D00FF60FB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7A787B93274E337D00FF60FB /* DetoxSync.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1E0869DB2745139F00AEF9C5 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -129,6 +175,16 @@
 		7A787B80274D0F2B00FF60FB /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		7A787B82274D0F4200FF60FB /* Predicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
 		7A787B84274D103D00FF60FB /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
+		7A787B86274E336F00FF60FB /* DetoxSync.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DetoxSync.xcodeproj; path = DetoxSync/DetoxSync/DetoxSync.xcodeproj; sourceTree = "<group>"; };
+		7A787B96274E346200FF60FB /* ReactNativeSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactNativeSupport.h; sourceTree = "<group>"; };
+		7A787B97274E346A00FF60FB /* ReactNativeSupport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReactNativeSupport.m; sourceTree = "<group>"; };
+		7A787B99274E347300FF60FB /* ReactNativeHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactNativeHeaders.h; sourceTree = "<group>"; };
+		7A787BAE274E38BE00FF60FB /* NSArray+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSArray+Utils.h"; path = "DetoxSync/DetoxSync/DTXObjectiveCHelpers/NSArray+Utils.h"; sourceTree = "<group>"; };
+		7A787BAF274E38BE00FF60FB /* Swiftier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Swiftier.h; path = DetoxSync/DetoxSync/DTXObjectiveCHelpers/Swiftier.h; sourceTree = "<group>"; };
+		7A787BB0274E38BE00FF60FB /* DTXAddressInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTXAddressInfo.h; path = DetoxSync/DetoxSync/DTXObjectiveCHelpers/DTXAddressInfo.h; sourceTree = "<group>"; };
+		7A787BB1274E38BE00FF60FB /* DTXSwizzlingHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTXSwizzlingHelper.h; path = DetoxSync/DetoxSync/DTXObjectiveCHelpers/DTXSwizzlingHelper.h; sourceTree = "<group>"; };
+		7A787BB2274E38BE00FF60FB /* fishhook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fishhook.h; path = DetoxSync/DetoxSync/fishhook/fishhook.h; sourceTree = "<group>"; };
+		7A787BB3274E38BE00FF60FB /* DTXLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTXLogging.h; path = DetoxSync/DetoxSync/DTXLoggingInfra/DTXLogging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A787B92274E337D00FF60FB /* DetoxSync.framework in Frameworks */,
 				7A787B07274B8CB800FF60FB /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,6 +211,12 @@
 		1EBA026B274510E0005A3858 = {
 			isa = PBXGroup;
 			children = (
+				7A787BB0274E38BE00FF60FB /* DTXAddressInfo.h */,
+				7A787BB3274E38BE00FF60FB /* DTXLogging.h */,
+				7A787BB1274E38BE00FF60FB /* DTXSwizzlingHelper.h */,
+				7A787BB2274E38BE00FF60FB /* fishhook.h */,
+				7A787BAE274E38BE00FF60FB /* NSArray+Utils.h */,
+				7A787BAF274E38BE00FF60FB /* Swiftier.h */,
 				1EBA0277274510E0005A3858 /* OwlClient */,
 				1EBA0283274510E0005A3858 /* OwlClientTests */,
 				1EBA0276274510E0005A3858 /* Products */,
@@ -204,6 +267,7 @@
 		7A787B05274B8CB800FF60FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A787B86274E336F00FF60FB /* DetoxSync.xcodeproj */,
 				7A787B06274B8CB800FF60FB /* IOKit.framework */,
 			);
 			name = Frameworks;
@@ -242,6 +306,7 @@
 		7A787B41274C035A00FF60FB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7A787B95274E344B00FF60FB /* ReactNativeSupport */,
 				7A787AE7274B8BCA00FF60FB /* OwlRunLoopSpinner.h */,
 				7A787AF3274B8C0300FF60FB /* OwlRunLoopSpinner.m */,
 				7A787AE8274B8BD100FF60FB /* UIApplication+OwlAdditions.h */,
@@ -310,6 +375,25 @@
 			name = Matchers;
 			sourceTree = "<group>";
 		};
+		7A787B87274E336F00FF60FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A787B8F274E337000FF60FB /* DetoxSync.framework */,
+				7A787B91274E337000FF60FB /* DetoxSyncTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A787B95274E344B00FF60FB /* ReactNativeSupport */ = {
+			isa = PBXGroup;
+			children = (
+				7A787B99274E347300FF60FB /* ReactNativeHeaders.h */,
+				7A787B96274E346200FF60FB /* ReactNativeSupport.h */,
+				7A787B97274E346A00FF60FB /* ReactNativeSupport.m */,
+			);
+			name = ReactNativeSupport;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -332,12 +416,20 @@
 				7A787B74274D03D500FF60FB /* NSThread+OwlUtils.h in Headers */,
 				7A787B7B274D09A700FF60FB /* UIView+OwlMatchers.h in Headers */,
 				7A787B7F274D0D3E00FF60FB /* UIScrollView+OwlActions.h in Headers */,
+				7A787B9A274E34B300FF60FB /* ReactNativeSupport.h in Headers */,
+				7A787BB4274E38BE00FF60FB /* NSArray+Utils.h in Headers */,
+				7A787BB5274E38BE00FF60FB /* Swiftier.h in Headers */,
+				7A787BB6274E38BE00FF60FB /* DTXAddressInfo.h in Headers */,
+				7A787BB7274E38BE00FF60FB /* DTXSwizzlingHelper.h in Headers */,
+				7A787BB8274E38BE00FF60FB /* fishhook.h in Headers */,
+				7A787BB9274E38BE00FF60FB /* DTXLogging.h in Headers */,
 				7A787B01274B8C2600FF60FB /* OwlTouchInfo.h in Headers */,
 				7A787B4D274CF86700FF60FB /* NSObject+DontCrash.h in Headers */,
 				7A787B5B274CFBDC00FF60FB /* UIImage+OwlUtils.h in Headers */,
 				7A787B5F274CFC8D00FF60FB /* UIView+Drawing.h in Headers */,
 				7A787B64274CFD0E00FF60FB /* OwlPolicy.h in Headers */,
 				7A787B03274B8C2A00FF60FB /* UIApplication+OwlAdditions.h in Headers */,
+				7A787B9B274E34B800FF60FB /* ReactNativeHeaders.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,10 +444,12 @@
 				1EBA0271274510E0005A3858 /* Sources */,
 				1EBA0272274510E0005A3858 /* Frameworks */,
 				1EBA0273274510E0005A3858 /* Resources */,
+				7A787B94274E337D00FF60FB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7A787B9F274E360600FF60FB /* PBXTargetDependency */,
 			);
 			name = OwlClient;
 			productName = OwlClient;
@@ -410,6 +504,12 @@
 			mainGroup = 1EBA026B274510E0005A3858;
 			productRefGroup = 1EBA0276274510E0005A3858 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7A787B87274E336F00FF60FB /* Products */;
+					ProjectRef = 7A787B86274E336F00FF60FB /* DetoxSync.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1EBA0274274510E0005A3858 /* OwlClient */,
@@ -417,6 +517,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7A787B8F274E337000FF60FB /* DetoxSync.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DetoxSync.framework;
+			remoteRef = 7A787B8E274E337000FF60FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7A787B91274E337000FF60FB /* DetoxSyncTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = DetoxSyncTests.xctest;
+			remoteRef = 7A787B90274E337000FF60FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1EBA0273274510E0005A3858 /* Resources */ = {
@@ -443,6 +560,7 @@
 			files = (
 				7A787B63274CFCD300FF60FB /* OwlPolicy.m in Sources */,
 				7A787B83274D0F4200FF60FB /* Predicate.swift in Sources */,
+				7A787B98274E346A00FF60FB /* ReactNativeSupport.m in Sources */,
 				7A787B55274CFA7600FF60FB /* UIView+OwlUtils.m in Sources */,
 				7A787B48274C07AE00FF60FB /* NSObject+OwlUtils.m in Sources */,
 				7A787AFA274B8C0300FF60FB /* OwlTouchInjector.m in Sources */,
@@ -486,6 +604,11 @@
 			isa = PBXTargetDependency;
 			target = 1EBA0274274510E0005A3858 /* OwlClient */;
 			targetProxy = 1EBA0281274510E0005A3858 /* PBXContainerItemProxy */;
+		};
+		7A787B9F274E360600FF60FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DetoxSync;
+			targetProxy = 7A787B9E274E360600FF60FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -542,7 +665,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -600,7 +723,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -627,6 +750,7 @@
 				GCC_PREFIX_HEADER = OwlClient/OwlClient.pch;
 				INFOPLIST_FILE = OwlClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -643,6 +767,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.formidable.OwlClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -664,6 +789,7 @@
 				GCC_PREFIX_HEADER = OwlClient/OwlClient.pch;
 				INFOPLIST_FILE = OwlClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -680,6 +806,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.formidable.OwlClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
