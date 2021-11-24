@@ -27,7 +27,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
   logger.print(`[OWL] Found bundle id: ${bundleId}`);
 
   const SIMULATOR_TIME = '9:41';
-  const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
+  const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME} --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularMode active --cellularBars 4`;
   await execa.command(setTimeCommand, { stdio, cwd });
 
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
@@ -56,8 +56,26 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   const { packageName } = config.android!;
 
   const SIMULATOR_TIME = '0941';
-  const setTimeCommand = `adb shell date 0101${SIMULATOR_TIME}`;
+
+  // enter demo mode
+  const setDemoModeCommand = `adb shell settings put global sysui_demo_allowed 1`;
+  await execa.command(setDemoModeCommand, { stdio });
+
+  // display time 09:41
+  const setTimeCommand = `adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm ${SIMULATOR_TIME}`;
   await execa.command(setTimeCommand, { stdio });
+
+  // Display full mobile data with 4g type and no wifi
+  const setHeaderIconsCommand = `adb shell am broadcast -a com.android.systemui.demo -e command network -e mobile show -e level 4 -e datatype 4g -e wifi false`;
+  await execa.command(setHeaderIconsCommand, { stdio });
+
+  // Hide notifications
+  const setHideNotificationsCommand = `adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false`;
+  await execa.command(setHideNotificationsCommand, { stdio });
+
+  // Show full battery but not in charging state
+  const setFullbatteryCommand = `adb shell am broadcast -a com.android.systemui.demo -e command battery -e plugged false -e level 100`;
+  await execa.command(setFullbatteryCommand, { stdio });
 
   const installCommand = `adb install -r ${appPath}`;
   await execa.command(installCommand, { stdio });
