@@ -1,5 +1,7 @@
 import path from 'path';
 import execa from 'execa';
+import { exec } from 'child-process-promise';
+import { homedir } from 'os';
 
 import { CliRunOptions, Config } from '../types';
 import { generateReport } from '../report';
@@ -33,8 +35,31 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
   await execa.command(installCommand, { stdio, cwd });
 
-  const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
-  await execa.command(launchCommand, { stdio });
+  const owlClientVersion = require(path.join(
+    __dirname,
+    '../../package.json'
+  )).version;
+
+  const sha1 = (
+    await exec(
+      `(echo "${owlClientVersion}" && xcodebuild -version) | shasum | awk '{print $1}'`
+    )
+  ).stdout.trim();
+
+  const frameworkPath = `${homedir()}/Library/OwlClient/ios/${sha1}/OwlClient.framework`;
+
+  let dylibs = `${frameworkPath}/OwlClient`;
+
+  if (process.env.SIMCTL_CHILD_DYLD_INSERT_LIBRARIES) {
+    dylibs = `${process.env.SIMCTL_CHILD_DYLD_INSERT_LIBRARIES}:${dylibs}`;
+  }
+
+  // The OwlClient framework is injected into the launching app
+  const launchCommand =
+    `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES="${dylibs}" ` +
+    `/usr/bin/xcrun simctl launch ${simulator} ${bundleId}`;
+
+  await exec(launchCommand);
 
   // Workaround to force the virtual home button's color to become consistent
   const appearanceCommand = 'xcrun simctl ui booted appearance';

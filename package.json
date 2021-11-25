@@ -41,6 +41,7 @@
     "yargs": "^17.2.1"
   },
   "devDependencies": {
+    "@types/child-process-promise": "^2.2.2",
     "@types/jest": "^26.0.19",
     "@types/pixelmatch": "^5.2.4",
     "@types/pngjs": "^6.0.1",
