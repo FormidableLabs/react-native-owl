@@ -58,3 +58,7 @@ typings/
 
 # generated js
 dist/
+
+# Generated iOS Framework
+OwlClient-ios-src.tbz
+OwlClient-ios.tbz
