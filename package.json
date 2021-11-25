@@ -17,7 +17,9 @@
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
-    "test": "yarn jest"
+    "test": "yarn jest",
+    "postinstall": "node scripts/postinstall.js",
+    "package:ios": "scripts/pack_ios.sh"
   },
   "repository": "https://github.com/FormidableLabs/react-native-owl.git",
   "author": "Emmanouil Konstantinidis <hello@manos.im>",
@@ -31,6 +33,7 @@
   },
   "dependencies": {
     "ajv": "^7.0.3",
+    "child-process-promise": "^2.2.1",
     "execa": "^5.1.1",
     "handlebars": "^4.7.7",
     "pixelmatch": "^5.2.1",
@@ -38,6 +41,7 @@
     "yargs": "^17.2.1"
   },
   "devDependencies": {
+    "@types/child-process-promise": "^2.2.2",
     "@types/jest": "^26.0.19",
     "@types/pixelmatch": "^5.2.4",
     "@types/pngjs": "^6.0.1",
