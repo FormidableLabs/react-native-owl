@@ -1,14 +1,28 @@
 #!/bin/bash -e
 
-SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+PROJECT=$1
+OUTPUT_DIR=$2
+CONFIGURATION=Release
+PROJECT_NAME=OwlClient
 
-XCODEVERSION=$(xcodebuild -version | grep -oEi "([0-9]*(\.[0-9]*)+)")
-if [ "${XCODEVERSION}" == "`echo -e "${XCODEVERSION}\n12.0" | sort --version-sort -r | head -n1`" ]; then
-  echo "Xcode 12 and above; using modern script for building the framework to support Apple Silicon"
-  FRAMEWORK_SCRIPT="build_universal_framework_modern.sh"
-else
-  echo "Xcode 11 and below; using legacy script for building"
-  FRAMEWORK_SCRIPT="build_universal_framework_legacy.sh"
-fi
+# Make sure the output directory exists
 
-"${SCRIPTPATH}/${FRAMEWORK_SCRIPT}" "$@"
+mkdir -p "${OUTPUT_DIR}"
+rm -fr "${OUTPUT_DIR}/${PROJECT_NAME}.framework"
+
+# Step 0. Xcode version
+
+USE_NEW_BUILD_SYSTEM="YES"
+echo "Using -UseNewBuildSystem=${USE_NEW_BUILD_SYSTEM}"
+
+# Step 1. Build Device and Simulator versions
+
+BUILD_SIM=`xcodebuild -project "${PROJECT}" -scheme "OwlClient" -UseNewBuildSystem=${USE_NEW_BUILD_SYSTEM} -configuration "${CONFIGURATION}" -sdk iphonesimulator -destination "generic/platform=iOS Simulator" build -showBuildSettings  | awk -F= '/TARGET_BUILD_DIR/{x=$NF; gsub(/^[ \t]+|[ \t]+$/,"",x); print x}'`
+
+echo ${BUILD_SIM}
+
+xcodebuild -project "${PROJECT}" -scheme "OwlClient" -UseNewBuildSystem=${USE_NEW_BUILD_SYSTEM} -configuration "${CONFIGURATION}" -sdk iphonesimulator -destination "generic/platform=iOS Simulator" build -quiet
+
+# Step 2. Copy the framework to output folder
+
+cp -fR "${BUILD_SIM}/${PROJECT_NAME}.framework" "${OUTPUT_DIR}"/
