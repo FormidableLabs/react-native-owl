@@ -74,6 +74,7 @@ export const runHandler = async (args: CliRunOptions) => {
 
   logger.print(`[OWL] Starting websocket server.`);
   await startWebSocketServer(logger);
+
   logger.print(`[OWL] Running tests on ${args.platform}.`);
   await runProject(config, logger);
 
