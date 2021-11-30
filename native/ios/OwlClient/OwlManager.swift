@@ -29,7 +29,7 @@ public class OwlManager : NSObject {
         
         tap("ABOUT_BUTTON")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             typeText("TEST_INPUT", text: "Hello world!")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
