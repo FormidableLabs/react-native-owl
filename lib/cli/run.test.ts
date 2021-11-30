@@ -19,18 +19,18 @@ describe('run.ts', () => {
 
   describe('runOS', () => {
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
-    let spyDetIOSFrameworkPath: jest.SpyInstance;
+    let spyGetIOSFrameworkPath: jest.SpyInstance;
 
     beforeEach(() => {
       execMock.mockReset();
 
-      spyDetIOSFrameworkPath = jest
+      spyGetIOSFrameworkPath = jest
         .spyOn(run, 'getIOSFrameworkPath')
         .mockResolvedValue('frameworkPath');
     });
 
     afterEach(() => {
-      spyDetIOSFrameworkPath.mockRestore();
+      spyGetIOSFrameworkPath.mockRestore();
     });
 
     it('runs an iOS project - with the default build command', async () => {
