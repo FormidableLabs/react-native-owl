@@ -1,4 +1,5 @@
 import path from 'path';
+import { homedir } from 'os';
 import execa, { ExecaReturnValue } from 'execa';
 
 import { CliRunOptions, Config } from '../types';
@@ -18,9 +19,18 @@ describe('run.ts', () => {
 
   describe('runOS', () => {
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
+    let spyDetIOSFrameworkPath: jest.SpyInstance;
 
     beforeEach(() => {
       execMock.mockReset();
+
+      spyDetIOSFrameworkPath = jest
+        .spyOn(run, 'getIOSFrameworkPath')
+        .mockResolvedValue('frameworkPath');
+    });
+
+    afterEach(() => {
+      spyDetIOSFrameworkPath.mockRestore();
     });
 
     it('runs an iOS project - with the default build command', async () => {
@@ -51,7 +61,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
-        'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41',
+        'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41 --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularMode active --cellularBars 4',
         { cwd, stdio: 'ignore' }
       );
 
@@ -63,8 +73,8 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         4,
-        `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
-        { stdio: 'ignore' }
+        `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES=\"frameworkPath/OwlClient\" xcrun simctl launch \"iPhone\\ Simulator\" ${bundleIdIOS}`,
+        { cwd, shell: true }
       );
     });
 
@@ -92,7 +102,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
-        'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41',
+        'xcrun simctl status_bar iPhone\\ Simulator override --time 9:41 --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularMode active --cellularBars 4',
         { cwd, stdio: 'ignore' }
       );
 
@@ -104,8 +114,8 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         4,
-        `xcrun simctl launch iPhone\\ Simulator ${bundleIdIOS}`,
-        { stdio: 'ignore' }
+        `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES=\"frameworkPath/OwlClient\" xcrun simctl launch \"iPhone\\ Simulator\" ${bundleIdIOS}`,
+        { cwd, shell: true }
       );
     });
   });
@@ -133,16 +143,52 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
-        stdio: 'ignore',
-      });
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        `adb shell settings put global sysui_demo_allowed 1`,
+        {
+          stdio: 'ignore',
+        }
+      );
 
-      expect(execMock).toHaveBeenNthCalledWith(2, `adb install -r ${appPath}`, {
+      expect(execMock).toHaveBeenNthCalledWith(
+        2,
+        `adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        3,
+        `adb shell am broadcast -a com.android.systemui.demo -e command network -e mobile show -e level 4 -e datatype 4g -e wifi false`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        4,
+        `adb shell am broadcast -a com.android.systemui.demo -e command notifications -e visible false`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        5,
+        `adb shell am broadcast -a com.android.systemui.demo -e command battery -e plugged false -e level 100`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(6, `adb install -r ${appPath}`, {
         stdio: 'ignore',
       });
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        7,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );
@@ -161,12 +207,8 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
-        stdio: 'ignore',
-      });
-
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        6,
         `adb install -r ${binaryPath}`,
         {
           stdio: 'ignore',
@@ -174,7 +216,7 @@ describe('run.ts', () => {
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        7,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );
@@ -338,6 +380,41 @@ describe('run.ts', () => {
       await expect(mockRunIOS).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
       await expect(mockGenerateReport).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getIOSFrameworkPath', () => {
+    const execMock = jest.spyOn(execa, 'command').mockImplementation();
+    const mockSha1Response = {
+      stdout: 'hash',
+    } as ExecaReturnValue<any>;
+
+    beforeEach(() => {
+      execMock.mockReset();
+    });
+
+    it('gets the framework path', async () => {
+      const owlClientVersion = require(path.join(
+        __dirname,
+        '../../package.json'
+      )).version;
+
+      execMock.mockResolvedValueOnce(mockSha1Response);
+
+      const frameworkPath = await run.getIOSFrameworkPath({
+        cwd: '/usr/libexec',
+        stdio: 'ignore',
+      });
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        `(echo "${owlClientVersion}" && xcodebuild -version) | shasum | awk '{print $1}'`,
+        { cwd: '/usr/libexec', stdio: 'ignore' }
+      );
+
+      expect(frameworkPath).toEqual(
+        `${homedir()}/Library/OwlClient/ios/hash/OwlClient.framework`
+      );
     });
   });
 });
