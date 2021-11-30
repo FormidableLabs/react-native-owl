@@ -74,7 +74,7 @@ describe('run.ts', () => {
       expect(execMock).toHaveBeenNthCalledWith(
         4,
         `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES=\"frameworkPath/OwlClient\" xcrun simctl launch \"iPhone\\ Simulator\" ${bundleIdIOS}`,
-        { cwd, shell: true }
+        { cwd, shell: true, stdio: 'ignore' }
       );
     });
 
@@ -115,7 +115,7 @@ describe('run.ts', () => {
       expect(execMock).toHaveBeenNthCalledWith(
         4,
         `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES=\"frameworkPath/OwlClient\" xcrun simctl launch \"iPhone\\ Simulator\" ${bundleIdIOS}`,
-        { cwd, shell: true }
+        { cwd, shell: true, stdio: 'ignore' }
       );
     });
   });

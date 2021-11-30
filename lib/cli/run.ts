@@ -49,7 +49,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
   await execa.command(installCommand, { stdio, cwd });
 
-  const frameworkPath = await getIOSFrameworkPath({ stdio, cwd, shell: true });
+  const frameworkPath = await getIOSFrameworkPath({ cwd, shell: true });
   let dylibs = `${frameworkPath}/OwlClient`;
 
   if (process.env.SIMCTL_CHILD_DYLD_INSERT_LIBRARIES) {
@@ -61,7 +61,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
     `SIMCTL_CHILD_DYLD_INSERT_LIBRARIES="${dylibs}" ` +
     `xcrun simctl launch "${simulator}" ${bundleId}`;
 
-  await execa.command(launchCommand, { shell: true, cwd });
+  await execa.command(launchCommand, { shell: true, cwd, stdio });
 
   // Workaround to force the virtual home button's color to become consistent
   const appearanceCommand = 'xcrun simctl ui booted appearance';
