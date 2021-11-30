@@ -6,11 +6,15 @@ import { Logger } from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
 import * as reportHelpers from '../report';
+import * as websocketHelpers from '../websocket';
 
 describe('run.ts', () => {
   const logger = new Logger();
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
   const mockBundleIdResponse = { stdout: bundleIdIOS } as ExecaReturnValue<any>;
+  const mockStartWebSocketServer = jest
+    .spyOn(websocketHelpers, 'startWebSocketServer')
+    .mockResolvedValue(undefined!);
 
   describe('runOS', () => {
     const execMock = jest.spyOn(execa, 'command').mockImplementation();
@@ -210,6 +214,7 @@ describe('run.ts', () => {
     beforeEach(() => {
       commandSyncMock.mockReset();
       mockGenerateReport.mockReset();
+      mockStartWebSocketServer.mockReset();
     });
 
     it('runs an iOS project', async () => {
@@ -266,6 +271,17 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
+    });
+
+    it('runs the createWebSocketServer helper', async () => {
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      await run.runHandler({ ...args });
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(mockStartWebSocketServer).toHaveBeenCalledTimes(1);
     });
 
     it('runs generates the report if the config is set to on', async () => {
