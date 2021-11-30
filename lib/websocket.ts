@@ -15,8 +15,14 @@ export const startWebSocketServer = async (
 
       ws.on('message', (message) => {
         logger.info(
-          `[OWL] Received a message on the WebSocket: ${message.toString()}`
+          `[OWL] The server received a message on the WebSocket: ${message.toString()}`
         );
+
+        wss.clients.forEach((client) => {
+          if (client !== ws && client.readyState === WebSocket.OPEN) {
+            client.send(message.toString());
+          }
+        });
       });
 
       ws.on('error', (error) => {
@@ -24,7 +30,7 @@ export const startWebSocketServer = async (
       });
     });
 
-    wss.on('listening', (asd: any) => {
+    wss.on('listening', () => {
       logger.info(`[OWL] WebSocket now listening on port ${wss.options.port}.`);
 
       return resolve(wss);
@@ -33,7 +39,8 @@ export const startWebSocketServer = async (
 };
 
 export const createWebSocketClient = async (
-  logger: Logger
+  logger: Logger,
+  onMessage: (message: string) => void
 ): Promise<WebSocket> => {
   const wsClient = new WebSocket(`ws://localhost:${port}`);
 
@@ -45,6 +52,14 @@ export const createWebSocketClient = async (
 
     wsClient.on('pong', () => {
       logger.info(`[OWL] The client received a pong.`);
+    });
+
+    wsClient.on('message', (message) => {
+      logger.info(
+        `[OWL] The client received a message: ${message.toString()}.`
+      );
+
+      onMessage(message.toString());
     });
   });
 };
