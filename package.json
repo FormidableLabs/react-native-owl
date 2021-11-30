@@ -35,12 +35,14 @@
     "handlebars": "^4.7.7",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",
+    "ws": "^8.2.3",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
     "@types/pixelmatch": "^5.2.4",
     "@types/pngjs": "^6.0.1",
+    "@types/ws": "^8.2.0",
     "@types/yargs": "^17.0.5",
     "jest": "^26.6.3",
     "prettier": "^2.4.1",

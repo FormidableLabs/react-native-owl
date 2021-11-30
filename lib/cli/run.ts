@@ -5,6 +5,7 @@ import { CliRunOptions, Config } from '../types';
 import { generateReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
+import { startWebSocketServer } from '../websocket';
 
 export const runIOS = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
@@ -70,6 +71,9 @@ export const runHandler = async (args: CliRunOptions) => {
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
+
+  logger.print(`[OWL] Starting websocket server.`);
+  await startWebSocketServer(logger);
 
   logger.print(`[OWL] Running tests on ${args.platform}.`);
   await runProject(config, logger);
