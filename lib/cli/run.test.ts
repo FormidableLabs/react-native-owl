@@ -6,23 +6,22 @@ import { Logger } from '../logger';
 import * as configHelpers from './config';
 import * as run from './run';
 import * as reportHelpers from '../report';
-import * as websocketHelpers from '../websocket';
 
 describe('run.ts', () => {
   const logger = new Logger();
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
   const mockBundleIdResponse = { stdout: bundleIdIOS } as ExecaReturnValue<any>;
-  const mockStartWebSocketServer = jest
-    .spyOn(websocketHelpers, 'startWebSocketServer')
-    .mockResolvedValue(undefined!);
+
+  const execKillMock = {
+    kill: jest.fn(),
+  } as unknown as execa.ExecaChildProcess<any>;
+  const execMock = jest.spyOn(execa, 'command').mockImplementation();
+
+  beforeEach(() => {
+    execMock.mockReset().mockReturnValue(execKillMock);
+  });
 
   describe('runOS', () => {
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('runs an iOS project - with the default build command', async () => {
       const cwd = path.join(
         process.cwd(),
@@ -116,12 +115,6 @@ describe('run.ts', () => {
       '/android/app/build/outputs/apk/debug'
     );
 
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('runs an Android project - with the default build command', async () => {
       const appPath = path.join(cwd, 'app-debug.apk');
 
@@ -214,7 +207,6 @@ describe('run.ts', () => {
     beforeEach(() => {
       commandSyncMock.mockReset();
       mockGenerateReport.mockReset();
-      mockStartWebSocketServer.mockReset();
     });
 
     it('runs an iOS project', async () => {
@@ -273,15 +265,14 @@ describe('run.ts', () => {
       });
     });
 
-    it('runs the createWebSocketServer helper', async () => {
+    it('runs the scripts/websocket-server.js script', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
-
-      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
 
       await run.runHandler({ ...args });
 
-      await expect(mockRunIOS).toHaveBeenCalled();
-      await expect(mockStartWebSocketServer).toHaveBeenCalledTimes(1);
+      await expect(execMock.mock.calls[0][0]).toEqual(
+        'node scripts/websocket-server.js'
+      );
     });
 
     it('runs generates the report if the config is set to on', async () => {
