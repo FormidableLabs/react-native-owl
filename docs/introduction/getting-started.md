@@ -17,7 +17,7 @@ npm install --save-dev react-native-owl
 
 ### Configuration
 
-Create a file called `owl.config.json` in the root of your project, next to your `package.json` (alternative locations can be specified whe using the cli). There you will have to specify your settings for **iOS** and **Android**. For more information on the config file, please refer to the [configuration file](/docs/introduction/config-file) documentation.
+Create a file called `owl.config.json` in the root of your project, next to your `package.json`. There you will have to specify your settings for **iOS** and **Android**. For more information on the config file, please refer to the [configuration file](/docs/introduction/config-file) documentation.
 
 Below you can find an example config (can also be found in the [example app](https://github.com/FormidableLabs/react-native-owl/tree/main/example) of the repository).
 
@@ -27,7 +27,7 @@ Below you can find an example config (can also be found in the [example app](htt
     "workspace": "ios/OwlDemo.xcworkspace",
     "scheme": "OwlDemo",
     "configuration": "Release",
-    "device": "iPhone 12 Pro"
+    "device": "iPhone 13 Pro"
   },
   "android": {
     "packageName": "com.owldemo"
@@ -60,7 +60,7 @@ yarn owl build --platform ios
 
 This runs the app on the simulator, either comparing screenshots with the baseline images, or updating the baseline images.
 
-When comparing screenshots, and differences in the current vs baseline will fail the test.
+When comparing images, any difference in the current vs baseline will fail the test.
 
 #### Examples
 

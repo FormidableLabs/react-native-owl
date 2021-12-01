@@ -31,6 +31,7 @@ The config file - which unless specified in the cli should live in `./owl.config
 | **android config**     |          |         |                                                                         |
 | `android.buildCommand` | false    |         | Overrides the `assembleDebug` gradle command. Should build the apk      |
 | `android.binaryPath`   | false    |         | The path to the binary, if you are using a custom build command         |
+| `android.packageName`  |          |         | The package name/unique identifier of the app                           |
 | `android.quiet`        | false    |         | Passes the quiet flag to `gradlew`                                      |
 
 ### Example

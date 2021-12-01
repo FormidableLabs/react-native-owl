@@ -71,7 +71,7 @@ const config = {
               },
               {
                 label: 'CLI',
-                to: '/docs/cli/build/',
+                to: '/docs/cli/building-the-app/',
               },
               {
                 label: 'Methods',
@@ -111,7 +111,7 @@ const config = {
               },
               {
                 label: 'CLI',
-                to: '/docs/cli/build/',
+                to: '/docs/cli/building-the-app/',
               },
               {
                 label: 'Methods',
