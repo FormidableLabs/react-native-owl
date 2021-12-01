@@ -6,7 +6,6 @@ import { CliRunOptions, Config } from '../types';
 import { generateReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
-import { startWebSocketServer } from '../websocket';
 
 export const getIOSFrameworkPath = async (execaOptions: execa.Options) => {
   const owlClientVersion = require(path.join(
@@ -117,7 +116,13 @@ export const runHandler = async (args: CliRunOptions) => {
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
 
   logger.print(`[OWL] Starting websocket server.`);
-  await startWebSocketServer(logger);
+  const webSocketProcess = execa.command('node scripts/websocket-server.js', {
+    stdio: 'inherit',
+    cwd: path.join(__dirname, '..', '..'),
+    env: {
+      OWL_DEBUG: String(!!config.debug),
+    },
+  });
 
   logger.print(`[OWL] Running tests on ${args.platform}.`);
   await runProject(config, logger);
@@ -151,6 +156,8 @@ export const runHandler = async (args: CliRunOptions) => {
     }
 
     throw err;
+  } finally {
+    webSocketProcess.kill();
   }
 
   logger.print(`[OWL] Tests completed on ${args.platform}.`);
