@@ -23,7 +23,7 @@
                 <tspan x="141.812155" y="40">Latest</tspan>
             </text>
             <rect id="Container" stroke="#12A287" stroke-width="8" x="44" y="58" width="292" height="382" rx="8"></rect>
-            <rect id="Thumbnail" fill="#12A287" x="73" y="87" width="80" height="75" rx="8"></rect>
+            <rect id="Thumbnail" fill="#12A287" x="73" y="87" width="150" height="75" rx="8"></rect>
             <g id="Text" transform="translate(73.000000, 192.000000)" fill="#12A287">
                 <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
                 <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
@@ -35,16 +35,16 @@
                 <tspan x="160.723757" y="40">Diff</tspan>
             </text>
             <use id="Container" stroke="#CA3E74" mask="url(#mask-2)" stroke-width="16" stroke-dasharray="30" xlink:href="#path-1"></use>
-            <rect id="Thumbnail" fill="#12A287" x="73" y="87" width="80" height="75" rx="8"></rect>
-            <rect id="Thumbnail" fill="#D15B8B" opacity="0.751074" x="73" y="87" width="150" height="75" rx="8"></rect>
-            <g id="Text-Diff" transform="translate(73.000000, 192.000000)" fill="#A5A5A5">
-                <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
-                <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
-            </g>
-            <g id="Text-Base" opacity="0.75" transform="translate(73.000000, 192.000000)" fill="#D15B8B">
+            <rect id="Thumbnail" fill="#CA3E74" opacity="0.751074" x="73" y="87" width="150" height="75" rx="8"></rect>
+            <rect id="Thumbnail" fill="#A5A5A5" x="73" y="87" width="80" height="75" rx="8"></rect>
+            <g id="Text-Base" opacity="0.75" transform="translate(73.000000, 192.000000)" fill="#CA3E74">
                 <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
                 <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
                 <rect id="Rectangle" x="0" y="90" width="234" height="25" rx="8"></rect>
+            </g>
+            <g id="Text-Diff" transform="translate(73.000000, 192.000000)" fill="#A5A5A5">
+                <rect id="Rectangle" x="0" y="0" width="234" height="25" rx="8"></rect>
+                <rect id="Rectangle" x="0" y="45" width="164" height="25" rx="8"></rect>
             </g>
         </g>
         <g id="Arrows" transform="translate(370.000000, 283.000000)" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
