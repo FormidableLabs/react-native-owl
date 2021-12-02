@@ -28,7 +28,7 @@ The config file - which unless specified in the cli should live in `./owl.config
 
 ### Example
 
-```json
+```json title="owl.config.json"
 {
   "ios": {
     "workspace": "ios/OwlDemoApp.xcworkspace",

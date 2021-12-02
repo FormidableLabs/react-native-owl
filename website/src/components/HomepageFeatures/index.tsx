@@ -29,8 +29,8 @@ const FeatureList = [
     svgClassName: styles.visualExample,
     description: (
       <>
-        Owl clearly highlights all differences, so no need to play
-        spot-the-difference!
+        Owl clearly highlights all visual differences, so no need to play
+        spot-the-difference yourself!
       </>
     ),
   },

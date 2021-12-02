@@ -18,8 +18,7 @@ With visual regression testing, it is all about **consistency**. Please make sur
 
 To run the tests on an iOS simulator, you will need to use a [macOS based runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources).
 
-```yaml
-
+```yaml title=".github/workflows/visual-regression-ios.yml"
 name: Run Visual Regression iOS
 
 on: [pull_request]
