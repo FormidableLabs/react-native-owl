@@ -6,8 +6,6 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'Take screenshots from your app',
-    Svg: require('../../../static/images/homepage/undraw_docusaurus_mountain.svg')
-      .default,
     description: (
       <>
         Owl was designed make it easy to add visual regression testing to your
@@ -17,8 +15,6 @@ const FeatureList = [
   },
   {
     title: 'Compare screenshots taken',
-    Svg: require('../../../static/images/homepage/undraw_docusaurus_tree.svg')
-      .default,
     description: (
       <>We've created a simple api for capturing and comparing screenshots.</>
     ),
@@ -45,10 +41,12 @@ export const HomepageFeatures = () => {
           <p className="hero__subtitle">{description}</p>
 
           <div className="padding--md">
-            <Svg
-              className={svgClassName ? svgClassName : styles.featureSvg}
-              alt={title}
-            />
+            {!!Svg && (
+              <Svg
+                className={svgClassName ? svgClassName : styles.featureSvg}
+                alt={title}
+              />
+            )}
           </div>
         </div>
       </section>
