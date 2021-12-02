@@ -10,8 +10,8 @@ const FeatureList = [
       .default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Owl was designed make it easy to add visual regression testing to your
+        react native app.
       </>
     ),
   },
@@ -20,20 +20,17 @@ const FeatureList = [
     Svg: require('../../../static/images/homepage/undraw_docusaurus_tree.svg')
       .default,
     description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
+      <>We've created a simple api for capturing and comparing screenshots.</>
     ),
   },
   {
-    title: 'Find the differences',
+    title: 'View the differences',
     Svg: require('../../../static/images/homepage/visual-example.svg').default,
     svgClassName: styles.visualExample,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Owl clearly highlights all differences, so no need to play
+        spot-the-difference!
       </>
     ),
   },
