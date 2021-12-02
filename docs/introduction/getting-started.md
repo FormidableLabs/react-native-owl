@@ -35,6 +35,24 @@ Below you can find an example config (can also be found in the [example app](htt
 }
 ```
 
+### Add tests
+
+Use the [takeScreenshot](/docs/api/methods#takescreenshotname-string) and [.toMatchBaseline](/docs/api/matchers#tomatchbaselinename-string) api's to implement screenshot tests.
+
+#### Example
+
+```js
+import { takeScreenshot } from 'react-native-owl';
+
+describe('App.tsx', () => {
+  it('takes a screenshot of the first screen', async () => {
+    const screen = await takeScreenshot('homescreen');
+
+    expect(screen).toMatchBaseline();
+  });
+});
+```
+
 ### Building the app
 
 Before the app can be tested, it must be built.
@@ -102,17 +120,6 @@ yarn owl test --platform ios --update
   </TabItem>
 </Tabs>
 
-### Generated report
+### Failed tests report
 
-When the tests have completed, either successfully or with failures, a report is generated, where you can view all the screenshots. For failing tests, differences in the current vs baseline screenshots will be highlighted.
-
-The report uri is included in the test output.
-
-#### Example:
-
-```
-...
-[OWL] Generating Report
-[OWL] Report was built at /Users/username/Code/FormidableLabs/react-native-owl/example/.owl/report/index.html
-...
-```
+When the tests have failed any [`.toMatchBaseline()`](/docs/api/matchers.md) expectations, a [report is generated](/docs/cli/testing-the-app#viewing-the-report), where you can view all the screenshots, where the differences in the current vs baseline screenshots will be highlighted.

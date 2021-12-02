@@ -63,3 +63,20 @@ yarn owl test --platform ios --update
 
   </TabItem>
 </Tabs>
+
+### Viewing the report
+
+When the tests have failed any [`.toMatchBaseline()`](/docs/api/matchers.md) expectations, a report is generated, where you can view all the screenshots, where the differences in the current vs baseline screenshots will be highlighted.
+
+The report uri is included in the test output.
+
+#### Example:
+
+The following will be included the the output of failed tests:
+
+```
+...
+[OWL] Generating Report
+[OWL] Report was built at /Users/username/Code/FormidableLabs/react-native-owl/example/.owl/report/index.html
+...
+```
