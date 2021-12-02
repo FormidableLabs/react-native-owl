@@ -25,7 +25,7 @@ The baseline images will be automatically generated. To regenerate the baseline 
 
 
 <Tabs  groupId="npm2yarn">
-  <TabItem value="npm" label="npm" default>
+  <TabItem value="npm" label="npm">
 
 ```bash
 npm run owl test -- --platform ios
@@ -48,7 +48,7 @@ yarn owl test --platform ios
 Update the baseline images
 
 <Tabs  groupId="npm2yarn">
-  <TabItem value="npm" label="npm" default>
+  <TabItem value="npm" label="npm">
 
 ```bash
 npm run owl test -- --platform ios --update

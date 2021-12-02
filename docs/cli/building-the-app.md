@@ -19,7 +19,7 @@ Before the app can be tested, it must be built.
 #### Examples
 
 <Tabs  groupId="npm2yarn">
-  <TabItem value="npm" label="npm" default>
+  <TabItem value="npm" label="npm">
 
 ```bash
 npm run owl build -- --platform ios --config ./owl.config.json
