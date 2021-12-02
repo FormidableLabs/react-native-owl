@@ -18,7 +18,7 @@ Before the app can be tested, it must be built.
 
 #### Examples
 
-<Tabs>
+<Tabs  groupId="npm2yarn">
   <TabItem value="npm" label="npm" default>
 
 ```bash

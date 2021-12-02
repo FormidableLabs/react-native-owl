@@ -57,7 +57,7 @@ describe('App.tsx', () => {
 
 Before the app can be tested, it must be built.
 
-<Tabs>
+<Tabs groupId="npm2yarn">
   <TabItem value="npm" label="npm" default>
 
 ```bash
@@ -84,7 +84,7 @@ When comparing images, any difference in the current vs baseline will fail the t
 
 Test against the baseline images (will create the baseline images if they don't exist).
 
-<Tabs>
+<Tabs  groupId="npm2yarn">
   <TabItem value="npm" label="npm" default>
 
 ```bash
@@ -103,7 +103,7 @@ yarn owl test --platform ios
 
 Update the baseline images
 
-<Tabs>
+<Tabs  groupId="npm2yarn">
   <TabItem value="npm" label="npm" default>
 
 ```bash
