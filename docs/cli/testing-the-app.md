@@ -17,6 +17,12 @@ The **first** time you will run the test command, react-native-owl will generate
 
 :::
 
+:::info
+
+You will need to manually start the correct simulator manually before the tests are run.
+
+:::
+
 ### First run
 
 The baseline images will be automatically generated. To regenerate the baseline images, use the `--update` option.

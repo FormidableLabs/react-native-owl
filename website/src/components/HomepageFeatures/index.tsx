@@ -35,7 +35,7 @@ const FeatureList = [
 export const HomepageFeatures = () => {
   return FeatureList.map(({ Svg, svgClassName, title, description }, idx) => {
     return (
-      <section className="container" key={idx}>
+      <section key={idx}>
         <div className={styles.feature}>
           <h3>{title}</h3>
           <p className="hero__subtitle">{description}</p>

@@ -2,9 +2,6 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Getting Started
 
 ### Installation
@@ -74,7 +71,14 @@ yarn owl build --platform ios
   </TabItem>
 </Tabs>
 
-### Running the tests
+### Work-In-Progress
+
+:::info
+
+You will need to manually start the correct simulator manually before the tests are run.
+
+:::
+
 
 This runs the app on the simulator, either comparing screenshots with the baseline images, or updating the baseline images.
 
