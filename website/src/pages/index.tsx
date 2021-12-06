@@ -25,16 +25,17 @@ export default function Home() {
         <p>
           Learn more about the background behind this library in{' '}
           <a href="https://formidable.com/blog/" target="_blank">
-            the accouncement on the Formidable Blog
+            the announcement on the Formidable Blog
           </a>
           .
         </p>
 
         <p>
           <em>
-            Note: This library is work-in-progress. We are still working on
-            adding additional functionality to allow full control of the app
-            being tested.
+            Note: This library is{' '}
+            <a href="/docs/introduction/work-in-progress">work-in-progress</a>.
+            We are still working on adding additional functionality to allow
+            full control of the app being tested.
           </em>
         </p>
 
