@@ -22,13 +22,14 @@ export default function Home() {
           your preferred CI service, seamless.
         </p>
 
+        {/* REMOVE INITIALLY AS THIS WILL BE DEPLOYED BEFORE THE BLOG IN PUBLISHED
         <p>
           Learn more about the background behind this library in{' '}
           <a href="https://formidable.com/blog/" target="_blank">
             the announcement on the Formidable Blog
           </a>
           .
-        </p>
+        </p> */}
 
         <p>
           <em>
