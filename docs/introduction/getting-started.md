@@ -75,7 +75,7 @@ yarn owl build --platform ios
 
 :::info
 
-You will need to manually start the correct simulator manually before the tests are run.
+You will need to manually start the correct simulator before the tests are run.
 
 :::
 
