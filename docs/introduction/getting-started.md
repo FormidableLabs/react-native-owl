@@ -126,4 +126,4 @@ yarn owl test --platform ios --update
 
 ### Failed tests report
 
-When the tests have failed any [`.toMatchBaseline()`](/docs/api/matchers.md) expectations, a [report is generated](/docs/cli/testing-the-app#viewing-the-report), where you can view all the screenshots, where the differences in the current vs baseline screenshots will be highlighted.
+When the tests have failed any [`.toMatchBaseline()`](/docs/api/matchers) expectations, a [report is generated](/docs/cli/testing-the-app#viewing-the-report), where you can view all the screenshots, where the differences in the current vs baseline screenshots will be highlighted.

@@ -72,7 +72,7 @@ yarn owl test --platform ios --update
 
 ### Viewing the report
 
-When the tests have failed any [`.toMatchBaseline()`](/docs/api/matchers.md) expectations, a report is generated, where you can view all the screenshots, where the differences in the current vs baseline screenshots will be highlighted.
+When the tests have failed any [`.toMatchBaseline()`](/docs/api/matchers) expectations, a report is generated, where you can view all the screenshots, where the differences in the current vs baseline screenshots will be highlighted.
 
 The report uri is included in the test output.
 
