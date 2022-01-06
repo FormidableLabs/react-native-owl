@@ -8,13 +8,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'React Native Owl',
   tagline: 'Visual Regression Testing for React Native',
-  url: 'https://formidable.com/open-source/react-native-owl/',
-  baseUrl: '/',
+  url: 'https://formidable.com/',
+  baseUrl: '/open-source/react-native-owl/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'images/favicon.ico',
-  organizationName: 'FormidableLabs', // Usually your GitHub org/user name.
-  projectName: 'react-native-owl', // Usually your repo name.
+  organizationName: 'FormidableLabs',
+  projectName: 'react-native-owl',
 
   presets: [
     [
@@ -95,7 +95,7 @@ const config = {
       footer: {
         style: 'dark',
         logo: {
-          href: 'https://www.formidable.com/',
+          href: 'https://formidable.com/',
         },
         links: [
           {
