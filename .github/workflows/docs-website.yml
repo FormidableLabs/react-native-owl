@@ -39,6 +39,7 @@ jobs:
         # Insert name of your default branch here
         if: github.ref != 'refs/heads/main'
         run: yarn deploy:stage
+        working-directory: ./website
         env:
           # GH actions have a merge commit that _isn't_ our actual commits.
           # Manually infer and pass the correct branch and sha.
@@ -50,3 +51,4 @@ jobs:
 
       - name: Deploy docs (production)
         run: "echo TODO IMPLEMENT THIS"
+        working-directory: ./website
