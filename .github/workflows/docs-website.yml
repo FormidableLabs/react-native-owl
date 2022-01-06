@@ -1,9 +1,16 @@
 name: Deploy Website
 
 on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'website/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'docs/**'
+      - 'website/**'
 
 jobs:
   deploy-website:
