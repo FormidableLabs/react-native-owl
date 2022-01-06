@@ -27,4 +27,4 @@ $ yarn serve
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
-Navigate to: http://localhost:3000/open-source/react-native-owl/
+Navigate to: http://localhost:5000/open-source/react-native-owl/

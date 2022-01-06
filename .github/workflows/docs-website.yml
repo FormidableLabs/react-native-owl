@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: AWS CLI version
+        run: "aws --version"
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -32,7 +35,18 @@ jobs:
         run: yarn build
         working-directory: ./website
 
-      # TODO(deploy): Implement correct workflow.
-      - name: Deploy
-        run: echo 'Coming Soon'
-        working-directory: ./website
+      - name: Deploy docs (staging)
+        # Insert name of your default branch here
+        if: github.ref != 'refs/heads/main'
+        run: yarn deploy:stage
+        env:
+          # GH actions have a merge commit that _isn't_ our actual commits.
+          # Manually infer and pass the correct branch and sha.
+          FORMIDEPLOY_GIT_SHA: ${{ github.event.pull_request.head.sha }}
+          # Pass automagic GITHUB_TOKEN as GITHUB_DEPLOYMENT_TOKEN
+          GITHUB_DEPLOYMENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+      - name: Deploy docs (production)
+        run: "echo TODO IMPLEMENT THIS"
