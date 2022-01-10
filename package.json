@@ -1,6 +1,6 @@
 {
   "name": "react-native-owl",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Visual regression testing for React Native",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,6 +9,7 @@
   },
   "files": [
     "dist/",
+    "scripts/",
     "README.md"
   ],
   "scripts": {
