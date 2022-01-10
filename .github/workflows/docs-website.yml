@@ -55,6 +55,7 @@ jobs:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
       - name: Deploy docs (production)
+        if: github.ref == 'refs/heads/main'
         run: yarn deploy:prod
         working-directory: ./website
         env:
