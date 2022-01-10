@@ -85,7 +85,3 @@ jobs:
 ```
 
 To run the tests on an Android simulator, you can use the [Android Emulator Runner](https://github.com/marketplace/actions/android-emulator-runner) Action and adjust the example action above.
-
-### CircleCI
-
-Example.

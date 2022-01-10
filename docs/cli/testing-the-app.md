@@ -9,6 +9,14 @@ import TabItem from '@theme/TabItem';
 
 Use the `test` command to run the app on the simulator, either comparing screenshots with the baseline images, or updating the baseline images.
 
+#### Options
+
+| Name               | Required | Default           | Options/Types   | Description                                     |
+| ------------------ | -------- | ----------------- | --------------- | ----------------------------------------------- |
+| `--config`, `-c`   | false    | ./owl.config.json | String          | Path to the configuration file                  |
+| `--platform`, `-p` | true     | -                 | `ios`,`android` | The platform the app should be built on         |
+| `--update`, `-u`   | true     | false             | Boolean         | A flag about rewriting existing baseline images |
+
 When comparing images, any difference in the current vs baseline will fail the test.
 
 :::info
@@ -29,7 +37,6 @@ The baseline images will be automatically generated. To regenerate the baseline 
 
 ### Running tests
 
-
 <Tabs  groupId="npm2yarn">
   <TabItem value="npm" label="npm">
 
@@ -47,8 +54,6 @@ yarn owl test --platform ios
   </TabItem>
 </Tabs>
 
-
-
 ### Updating the baseline
 
 Update the baseline images
@@ -65,6 +70,27 @@ npm run owl test -- --platform ios --update
 
 ```bash
 yarn owl test --platform ios --update
+```
+
+  </TabItem>
+</Tabs>
+
+### Using a custom config file
+
+Update the baseline images
+
+<Tabs  groupId="npm2yarn">
+  <TabItem value="npm" label="npm">
+
+```bash
+npm run owl test -- --platform ios --config ./owl.config.json
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+
+```bash
+yarn owl test --platform ios --config ./owl.config.json
 ```
 
   </TabItem>
