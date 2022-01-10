@@ -9,6 +9,7 @@ export default function Home() {
     <Layout
       title="Visual Regression Testing"
       description="Description will go into a meta tag in <head />"
+      wrapperClassName="homepage"
     >
       <Hero />
       <main className="container">
