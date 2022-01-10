@@ -9,17 +9,19 @@ export default function Home() {
     <Layout
       title="Visual Regression Testing"
       description="Description will go into a meta tag in <head />"
+      wrapperClassName="homepage"
     >
       <Hero />
       <main className="container">
-        <p>
-          This library enables developers to introduce visual regression tests
-          to their apps for <strong>iOS</strong> and <strong>Android</strong>.
-          Being heavily inspired by{' '}
-          <a href="https://wix.github.io/Detox/">Detox</a>, an end-to-end
-          testing and automation framework, this library uses a similar API that
-          makes setting up react-native-owl and running the tests locally and on
-          your preferred CI service, seamless.
+        <h2>About</h2>
+        <p className="intro">
+          This visual regression testing for React Native library enables
+          developers to introduce visual regression tests to their apps for{' '}
+          <strong>iOS</strong> and <strong>Android</strong>. Being heavily
+          inspired by <a href="https://wix.github.io/Detox/">Detox</a>, an
+          end-to-end testing and automation framework, this library uses a
+          similar API that makes setting up react-native-owl and running the
+          tests locally and on your preferred CI service, seamless.
         </p>
 
         {/* REMOVE INITIALLY AS THIS WILL BE DEPLOYED BEFORE THE BLOG IN PUBLISHED
