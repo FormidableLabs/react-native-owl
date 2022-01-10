@@ -71,6 +71,14 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   max-width: 100%;
 }
 
+.homepage main {
+  padding: 0 2rem;
+}
+
+.homepage .intro {
+  font-size: 1.25rem;
+}
+
 /* Navbar */
 
 .navbar .navbar__inner {

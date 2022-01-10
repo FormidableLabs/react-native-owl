@@ -40,7 +40,7 @@ export const HomepageFeatures = () => {
       return (
         <section key={idx}>
           <div className={styles.feature}>
-            <h3>{title}</h3>
+            <h2>{title}</h2>
             <p className="hero__subtitle">{description}</p>
 
             <div className="padding--md">

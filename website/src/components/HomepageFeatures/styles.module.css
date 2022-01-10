@@ -1,8 +1,14 @@
 .feature {
   background-color: var(--ifm-color-secondary);
-  padding: 3rem;
+  padding: 2rem;
   margin: 1rem auto;
   text-align: center;
+}
+
+@media (min-width: 1416px) {
+  .feature {
+    padding: 3rem;
+  }
 }
 
 .featureSvg {

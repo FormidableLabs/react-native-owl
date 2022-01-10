@@ -28,6 +28,11 @@
   -webkit-backface-visibility: hidden;
 }
 
+.heroSubtitle {
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
 @media screen and (min-width: 966px) {
   .heroBanner {
     padding: 3rem 0 4rem;

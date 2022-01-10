@@ -26,7 +26,8 @@ export const Hero = () => {
           <div className="col col--6">
             <LogoBadge className={styles.logoBadge} />
             <h1 className="hero__title">{siteConfig.title}</h1>
-            <p className="hero__subtitle">{siteConfig.tagline}</p>
+            <h2 className={styles.heroSubtitle}>{siteConfig.tagline}</h2>
+
             <div className={styles.buttons}>
               <Link
                 className={`button button--secondary button--lg ${styles.ctaButton}`}
