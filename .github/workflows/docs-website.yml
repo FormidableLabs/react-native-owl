@@ -2,8 +2,15 @@ name: Deploy Website
 
 on:
   push:
+    paths:
+      - 'docs/**'
+      - 'website/**'
+  pull_request:
     branches:
       - main
+    paths:
+      - 'docs/**'
+      - 'website/**'
 
 jobs:
   deploy-website:
@@ -11,6 +18,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: AWS CLI version
+        run: "aws --version"
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -32,6 +42,23 @@ jobs:
         run: yarn build
         working-directory: ./website
 
-      - name: Deploy
-        run: echo 'Coming Soon'
+      - name: Deploy docs (staging)
+        if: github.ref != 'refs/heads/main'
+        run: yarn deploy:stage
         working-directory: ./website
+        env:
+          # GH actions have a PR merge commit that _isn't_ our actual commits.
+          # Manually infer correct branch and sha for pull requests.
+          FORMIDEPLOY_GIT_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_DEPLOYMENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+      - name: Deploy docs (production)
+        if: github.ref == 'refs/heads/main'
+        run: yarn deploy:prod
+        working-directory: ./website
+        env:
+          GITHUB_DEPLOYMENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
