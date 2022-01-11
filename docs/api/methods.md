@@ -12,7 +12,7 @@ Grabs a screenshot from the simulator and stores it under `latest` screenshots(i
 
 #### Example
 
-```js
+```js {5}
 import { takeScreenshot } from 'react-native-owl';
 
 describe('App.tsx', () => {

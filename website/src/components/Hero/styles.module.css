@@ -45,6 +45,10 @@
   margin-bottom: 0.75rem;
 }
 
+.codeSample {
+  width: 100%;
+}
+
 .codeSampleWrapper {
   margin-top: 2rem;
 }

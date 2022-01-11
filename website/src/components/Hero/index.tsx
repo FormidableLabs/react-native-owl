@@ -39,7 +39,7 @@ export const Hero = () => {
           </div>
 
           <div className={clsx('col col--6', styles.codeSampleWrapper)}>
-            <CodeBlock title="App.owl.ts" className="typescript">
+            <CodeBlock title="App.owl.ts" className={styles.codeSample}>
               {heroExample}
             </CodeBlock>
           </div>
