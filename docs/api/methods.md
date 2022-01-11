@@ -4,8 +4,6 @@ sidebar_position: 1
 
 # Methods
 
-This is a placeholder.
-
 ### takeScreenshot(name: string)
 
 Grabs a screenshot from the simulator and stores it under `latest` screenshots(ie. `./owl/latest/ios/`) using the specified filename (no extension required). If running the tests using the `--update` or `-u` flag, or its the first time its being run, this will store the screenshot under the `baseline` directory.
