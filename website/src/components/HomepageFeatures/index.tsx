@@ -37,10 +37,10 @@ export const HomepageFeatures = () => {
   return FeatureList.map(({ title, description, imageSource }, idx) => {
     return (
       <section key={idx} className={styles.feature}>
-        <h2>{title}</h2>
-        <p className="hero__subtitle">{description}</p>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.subtitle}>{description}</p>
 
-        <div className="padding--lg">
+        <div>
           {!!imageSource && (
             <img
               src={`/open-source/react-native-owl${imageSource}`}
