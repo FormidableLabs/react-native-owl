@@ -14,7 +14,9 @@ export default function Footer() {
   return (
     <footer className="footer footer--dark">
       <div className="container container--fluid">
-        <FormidableLogo className={styles.footerLogo} />
+        <a href="https://formidable.com">
+          <FormidableLogo className={styles.footerLogo} />
+        </a>
       </div>
 
       <div className="container container--fluid">

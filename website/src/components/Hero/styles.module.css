@@ -4,6 +4,7 @@
  */
 
 .heroBanner {
+  background-color: var(--brand-blue);
   position: relative;
   z-index: 1;
   padding: 2rem;
@@ -12,6 +13,7 @@
 
 .heroBanner:after {
   background: inherit;
+  border-bottom: 10px solid var(--brand-orange);
   content: '';
   display: block;
   height: 50%;
@@ -26,16 +28,16 @@
   -webkit-backface-visibility: hidden;
 }
 
-@media screen and (min-width: 966px) {
-  .heroBanner {
-    padding: 2rem 0 4rem;
-    margin-bottom: 5rem;
-  }
+.heroSubtitle {
+  font-weight: 500;
+  margin-bottom: 2rem;
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
+@media screen and (min-width: 966px) {
+  .heroBanner {
+    padding: 3rem 0 4rem;
+    margin-bottom: 10rem;
+  }
 }
 
 .logoBadge {
@@ -53,4 +55,17 @@
     align-items: center;
     margin-top: 0;
   }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.buttons .ctaButton {
+  border-radius: 3px;
+  border-color: var(--brand-orange);
+  background-color: var(--brand-orange);
+  color: white;
+  padding: 0.75rem 1.75rem;
 }
