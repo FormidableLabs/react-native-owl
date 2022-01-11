@@ -42,7 +42,10 @@ export const HomepageFeatures = () => {
 
         <div className="padding--lg">
           {!!imageSource && (
-            <img src={imageSource} className={styles.sectionImageMockup} />
+            <img
+              src={`/open-source/react-native-owl${imageSource}`}
+              className={styles.sectionImageMockup}
+            />
           )}
         </div>
       </section>
