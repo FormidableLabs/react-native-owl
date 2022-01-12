@@ -20,7 +20,7 @@ export const Hero = () => {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx('hero hero--dark', styles.heroBanner)}>
+    <header className={styles.hero}>
       <div className="container">
         <div className="row">
           <div className="col col--6">
@@ -39,7 +39,7 @@ export const Hero = () => {
           </div>
 
           <div className={clsx('col col--6', styles.codeSampleWrapper)}>
-            <CodeBlock title="App.owl.ts" className="typescript">
+            <CodeBlock title="App.owl.ts" className={styles.codeSample}>
               {heroExample}
             </CodeBlock>
           </div>

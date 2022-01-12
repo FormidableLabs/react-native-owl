@@ -5,6 +5,13 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
+    title: 'Visual regression testing',
+    imageSource: '/images/homepage/diff.png',
+    description: (
+      <>We've created a simple api for capturing and comparing screenshots.</>
+    ),
+  },
+  {
     title: 'Take screenshots from your app',
     imageSource: '/images/homepage/mockup.png',
     description: (
@@ -12,14 +19,6 @@ const FeatureList = [
         Owl was designed make it easy to add visual regression testing to your
         react native app.
       </>
-    ),
-  },
-  {
-    title: 'Compare screenshots taken',
-    Svg: require('../../../static/images/homepage/diff.svg').default,
-    svgClassName: styles.visualExample,
-    description: (
-      <>We've created a simple api for capturing and comparing screenshots.</>
     ),
   },
   {
@@ -35,28 +34,21 @@ const FeatureList = [
 ];
 
 export const HomepageFeatures = () => {
-  return FeatureList.map(
-    ({ Svg, svgClassName, title, description, imageSource }, idx) => {
-      return (
-        <section key={idx}>
-          <div className={styles.feature}>
-            <h2>{title}</h2>
-            <p className="hero__subtitle">{description}</p>
+  return FeatureList.map(({ title, description, imageSource }, idx) => {
+    return (
+      <section key={idx} className={styles.feature}>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.subtitle}>{description}</p>
 
-            <div className="padding--md">
-              {!!imageSource && (
-                <img src={imageSource} className={styles.sectionImageMockup} />
-              )}
-              {!!Svg && (
-                <Svg
-                  className={svgClassName ? svgClassName : styles.featureSvg}
-                  alt={title}
-                />
-              )}
-            </div>
-          </div>
-        </section>
-      );
-    }
-  );
+        <div>
+          {!!imageSource && (
+            <img
+              src={`/open-source/react-native-owl${imageSource}`}
+              className={styles.sectionImageMockup}
+            />
+          )}
+        </div>
+      </section>
+    );
+  });
 };

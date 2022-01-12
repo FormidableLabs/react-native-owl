@@ -3,15 +3,16 @@
  * and scoped locally.
  */
 
-.heroBanner {
+.hero {
+  color: var(--ifm-color-white);
   background-color: var(--brand-blue);
   position: relative;
-  z-index: 1;
-  padding: 2rem;
+  padding: 1.5rem;
   margin-bottom: 3rem;
+  z-index: 1;
 }
 
-.heroBanner:after {
+.hero:after {
   background: inherit;
   border-bottom: 10px solid var(--brand-orange);
   content: '';
@@ -28,16 +29,16 @@
   -webkit-backface-visibility: hidden;
 }
 
-.heroSubtitle {
-  font-weight: 500;
-  margin-bottom: 2rem;
-}
-
-@media screen and (min-width: 966px) {
-  .heroBanner {
+@media (min-width: 1416px) {
+  .hero {
     padding: 3rem 0 4rem;
     margin-bottom: 10rem;
   }
+}
+
+.heroSubtitle {
+  font-weight: 500;
+  margin-bottom: 2rem;
 }
 
 .logoBadge {
@@ -45,11 +46,15 @@
   margin-bottom: 0.75rem;
 }
 
+.codeSample {
+  width: 100%;
+}
+
 .codeSampleWrapper {
   margin-top: 2rem;
 }
 
-@media screen and (min-width: 1025px) {
+@media (min-width: 1025px) {
   .codeSampleWrapper {
     display: flex;
     align-items: center;
