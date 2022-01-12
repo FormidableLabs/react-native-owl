@@ -1,8 +1,9 @@
 ---
 sidebar_position: 3
+title: Work In Progress
 ---
 
-# Work-in-Progress
+# Work In Progress
 
 ### Future functionality
 
