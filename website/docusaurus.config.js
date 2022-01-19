@@ -24,7 +24,6 @@ const config = {
         docs: {
           path: '../docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/FormidableLabs/react-native-owl/edit/main/website/',
           remarkPlugins: [
@@ -90,9 +89,14 @@ const config = {
           },
           {
             href: 'https://github.com/FormidableLabs/react-native-owl',
-
             className: 'header-github-link',
             'aria-label': 'GitHub Repository',
+            position: 'right',
+          },
+          {
+            href: 'https://formidable.com',
+            className: 'header-formidable-link',
+            'aria-label': 'Formidable Website',
             position: 'right',
           },
         ],
