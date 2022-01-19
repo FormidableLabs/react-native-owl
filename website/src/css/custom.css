@@ -14,6 +14,9 @@
 
   --ifm-h3-font-size: 2.2rem;
   --ifm-code-font-size: 95%;
+
+  --ifm-footer-padding-horizontal: 2rem;
+  --ifm-footer-padding-vertical: 3.5rem;
 }
 
 html[data-theme='dark'] {
@@ -25,6 +28,7 @@ html[data-theme='dark'] {
 .footer--dark {
   --ifm-navbar-background-color: var(--brand-blue);
   --ifm-footer-background-color: var(--brand-blue);
+
   box-shadow: initial;
 }
 
@@ -111,12 +115,16 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 .footer {
   margin-top: 3rem;
-  padding: 2rem;
+}
+
+@media (max-width: 996px) {
+  .footer {
+    --ifm-footer-padding-horizontal: 2rem;
+  }
 }
 
 @media (min-width: 1416px) {
   .footer {
     margin-top: 5rem;
-    padding: var(--ifm-footer-padding-horizontal);
   }
 }
