@@ -4,11 +4,15 @@ import Layout from '@theme/Layout';
 import { Hero } from '../components/Hero';
 import { HomepageFeatures } from '../components/HomepageFeatures';
 
+const META_DESCRIPTION =
+  'React Native Owl is a visual regression testing library for React Native that enables developers to introduce visual regression tests to their apps for iOS and Android.';
+
 export default function Home() {
   return (
     <Layout
+      image="/images/homepage/social.png"
       title="Visual Regression Testing"
-      description="Description will go into a meta tag in <head />"
+      description={META_DESCRIPTION}
       wrapperClassName="homepage"
     >
       <Hero />
@@ -24,16 +28,15 @@ export default function Home() {
           tests locally and on your preferred CI service, seamless.
         </p>
 
-        {/* REMOVE INITIALLY AS THIS WILL BE DEPLOYED BEFORE THE BLOG IN PUBLISHED
-        <p>
+        <p className="intro">
           Learn more about the background behind this library in{' '}
-          <a href="https://formidable.com/blog/" target="_blank">
+          <a href="/blog/2022/react-native-owl/" target="_blank">
             the announcement on the Formidable Blog
           </a>
           .
-        </p> */}
+        </p>
 
-        <p>
+        <p className="intro">
           <em>
             Note: This library is{' '}
             <a href="/docs/introduction/work-in-progress">work-in-progress</a>.

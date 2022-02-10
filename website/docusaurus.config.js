@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'React Native Owl',
   tagline: 'Visual Regression Testing for React Native',
-  url: 'https://formidable.com/',
+  url: 'https://formidable.com',
   baseUrl: '/open-source/react-native-owl/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -50,7 +50,7 @@ const config = {
       },
       announcementBar: {
         id: 'announcement-blogpost',
-        content: `Read the announcement "<strong><a target="_blank" rel="noopener noreferrer" href="/blog/2022/react-native-owl/">We're Building a Visual Regression Testing Library for React Native</a></strong>" in our blog.`,
+        content: `Read the announcement "<strong><a target="_blank" href="/blog/2022/react-native-owl/">We're Building a Visual Regression Testing Library for React Native</a></strong>" in our blog.`,
         isCloseable: false,
       },
       navbar: {
