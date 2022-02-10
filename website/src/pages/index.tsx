@@ -10,6 +10,7 @@ const META_DESCRIPTION =
 export default function Home() {
   return (
     <Layout
+      image="/images/homepage/social.png"
       title="Visual Regression Testing"
       description={META_DESCRIPTION}
       wrapperClassName="homepage"
