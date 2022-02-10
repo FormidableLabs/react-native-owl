@@ -10,7 +10,6 @@ const META_DESCRIPTION =
 export default function Home() {
   return (
     <Layout
-      image="/images/homepage/social.png"
       title="Visual Regression Testing"
       description={META_DESCRIPTION}
       wrapperClassName="homepage"
@@ -38,10 +37,9 @@ export default function Home() {
 
         <p className="intro">
           <em>
-            Note: This library is{' '}
-            <a href="/docs/introduction/work-in-progress">work-in-progress</a>.
-            We are still working on adding additional functionality to allow
-            full control of the app being tested.
+            Note: This library is work-in-progress. We are still working on
+            adding additional functionality to allow full control of the app
+            being tested.
           </em>
         </p>
 
