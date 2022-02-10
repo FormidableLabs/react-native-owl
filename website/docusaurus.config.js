@@ -50,7 +50,7 @@ const config = {
       },
       announcementBar: {
         id: 'announcement-blogpost',
-        content: `Read the announcement "<strong><a target="_blank" rel="noopener noreferrer" href="/blog/2022/react-native-owl/">We're Building a Visual Regression Testing Library for React Native</a></strong>" in our blog.`,
+        content: `Read the announcement "<strong><a target="_blank" href="/blog/2022/react-native-owl/">We're Building a Visual Regression Testing Library for React Native</a></strong>" in our blog.`,
         isCloseable: false,
       },
       navbar: {

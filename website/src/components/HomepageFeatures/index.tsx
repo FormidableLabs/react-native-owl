@@ -33,22 +33,26 @@ const FeatureList = [
   },
 ];
 
-export const HomepageFeatures = () => {
-  return FeatureList.map(({ title, description, imageSource }, idx) => {
-    return (
-      <section key={idx} className={styles.feature}>
-        <h2 className={styles.title}>{title}</h2>
-        <p className={styles.subtitle}>{description}</p>
+export const HomepageFeatures: React.FC = () => {
+  return (
+    <>
+      {FeatureList.map(({ title, description, imageSource }, idx) => {
+        return (
+          <section key={idx} className={styles.feature}>
+            <h2 className={styles.title}>{title}</h2>
+            <p className={styles.subtitle}>{description}</p>
 
-        <div>
-          {!!imageSource && (
-            <img
-              src={`/open-source/react-native-owl${imageSource}`}
-              className={styles.sectionImageMockup}
-            />
-          )}
-        </div>
-      </section>
-    );
-  });
+            <div>
+              {!!imageSource && (
+                <img
+                  src={`/open-source/react-native-owl${imageSource}`}
+                  className={styles.sectionImageMockup}
+                />
+              )}
+            </div>
+          </section>
+        );
+      })}
+    </>
+  );
 };
