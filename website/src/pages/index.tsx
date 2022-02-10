@@ -10,7 +10,6 @@ const META_DESCRIPTION =
 export default function Home() {
   return (
     <Layout
-      image="/images/homepage/social.png"
       title="Visual Regression Testing"
       description={META_DESCRIPTION}
       wrapperClassName="homepage"
@@ -22,8 +21,15 @@ export default function Home() {
           This visual regression testing for React Native library enables
           developers to introduce visual regression tests to their apps for{' '}
           <strong>iOS</strong> and <strong>Android</strong>. Being heavily
-          inspired by <a href="https://wix.github.io/Detox/">Detox</a>, an
-          end-to-end testing and automation framework, this library uses a
+          inspired by{' '}
+          <a
+            href="https://wix.github.io/Detox/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Detox
+          </a>
+          , an end-to-end testing and automation framework, this library uses a
           similar API that makes setting up react-native-owl and running the
           tests locally and on your preferred CI service, seamless.
         </p>
@@ -38,10 +44,9 @@ export default function Home() {
 
         <p className="intro">
           <em>
-            Note: This library is{' '}
-            <a href="/docs/introduction/work-in-progress">work-in-progress</a>.
-            We are still working on adding additional functionality to allow
-            full control of the app being tested.
+            Note: This library is work-in-progress. We are still working on
+            adding additional functionality to allow full control of the app
+            being tested.
           </em>
         </p>
 
