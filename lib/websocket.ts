@@ -1,13 +1,12 @@
 import WebSocket from 'ws';
+import { WEBSOCKET_PORT } from './constants';
 
 import { Logger } from './logger';
-
-const port = 8123;
 
 export const startWebSocketServer = async (
   logger: Logger
 ): Promise<WebSocket.Server> => {
-  const wss = new WebSocket.Server({ port });
+  const wss = new WebSocket.Server({ port: WEBSOCKET_PORT });
 
   return new Promise((resolve) => {
     wss.on('connection', (ws) => {
