@@ -1,30 +1,33 @@
-import { WEBSOCKET_PORT } from "../constants";
+import { WEBSOCKET_PORT } from '../constants';
 
-import { Logger } from "../logger";
+import { Logger } from '../logger';
 
-export const initWebSocket = (logger: Logger) => {
+export const initWebSocket = (
+  logger: Logger,
+  onMessage: (message: string) => void
+) => {
   // @ts-ignore
   const ws = new WebSocket(`ws://localhost:${WEBSOCKET_PORT}`);
 
-  ws.onopen = () => {
-    // connection opened
-    ws.send('something'); // send a message
-  };
+  return new Promise((resolve, reject) => {
+    ws.onopen = () => {
+      ws.send('OWL Client Connected!');
+      resolve(ws);
+    };
 
-  ws.onmessage = (e: { data: any }) => {
-    // a message was received
-    logger.info(`[OWL] Websocket onMessage: ${e.data}`);
-  };
+    ws.onmessage = (e: { data: any }) => {
+      logger.info(`[OWL] Websocket onMessage: ${e.data}`);
 
-  ws.onerror = (e: { message: string }) => {
-    // an error occurred
-    logger.error(`[OWL] Websocket onError: ${e.message}`);
-  };
+      onMessage(e.data.toString());
+    };
 
-  ws.onclose = (e: { message: string }) => {
-    // connection closed
-    logger.error(`[OWL] Websocket onError: ${e.message}`);
-  };
+    ws.onerror = (e: { message: string }) => {
+      logger.info(`[OWL] Websocket onError: ${e.message}`);
+    };
 
-  return ws;
+    ws.onclose = (e: { message: string }) => {
+      logger.info(`[OWL] Websocket onClose: ${e.message}`);
+      reject(e);
+    };
+  });
 };

@@ -41,7 +41,7 @@ export const createWebSocketClient = async (
   logger: Logger,
   onMessage: (message: string) => void
 ): Promise<WebSocket> => {
-  const wsClient = new WebSocket(`ws://localhost:${port}`);
+  const wsClient = new WebSocket(`ws://localhost:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve) => {
     wsClient.on('open', () => {

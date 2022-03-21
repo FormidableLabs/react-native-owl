@@ -3,6 +3,7 @@ import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT } from './constants';
 import { initWebSocket } from './rn-websocket';
+import { ACTION } from '../actions/types';
 
 import { get, exists, add, ElementActions } from './tracked-elements';
 
@@ -11,13 +12,13 @@ const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DE
 
 let automateTimeout: NodeJS.Timeout;
 let isReactUpdating = true;
+const SOCKET_WAIT_TIMEOUT = 300;
 
 export const initClient = async () => {
   logger.info('Initialising OWL client');
 
-  // @ts-ignore
-  global.__owl_client = initWebSocket(logger);
   patchReacth();
+  waitForWebSocket();
 };
 
 const patchReacth = () => {
@@ -56,10 +57,36 @@ const patchReacth = () => {
   };
 };
 
-export const getElementByTestId = async (
-  testID: string
-): Promise<ElementActions> => {
+/**
+ * The app might launch before the OWL server starts, so we need to keep trying...
+ */
+const waitForWebSocket = async () => {
+  try {
+    const client = await initWebSocket(logger, handleMessage);
+
+    logger.info('[OWL] Connection established');
+
+    // @ts-ignore
+    global.__owl_client = client;
+  } catch {
+    setTimeout(waitForWebSocket, SOCKET_WAIT_TIMEOUT);
+  }
+};
+
+const handleMessage = async (message: string) => {
+  const { action, testID } = JSON.parse(message);
+  const element = await getElementByTestId(testID);
+
+  switch (action as ACTION) {
+    case 'TAP':
+      element.onPress();
+  }
+};
+
+const getElementByTestId = async (testID: string): Promise<ElementActions> => {
   return new Promise((resolve, reject) => {
+    logger.info(`Looking for Element with testID ${testID}`);
+    
     const rejectTimeout = setTimeout(() => {
       const message = `Element with testID ${testID} not found`;
 

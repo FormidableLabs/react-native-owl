@@ -58,3 +58,6 @@ typings/
 
 # generated js
 dist/
+
+# IntellJ IDEA
+.idea

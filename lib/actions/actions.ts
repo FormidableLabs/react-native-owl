@@ -1,14 +1,26 @@
-import WebSocket from "ws";
+import WebSocket from 'ws';
+import { Logger } from '../logger';
+import { createWebSocketClient } from '../websocket';
+import { ACTION } from './types';
 
-export const tapOn = async(testId: string) => {
-    const client = new WebSocket('wss://localhost:8123');
+const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
 
-    console.info("sending event", client)
-    // client.onopen = (event) => {
-    //     console.info({event})
-    //     client.send("hello world")
-    // }
+let actionsClient: WebSocket;
 
-    return new Promise(resolve => {
-    })
-}
+const sendEvent = async (action: ACTION, message?: string) => {
+  if (actionsClient === undefined) {
+    actionsClient = await createWebSocketClient(logger, handleMessage);
+  }
+
+  actionsClient.send(JSON.stringify({ action, message }));
+};
+
+const handleMessage = (message: string) => {
+  console.info('response received', message);
+};
+
+export const tapOn = async (testId: string) => {
+  await sendEvent('TAP', testId);
+
+  return new Promise(() => {});
+};
