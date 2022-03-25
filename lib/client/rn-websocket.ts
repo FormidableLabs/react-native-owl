@@ -6,12 +6,14 @@ export const initWebSocket = (
   logger: Logger,
   onMessage: (message: string) => void
 ) => {
+  let canShowErrorMessage = false;
   // @ts-ignore
   const ws = new WebSocket(`ws://localhost:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve, reject) => {
     ws.onopen = () => {
       ws.send('OWL Client Connected!');
+      canShowErrorMessage = true;
       resolve(ws);
     };
 
@@ -22,11 +24,16 @@ export const initWebSocket = (
     };
 
     ws.onerror = (e: { message: string }) => {
-      logger.info(`[OWL] Websocket onError: ${e.message}`);
+      if (canShowErrorMessage) {
+        logger.info(`[OWL] Websocket onError: ${e.message}`);
+      }
     };
 
     ws.onclose = (e: { message: string }) => {
-      logger.info(`[OWL] Websocket onClose: ${e.message}`);
+      if (canShowErrorMessage) {
+        logger.info(`[OWL] Websocket onClose: ${e.message}`);
+      }
+
       reject(e);
     };
   });

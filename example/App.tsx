@@ -1,119 +1,77 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import * as React from 'react';
+import { View, Text, Button, TextInput, Pressable } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<{
-  title: string;
-}> = ({ children, title }) => {
-  const isDarkMode = useColorScheme() === 'dark';
+function HomeScreen({ navigation }) {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Welcome to OWL Demo</Text>
+      <View style={{ paddingVertical: 48 }} />
+      <Pressable
+        testID="home.viewDetails"
+        onPress={() => navigation.navigate('DetailsScreen')}
       >
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}
-      >
-        {children}
-      </Text>
+        <Text style={{ textDecorationLine: 'underline', color: 'black' }}>
+          View Details
+        </Text>
+      </Pressable>
     </View>
   );
-};
+}
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+function DetailsScreen({ navigation }) {
+  const [text, setText] = React.useState('');
+  const [isTrue, setTrue] = React.useState(false);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+      <View style={{ paddingVertical: 48 }} />
+      <Pressable testID="details.reveal" onPress={() => setTrue(true)}>
+        <Text style={{ textDecorationLine: 'underline', color: 'black' }}>
+          Reveal secret
+        </Text>
+      </Pressable>
+      {isTrue ? (
+        <TextInput
+          testID="details.input"
+          placeholder="Type something here"
+          onChangeText={(newText) => setText(newText)}
+          defaultValue={text}
+        />
+      ) : null}
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+export function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="DetailsScreen"
+          component={DetailsScreen}
+          options={{
+            headerLeft: () => <HeaderLeft />,
           }}
-        >
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const HeaderLeft = () => {
+  const navigation = useNavigation();
+
+  return (
+    <Button
+      title="back"
+      testID="button.goBack"
+      onPress={() => navigation.goBack()}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;

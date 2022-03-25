@@ -3,46 +3,48 @@ import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT } from './constants';
 import { initWebSocket } from './rn-websocket';
-import { ACTION } from '../actions/types';
+import { ACTION, SOCKET_EVENT } from '../actions/types';
 
-import { get, exists, add, ElementActions } from './tracked-elements';
+import { add, get, ElementActions } from './tracked-elements';
 
 // @ts-ignore
 const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
 
 let automateTimeout: NodeJS.Timeout;
 let isReactUpdating = true;
+
+// @ts-ignore
+let owlClient: WebSocket;
+
+// @ts-ignore
+const originalReactCreateElement = React.createElement;
+
 const SOCKET_WAIT_TIMEOUT = 300;
 
-export const initClient = async () => {
+export const initClient = () => {
   logger.info('Initialising OWL client');
 
-  patchReacth();
+  patchReact();
   waitForWebSocket();
 };
 
-const patchReacth = () => {
-  // @ts-ignore
-  const originalReactCreateElement = React.createElement;
-
+const patchReact = () => {
   // @ts-ignore
   React.createElement = (...args) => {
     if (args[1]?.testID) {
       const testID = args[1].testID;
 
-      if (!exists(testID)) {
-        // @ts-ignore
-        const newRef = React.createRef();
+      // @ts-ignore
+      const newRef = React.createRef();
 
-        args[1].ref = newRef;
-        // args[1].onLayout = (e) => testOnLayout(testID, e);
+      args[1].ref = newRef;
+      // args[1].onLayout = (e) => testOnLayout(testID, e);
 
-        add(testID, {
-          ref: newRef,
-          onPress: args[1].onPress,
-          // onChangeText: args[1].onChangeText,
-        });
-      }
+      add(logger, testID, {
+        ref: newRef,
+        onPress: args[1].onPress,
+        // onChangeText: args[1].onChangeText,
+      });
     }
 
     clearTimeout(automateTimeout);
@@ -55,38 +57,54 @@ const patchReacth = () => {
 
     return originalReactCreateElement(...args);
   };
-};
+}
 
 /**
  * The app might launch before the OWL server starts, so we need to keep trying...
  */
 const waitForWebSocket = async () => {
   try {
-    const client = await initWebSocket(logger, handleMessage);
+    owlClient = await initWebSocket(logger, handleMessage);
 
     logger.info('[OWL] Connection established');
-
-    // @ts-ignore
-    global.__owl_client = client;
   } catch {
     setTimeout(waitForWebSocket, SOCKET_WAIT_TIMEOUT);
   }
 };
 
 const handleMessage = async (message: string) => {
-  const { action, testID } = JSON.parse(message);
-  const element = await getElementByTestId(testID);
+  const socketEvent = JSON.parse(message) as SOCKET_EVENT;
+  // @ts-ignore
+  const { type, testID } = socketEvent;
 
+  try {
+    const element = await getElementByTestId(testID);
+    const data =
+      type === 'ACTION' ? handleAction(element, socketEvent.action) : undefined;
+
+    sendEvent({ type: 'DONE', data });
+  } catch {
+    sendEvent({ type: 'NOT_FOUND' });
+  }
+};
+
+const sendEvent = async (event: SOCKET_EVENT) => {
+  owlClient.send(JSON.stringify(event));
+};
+
+const handleAction = (element: ElementActions, action: ACTION) => {
   switch (action as ACTION) {
     case 'TAP':
       element.onPress();
   }
+
+  return undefined;
 };
 
 const getElementByTestId = async (testID: string): Promise<ElementActions> => {
   return new Promise((resolve, reject) => {
     logger.info(`Looking for Element with testID ${testID}`);
-    
+
     const rejectTimeout = setTimeout(() => {
       const message = `Element with testID ${testID} not found`;
 

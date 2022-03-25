@@ -1,3 +1,5 @@
+import { Logger } from '../logger';
+
 export type ElementActions = {
   ref: any;
   onPress: Function;
@@ -10,9 +12,11 @@ export const get = (ID: string) => {
 };
 
 export const exists = (ID: string) => {
-  return get(ID) !== undefined;
+  return trackedElements[ID] !== undefined;
 };
 
-export const add = (ID: string, data: ElementActions) => {
-    trackedElements[ID] = data;
-}
+export const add = (logger: Logger, ID: string, data: ElementActions) => {
+  trackedElements[ID] = data;
+
+  logger.info(`[OWL - Tracker] Tracking element with ${ID}`);
+};
