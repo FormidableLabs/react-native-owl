@@ -1,20 +1,20 @@
 import WebSocket from 'ws';
 import { Logger } from '../logger';
 import { createWebSocketClient } from '../websocket';
-import { ACTION, SOCKET_EVENT } from './types';
+import { SOCKET_EVENT } from './types';
 
 const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
 
-let actionsClient: WebSocket;
+let actionsClient: WebSocket | undefined;
 let resolve: Function;
 let reject: Function;
 
-const sendEvent = async (action: ACTION, message?: string) => {
+const sendEvent = async (event: SOCKET_EVENT) => {
   if (actionsClient === undefined) {
     actionsClient = await createWebSocketClient(logger, handleMessage);
   }
 
-  actionsClient.send(JSON.stringify({ action, message }));
+  actionsClient.send(JSON.stringify(event));
 
   return new Promise((res, rej) => {
     resolve = res;
@@ -33,6 +33,12 @@ const handleMessage = (message: string) => {
   }
 };
 
-export const tapOn = async (testId: string) => {
-  return sendEvent('TAP', testId);
+export const tapOn = async (testID: string) => {
+  return sendEvent({ type: 'ACTION', action: 'TAP', testID });
+};
+
+export const disconnectServer = () => {
+  actionsClient?.close();
+
+  actionsClient = undefined;
 };

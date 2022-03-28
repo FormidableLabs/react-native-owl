@@ -5,7 +5,7 @@ import { CHECK_TIMEOUT, MAX_TIMEOUT } from './constants';
 import { initWebSocket } from './rn-websocket';
 import { ACTION, SOCKET_EVENT } from '../actions/types';
 
-import { add, get, ElementActions } from './tracked-elements';
+import { add, get, ElementActions, exists } from './tracked-elements';
 
 // @ts-ignore
 const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
@@ -31,20 +31,25 @@ export const initClient = () => {
 const patchReact = () => {
   // @ts-ignore
   React.createElement = (...args) => {
-    if (args[1]?.testID) {
+    const element = args[1];
+    const shouldTrack = element?.testID && !exists(element.testID);
+
+    if (shouldTrack) {
       const testID = args[1].testID;
 
       // @ts-ignore
       const newRef = React.createRef();
 
-      args[1].ref = newRef;
+      element.ref = newRef;
       // args[1].onLayout = (e) => testOnLayout(testID, e);
 
-      add(logger, testID, {
+      const trackData = {
         ref: newRef,
-        onPress: args[1].onPress,
+        onPress: element.onPress,
         // onChangeText: args[1].onChangeText,
-      });
+      };
+
+      add(logger, testID, trackData);
     }
 
     clearTimeout(automateTimeout);
@@ -57,7 +62,7 @@ const patchReact = () => {
 
     return originalReactCreateElement(...args);
   };
-}
+};
 
 /**
  * The app might launch before the OWL server starts, so we need to keep trying...
@@ -80,10 +85,12 @@ const handleMessage = async (message: string) => {
   try {
     const element = await getElementByTestId(testID);
     const data =
-      type === 'ACTION' ? handleAction(element, socketEvent.action) : undefined;
+      type === 'ACTION'
+        ? handleAction(testID, element, socketEvent.action)
+        : undefined;
 
     sendEvent({ type: 'DONE', data });
-  } catch {
+  } catch (e) {
     sendEvent({ type: 'NOT_FOUND' });
   }
 };
@@ -92,10 +99,20 @@ const sendEvent = async (event: SOCKET_EVENT) => {
   owlClient.send(JSON.stringify(event));
 };
 
-const handleAction = (element: ElementActions, action: ACTION) => {
+const handleAction = (
+  testID: string,
+  element: ElementActions,
+  action: ACTION
+) => {
+  logger.info(`Execution ${action} on element with testID ${testID}`);
+
   switch (action as ACTION) {
     case 'TAP':
       element.onPress();
+
+      break;
+    default:
+      logger.error(`Action not supported ${action}`);
   }
 
   return undefined;
@@ -108,6 +125,8 @@ const getElementByTestId = async (testID: string): Promise<ElementActions> => {
     const rejectTimeout = setTimeout(() => {
       const message = `Element with testID ${testID} not found`;
 
+      logger.error(`\t ❌ not found`);
+
       clearInterval(checkInterval);
       reject(new Error(message));
     }, MAX_TIMEOUT);
@@ -116,6 +135,8 @@ const getElementByTestId = async (testID: string): Promise<ElementActions> => {
       if (isReactUpdating || get(testID) == null) {
         return;
       }
+
+      logger.info(`\t ✓ found`);
 
       clearInterval(checkInterval);
       clearTimeout(rejectTimeout);
