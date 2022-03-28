@@ -27,7 +27,7 @@ const handleMessage = (message: string) => {
 
   switch (event.type) {
     case 'DONE':
-      resolve();
+      resolve(event.data);
     case 'NOT_FOUND':
       reject(new Error('Element not found'));
   }
@@ -35,6 +35,14 @@ const handleMessage = (message: string) => {
 
 export const tapOn = async (testID: string) => {
   return sendEvent({ type: 'ACTION', action: 'TAP', testID });
+};
+
+export const toExists = async (testID: string) => {
+  return sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
+};
+
+export const getLayoutSize = async (testID: string) => {
+  return sendEvent({ type: 'LAYOUT', action: 'SIZE', testID });
 };
 
 export const disconnectServer = () => {
