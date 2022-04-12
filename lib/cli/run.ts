@@ -106,20 +106,18 @@ export const runHandler = async (args: CliRunOptions) => {
         OWL_UPDATE_BASELINE: String(!!args.update),
       },
     });
-  } catch (err) {
+  } finally {
     if (config.report) {
       await generateReport(logger, args.platform);
     }
 
-    throw err;
-  } finally {
     webSocketProcess.kill();
-  }
 
-  logger.print(`[OWL] Tests completed on ${args.platform}.`);
-  if (args.update) {
-    logger.print(
-      `[OWL] All baseline images for ${args.platform} have been updated successfully.`
-    );
+    logger.print(`[OWL] Tests completed on ${args.platform}.`);
+    if (args.update) {
+      logger.print(
+        `[OWL] All baseline images for ${args.platform} have been updated successfully.`
+      );
+    }
   }
 };
