@@ -55,10 +55,6 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   const appPath = path.join(cwd, appFilename);
   const { packageName } = config.android!;
 
-  // const SIMULATOR_TIME = '0941';
-  // const setTimeCommand = `adb shell date 0101${SIMULATOR_TIME}`;
-  // await execa.command(setTimeCommand, { stdio });
-
   const installCommand = `adb install -r ${appPath}`;
   await execa.command(installCommand, { stdio });
 
