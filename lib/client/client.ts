@@ -28,7 +28,7 @@ export const initClient = () => {
 
 const patchReact = () => {
   // @ts-ignore
-  React.createElement = (type, props, ...children) => {
+  React.createElement = (type, props, children) => {
     const shouldTrack = props?.testID && !exists(props.testID);
 
     if (shouldTrack) {
@@ -56,7 +56,7 @@ const patchReact = () => {
 
     isReactUpdating = true;
 
-    return originalReactCreateElement(type, props, ...children);
+    return originalReactCreateElement(type, props, children);
   };
 };
 
