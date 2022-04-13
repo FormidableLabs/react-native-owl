@@ -1,4 +1,3 @@
-// @ts-ignore
 import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT } from './constants';
@@ -6,18 +5,17 @@ import { initWebSocket } from './rn-websocket';
 import { ACTION, SOCKET_EVENT } from '../actions/types';
 
 import { add, get, ElementActions, exists } from './tracked-elements';
+import WebSocket from 'ws';
 
-// @ts-ignore
 const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
 
 let automateTimeout: NodeJS.Timeout;
 let isReactUpdating = true;
 
-// @ts-ignore
 let owlClient: WebSocket;
 
-// @ts-ignore
-const originalReactCreateElement = React.createElement;
+const originalReactCreateElement: typeof React.createElement =
+  React.createElement;
 
 const SOCKET_WAIT_TIMEOUT = 300;
 
@@ -30,23 +28,21 @@ export const initClient = () => {
 
 const patchReact = () => {
   // @ts-ignore
-  React.createElement = (...args) => {
-    const element = args[1];
-    const shouldTrack = element?.testID && !exists(element.testID);
+  React.createElement = (type, props, children) => {
+    const shouldTrack = props?.testID && !exists(props.testID);
 
     if (shouldTrack) {
-      const testID = args[1].testID;
+      const testID = props.testID;
 
-      // @ts-ignore
       const newRef = React.createRef();
 
-      element.ref = newRef;
-      // args[1].onLayout = (e) => testOnLayout(testID, e);
+      props.ref = newRef;
+      // props.onLayout = (e) => testOnLayout(testID, e);
 
       const trackData = {
         ref: newRef,
-        onPress: element.onPress,
-        // onChangeText: args[1].onChangeText,
+        onPress: props.onPress,
+        // onChangeText: props.onChangeText,
       };
 
       add(logger, testID, trackData);
@@ -60,7 +56,7 @@ const patchReact = () => {
 
     isReactUpdating = true;
 
-    return originalReactCreateElement(...args);
+    return originalReactCreateElement(type, props, children);
   };
 };
 
