@@ -102,6 +102,7 @@ export const runHandler = async (args: CliRunOptions) => {
         OWL_UPDATE_BASELINE: String(!!args.update),
       },
     });
+  } catch (error) {
   } finally {
     if (config.report) {
       await generateReport(logger, args.platform);

@@ -13,9 +13,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "yarn postbuild && tsc",
     "postbuild": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
-    "watch": "tsc --watch",
+    "watch": "yarn postbuild && tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
     "test": "yarn jest"
