@@ -25,7 +25,7 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   });
 
   await fs.mkdir(reportDirPath, { recursive: true });
-  const reportFilePath = path.join(reportDirPath, reportFilename);
+  const reportFilePath = path.join(reportDirPath, 'index.html');
   await fs.writeFile(reportFilePath, htmlContent);
 
   logger.info(`[OWL] Report was built at ${reportDirPath}/${reportFilename}`);

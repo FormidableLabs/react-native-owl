@@ -1,4 +1,4 @@
-import { initClient } from 'react-native-owl';
+import { initClient } from 'react-native-owl/dist/client';
 
 initClient();
 
