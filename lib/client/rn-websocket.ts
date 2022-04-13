@@ -1,4 +1,3 @@
-import WebSocket from 'ws';
 import { WEBSOCKET_PORT } from '../constants';
 
 import { Logger } from '../logger';
@@ -6,9 +5,9 @@ import { Logger } from '../logger';
 export const initWebSocket = (
   logger: Logger,
   onMessage: (message: string) => void
-): Promise<WebSocket> => {
+) => {
   let canShowErrorMessage = false;
-
+  // @ts-ignore
   const ws = new WebSocket(`ws://localhost:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve, reject) => {
@@ -30,9 +29,9 @@ export const initWebSocket = (
       }
     };
 
-    ws.onclose = (e: { reason: string }) => {
+    ws.onclose = (e: { message: string }) => {
       if (canShowErrorMessage) {
-        logger.info(`[OWL] Websocket onClose: ${e.reason}`);
+        logger.info(`[OWL] Websocket onClose: ${e.message}`);
       }
 
       reject(e);
