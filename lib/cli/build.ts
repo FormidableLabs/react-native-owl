@@ -26,7 +26,12 @@ export const buildIOS = async (
 
   logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
 
-  await execa.command(buildCommand.join(' '), { stdio: 'inherit' });
+  await execa.command(buildCommand.join(' '), {
+    stdio: 'inherit',
+    env: {
+      ENTRY_FILE: './node_modules/react-native-owl/dist/client/index.app.js',
+    },
+  });
 };
 
 export const buildAndroid = async (

@@ -40,6 +40,8 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const appearanceCommand = 'xcrun simctl ui booted appearance';
   await execa.command(`${appearanceCommand} dark`, { stdio, cwd });
   await execa.command(`${appearanceCommand} light`, { stdio, cwd });
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
 export const runAndroid = async (config: Config, logger: Logger) => {
