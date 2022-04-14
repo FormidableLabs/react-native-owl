@@ -21,14 +21,11 @@ const originalReactCreateElement = React.createElement;
 
 const SOCKET_WAIT_TIMEOUT = 300;
 
-export const initClient = async (registerCallback: () => void) => {
+export const initClient = () => {
   logger.info('Initialising OWL client');
 
   patchReact();
-
   waitForWebSocket();
-
-  registerCallback();
 };
 
 const patchReact = () => {

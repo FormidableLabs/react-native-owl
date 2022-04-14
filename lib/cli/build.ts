@@ -26,13 +26,7 @@ export const buildIOS = async (
 
   logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
 
-  await execa.command(buildCommand.join(' '), {
-    stdio: 'inherit',
-    env: {
-      ENTRY_FILE: './index.owl.js',
-      EXTRA_PACKAGER_ARGS: `--entry-file ./index.owl.js`,
-    },
-  });
+  await execa.command(buildCommand.join(' '), { stdio: 'inherit' });
 };
 
 export const buildAndroid = async (
