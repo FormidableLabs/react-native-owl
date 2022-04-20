@@ -1,4 +1,5 @@
-# react-native-owl [![github][github-image]][github-url] [![npm][npm-image]][npm-url] [![docs][docs-image]][docs-url]
+# react-native-owl 
+[![github][github-image]][github-url] [![npm][npm-image]][npm-url] [![docs][docs-image]][docs-url] [![Maintenance Status][maintenance-image]](#maintenance-status)
 
 > **Work In Progress**: Visual regression testing for React Native
 
@@ -31,3 +32,4 @@ _You can find the raw markdown files inside this repository's `docs` folder._
 [npm-url]: https://www.npmjs.com/package/react-native-owl
 [docs-image]: https://img.shields.io/badge/docs-visit%20site-blue
 [docs-url]: https://formidable.com/open-source/react-native-owl/
+[maintenance-image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat
