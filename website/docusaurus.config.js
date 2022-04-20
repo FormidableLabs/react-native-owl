@@ -104,9 +104,6 @@ const config = {
       },
       footer: {
         style: 'dark',
-        logo: {
-          href: 'https://formidable.com/',
-        },
         links: [
           {
             title: null,
