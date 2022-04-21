@@ -64,7 +64,7 @@ jobs:
       - uses: futureware-tech/simulator-action@v1
         with:
           model: 'iPhone 13 Pro'
-          os_version: '=15.0'
+          os_version: '>=15.0'
 
       - name: Run Owl Build
         run: yarn owl:build:ios
