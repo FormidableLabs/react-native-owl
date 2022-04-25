@@ -1,6 +1,6 @@
 import React from 'react';
 import { Logger } from '../logger';
-import { CHECK_TIMEOUT, MAX_TIMEOUT } from './constants';
+import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
 import { initWebSocket } from './rn-websocket';
 import { ACTION, SOCKET_EVENT } from '../actions/types';
 
@@ -14,8 +14,6 @@ let isReactUpdating = true;
 let owlClient: WebSocket;
 
 const originalReactCreateElement = React.createElement;
-
-const SOCKET_WAIT_TIMEOUT = 3000;
 
 export const initClient = () => {
   logger.info('Initialising OWL client');
