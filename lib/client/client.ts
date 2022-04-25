@@ -1,4 +1,3 @@
-// @ts-ignore
 import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT } from './constants';
@@ -7,19 +6,16 @@ import { ACTION, SOCKET_EVENT } from '../actions/types';
 
 import { add, get, ElementActions, exists } from './tracked-elements';
 
-// @ts-ignore
 const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
 
-let automateTimeout: NodeJS.Timeout;
+let automateTimeout: number;
 let isReactUpdating = true;
 
-// @ts-ignore
 let owlClient: WebSocket;
 
-// @ts-ignore
 const originalReactCreateElement = React.createElement;
 
-const SOCKET_WAIT_TIMEOUT = 300;
+const SOCKET_WAIT_TIMEOUT = 3000;
 
 export const initClient = () => {
   logger.info('Initialising OWL client');
@@ -37,7 +33,6 @@ const patchReact = () => {
     if (shouldTrack) {
       const testID = args[1].testID;
 
-      // @ts-ignore
       const newRef = React.createRef();
 
       element.ref = newRef;
@@ -60,6 +55,7 @@ const patchReact = () => {
 
     isReactUpdating = true;
 
+    // @ts-ignore
     return originalReactCreateElement(...args);
   };
 };

@@ -46,14 +46,14 @@ export const runIOS = async (config: Config, logger: Logger) => {
 
 export const runAndroid = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
-  const DEFAULT_APK_DIR = '/android/app/build/outputs/apk/debug/';
+  const DEFAULT_APK_DIR = '/android/app/build/outputs/apk/release/';
   const cwd = config.android?.binaryPath
     ? path.dirname(config.android?.binaryPath)
     : path.join(process.cwd(), DEFAULT_APK_DIR);
 
   const appFilename = config.android!.binaryPath
     ? path.basename(config.android!.binaryPath)
-    : 'app-debug.apk';
+    : 'app-release.apk';
   const appPath = path.join(cwd, appFilename);
   const { packageName } = config.android!;
 

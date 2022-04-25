@@ -40,7 +40,7 @@ export const buildAndroid = async (
 ): Promise<void> => {
   const buildCommand = config.android?.buildCommand
     ? [config.android?.buildCommand]
-    : [`./gradlew`, `assembleDebug`];
+    : [`./gradlew`, `assembleRelease`];
 
   if (!config.android?.buildCommand && config.android?.quiet) {
     buildCommand.push('--quiet');
