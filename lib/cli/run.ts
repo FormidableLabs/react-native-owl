@@ -60,6 +60,19 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   const installCommand = `adb install -r ${appPath}`;
   await execa.command(installCommand, { stdio });
 
+  // ADB demo mode
+  const enableDemoModeCommand =
+    'adb shell settings put global sysui_demo_allowed 1';
+  await execa.command(enableDemoModeCommand, { stdio });
+
+  const enterDemoModeCommand =
+    'adb shell am broadcast -a com.android.systemui.demo -e command enter';
+  await execa.command(enterDemoModeCommand, { stdio });
+
+  const setTimeCommand =
+    'adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 1041';
+  await execa.command(setTimeCommand, { stdio });
+
   const launchCommand = `adb shell monkey -p "${packageName}" -c android.intent.category.LAUNCHER 1`;
   await execa.command(launchCommand, { stdio });
 };
