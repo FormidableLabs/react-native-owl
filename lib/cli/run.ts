@@ -106,7 +106,7 @@ export const runHandler = async (args: CliRunOptions) => {
     });
   } catch (error) {
   } finally {
-    if (config.report) {
+    if (config.report && !args.update) {
       await generateReport(logger, args.platform);
     }
 
