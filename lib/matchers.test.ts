@@ -49,7 +49,7 @@ describe('matchers.ts', () => {
         'Compared screenshot to match baseline. No differences were found.'
       );
       expect(result.pass).toBe(true);
-      expect(writeFileMock).toHaveBeenCalledTimes(0);
+      expect(writeFileMock).toHaveBeenCalledTimes(1);
     });
 
     it('should compare two different images', () => {

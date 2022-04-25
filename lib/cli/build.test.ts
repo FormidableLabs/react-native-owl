@@ -2,9 +2,13 @@ import path from 'path';
 import execa from 'execa';
 
 import { buildAndroid, buildHandler, buildIOS } from './build';
-import { CliBuildOptions, Config } from '../types';
+import { CliBuildOptions, Config, ConfigEnv } from '../types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
+
+const env: ConfigEnv = {
+  ENTRY_FILE: './node_modules/react-native-owl/dist/client/index.app.js',
+};
 
 describe('build.ts', () => {
   const logger = new Logger();
@@ -16,12 +20,13 @@ describe('build.ts', () => {
 
   describe('buildIOS', () => {
     it('builds an iOS project with workspace/scheme', async () => {
-      const config: Config = {
+      const config: Config & { ios: { env: ConfigEnv } } = {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
           configuration: 'Debug',
           device: 'iPhone Simulator',
+          env,
         },
       };
 
@@ -30,18 +35,19 @@ describe('build.ts', () => {
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build`,
-        { stdio: 'inherit' }
+        { stdio: 'inherit', env }
       );
     });
 
     it('builds an iOS project with workspace/scheme - with the quiet arg', async () => {
-      const config: Config = {
+      const config: Config & { ios: { env: ConfigEnv } } = {
         ios: {
           workspace: 'ios/RNDemo.xcworkspace',
           scheme: 'RNDemo',
           configuration: 'Debug',
           quiet: true,
           device: 'iPhone Simulator',
+          env,
         },
       };
 
@@ -50,15 +56,19 @@ describe('build.ts', () => {
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`,
-        { stdio: 'inherit' }
+        {
+          stdio: 'inherit',
+          env,
+        }
       );
     });
 
     it('builds an iOS project with a custom build command', async () => {
-      const config: Config = {
+      const config: Config & { ios: { env: ConfigEnv } } = {
         ios: {
           buildCommand: "echo 'Hello World'",
           device: 'iPhone Simulator',
+          env,
         },
       };
 
@@ -67,49 +77,58 @@ describe('build.ts', () => {
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(`echo 'Hello World'`, {
         stdio: 'inherit',
+        env,
       });
     });
   });
 
   describe('buildAndroid', () => {
     it('builds an Android project with the default build command', async () => {
-      const config: Config = {
+      const config: Config & { android: { env: ConfigEnv } } = {
         android: {
           packageName: 'com.rndemo',
+          env,
         },
       };
 
       await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug`, {
+      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleRelease`, {
         stdio: 'inherit',
         cwd: path.join(process.cwd(), 'android'),
+        env,
       });
     });
 
     it('builds an Android project with the default build command - with the quiet arg', async () => {
-      const config: Config = {
+      const config: Config & { android: { env: ConfigEnv } } = {
         android: {
           packageName: 'com.rndemo',
           quiet: true,
+          env,
         },
       };
 
       await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleDebug --quiet`, {
-        stdio: 'inherit',
-        cwd: path.join(process.cwd(), 'android'),
-      });
+      expect(execMock).toHaveBeenCalledWith(
+        `./gradlew assembleRelease --quiet`,
+        {
+          stdio: 'inherit',
+          cwd: path.join(process.cwd(), 'android'),
+          env,
+        }
+      );
     });
 
     it('builds an Android project with a custom build command', async () => {
-      const config: Config = {
+      const config: Config & { android: { env: ConfigEnv } } = {
         android: {
           packageName: 'com.rndemo',
           buildCommand: "echo 'Hello World'",
+          env,
         },
       };
 
@@ -118,6 +137,7 @@ describe('build.ts', () => {
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(`echo 'Hello World'`, {
         stdio: 'inherit',
+        env,
       });
     });
   });
@@ -128,14 +148,25 @@ describe('build.ts', () => {
       config: './owl.config.json',
     } as CliBuildOptions;
 
-    const config: Config = {
+    const config: Config & {
+      android: { env: ConfigEnv };
+      ios: { env: ConfigEnv };
+    } = {
       ios: {
         buildCommand: "echo 'Hello World'",
         device: 'iPhone Simulator',
+        env: {
+          ENTRY_FILE:
+            './node_modules/react-native-owl/dist/client/index.app.js',
+        },
       },
       android: {
         packageName: 'com.rndemo',
         buildCommand: "echo 'Hello World'",
+        env: {
+          ENTRY_FILE:
+            './node_modules/react-native-owl/dist/client/index.app.js',
+        },
       },
     };
 

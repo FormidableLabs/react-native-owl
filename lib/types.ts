@@ -1,4 +1,4 @@
-import { Arguments } from 'yargs';
+import { Arguments, string } from 'yargs';
 
 export type Platform = 'ios' | 'android';
 
@@ -12,6 +12,10 @@ export interface CliRunOptions extends Arguments {
   config: string;
   update: boolean;
 }
+
+export type ConfigEnv = {
+  ENTRY_FILE?: string;
+};
 
 type ConfigIOS = {
   /** The workspace to build. */

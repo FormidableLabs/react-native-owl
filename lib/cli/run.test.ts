@@ -44,7 +44,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
+        `/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
         { cwd: '/usr/libexec', shell: true }
       );
 
@@ -85,7 +85,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `./PlistBuddy -c 'Print CFBundleIdentifier' ${binaryPath}/Info.plist`,
+        `/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' ${binaryPath}/Info.plist`,
         { cwd: '/usr/libexec', shell: true }
       );
 
@@ -112,11 +112,11 @@ describe('run.ts', () => {
   describe('runAndroid', () => {
     const cwd = path.join(
       process.cwd(),
-      '/android/app/build/outputs/apk/debug'
+      '/android/app/build/outputs/apk/release'
     );
 
     it('runs an Android project - with the default build command', async () => {
-      const appPath = path.join(cwd, 'app-debug.apk');
+      const appPath = path.join(cwd, 'app-release.apk');
 
       const config: Config = {
         android: {
@@ -126,23 +126,43 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
-        stdio: 'ignore',
-      });
-
-      expect(execMock).toHaveBeenNthCalledWith(2, `adb install -r ${appPath}`, {
+      expect(execMock).toHaveBeenNthCalledWith(1, `adb install -r ${appPath}`, {
         stdio: 'ignore',
       });
 
       expect(execMock).toHaveBeenNthCalledWith(
+        2,
+        `adb shell settings put global sysui_demo_allowed 1`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
         3,
+        `adb shell am broadcast -a com.android.systemui.demo -e command enter`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        4,
+        `adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 1041`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        5,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );
     });
 
     it('runs an Android project - with a custom build command', async () => {
-      const binaryPath = '/Users/Demo/Desktop/app-debug.apk';
+      const binaryPath = '/Users/Demo/Desktop/app-release.apk';
 
       const config: Config = {
         android: {
@@ -154,22 +174,12 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
-        stdio: 'ignore',
-      });
-
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        1,
         `adb install -r ${binaryPath}`,
         {
           stdio: 'ignore',
         }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        3,
-        `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
-        { stdio: 'ignore' }
       );
     });
   });
