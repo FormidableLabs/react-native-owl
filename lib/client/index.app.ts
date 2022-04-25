@@ -1,5 +1,5 @@
 // Setup the Owl client
-require('./client.js').initClient();
+require('react-native-owl/dist/client').initClient();
 
 // Load the app as normal
-require('../../../../index.js');
+require('../../../../index');
