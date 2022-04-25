@@ -1,5 +1,5 @@
-import { initClient } from '.';
+// Setup the Owl client
+require('./client.js').initClient();
 
-initClient();
-
-require('../../../index.js');
+// Load the app as normal
+require('../../../../index.js');

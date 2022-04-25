@@ -5,6 +5,8 @@ import { CliBuildOptions, Config } from '../types';
 import { Logger } from '../logger';
 import { getConfig } from './config';
 
+const ENTRY_FILE = './node_modules/react-native-owl/dist/client/index.app.js';
+
 export const buildIOS = async (
   config: Config,
   logger: Logger
@@ -29,7 +31,7 @@ export const buildIOS = async (
   await execa.command(buildCommand.join(' '), {
     stdio: 'inherit',
     env: {
-      ENTRY_FILE: './node_modules/react-native-owl/dist/client/index.app.js',
+      ENTRY_FILE,
     },
   });
 };
@@ -52,7 +54,13 @@ export const buildAndroid = async (
 
   logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
 
-  await execa.command(buildCommand.join(' '), { stdio: 'inherit', cwd });
+  await execa.command(buildCommand.join(' '), {
+    stdio: 'inherit',
+    cwd,
+    env: {
+      ENTRY_FILE,
+    },
+  });
 };
 
 export const buildHandler = async (args: CliBuildOptions) => {

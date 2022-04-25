@@ -7,7 +7,7 @@ export const initWebSocket = (
   logger: Logger,
   onMessage: (message: string) => void
 ): Promise<WebSocket> => {
-  const ipAddress = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
+  const ipAddress = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
 
   let canShowErrorMessage = false;
 
