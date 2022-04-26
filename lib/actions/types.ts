@@ -15,7 +15,6 @@ export type SOCKET_EVENT =
     }
   | {
       type: 'DONE';
-      data?: Record<string, any>;
     }
   | {
       type: 'NOT_FOUND';

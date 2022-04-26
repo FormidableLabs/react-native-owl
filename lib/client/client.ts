@@ -86,18 +86,16 @@ const handleMessage = async (message: string) => {
 
   if (element) {
     try {
-      const data =
-        type === 'ACTION'
-          ? handleAction(
-              logger,
-              testID,
-              element,
-              socketEvent.action,
-              socketEvent.value
-            )
-          : undefined;
+      type === 'ACTION' &&
+        handleAction(
+          logger,
+          testID,
+          element,
+          socketEvent.action,
+          socketEvent.value
+        );
 
-      sendEvent({ type: 'DONE', data });
+      sendEvent({ type: 'DONE' });
     } catch (error) {
       let message = 'Unknown error';
       if (error instanceof Error) {

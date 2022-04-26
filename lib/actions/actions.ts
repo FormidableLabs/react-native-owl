@@ -27,7 +27,7 @@ const handleMessage = (message: string) => {
 
   switch (event.type) {
     case 'DONE':
-      resolve(event.data);
+      resolve();
       return;
     case 'NOT_FOUND':
       reject(new Error(`Element not found: ${event.testID}`));

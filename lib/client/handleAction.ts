@@ -15,19 +15,31 @@ export const handleAction = (
 
   switch (action as ACTION) {
     case 'TAP':
-      element.onPress?.();
+      if (element.onPress) {
+        element.onPress();
+      } else {
+        throw new Error(`This element has no onPress prop`);
+      }
       break;
 
     case 'CLEAR_TEXT':
-      element.ref.current?.clear();
+      if (element.ref.current?.clear) {
+        element.ref.current.clear();
+      } else {
+        throw new Error(`This element has no clear method`);
+      }
       break;
 
     case 'ENTER_TEXT':
-      element.onChangeText?.(typeof value === 'undefined' ? '' : value);
+      if (element.onChangeText) {
+        element.onChangeText(typeof value === 'undefined' ? '' : value);
+      } else {
+        throw new Error(`This element has no onChangeText prop`);
+      }
       break;
 
     default:
-      logger.error(`[OWL - Client] Action not supported ${action}`);
+      throw new Error(`Action not supported ${action}`);
   }
 
   return undefined;
