@@ -1,123 +1,164 @@
-import * as React from 'react';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * Generated with the TypeScript template
+ * https://github.com/react-native-community/react-native-template-typescript
+ *
+ * @format
+ */
+
+import React from 'react';
 import {
-  View,
+  ActivityIndicator,
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
-  Pressable,
-  ActivityIndicator,
-  ScrollView,
+  useColorScheme,
+  View,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function HomeScreen({ navigation }) {
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+
+const Section: React.FC<{
+  title: string;
+}> = ({ children, title }) => {
+  const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Welcome to OWL Demo</Text>
-      <View style={{ paddingVertical: 48 }} />
-      <Pressable
-        testID="home.viewDetails"
-        onPress={() => navigation.navigate('DetailsScreen')}
+    <View style={styles.sectionContainer}>
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+        ]}
       >
-        <Text style={{ textDecorationLine: 'underline', color: 'black' }}>
-          View Details
-        </Text>
-      </Pressable>
+        {title}
+      </Text>
+      <Text
+        style={[
+          styles.sectionDescription,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}
+      >
+        {children}
+      </Text>
     </View>
   );
-}
+};
 
-function DetailsScreen({ navigation }) {
-  const [text, setText] = React.useState('default text');
-  const [isSecretInputVisible, setIsSecretInputVisible] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
+const App = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const [text, setText] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoaded, setIsLoaded] = React.useState(false);
 
   React.useEffect(() => {
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  }, []);
+    if (isLoading) {
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsLoaded(true);
+      }, 1500);
+    }
+  }, [isLoading]);
 
   return (
-    <ScrollView testID="details.scrollView" style={{ alignItems: 'center' }}>
-      <Text style={{ paddingBottom: 48 }}>Details Screen</Text>
-
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <Pressable
-          testID="details.reveal"
-          onPress={() => setIsSecretInputVisible(true)}
-        >
-          <Text style={{ textDecorationLine: 'underline', color: 'black' }}>
-            Reveal secret
-          </Text>
-        </Pressable>
-      )}
-      {isSecretInputVisible ? (
-        <TextInput
-          testID="details.input"
-          placeholder="Type something here"
-          onChangeText={(newText) => setText(newText)}
-          defaultValue={text}
-        />
-      ) : null}
-
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>Content</Text>
-      <Text style={{ paddingVertical: 40 }}>End</Text>
-    </ScrollView>
-  );
-}
-
-const Stack = createNativeStackNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen
-          name="DetailsScreen"
-          component={DetailsScreen}
-          options={{
-            headerLeft: () => <HeaderLeft />,
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}
+        testID="ScrollView"
+      >
+        <Header />
+        <View
+          style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+        >
+          <View>
+            {!isLoaded && !isLoading && (
+              <Button
+                title="Press me"
+                testID="Button"
+                onPress={() => setIsLoading(true)}
+              />
+            )}
 
-const HeaderLeft = () => {
-  const navigation = useNavigation();
+            {isLoading && <ActivityIndicator />}
 
-  return (
-    <Pressable
-      testID="button.goBack"
-      onPress={() => navigation.goBack()}
-      style={{ marginRight: 24 }}
-    >
-      <Text>{'<'}</Text>
-    </Pressable>
+            {!isLoading && isLoaded && (
+              <View>
+                <Text>Some content and a TextInput</Text>
+
+                <TextInput
+                  testID="TextInputTestID"
+                  placeholder="Type something here"
+                  onChangeText={setText}
+                  value={text}
+                  style={styles.textInput}
+                />
+              </View>
+            )}
+          </View>
+          <Section title="Step One">
+            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+            screen and then come back to see your edits.
+          </Section>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
+          <LearnMoreLinks />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+  textInput: {
+    borderWidth: 1,
+  },
+});
+
+export default App;

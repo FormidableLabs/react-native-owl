@@ -1,9 +1,5 @@
-export type ACTION =
-  | 'TAP'
-  | 'CLEAR_TEXT'
-  | 'ENTER_TEXT'
-  | 'SCROLL_TO'
-  | 'SCROLL_TO_END';
+export type ACTION = 'TAP' | 'ENTER_TEXT' | 'SCROLL_TO' | 'SCROLL_TO_END';
+
 export type LAYOUT_ACTION = 'EXISTS' | 'SIZE';
 
 export type SOCKET_TYPE_SCROLL_TO_VALUE = {

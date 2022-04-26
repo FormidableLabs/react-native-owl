@@ -73,6 +73,13 @@ export const runAndroid = async (config: Config, logger: Logger) => {
     'adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941';
   await execa.command(setTimeCommand, { stdio });
 
+  const setBarsCommand =
+    'adb shell am broadcast -a com.android.systemui.demo -e command bars -e mode translucent';
+  await execa.command(setBarsCommand, { stdio });
+
+  // Brief pause so the bars update
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   const launchCommand = `adb shell monkey -p "${packageName}" -c android.intent.category.LAUNCHER 1`;
   await execa.command(launchCommand, { stdio });
 };

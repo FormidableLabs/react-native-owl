@@ -41,9 +41,6 @@ const handleMessage = (message: string) => {
 export const tapOn = async (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'TAP', testID });
 
-export const clearText = async (testID: string) =>
-  sendEvent({ type: 'ACTION', action: 'CLEAR_TEXT', testID });
-
 export const enterText = async (testID: string, value: string) =>
   sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });
 

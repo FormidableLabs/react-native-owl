@@ -3,7 +3,6 @@ import {
   takeScreenshot,
   tapOn,
   toExist,
-  clearText,
   enterText,
   scrollTo,
   scrollToEnd,
@@ -16,30 +15,24 @@ afterAll(() => {
 });
 
 describe('App.tsx', () => {
-  it('takes a screenshot of the first screen', async () => {
-    const screen = await takeScreenshot('homescreen');
+  it('takes a screenshot of the initial screen', async () => {
+    const screen = await takeScreenshot('initial');
 
     expect(screen).toMatchBaseline();
   });
 
-  it('takes a screenshot of the Details screen', async () => {
-    await tapOn('home.viewDetails');
+  it('press a button, waits for an element then takes a screenshot', async () => {
+    await tapOn('Button');
 
-    await toExist('details.reveal');
+    await toExist('TextInputTestID');
 
-    const screen = await takeScreenshot('details');
+    const screen = await takeScreenshot('testInput');
 
     expect(screen).toMatchBaseline();
   });
 
   it('enters some text and takes a screenshot', async () => {
-    await tapOn('details.reveal');
-
-    await toExist('details.input');
-
-    await clearText('details.input');
-
-    await enterText('details.input', 'Entered text');
+    await enterText('TextInputTestID', 'Entered text');
 
     const screen = await takeScreenshot('enteredText');
 
@@ -47,7 +40,7 @@ describe('App.tsx', () => {
   });
 
   it('scrolls a bit and takes a screenshot', async () => {
-    await scrollTo('details.scrollView', { y: 50 });
+    await scrollTo('ScrollView', { y: 50 });
 
     const screen = await takeScreenshot('scrollTo');
 
@@ -55,7 +48,7 @@ describe('App.tsx', () => {
   });
 
   it('scrolls to end and takes a screenshot', async () => {
-    await scrollToEnd('details.scrollView');
+    await scrollToEnd('ScrollView');
 
     const screen = await takeScreenshot('scrollToEnd');
 

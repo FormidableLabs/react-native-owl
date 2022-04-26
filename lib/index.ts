@@ -3,7 +3,6 @@ import './matchers';
 export { takeScreenshot } from './take-screenshot';
 export {
   tapOn,
-  clearText,
   enterText,
   scrollTo,
   scrollToEnd,

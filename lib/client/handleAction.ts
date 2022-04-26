@@ -1,11 +1,11 @@
 import { ACTION, SOCKET_TYPE_VALUE } from '../actions/types';
 import { Logger } from '../logger';
-import { ElementActions } from './tracked-elements';
+import { TrackedElementData } from './tracked-elements';
 
 export const handleAction = (
   logger: Logger,
   testID: string,
-  element: ElementActions,
+  element: TrackedElementData,
   action: ACTION,
   value?: SOCKET_TYPE_VALUE
 ) => {
@@ -20,15 +20,6 @@ export const handleAction = (
       }
 
       element.onPress();
-
-      break;
-
-    case 'CLEAR_TEXT':
-      if (!element.ref.current?.clear) {
-        throw new Error(`This element has no clear method`);
-      }
-
-      element.ref.current.clear();
 
       break;
 

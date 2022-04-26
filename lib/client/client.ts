@@ -4,10 +4,9 @@ import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
 import { initWebSocket } from './rn-websocket';
 import { SOCKET_EVENT } from '../actions/types';
 
-import { add, get, ElementActions, exists } from './tracked-elements';
+import { add, get, TrackedElementData, exists } from './tracked-elements';
 import { handleAction } from './handleAction';
 
-// const logger = new Logger(process.env.OWL_DEBUG === 'true');
 const logger = new Logger(true);
 
 let automateTimeout: number;
@@ -31,10 +30,11 @@ const patchReact = () => {
     const testID = props?.testID;
     const shouldTrack = testID && !exists(testID);
 
-    const trackingRef = props?.ref || React.createRef();
+    const trackingRef =
+      (props?.ref as React.RefObject<unknown> | undefined) || React.createRef();
 
     if (shouldTrack) {
-      const trackData: ElementActions = {
+      const trackData: TrackedElementData = {
         ref: trackingRef,
         onPress: props?.onPress,
         onChangeText: props?.onChangeText,
@@ -102,10 +102,7 @@ const handleMessage = async (message: string) => {
 
       setTimeout(
         () => sendEvent({ type: 'DONE' }),
-        socketEvent.type === 'ACTION' &&
-          ['SCROLL_TO', 'SCROLL_TO_END'].includes(socketEvent.action)
-          ? 250
-          : 100
+        socketEvent.type === 'ACTION' ? 350 : 0
       );
     } catch (error) {
       let message = 'Unknown error';
@@ -122,7 +119,9 @@ const sendEvent = async (event: SOCKET_EVENT) => {
   owlClient.send(JSON.stringify(event));
 };
 
-const getElementByTestId = async (testID: string): Promise<ElementActions> => {
+const getElementByTestId = async (
+  testID: string
+): Promise<TrackedElementData> => {
   return new Promise((resolve, reject) => {
     logger.info(`[OWL - Client] Looking for Element with testID ${testID}`);
 
