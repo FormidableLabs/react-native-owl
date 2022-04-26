@@ -81,5 +81,19 @@ describe('matchers.ts', () => {
       expect(result.pass).toBe(true);
       expect(writeFileMock).toHaveBeenCalledTimes(0);
     });
+
+    it('handles file diffing errors', () => {
+      readFileMock.mockReturnValueOnce(imageHello1Buffer);
+
+      const latestPath = 'latest/ios/screen.png';
+
+      const result = toMatchBaseline(latestPath);
+
+      expect(result.message()).toBe(
+        "Screenshot diffing error - Cannot read properties of undefined (reading 'length')"
+      );
+      expect(result.pass).toBe(false);
+      expect(writeFileMock).toHaveBeenCalledTimes(0);
+    });
   });
 });
