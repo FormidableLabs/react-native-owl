@@ -5,7 +5,6 @@ import {
   toExist,
   clearText,
   enterText,
-  appendText,
 } from 'react-native-owl';
 
 jest.setTimeout(30000);
