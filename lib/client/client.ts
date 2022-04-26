@@ -13,7 +13,8 @@ let isReactUpdating = true;
 
 let owlClient: WebSocket;
 
-const originalReactCreateElement = React.createElement;
+const originalReactCreateElement: typeof React.createElement =
+  React.createElement;
 
 export const initClient = () => {
   logger.info('Initialising OWL client');
@@ -24,22 +25,17 @@ export const initClient = () => {
 
 const patchReact = () => {
   // @ts-ignore
-  React.createElement = (...args) => {
-    const element = args[1];
-    const shouldTrack = element?.testID && !exists(element.testID);
+  React.createElement = (type, props, ...children) => {
+    const testID = props?.testID;
+    const shouldTrack = testID && !exists(testID);
+
+    const trackingRef = props?.ref || React.createRef();
 
     if (shouldTrack) {
-      const testID = args[1].testID;
-
-      const newRef = React.createRef();
-
-      element.ref = newRef;
-      // args[1].onLayout = (e) => testOnLayout(testID, e);
-
-      const trackData = {
-        ref: newRef,
-        onPress: element.onPress,
-        // onChangeText: args[1].onChangeText,
+      const trackData: ElementActions = {
+        ref: trackingRef,
+        onPress: props?.onPress,
+        onChangeText: props?.onChangeText,
       };
 
       add(logger, testID, trackData);
@@ -53,8 +49,11 @@ const patchReact = () => {
 
     isReactUpdating = true;
 
-    // @ts-ignore
-    return originalReactCreateElement(...args);
+    return originalReactCreateElement(
+      type,
+      { ...props, ref: trackingRef },
+      ...children
+    );
   };
 };
 
@@ -76,16 +75,30 @@ const handleMessage = async (message: string) => {
   // @ts-ignore
   const { type, testID } = socketEvent;
 
-  try {
-    const element = await getElementByTestId(testID);
-    const data =
-      type === 'ACTION'
-        ? handleAction(testID, element, socketEvent.action)
-        : undefined;
+  let element;
 
-    sendEvent({ type: 'DONE', data });
-  } catch (e) {
-    sendEvent({ type: 'NOT_FOUND' });
+  try {
+    element = await getElementByTestId(testID);
+  } catch (error) {
+    sendEvent({ type: 'NOT_FOUND', testID });
+  }
+
+  if (element) {
+    try {
+      const data =
+        type === 'ACTION'
+          ? handleAction(testID, element, socketEvent.action, socketEvent.value)
+          : undefined;
+
+      sendEvent({ type: 'DONE', data });
+    } catch (error) {
+      let message = 'Unknown error';
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      sendEvent({ type: 'ERROR', testID, message });
+    }
   }
 };
 
@@ -96,15 +109,24 @@ const sendEvent = async (event: SOCKET_EVENT) => {
 const handleAction = (
   testID: string,
   element: ElementActions,
-  action: ACTION
+  action: ACTION,
+  value?: string
 ) => {
-  logger.info(`Execution ${action} on element with testID ${testID}`);
+  logger.info(`Executing ${action} on element with testID ${testID}`);
 
   switch (action as ACTION) {
     case 'TAP':
-      element.onPress();
-
+      element.onPress?.();
       break;
+
+    case 'CLEAR_TEXT':
+      element.ref.current?.clear();
+      break;
+
+    case 'ENTER_TEXT':
+      element.onChangeText?.(typeof value === 'undefined' ? '' : value);
+      break;
+
     default:
       logger.error(`Action not supported ${action}`);
   }

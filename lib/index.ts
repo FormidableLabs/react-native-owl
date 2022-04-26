@@ -3,7 +3,9 @@ import './matchers';
 export { takeScreenshot } from './take-screenshot';
 export {
   tapOn,
+  clearText,
+  enterText,
+  toExist,
   disconnectServer,
-  toExists,
   getLayoutSize,
 } from './actions/actions';

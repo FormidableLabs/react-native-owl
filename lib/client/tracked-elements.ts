@@ -1,8 +1,11 @@
+import React from 'react';
+import { TextInputProps } from 'react-native';
 import { Logger } from '../logger';
 
 export type ElementActions = {
-  ref: any;
-  onPress: Function;
+  ref: React.RefObject<any>;
+  onPress?: Function;
+  onChangeText?: TextInputProps['onChangeText'];
 };
 
 const trackedElements: Record<string, ElementActions> = {};

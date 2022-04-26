@@ -27,7 +27,7 @@ function HomeScreen({ navigation }) {
 }
 
 function DetailsScreen({ navigation }) {
-  const [text, setText] = React.useState('');
+  const [text, setText] = React.useState('default text');
   const [isSecretInputVisible, setIsSecretInputVisible] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
 

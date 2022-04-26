@@ -28,22 +28,30 @@ const handleMessage = (message: string) => {
   switch (event.type) {
     case 'DONE':
       resolve(event.data);
+      return;
     case 'NOT_FOUND':
-      reject(new Error('Element not found'));
+      reject(new Error(`Element not found: ${event.testID}`));
+      return;
+    case 'ERROR':
+      reject(new Error(`Element error: ${event.testID} - ${event.message}`));
+      return;
   }
 };
 
-export const tapOn = async (testID: string) => {
-  return sendEvent({ type: 'ACTION', action: 'TAP', testID });
-};
+export const tapOn = async (testID: string) =>
+  sendEvent({ type: 'ACTION', action: 'TAP', testID });
 
-export const toExists = async (testID: string) => {
-  return sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
-};
+export const clearText = async (testID: string) =>
+  sendEvent({ type: 'ACTION', action: 'CLEAR_TEXT', testID });
 
-export const getLayoutSize = async (testID: string) => {
-  return sendEvent({ type: 'LAYOUT', action: 'SIZE', testID });
-};
+export const enterText = async (testID: string, value: string) =>
+  sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });
+
+export const toExist = async (testID: string) =>
+  sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
+
+export const getLayoutSize = async (testID: string) =>
+  sendEvent({ type: 'LAYOUT', action: 'SIZE', testID });
 
 export const disconnectServer = () => {
   actionsClient?.close();
