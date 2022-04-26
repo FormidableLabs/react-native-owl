@@ -17,7 +17,7 @@ const originalReactCreateElement: typeof React.createElement =
   React.createElement;
 
 export const initClient = () => {
-  logger.info('Initialising OWL client');
+  logger.info('[OWL - Client] Initialising OWL client');
 
   patchReact();
   waitForWebSocket();
@@ -64,7 +64,7 @@ const waitForWebSocket = async () => {
   try {
     owlClient = await initWebSocket(logger, handleMessage);
 
-    logger.info('[OWL] Connection established');
+    logger.info('[OWL - Websocket] Connection established');
   } catch {
     setTimeout(waitForWebSocket, SOCKET_WAIT_TIMEOUT);
   }
@@ -112,7 +112,9 @@ const handleAction = (
   action: ACTION,
   value?: string
 ) => {
-  logger.info(`Executing ${action} on element with testID ${testID}`);
+  logger.info(
+    `[OWL - Client] Executing ${action} on element with testID ${testID}`
+  );
 
   switch (action as ACTION) {
     case 'TAP':
@@ -136,7 +138,7 @@ const handleAction = (
 
 const getElementByTestId = async (testID: string): Promise<ElementActions> => {
   return new Promise((resolve, reject) => {
-    logger.info(`Looking for Element with testID ${testID}`);
+    logger.info(`[OWL - Client] Looking for Element with testID ${testID}`);
 
     const rejectTimeout = setTimeout(() => {
       const message = `Element with testID ${testID} not found`;
@@ -152,7 +154,7 @@ const getElementByTestId = async (testID: string): Promise<ElementActions> => {
         return;
       }
 
-      logger.info(`\t ✓ found`);
+      logger.info(`[OWL - Client] \t ✓ found`);
 
       clearInterval(checkInterval);
       clearTimeout(rejectTimeout);

@@ -26,7 +26,7 @@ export const buildIOS = async (
     buildCommand.push('-quiet');
   }
 
-  logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
+  logger.info(`[OWL - CLI] Building the app with: ${buildCommand.join(' ')}.`);
 
   await execa.command(buildCommand.join(' '), {
     stdio: 'inherit',
@@ -52,7 +52,7 @@ export const buildAndroid = async (
     ? undefined
     : path.join(process.cwd(), '/android');
 
-  logger.info(`[OWL] Building the app with: ${buildCommand.join(' ')}.`);
+  logger.info(`[OWL - CLI] Building the app with: ${buildCommand.join(' ')}.`);
 
   await execa.command(buildCommand.join(' '), {
     stdio: 'inherit',
@@ -68,10 +68,12 @@ export const buildHandler = async (args: CliBuildOptions) => {
   const logger = new Logger(config.debug);
   const buildProject = args.platform === 'ios' ? buildIOS : buildAndroid;
 
-  logger.print(`[OWL] Building the app on ${args.platform} platform.`);
-  logger.info(`[OWL] Using the config file ${args.config}.`);
+  logger.print(`[OWL - CLI] Building the app on ${args.platform} platform.`);
+  logger.info(`[OWL - CLI] Using the config file ${args.config}.`);
 
   await buildProject(config, logger);
 
-  logger.info(`[OWL] Successfully built for the ${args.platform} platform.`);
+  logger.info(
+    `[OWL - CLI] Successfully built for the ${args.platform} platform.`
+  );
 };

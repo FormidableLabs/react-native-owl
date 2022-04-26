@@ -10,11 +10,11 @@ export const startWebSocketServer = async (
 
   return new Promise((resolve) => {
     wss.on('connection', (ws) => {
-      logger.info(`[OWL] A client has been connected to WebSocket.`);
+      logger.info(`[OWL - WebSocket] A client has been connected.`);
 
       ws.on('message', (message) => {
         logger.info(
-          `[OWL] The server received a message on the WebSocket: ${message.toString()}`
+          `[OWL - WebSocket] The server received a message: ${message.toString()}`
         );
 
         wss.clients.forEach((client) => {
@@ -25,12 +25,12 @@ export const startWebSocketServer = async (
       });
 
       ws.on('error', (error) => {
-        logger.error(`[OWL] Error on the WebSocket:`, error);
+        logger.error(`[OWL - WebSocket] Error:`, error);
       });
     });
 
     wss.on('listening', () => {
-      logger.info(`[OWL] WebSocket now listening on port ${wss.options.port}.`);
+      logger.info(`[OWL - WebSocket] Listening on port ${wss.options.port}.`);
 
       return resolve(wss);
     });
@@ -45,17 +45,17 @@ export const createWebSocketClient = async (
 
   return new Promise((resolve) => {
     wsClient.on('open', () => {
-      logger.info(`[OWL] This client connected to WebSocket.`);
+      logger.info(`[OWL - WebSocket] This client connected.`);
       return resolve(wsClient);
     });
 
     wsClient.on('pong', () => {
-      logger.info(`[OWL] The client received a pong.`);
+      logger.info(`[OWL - WebSocket] The client received a pong.`);
     });
 
     wsClient.on('message', (message) => {
       logger.info(
-        `[OWL] The client received a message: ${message.toString()}.`
+        `[OWL - WebSocket] The client received a message: ${message.toString()}.`
       );
 
       onMessage(message.toString());

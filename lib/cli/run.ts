@@ -24,7 +24,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
     { shell: true, cwd: '/usr/libexec' }
   );
 
-  logger.print(`[OWL] Found bundle id: ${bundleId}`);
+  logger.print(`[OWL - CLI] Found bundle id: ${bundleId}`);
 
   const SIMULATOR_TIME = '9:41';
   const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
@@ -82,7 +82,7 @@ export const runHandler = async (args: CliRunOptions) => {
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
 
-  logger.print(`[OWL] Starting websocket server.`);
+  logger.print(`[OWL - CLI] Starting websocket server.`);
   const webSocketProcess = execa.command('node scripts/websocket-server.js', {
     stdio: 'inherit',
     cwd: path.join(__dirname, '..', '..'),
@@ -91,22 +91,24 @@ export const runHandler = async (args: CliRunOptions) => {
     },
   });
 
-  logger.print(`[OWL] Running tests on ${args.platform}.`);
+  logger.print(`[OWL - CLI] Running tests on ${args.platform}.`);
   await runProject(config, logger);
 
   const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
   const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()} --runInBand`;
 
   logger.print(
-    `[OWL] ${
+    `[OWL - CLI] ${
       args.update
         ? '(Update mode) Updating baseline images'
         : '(Tests mode) Will compare latest images with the baseline'
     }.`
   );
 
-  logger.info(`[OWL] Will use the jest config localed at ${jestConfigPath}.`);
-  logger.info(`[OWL] Will set the jest root to ${process.cwd()}.`);
+  logger.info(
+    `[OWL - CLI] Will use the jest config localed at ${jestConfigPath}.`
+  );
+  logger.info(`[OWL - CLI] Will set the jest root to ${process.cwd()}.`);
 
   try {
     await execa.commandSync(jestCommand, {
@@ -125,10 +127,10 @@ export const runHandler = async (args: CliRunOptions) => {
 
     webSocketProcess.kill();
 
-    logger.print(`[OWL] Tests completed on ${args.platform}.`);
+    logger.print(`[OWL - CLI] Tests completed on ${args.platform}.`);
     if (args.update) {
       logger.print(
-        `[OWL] All baseline images for ${args.platform} have been updated successfully.`
+        `[OWL - CLI] All baseline images for ${args.platform} have been updated successfully.`
       );
     }
   }

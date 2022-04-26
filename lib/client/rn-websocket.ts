@@ -22,20 +22,20 @@ export const initWebSocket = (
     };
 
     ws.onmessage = (e: { data?: any }) => {
-      logger.info(`[OWL] Websocket onMessage: ${e.data}`);
+      logger.info(`[OWL - Websocket] onmessage: ${e.data}`);
 
       onMessage(e.data.toString());
     };
 
     ws.onerror = (e: { message: string }) => {
       if (canShowErrorMessage) {
-        logger.info(`[OWL] Websocket onError: ${e.message}`);
+        logger.info(`[OWL - Websocket] onerror: ${e.message}`);
       }
     };
 
     ws.onclose = (e: { message?: string }) => {
       if (canShowErrorMessage) {
-        logger.info(`[OWL] Websocket onClose: ${e.message}`);
+        logger.info(`[OWL - Websocket] onclose: ${e.message}`);
       }
 
       reject(e);
