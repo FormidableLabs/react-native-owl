@@ -2,11 +2,12 @@ import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
 import { initWebSocket } from './rn-websocket';
-import { ACTION, SOCKET_EVENT } from '../actions/types';
+import { SOCKET_EVENT } from '../actions/types';
 
 import { add, get, ElementActions, exists } from './tracked-elements';
+import { handleAction } from './handleAction';
 
-const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
+const logger = new Logger(process.env.OWL_DEBUG === 'true');
 
 let automateTimeout: number;
 let isReactUpdating = true;
@@ -87,7 +88,13 @@ const handleMessage = async (message: string) => {
     try {
       const data =
         type === 'ACTION'
-          ? handleAction(testID, element, socketEvent.action, socketEvent.value)
+          ? handleAction(
+              logger,
+              testID,
+              element,
+              socketEvent.action,
+              socketEvent.value
+            )
           : undefined;
 
       sendEvent({ type: 'DONE', data });
@@ -104,36 +111,6 @@ const handleMessage = async (message: string) => {
 
 const sendEvent = async (event: SOCKET_EVENT) => {
   owlClient.send(JSON.stringify(event));
-};
-
-const handleAction = (
-  testID: string,
-  element: ElementActions,
-  action: ACTION,
-  value?: string
-) => {
-  logger.info(
-    `[OWL - Client] Executing ${action} on element with testID ${testID}`
-  );
-
-  switch (action as ACTION) {
-    case 'TAP':
-      element.onPress?.();
-      break;
-
-    case 'CLEAR_TEXT':
-      element.ref.current?.clear();
-      break;
-
-    case 'ENTER_TEXT':
-      element.onChangeText?.(typeof value === 'undefined' ? '' : value);
-      break;
-
-    default:
-      logger.error(`[OWL - Client] Action not supported ${action}`);
-  }
-
-  return undefined;
 };
 
 const getElementByTestId = async (testID: string): Promise<ElementActions> => {

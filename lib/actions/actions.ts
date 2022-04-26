@@ -3,7 +3,7 @@ import { Logger } from '../logger';
 import { createWebSocketClient } from '../websocket';
 import { SOCKET_EVENT } from './types';
 
-const logger = new Logger(true); // !!(process.env.OWL_DEBUG === 'true') || __DEV__);
+const logger = new Logger(process.env.OWL_DEBUG === 'true');
 
 let actionsClient: WebSocket | undefined;
 let resolve: Function;
