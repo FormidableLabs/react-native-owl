@@ -5,6 +5,8 @@ export {
   tapOn,
   clearText,
   enterText,
+  scrollTo,
+  scrollToEnd,
   toExist,
   disconnectServer,
   getLayoutSize,

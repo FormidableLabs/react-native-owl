@@ -148,7 +148,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         4,
-        `adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 1041`,
+        `adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941`,
         {
           stdio: 'ignore',
         }

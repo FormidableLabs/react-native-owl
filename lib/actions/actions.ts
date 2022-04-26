@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
 import { Logger } from '../logger';
 import { createWebSocketClient } from '../websocket';
-import { SOCKET_EVENT } from './types';
+import { SOCKET_EVENT, SOCKET_TYPE_SCROLL_TO_VALUE } from './types';
 
 const logger = new Logger(process.env.OWL_DEBUG === 'true');
 
@@ -46,6 +46,14 @@ export const clearText = async (testID: string) =>
 
 export const enterText = async (testID: string, value: string) =>
   sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });
+
+export const scrollTo = async (
+  testID: string,
+  value: SOCKET_TYPE_SCROLL_TO_VALUE
+) => sendEvent({ type: 'ACTION', action: 'SCROLL_TO', testID, value });
+
+export const scrollToEnd = async (testID: string) =>
+  sendEvent({ type: 'ACTION', action: 'SCROLL_TO_END', testID });
 
 export const toExist = async (testID: string) =>
   sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });

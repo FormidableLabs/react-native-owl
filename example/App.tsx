@@ -5,6 +5,7 @@ import {
   TextInput,
   Pressable,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -40,9 +41,9 @@ function DetailsScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <View style={{ paddingVertical: 48 }} />
+    <ScrollView testID="details.scrollView" style={{ alignItems: 'center' }}>
+      <Text style={{ paddingBottom: 48 }}>Details Screen</Text>
+
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -63,7 +64,28 @@ function DetailsScreen({ navigation }) {
           defaultValue={text}
         />
       ) : null}
-    </View>
+
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>Content</Text>
+      <Text style={{ paddingVertical: 40 }}>End</Text>
+    </ScrollView>
   );
 }
 

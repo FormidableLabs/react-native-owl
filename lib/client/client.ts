@@ -7,7 +7,8 @@ import { SOCKET_EVENT } from '../actions/types';
 import { add, get, ElementActions, exists } from './tracked-elements';
 import { handleAction } from './handleAction';
 
-const logger = new Logger(process.env.OWL_DEBUG === 'true');
+// const logger = new Logger(process.env.OWL_DEBUG === 'true');
+const logger = new Logger(true);
 
 let automateTimeout: number;
 let isReactUpdating = true;
@@ -52,7 +53,12 @@ const patchReact = () => {
 
     return originalReactCreateElement(
       type,
-      { ...props, ref: trackingRef },
+      {
+        ...props,
+        ref: trackingRef,
+        showsHorizontalScrollIndicator: false,
+        showsVerticalScrollIndicator: false,
+      },
       ...children
     );
   };
@@ -94,7 +100,13 @@ const handleMessage = async (message: string) => {
           socketEvent.value
         );
 
-      sendEvent({ type: 'DONE' });
+      setTimeout(
+        () => sendEvent({ type: 'DONE' }),
+        socketEvent.type === 'ACTION' &&
+          ['SCROLL_TO', 'SCROLL_TO_END'].includes(socketEvent.action)
+          ? 250
+          : 100
+      );
     } catch (error) {
       let message = 'Unknown error';
       if (error instanceof Error) {

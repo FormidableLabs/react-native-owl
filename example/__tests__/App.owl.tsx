@@ -5,6 +5,8 @@ import {
   toExist,
   clearText,
   enterText,
+  scrollTo,
+  scrollToEnd,
 } from 'react-native-owl';
 
 jest.setTimeout(30000);
@@ -40,6 +42,22 @@ describe('App.tsx', () => {
     await enterText('details.input', 'Entered text');
 
     const screen = await takeScreenshot('enteredText');
+
+    expect(screen).toMatchBaseline();
+  });
+
+  it('scrolls a bit and takes a screenshot', async () => {
+    await scrollTo('details.scrollView', { y: 50 });
+
+    const screen = await takeScreenshot('scrollTo');
+
+    expect(screen).toMatchBaseline();
+  });
+
+  it('scrolls to end and takes a screenshot', async () => {
+    await scrollToEnd('details.scrollView');
+
+    const screen = await takeScreenshot('scrollToEnd');
 
     expect(screen).toMatchBaseline();
   });

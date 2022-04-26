@@ -1,4 +1,4 @@
-import { ACTION } from '../actions/types';
+import { ACTION, SOCKET_TYPE_VALUE } from '../actions/types';
 import { Logger } from '../logger';
 import { ElementActions } from './tracked-elements';
 
@@ -7,7 +7,7 @@ export const handleAction = (
   testID: string,
   element: ElementActions,
   action: ACTION,
-  value?: string
+  value?: SOCKET_TYPE_VALUE
 ) => {
   logger.info(
     `[OWL - Client] Executing ${action} on element with testID ${testID}`
@@ -15,27 +15,57 @@ export const handleAction = (
 
   switch (action as ACTION) {
     case 'TAP':
-      if (element.onPress) {
-        element.onPress();
-      } else {
+      if (!element.onPress) {
         throw new Error(`This element has no onPress prop`);
       }
+
+      element.onPress();
+
       break;
 
     case 'CLEAR_TEXT':
-      if (element.ref.current?.clear) {
-        element.ref.current.clear();
-      } else {
+      if (!element.ref.current?.clear) {
         throw new Error(`This element has no clear method`);
       }
+
+      element.ref.current.clear();
+
       break;
 
     case 'ENTER_TEXT':
-      if (element.onChangeText) {
-        element.onChangeText(typeof value === 'undefined' ? '' : value);
-      } else {
+      if (!element.onChangeText) {
         throw new Error(`This element has no onChangeText prop`);
       }
+
+      element.onChangeText(
+        typeof value === 'undefined' ? '' : value.toString()
+      );
+
+      break;
+
+    case 'SCROLL_TO':
+      if (!element.ref.current?.scrollTo) {
+        throw new Error(`This element has no scrollTo method`);
+      }
+
+      if (
+        typeof value !== 'object' ||
+        (value.x === undefined && value.y === undefined)
+      ) {
+        throw new Error(`Value must include x and/or y properties`);
+      }
+
+      element.ref.current.scrollTo(value);
+
+      break;
+
+    case 'SCROLL_TO_END':
+      if (!element.ref.current?.scrollToEnd) {
+        throw new Error(`This element has no scrollToEnd method`);
+      }
+
+      element.ref.current.scrollToEnd();
+
       break;
 
     default:
