@@ -41,11 +41,11 @@ describe('websocket.ts', () => {
 
     expect(mockServerLoggerInfo).toHaveBeenNthCalledWith(
       1,
-      '[OWL] WebSocket now listening on port 8123.'
+      '[OWL - WebSocket] Listening on port 8123.'
     );
     expect(mockServerLoggerInfo).toHaveBeenNthCalledWith(
       2,
-      '[OWL] A client has been connected to WebSocket.'
+      '[OWL - WebSocket] A client has been connected.'
     );
   });
 
@@ -59,13 +59,15 @@ describe('websocket.ts', () => {
     // We are not concerned with the order of the logger calls.
     expect(
       mockClient1LoggerInfo.mock.calls.some(
-        (call) => call[0] === '[OWL] The client received a message: Hello!.'
+        (call) =>
+          call[0] === '[OWL - WebSocket] The client received a message: Hello!.'
       )
     ).toBeFalsy();
 
     expect(
       mockClient2LoggerInfo.mock.calls.some(
-        (call) => call[0] === '[OWL] The client received a message: Hello!.'
+        (call) =>
+          call[0] === '[OWL - WebSocket] The client received a message: Hello!.'
       )
     ).toBeTruthy();
   });
