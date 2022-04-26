@@ -1,4 +1,4 @@
-import { Arguments, string } from 'yargs';
+import { Arguments } from 'yargs';
 
 export type Platform = 'ios' | 'android';
 
