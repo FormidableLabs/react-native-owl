@@ -73,8 +73,7 @@ const waitForWebSocket = async () => {
 
 const handleMessage = async (message: string) => {
   const socketEvent = JSON.parse(message) as SOCKET_EVENT;
-  // @ts-ignore
-  const { type, testID } = socketEvent;
+  const testID = socketEvent.type === 'DONE' ? '' : socketEvent.testID;
 
   let element;
 
@@ -86,7 +85,7 @@ const handleMessage = async (message: string) => {
 
   if (element) {
     try {
-      type === 'ACTION' &&
+      socketEvent.type === 'ACTION' &&
         handleAction(
           logger,
           testID,

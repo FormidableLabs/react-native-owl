@@ -11,7 +11,6 @@ export const initWebSocket = (
 
   let canShowErrorMessage = false;
 
-  // @ts-ignore
   const ws = new WebSocket(`ws://${ipAddress}:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve, reject) => {
