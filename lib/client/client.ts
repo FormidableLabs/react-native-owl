@@ -130,7 +130,7 @@ const handleAction = (
       break;
 
     default:
-      logger.error(`Action not supported ${action}`);
+      logger.error(`[OWL - Client] Action not supported ${action}`);
   }
 
   return undefined;
@@ -143,7 +143,7 @@ const getElementByTestId = async (testID: string): Promise<ElementActions> => {
     const rejectTimeout = setTimeout(() => {
       const message = `Element with testID ${testID} not found`;
 
-      logger.error(`\t ❌ not found`);
+      logger.error(`[OWL - Client] \t ❌ not found`);
 
       clearInterval(checkInterval);
       reject(new Error(message));
