@@ -1,27 +1,31 @@
 {
   "compilerOptions": {
     /* Language and Environment */
-    "target": "es5",                                     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "lib": ["es5"],                                      /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "target": "es5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "lib": [
+      "es5"
+    ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
 
     /* Modules */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    "rootDir": "./lib",                                  /* Specify the root folder within your source files. */
-    "resolveJsonModule": true,                           /* Enable importing .json files */
+    "module": "commonjs" /* Specify what module code is generated. */,
+    "rootDir": "./lib" /* Specify the root folder within your source files. */,
+    "resolveJsonModule": true /* Enable importing .json files */,
 
     /* Emit */
-    "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
 
     /* Interop Constraints */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables `allowSyntheticDefaultImports` for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
     /* Type Checking */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied `any` type.. */
-    "strictNullChecks": true,                            /* When type checking, take into account `null` and `undefined`. */
-    "noUnusedLocals": true,                              /* Enable error reporting when a local variables aren't read. */
+    "strict": true /* Enable all strict type-checking options. */,
+    "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied `any` type.. */,
+    "strictNullChecks": true /* When type checking, take into account `null` and `undefined`. */,
+    "noUnusedLocals": true /* Enable error reporting when a local variables aren't read. */,
+
+    "skipLibCheck": true
   },
   "include": ["lib/**/*", "lib/jest-config.json"],
   "exclude": ["node_modules", "dist"]
