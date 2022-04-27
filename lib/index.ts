@@ -9,5 +9,4 @@ export {
   scrollToEnd,
   toExist,
   disconnectServer,
-  getLayoutSize,
 } from './actions/actions';

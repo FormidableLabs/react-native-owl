@@ -5,7 +5,7 @@ export type ACTION =
   | 'SCROLL_TO'
   | 'SCROLL_TO_END';
 
-export type LAYOUT_ACTION = 'EXISTS' | 'SIZE';
+export type LAYOUT_ACTION = 'EXISTS';
 
 export type SOCKET_TYPE_SCROLL_TO_VALUE = {
   x?: number | undefined;

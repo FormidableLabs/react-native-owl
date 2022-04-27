@@ -38,28 +38,23 @@ const handleMessage = (message: string) => {
   }
 };
 
-export const press = async (testID: string) =>
+export const press = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'PRESS', testID });
 
-export const longPress = async (testID: string) =>
+export const longPress = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'LONG_PRESS', testID });
 
-export const enterText = async (testID: string, value: string) =>
+export const enterText = (testID: string, value: string) =>
   sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });
 
-export const scrollTo = async (
-  testID: string,
-  value: SOCKET_TYPE_SCROLL_TO_VALUE
-) => sendEvent({ type: 'ACTION', action: 'SCROLL_TO', testID, value });
+export const scrollTo = (testID: string, value: SOCKET_TYPE_SCROLL_TO_VALUE) =>
+  sendEvent({ type: 'ACTION', action: 'SCROLL_TO', testID, value });
 
-export const scrollToEnd = async (testID: string) =>
+export const scrollToEnd = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'SCROLL_TO_END', testID });
 
-export const toExist = async (testID: string) =>
+export const toExist = (testID: string) =>
   sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
-
-export const getLayoutSize = async (testID: string) =>
-  sendEvent({ type: 'LAYOUT', action: 'SIZE', testID });
 
 export const disconnectServer = () => {
   actionsClient?.close();
