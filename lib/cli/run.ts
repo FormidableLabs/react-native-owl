@@ -152,16 +152,16 @@ export const runHandler = async (args: CliRunOptions) => {
       },
     });
   } catch (error) {
-  } finally {
     if (config.report && !args.update) {
       await generateReport(logger, args.platform);
     }
-
+  } finally {
     webSocketProcess.kill();
 
     await cleanupProject(config, logger);
 
     logger.print(`[OWL - CLI] Tests completed on ${args.platform}.`);
+
     if (args.update) {
       logger.print(
         `[OWL - CLI] All baseline images for ${args.platform} have been updated successfully.`

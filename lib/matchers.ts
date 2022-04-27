@@ -58,9 +58,6 @@ export const toMatchBaseline = (latestPath: string) => {
       baselineImage.height
     );
 
-    fs.mkdirSync(path.dirname(diffPath), { recursive: true });
-    fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
-
     if (diffPixelsCount === 0) {
       return {
         message: () =>
@@ -68,6 +65,10 @@ export const toMatchBaseline = (latestPath: string) => {
         pass: true,
       };
     }
+
+    // Create and save the diff image
+    fs.mkdirSync(path.dirname(diffPath), { recursive: true });
+    fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
 
     return {
       message: () =>
