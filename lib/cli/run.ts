@@ -38,6 +38,13 @@ export const runIOS = async (config: Config, logger: Logger) => {
   await execa.command(launchCommand, { stdio });
 
   // Workaround to force the virtual home button's color to become consistent
+  await execa.command(`xcrun simctl ui ${simulator} appearance dark`, {
+    stdio,
+    cwd,
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   await execa.command(`xcrun simctl ui ${simulator} appearance light`, {
     stdio,
     cwd,
