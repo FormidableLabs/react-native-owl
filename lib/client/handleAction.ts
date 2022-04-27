@@ -93,8 +93,6 @@ export const handleAction = (
       break;
 
     default:
-      throw new Error(`Action not supported ${action}`);
+      throw new Error(`Action '${action}' not supported `);
   }
-
-  return undefined;
 };
