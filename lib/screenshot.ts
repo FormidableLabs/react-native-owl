@@ -6,6 +6,14 @@ import { fileExists } from './utils/file-exists';
 import { Logger } from './logger';
 import { Platform } from './types';
 
+export const cleanupScreenshots = async () => {
+  const latestDirPath = path.join(process.cwd(), '.owl', 'latest');
+  await fs.rm(latestDirPath, { recursive: true, force: true });
+
+  const diffDirPath = path.join(process.cwd(), '.owl', 'diff');
+  await fs.rm(diffDirPath, { recursive: true, force: true });
+};
+
 /**
  * Takes a screenshot from the simulator.
  * @param filename - Required. The filename(excluding the extension) that will be used to save the screenshot. ie. 'homepage'

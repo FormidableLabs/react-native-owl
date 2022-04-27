@@ -2,9 +2,10 @@ import path from 'path';
 import execa from 'execa';
 
 import { CliRunOptions, Config } from '../types';
-import { generateReport } from '../report';
+import { generateReport, removeReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
+import { cleanupScreenshots } from '../screenshot';
 
 export const runIOS = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
@@ -114,6 +115,12 @@ export const runHandler = async (args: CliRunOptions) => {
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
   const cleanupProject = args.platform === 'ios' ? cleanupIOS : cleanupAndroid;
 
+  // Remove old report
+  await removeReport();
+
+  // Remove old screenshots and diffs
+  await cleanupScreenshots();
+
   logger.print(`[OWL - CLI] Starting websocket server.`);
   const webSocketProcess = execa.command('node scripts/websocket-server.js', {
     stdio: 'inherit',
@@ -152,7 +159,7 @@ export const runHandler = async (args: CliRunOptions) => {
       },
     });
   } catch (error) {
-    if (config.report && !args.update) {
+    if (config.report) {
       await generateReport(logger, args.platform);
     }
   } finally {

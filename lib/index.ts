@@ -1,6 +1,6 @@
 import './matchers';
 
-export { takeScreenshot } from './take-screenshot';
+export { takeScreenshot } from './screenshot';
 export {
   press,
   longPress,

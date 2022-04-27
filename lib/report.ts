@@ -5,6 +5,13 @@ import { promises as fs } from 'fs';
 import { Logger } from './logger';
 import { Platform } from './types';
 
+export const removeReport = async () => {
+  const cwd = process.cwd();
+  const reportDirPath = path.join(cwd, '.owl', 'report');
+
+  await fs.rm(reportDirPath, { recursive: true, force: true });
+};
+
 export const generateReport = async (logger: Logger, platform: Platform) => {
   const cwd = process.cwd();
   const reportDirPath = path.join(cwd, '.owl', 'report');

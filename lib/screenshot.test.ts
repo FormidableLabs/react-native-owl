@@ -2,12 +2,12 @@ import execa from 'execa';
 import path from 'path';
 import { promises as fs } from 'fs';
 
-import { takeScreenshot } from './take-screenshot';
+import { takeScreenshot } from './screenshot';
 import * as fileExistsHelpers from './utils/file-exists';
 
 const SCREENSHOT_FILENAME = 'screen';
 
-describe('take-screenshot.ts', () => {
+describe('screenshot.ts', () => {
   const commandMock = jest.spyOn(execa, 'command');
   const mkdirMock = jest.spyOn(fs, 'mkdir').mockImplementation();
 
