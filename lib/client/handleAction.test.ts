@@ -175,7 +175,7 @@ describe('handleAction.ts', () => {
         { y: 100 }
       );
 
-      expect(scrollTo).toHaveBeenCalledWith({ y: 100 });
+      expect(scrollTo).toHaveBeenCalledWith({ y: 100, animated: false });
     });
   });
 

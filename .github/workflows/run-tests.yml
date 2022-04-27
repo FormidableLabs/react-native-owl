@@ -27,6 +27,10 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Install exmaple app Dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./example
+
       - name: Run Prettier (Check)
         run: yarn prettier:check
 
