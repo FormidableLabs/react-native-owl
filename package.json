@@ -28,6 +28,9 @@
     "testEnvironment": "node",
     "testMatch": [
       "**/lib/**/*.test.[jt]s"
+    ],
+    "modulePaths": [
+      "<rootDir>/example/node_modules"
     ]
   },
   "dependencies": {
@@ -47,6 +50,7 @@
     "@types/ws": "^8.2.0",
     "@types/yargs": "^17.0.5",
     "jest": "^26.6.3",
+    "jest-websocket-mock": "^2.3.0",
     "prettier": "^2.4.1",
     "ts-jest": "^26.4.4",
     "typescript": "^4.4.4"

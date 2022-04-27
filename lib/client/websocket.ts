@@ -9,33 +9,29 @@ export const initWebSocket = (
 ): Promise<WebSocket> => {
   const ipAddress = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
 
-  let canShowErrorMessage = false;
-
   const ws = new WebSocket(`ws://${ipAddress}:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve, reject) => {
     ws.onopen = () => {
+      logger.info('[OWL - Websocket] onopen');
+
       ws.send('OWL Client Connected!');
-      canShowErrorMessage = true;
+
       resolve(ws);
     };
 
-    ws.onmessage = (e: { data?: any }) => {
+    ws.onmessage = (e) => {
       logger.info(`[OWL - Websocket] onmessage: ${e.data}`);
 
       onMessage(e.data.toString());
     };
 
-    ws.onerror = (e: { message: string }) => {
-      if (canShowErrorMessage) {
-        logger.info(`[OWL - Websocket] onerror: ${e.message}`);
-      }
+    ws.onerror = (e) => {
+      logger.info(`[OWL - Websocket] onerror: ${e.message}`);
     };
 
-    ws.onclose = (e: { message?: string }) => {
-      if (canShowErrorMessage) {
-        logger.info(`[OWL - Websocket] onclose: ${e.message}`);
-      }
+    ws.onclose = (e) => {
+      logger.info(`[OWL - Websocket] onclose: ${e.reason}`);
 
       reject(e);
     };
