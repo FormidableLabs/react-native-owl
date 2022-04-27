@@ -81,7 +81,7 @@ export const handleAction = (
         throw new Error(`Value must include x and/or y properties`);
       }
 
-      element.ref.current.scrollTo(value);
+      element.ref.current.scrollTo({ ...value, animated: false });
       break;
 
     case 'SCROLL_TO_END':
@@ -89,7 +89,7 @@ export const handleAction = (
         throw new Error(`This element has no scrollToEnd method`);
       }
 
-      element.ref.current.scrollToEnd();
+      element.ref.current.scrollToEnd({ animated: false });
       break;
 
     default:

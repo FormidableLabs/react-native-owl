@@ -101,10 +101,7 @@ const handleMessage = async (message: string) => {
           socketEvent.value
         );
 
-      setTimeout(
-        () => sendEvent({ type: 'DONE' }),
-        socketEvent.type === 'ACTION' ? 350 : 0
-      );
+      setTimeout(() => sendEvent({ type: 'DONE' }), 100);
     } catch (error) {
       let message = 'Unknown error';
       if (error instanceof Error) {
@@ -116,35 +113,29 @@ const handleMessage = async (message: string) => {
   }
 };
 
-const sendEvent = async (event: SOCKET_EVENT) => {
+const sendEvent = (event: SOCKET_EVENT) =>
   owlClient.send(JSON.stringify(event));
-};
 
-const getElementByTestId = async (
-  testID: string
-): Promise<TrackedElementData> => {
-  return new Promise((resolve, reject) => {
+const getElementByTestId = async (testID: string) =>
+  new Promise<TrackedElementData>((resolve, reject) => {
     logger.info(`[OWL - Client] Looking for Element with testID ${testID}`);
 
     const rejectTimeout = setTimeout(() => {
-      const message = `Element with testID ${testID} not found`;
-
-      logger.error(`[OWL - Client] \t ❌ not found`);
+      logger.error(`[OWL - Client] ❌ not found`);
 
       clearInterval(checkInterval);
-      reject(new Error(message));
+      reject(new Error(`Element with testID ${testID} not found`));
     }, MAX_TIMEOUT);
 
     const checkInterval = setInterval(() => {
-      if (isReactUpdating || get(testID) == null) {
+      if (isReactUpdating || !exists(testID)) {
         return;
       }
 
-      logger.info(`[OWL - Client] \t ✓ found`);
+      logger.info(`[OWL - Client] ✓ found`);
 
       clearInterval(checkInterval);
       clearTimeout(rejectTimeout);
       resolve(get(testID));
     }, CHECK_TIMEOUT);
   });
-};
