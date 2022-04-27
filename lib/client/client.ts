@@ -1,10 +1,10 @@
 import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
-import { initWebSocket } from './rn-websocket';
+import { initWebSocket } from './websocket';
 import { SOCKET_EVENT } from '../actions/types';
 
-import { add, get, TrackedElementData, exists } from './tracked-elements';
+import { add, get, TrackedElementData, exists } from './trackedElements';
 import { handleAction } from './handleAction';
 
 const logger = new Logger(true);
