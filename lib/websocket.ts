@@ -49,10 +49,6 @@ export const createWebSocketClient = async (
       return resolve(wsClient);
     });
 
-    wsClient.on('pong', () => {
-      logger.info(`[OWL - WebSocket] The client received a pong.`);
-    });
-
     wsClient.on('message', (message) => {
       logger.info(
         `[OWL - WebSocket] The client received a message: ${message.toString()}.`
