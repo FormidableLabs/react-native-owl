@@ -38,8 +38,11 @@ const handleMessage = (message: string) => {
   }
 };
 
-export const tapOn = async (testID: string) =>
-  sendEvent({ type: 'ACTION', action: 'TAP', testID });
+export const press = async (testID: string) =>
+  sendEvent({ type: 'ACTION', action: 'PRESS', testID });
+
+export const longPress = async (testID: string) =>
+  sendEvent({ type: 'ACTION', action: 'LONG_PRESS', testID });
 
 export const enterText = async (testID: string, value: string) =>
   sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });

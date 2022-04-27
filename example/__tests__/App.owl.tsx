@@ -1,11 +1,12 @@
 import {
   disconnectServer,
   takeScreenshot,
-  tapOn,
+  press,
   toExist,
   enterText,
   scrollTo,
   scrollToEnd,
+  longPress,
 } from 'react-native-owl';
 
 jest.setTimeout(30000);
@@ -21,10 +22,18 @@ describe('App.tsx', () => {
     expect(screen).toMatchBaseline();
   });
 
-  it('press a button, waits for an element then takes a screenshot', async () => {
-    await tapOn('Button');
+  it('longPress a Pressable, then takes a screenshot', async () => {
+    await longPress('Pressable');
 
-    await toExist('TextInputTestID');
+    const screen = await takeScreenshot('longPress');
+
+    expect(screen).toMatchBaseline();
+  });
+
+  it('press a Pressable, waits for an element then takes a screenshot', async () => {
+    await press('Pressable');
+
+    await toExist('TextInput');
 
     const screen = await takeScreenshot('testInput');
 
@@ -32,7 +41,7 @@ describe('App.tsx', () => {
   });
 
   it('enters some text and takes a screenshot', async () => {
-    await enterText('TextInputTestID', 'Entered text');
+    await enterText('TextInput', 'Entered text');
 
     const screen = await takeScreenshot('enteredText');
 

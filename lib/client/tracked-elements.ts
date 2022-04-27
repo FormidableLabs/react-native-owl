@@ -1,10 +1,19 @@
 import React from 'react';
-import { TextInputProps } from 'react-native';
+import {
+  PressableProps,
+  TextInputProps,
+  TouchableWithoutFeedbackProps,
+} from 'react-native';
 import { Logger } from '../logger';
 
 export type TrackedElementData = {
   ref: React.RefObject<any>;
-  onPress?: Function;
+  onPress?:
+    | TouchableWithoutFeedbackProps['onPress']
+    | PressableProps['onPress'];
+  onLongPress?:
+    | TouchableWithoutFeedbackProps['onLongPress']
+    | PressableProps['onLongPress'];
   onChangeText?: TextInputProps['onChangeText'];
 };
 

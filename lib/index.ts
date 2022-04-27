@@ -2,7 +2,8 @@ import './matchers';
 
 export { takeScreenshot } from './take-screenshot';
 export {
-  tapOn,
+  press,
+  longPress,
   enterText,
   scrollTo,
   scrollToEnd,

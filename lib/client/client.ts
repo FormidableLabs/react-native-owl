@@ -37,6 +37,7 @@ const patchReact = () => {
       const trackData: TrackedElementData = {
         ref: trackingRef,
         onPress: props?.onPress,
+        onLongPress: props?.onLongPress,
         onChangeText: props?.onChangeText,
       };
 

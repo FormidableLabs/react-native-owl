@@ -1,4 +1,9 @@
-export type ACTION = 'TAP' | 'ENTER_TEXT' | 'SCROLL_TO' | 'SCROLL_TO_END';
+export type ACTION =
+  | 'PRESS'
+  | 'LONG_PRESS'
+  | 'ENTER_TEXT'
+  | 'SCROLL_TO'
+  | 'SCROLL_TO_END';
 
 export type LAYOUT_ACTION = 'EXISTS' | 'SIZE';
 

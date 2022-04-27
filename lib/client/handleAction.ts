@@ -1,6 +1,35 @@
+import { GestureResponderEvent } from 'react-native';
 import { ACTION, SOCKET_TYPE_VALUE } from '../actions/types';
 import { Logger } from '../logger';
 import { TrackedElementData } from './tracked-elements';
+
+const getGestureResponderEvent = (): GestureResponderEvent => ({
+  nativeEvent: {
+    changedTouches: [],
+    identifier: 'OWL-identifier',
+    locationX: 0,
+    locationY: 0,
+    pageX: 0,
+    pageY: 0,
+    target: 'OWL-target',
+    timestamp: Date.now(),
+    touches: [],
+  },
+  currentTarget: 0,
+  target: 0,
+  bubbles: false,
+  cancelable: false,
+  defaultPrevented: false,
+  eventPhase: 0,
+  isTrusted: true,
+  preventDefault: () => {},
+  isDefaultPrevented: () => false,
+  stopPropagation: () => {},
+  isPropagationStopped: () => false,
+  persist: () => {},
+  timeStamp: Date.now(),
+  type: 'RCTView',
+});
 
 export const handleAction = (
   logger: Logger,
@@ -14,13 +43,20 @@ export const handleAction = (
   );
 
   switch (action as ACTION) {
-    case 'TAP':
+    case 'PRESS':
       if (!element.onPress) {
         throw new Error(`This element has no onPress prop`);
       }
 
-      element.onPress();
+      element.onPress(getGestureResponderEvent());
+      break;
 
+    case 'LONG_PRESS':
+      if (!element.onLongPress) {
+        throw new Error(`This element has no onLongPress prop`);
+      }
+
+      element.onLongPress(getGestureResponderEvent());
       break;
 
     case 'ENTER_TEXT':
@@ -31,7 +67,6 @@ export const handleAction = (
       element.onChangeText(
         typeof value === 'undefined' ? '' : value.toString()
       );
-
       break;
 
     case 'SCROLL_TO':
@@ -47,7 +82,6 @@ export const handleAction = (
       }
 
       element.ref.current.scrollTo(value);
-
       break;
 
     case 'SCROLL_TO_END':
@@ -56,7 +90,6 @@ export const handleAction = (
       }
 
       element.ref.current.scrollToEnd();
-
       break;
 
     default:

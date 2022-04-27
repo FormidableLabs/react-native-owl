@@ -11,7 +11,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  Button,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -68,6 +68,7 @@ const App = () => {
   };
 
   const [text, setText] = React.useState('');
+  const [isLongPressed, setIsLongPressed] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isLoaded, setIsLoaded] = React.useState(false);
 
@@ -96,21 +97,27 @@ const App = () => {
         >
           <View>
             {!isLoaded && !isLoading && (
-              <Button
-                title="Press me"
-                testID="Button"
+              <Pressable
+                testID="Pressable"
                 onPress={() => setIsLoading(true)}
-              />
+                onLongPress={() => setIsLongPressed(true)}
+              >
+                <Text>PressMe</Text>
+              </Pressable>
             )}
 
             {isLoading && <ActivityIndicator />}
+
+            {isLongPressed && !isLoading && !isLoaded && (
+              <Text>Long Pressed</Text>
+            )}
 
             {!isLoading && isLoaded && (
               <View>
                 <Text>Some content and a TextInput</Text>
 
                 <TextInput
-                  testID="TextInputTestID"
+                  testID="TextInput"
                   placeholder="Type something here"
                   onChangeText={setText}
                   value={text}
