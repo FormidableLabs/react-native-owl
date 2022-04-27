@@ -123,10 +123,8 @@ export const runHandler = async (args: CliRunOptions) => {
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
   const cleanupProject = args.platform === 'ios' ? cleanupIOS : cleanupAndroid;
 
-  // Remove old report
+  // Remove old report and screenshots
   await removeReport();
-
-  // Remove old screenshots and diffs
   await cleanupScreenshots();
 
   logger.print(`[OWL - CLI] Starting websocket server.`);
