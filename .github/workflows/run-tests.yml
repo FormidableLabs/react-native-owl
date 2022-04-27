@@ -34,10 +34,9 @@ jobs:
       - uses: actions/cache@v2
         id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path-example-app.outputs.dir }}
+          path: ./example/${{ steps.yarn-cache-dir-path-example-app.outputs.dir }}
           key: ${{ runner.os }}-yarn-example-${{ hashFiles('**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-yarn-
-        working-directory: ./example
 
       - name: Install example app Dependencies
         run: yarn install --frozen-lockfile
