@@ -1,7 +1,7 @@
 import { GestureResponderEvent } from 'react-native';
 import { ACTION, SOCKET_TYPE_VALUE } from '../actions/types';
 import { Logger } from '../logger';
-import { TrackedElementData } from './tracked-elements';
+import { TrackedElementData } from './trackedElements';
 
 const getGestureResponderEvent = (): GestureResponderEvent => ({
   nativeEvent: {

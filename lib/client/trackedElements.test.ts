@@ -1,7 +1,7 @@
 import { Logger } from '../logger';
-import { add, exists, get } from './tracked-elements';
+import { add, exists, get } from './trackedElements';
 
-describe('tracked-elements.ts', () => {
+describe('trackedElements.ts', () => {
   const logger = new Logger(false);
 
   it('should return check for and return elements that have been added', () => {
