@@ -21,6 +21,8 @@ export const cleanupScreenshots = async () => {
  */
 export const takeScreenshot = async (filename: string): Promise<string> => {
   const platform = process.env.OWL_PLATFORM as Platform;
+  const iosDevice = process.env.OWL_IOS_SIMULATOR as string | undefined;
+  const iosSimulator = iosDevice?.replace(/([ /])/g, '\\$1');
   const debug = process.env.OWL_DEBUG === 'true';
   const updateBaseline = process.env.OWL_UPDATE_BASELINE === 'true';
   const screenshotFilename = `${filename}.png`;
@@ -40,7 +42,7 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
 
   const screenshotCommand =
     platform === 'ios'
-      ? `xcrun simctl io booted screenshot ${screenshotFilename}`
+      ? `xcrun simctl io ${iosSimulator} screenshot ${screenshotFilename}`
       : `adb exec-out screencap -p > ${screenshotFilename}`;
 
   logger.info(`[OWL] Will run the screenshot command: ${screenshotCommand}.`);

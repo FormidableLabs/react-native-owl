@@ -18,6 +18,7 @@ describe('screenshot.ts', () => {
   beforeAll(() => {
     delete process.env.OWL_PLATFORM;
     delete process.env.OWL_DEBUG;
+    delete process.env.OWL_IOS_SIMULATOR;
   });
 
   beforeEach(() => {
@@ -38,13 +39,14 @@ describe('screenshot.ts', () => {
       beforeAll(() => {
         process.env.OWL_PLATFORM = 'ios';
         process.env.OWL_DEBUG = 'false';
+        process.env.OWL_IOS_SIMULATOR = 'iPhone Simulator';
       });
 
       it('should take a screenshot', async () => {
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
-          'xcrun simctl io booted screenshot screen.png',
+          'xcrun simctl io iPhone\\ Simulator screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'baseline', 'ios'),
             shell: false,
@@ -112,7 +114,7 @@ describe('screenshot.ts', () => {
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
-          'xcrun simctl io booted screenshot screen.png',
+          'xcrun simctl io iPhone\\ Simulator screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'latest', 'ios'),
             shell: false,
@@ -125,7 +127,7 @@ describe('screenshot.ts', () => {
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
-          'xcrun simctl io booted screenshot screen.png',
+          'xcrun simctl io iPhone\\ Simulator screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'baseline', 'ios'),
             shell: false,

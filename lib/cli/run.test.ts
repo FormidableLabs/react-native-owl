@@ -309,6 +309,7 @@ describe('run.ts', () => {
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
         env: {
           OWL_DEBUG: 'false',
+          OWL_IOS_SIMULATOR: 'iPhone Simulator',
           OWL_PLATFORM: 'ios',
           OWL_UPDATE_BASELINE: 'false',
         },
@@ -352,6 +353,7 @@ describe('run.ts', () => {
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
         env: {
           OWL_DEBUG: 'false',
+          OWL_IOS_SIMULATOR: 'iPhone Simulator',
           OWL_PLATFORM: 'ios',
           OWL_UPDATE_BASELINE: 'true',
         },

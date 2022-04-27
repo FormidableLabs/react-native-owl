@@ -38,9 +38,10 @@ export const runIOS = async (config: Config, logger: Logger) => {
   await execa.command(launchCommand, { stdio });
 
   // Workaround to force the virtual home button's color to become consistent
-  const appearanceCommand = 'xcrun simctl ui booted appearance';
-  await execa.command(`${appearanceCommand} dark`, { stdio, cwd });
-  await execa.command(`${appearanceCommand} light`, { stdio, cwd });
+  await execa.command(`xcrun simctl ui ${simulator} appearance light`, {
+    stdio,
+    cwd,
+  });
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
 };
@@ -156,6 +157,11 @@ export const runHandler = async (args: CliRunOptions) => {
         OWL_PLATFORM: args.platform,
         OWL_DEBUG: String(!!config.debug),
         OWL_UPDATE_BASELINE: String(!!args.update),
+        ...(args.platform === 'ios'
+          ? {
+              OWL_IOS_SIMULATOR: config.ios?.device,
+            }
+          : {}),
       },
     });
   } catch (error) {
