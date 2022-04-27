@@ -21,7 +21,7 @@ describe('run.ts', () => {
     execMock.mockReset().mockReturnValue(execKillMock);
   });
 
-  describe('runOS', () => {
+  describe('runIOS', () => {
     it('runs an iOS project - with the default build command', async () => {
       const cwd = path.join(
         process.cwd(),
@@ -109,6 +109,34 @@ describe('run.ts', () => {
     });
   });
 
+  describe('cleanupIOS', () => {
+    it('cleans up an iOS project', async () => {
+      const cwd = path.join(
+        process.cwd(),
+        '/ios/build/Build/Products/Debug-iphonesimulator'
+      );
+
+      execMock.mockResolvedValueOnce(mockBundleIdResponse);
+
+      const config: Config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'RNDemo',
+          configuration: 'Debug',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      await run.cleanupIOS(config, logger);
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        'xcrun simctl status_bar iPhone\\ Simulator clear',
+        { cwd, stdio: 'ignore' }
+      );
+    });
+  });
+
   describe('runAndroid', () => {
     const cwd = path.join(
       process.cwd(),
@@ -190,6 +218,48 @@ describe('run.ts', () => {
     });
   });
 
+  describe('cleanupAndroid', () => {
+    it('clean up an Android project', async () => {
+      const config: Config = {
+        android: {
+          packageName: 'com.rndemo',
+        },
+      };
+
+      await run.cleanupAndroid(config, logger);
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        'adb shell am broadcast -a com.android.systemui.demo -e command exit',
+        {
+          stdio: 'ignore',
+        }
+      );
+    });
+
+    it('runs an Android project - with a custom build command', async () => {
+      const binaryPath = '/Users/Demo/Desktop/app-release.apk';
+
+      const config: Config = {
+        android: {
+          packageName: 'com.rndemo',
+          buildCommand: './gradlew example',
+          binaryPath,
+        },
+      };
+
+      await run.runAndroid(config, logger);
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        `adb install -r ${binaryPath}`,
+        {
+          stdio: 'ignore',
+        }
+      );
+    });
+  });
+
   describe('runHandler', () => {
     const args = {
       platform: 'ios',
@@ -228,6 +298,9 @@ describe('run.ts', () => {
     it('runs an iOS project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
       const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+      const mockCleanupIOS = jest
+        .spyOn(run, 'cleanupIOS')
+        .mockResolvedValueOnce();
 
       await run.runHandler(args);
 
@@ -241,12 +314,16 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
+      await expect(mockCleanupIOS).toHaveBeenCalled();
     });
 
     it('runs an Android project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
       const mockRunAndroid = jest
         .spyOn(run, 'runAndroid')
+        .mockResolvedValueOnce();
+      const mockCleanupAndroid = jest
+        .spyOn(run, 'cleanupAndroid')
         .mockResolvedValueOnce();
 
       await run.runHandler({ ...args, platform: 'android' });
@@ -261,6 +338,7 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
+      await expect(mockCleanupAndroid).toHaveBeenCalled();
     });
 
     it('runs with the update baseline flag on', async () => {
