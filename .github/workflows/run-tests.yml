@@ -21,13 +21,25 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Install exmaple app Dependencies
+      - name: Get yarn cache directory path for example app
+        id: yarn-cache-dir-path-example-app
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+        working-directory: ./example
+
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path-example-app.outputs.dir }}
+          key: ${{ runner.os }}-yarn-example-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+        working-directory: ./example
+
+      - name: Install example app Dependencies
         run: yarn install --frozen-lockfile
         working-directory: ./example
 
