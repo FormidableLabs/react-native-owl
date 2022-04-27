@@ -44,6 +44,20 @@ export const runIOS = async (config: Config, logger: Logger) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
+export const cleanupIOS = async (config: Config, logger: Logger) => {
+  const stdio = config.debug ? 'inherit' : 'ignore';
+  const DEFAULT_BINARY_DIR = `/ios/build/Build/Products/${config.ios?.configuration}-iphonesimulator`;
+  const cwd = config.ios?.binaryPath
+    ? path.dirname(config.ios?.binaryPath)
+    : path.join(process.cwd(), DEFAULT_BINARY_DIR);
+  const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
+
+  const restoreTimeCommand = `xcrun simctl status_bar ${simulator} clear`;
+  await execa.command(restoreTimeCommand, { stdio, cwd });
+
+  logger.print(`[OWL - CLI] Restored status bar time`);
+};
+
 export const runAndroid = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
   const DEFAULT_APK_DIR = '/android/app/build/outputs/apk/release/';
@@ -84,10 +98,21 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   await execa.command(launchCommand, { stdio });
 };
 
+export const cleanupAndroid = async (config: Config, logger: Logger) => {
+  const stdio = config.debug ? 'inherit' : 'ignore';
+
+  const exitDemoModeCommand =
+    'adb shell am broadcast -a com.android.systemui.demo -e command exit';
+  await execa.command(exitDemoModeCommand, { stdio });
+
+  logger.print(`[OWL - CLI] Exited emulator demo mode`);
+};
+
 export const runHandler = async (args: CliRunOptions) => {
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
+  const cleanupProject = args.platform === 'ios' ? cleanupIOS : cleanupAndroid;
 
   logger.print(`[OWL - CLI] Starting websocket server.`);
   const webSocketProcess = execa.command('node scripts/websocket-server.js', {
@@ -133,6 +158,8 @@ export const runHandler = async (args: CliRunOptions) => {
     }
 
     webSocketProcess.kill();
+
+    await cleanupProject(config, logger);
 
     logger.print(`[OWL - CLI] Tests completed on ${args.platform}.`);
     if (args.update) {
