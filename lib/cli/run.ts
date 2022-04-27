@@ -162,6 +162,9 @@ export const runHandler = async (args: CliRunOptions) => {
     if (config.report) {
       await generateReport(logger, args.platform);
     }
+
+    // Throw the error again, so that ci will fail when the jest tests fail
+    throw error;
   } finally {
     webSocketProcess.kill();
 
