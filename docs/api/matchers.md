@@ -10,13 +10,14 @@ This custom matcher will try to find and compare the baseline screenshot by usin
 
 #### Example
 
-```js {7}
+```js title="__tests__/App.owl.tsx"
 import { takeScreenshot } from 'react-native-owl';
 
 describe('App.tsx', () => {
   it('takes a screenshot of the first screen', async () => {
     const screen = await takeScreenshot('homescreen');
 
+    // highlight-next-line
     expect(screen).toMatchBaseline();
   });
 });
