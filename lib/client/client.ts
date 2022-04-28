@@ -1,10 +1,11 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
 import { initWebSocket } from './websocket';
 import { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
 
-import { add, get, TrackedElementData, exists } from './trackedElements';
+import { add, get, TrackedElementData } from './trackedElements';
 import { handleAction } from './handleAction';
 
 const logger = new Logger(true);
@@ -21,32 +22,57 @@ export const initClient = () => {
 };
 
 /**
+ * Based on an elements props, store element tracking data and return updated props
+ */
+export const applyElementTracking = (
+  props: any
+): {
+  [key: string]: any;
+  ref: React.RefObject<unknown>;
+  showsHorizontalScrollIndicator: false;
+  showsVerticalScrollIndicator: false;
+} => {
+  const testID = props?.testID;
+
+  if (!testID) {
+    return props;
+  }
+
+  const existingTrackedElement = get(testID);
+
+  const ref =
+    (props?.ref as React.RefObject<unknown> | undefined) || React.createRef();
+
+  // Either use the already tracked data, if we have any, otherwise create new tracking data
+  const trackData: TrackedElementData = existingTrackedElement || {
+    ref,
+    onPress: props?.onPress,
+    onLongPress: props?.onLongPress,
+    onChangeText: props?.onChangeText,
+  };
+
+  add(logger, testID, trackData);
+
+  return {
+    ...props,
+    ref,
+    showsHorizontalScrollIndicator: false,
+    showsVerticalScrollIndicator: false,
+  };
+};
+
+/**
  * We patch react so that we can maintain a list of elements that have testID's
  * We can then use this list to find the element when we receive an action
  */
-const patchReact = () => {
+export const patchReact = () => {
   const originalReactCreateElement: typeof React.createElement =
     React.createElement;
   let automateTimeout: number;
 
   // @ts-ignore
   React.createElement = (type, props, ...children) => {
-    const testID = props?.testID;
-    const shouldTrack = testID && !exists(testID);
-
-    const trackingRef =
-      (props?.ref as React.RefObject<unknown> | undefined) || React.createRef();
-
-    if (shouldTrack) {
-      const trackData: TrackedElementData = {
-        ref: trackingRef,
-        onPress: props?.onPress,
-        onLongPress: props?.onLongPress,
-        onChangeText: props?.onChangeText,
-      };
-
-      add(logger, testID, trackData);
-    }
+    const newProps = applyElementTracking(props);
 
     clearTimeout(automateTimeout);
 
@@ -56,25 +82,20 @@ const patchReact = () => {
 
     isReactUpdating = true;
 
-    return originalReactCreateElement(
-      type,
-      {
-        ...props,
-        ref: trackingRef,
-        showsHorizontalScrollIndicator: false,
-        showsVerticalScrollIndicator: false,
-      },
-      ...children
-    );
+    return originalReactCreateElement(type, newProps, ...children);
   };
 };
 
 /**
  * The app might launch before the OWL server starts, so we need to keep trying...
  */
-const waitForWebSocket = async () => {
+export const waitForWebSocket = async () => {
   try {
-    owlClient = await initWebSocket(logger, handleMessage);
+    owlClient = await initWebSocket(
+      logger,
+      Platform.OS === 'android' ? 'android' : 'ios',
+      handleMessage
+    );
 
     logger.info('[OWL - Websocket] Connection established');
   } catch {
@@ -86,7 +107,7 @@ const waitForWebSocket = async () => {
  * When we receive a message, we need to find the element that corresponds to the testID,
  * then attempt to handle the requested action on it.
  */
-const handleMessage = async (message: string) => {
+export const handleMessage = async (message: string) => {
   const socketEvent = JSON.parse(message) as SOCKET_TEST_REQUEST;
   const testID = socketEvent.testID;
 
@@ -151,7 +172,8 @@ const getElementByTestId = async (testID: string) =>
     }, MAX_TIMEOUT);
 
     const checkInterval = setInterval(() => {
-      if (isReactUpdating || !exists(testID)) {
+      const element = get(testID);
+      if (isReactUpdating || !element) {
         return;
       }
 
@@ -159,6 +181,6 @@ const getElementByTestId = async (testID: string) =>
 
       clearInterval(checkInterval);
       clearTimeout(rejectTimeout);
-      resolve(get(testID));
+      resolve(element);
     }, CHECK_TIMEOUT);
   });

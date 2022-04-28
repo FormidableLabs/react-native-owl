@@ -1,5 +1,4 @@
 import { Logger } from '../logger';
-// import { initWebSocket } from './websocket';
 import WS from 'jest-websocket-mock';
 import { WEBSOCKET_PORT } from '../constants';
 import { ANDROID_WS_HOST, IOS_WS_HOST } from './constants';
@@ -10,7 +9,6 @@ describe('websocket.ts', () => {
   const onMessage = jest.fn();
 
   beforeEach(() => {
-    jest.resetModules();
     onMessage.mockClear();
   });
 
@@ -19,15 +17,9 @@ describe('websocket.ts', () => {
   });
 
   it('should connect to the WS server and receive messages on iOS', async () => {
-    jest.mock('react-native', () => ({
-      Platform: {
-        OS: 'ios',
-      },
-    }));
-
     const server = new WS(`ws://${IOS_WS_HOST}:${WEBSOCKET_PORT}`);
 
-    await require('./websocket').initWebSocket(logger, onMessage);
+    await require('./websocket').initWebSocket(logger, 'ios', onMessage);
 
     await server.connected;
 
@@ -37,15 +29,9 @@ describe('websocket.ts', () => {
   });
 
   it('should connect to the WS server and receive messages on Android', async () => {
-    jest.mock('react-native', () => ({
-      Platform: {
-        OS: 'android',
-      },
-    }));
-
     const server = new WS(`ws://${ANDROID_WS_HOST}:${WEBSOCKET_PORT}`);
 
-    await require('./websocket').initWebSocket(logger, onMessage);
+    await require('./websocket').initWebSocket(logger, 'android', onMessage);
 
     await server.connected;
 
@@ -56,7 +42,7 @@ describe('websocket.ts', () => {
 
   it('should reject when failing to connect to a WS server', async () => {
     await expect(
-      require('./websocket').initWebSocket(logger, onMessage)
+      require('./websocket').initWebSocket(logger, 'ios', onMessage)
     ).rejects.toBeTruthy();
   });
 });

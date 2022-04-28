@@ -23,9 +23,8 @@ export type TrackedElementData = {
  */
 const trackedElements: Record<string, TrackedElementData> = {};
 
-export const get = (ID: string) => trackedElements[ID];
-
-export const exists = (ID: string) => trackedElements[ID] !== undefined;
+export const get = (ID: string): TrackedElementData | undefined =>
+  trackedElements[ID];
 
 export const add = (logger: Logger, ID: string, data: TrackedElementData) => {
   trackedElements[ID] = data;

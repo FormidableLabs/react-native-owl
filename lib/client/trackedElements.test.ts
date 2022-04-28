@@ -1,5 +1,5 @@
 import { Logger } from '../logger';
-import { add, exists, get } from './trackedElements';
+import { add, get } from './trackedElements';
 
 describe('trackedElements.ts', () => {
   const logger = new Logger(false);
@@ -7,12 +7,10 @@ describe('trackedElements.ts', () => {
   it('should return check for and return elements that have been added', () => {
     const testElement = { ref: { current: null } };
 
-    expect(exists('testId')).toBe(false);
     expect(get('testId')).toBeFalsy();
 
     add(logger, 'testId', testElement);
 
-    expect(exists('testId')).toBe(true);
     expect(get('testId')).toEqual(testElement);
   });
 });

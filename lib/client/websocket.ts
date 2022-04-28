@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import { WEBSOCKET_PORT } from '../constants';
 
 import { Logger } from '../logger';
@@ -10,9 +9,10 @@ import { ANDROID_WS_HOST, IOS_WS_HOST } from './constants';
  */
 export const initWebSocket = (
   logger: Logger,
+  platform: 'android' | 'ios',
   onMessage: (message: string) => void
 ): Promise<WebSocket> => {
-  const ipAddress = Platform.OS === 'android' ? ANDROID_WS_HOST : IOS_WS_HOST;
+  const ipAddress = platform === 'android' ? ANDROID_WS_HOST : IOS_WS_HOST;
 
   const ws = new WebSocket(`ws://${ipAddress}:${WEBSOCKET_PORT}`);
 
