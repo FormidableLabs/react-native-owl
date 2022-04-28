@@ -16,9 +16,19 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   const cwd = process.cwd();
   const reportDirPath = path.join(cwd, '.owl', 'report');
   const diffScreenshotsDirPath = path.join(cwd, '.owl', 'diff', platform);
-  const screenshots = await fs.readdir(diffScreenshotsDirPath);
+  const failingScreenshots = await fs.readdir(diffScreenshotsDirPath);
+  const baselineScreenshotsDirPath = path.join(
+    cwd,
+    '.owl',
+    'baseline',
+    platform
+  );
+  const baselineScreenshots = await fs.readdir(baselineScreenshotsDirPath);
+  const passingScreenshots = baselineScreenshots.filter(
+    (screenshot) => !failingScreenshots.includes(screenshot)
+  );
 
-  logger.info(`[OWL] Generating Report`);
+  logger.info(`[OWL - CLI] Generating Report`);
 
   const reportFilename = 'index.html';
   const entryFile = path.join(__dirname, 'report', reportFilename);
@@ -28,12 +38,15 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
     currentYear: new Date().getFullYear(),
     currentDateTime: new Date().toISOString(),
     platform,
-    screenshots,
+    failingScreenshots,
+    passingScreenshots,
   });
 
   await fs.mkdir(reportDirPath, { recursive: true });
   const reportFilePath = path.join(reportDirPath, 'index.html');
   await fs.writeFile(reportFilePath, htmlContent);
 
-  logger.info(`[OWL] Report was built at ${reportDirPath}/${reportFilename}`);
+  logger.info(
+    `[OWL - CLI] Report was built at ${reportDirPath}/${reportFilename}`
+  );
 };

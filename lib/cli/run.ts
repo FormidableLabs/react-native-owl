@@ -162,21 +162,17 @@ export const runHandler = async (args: CliRunOptions) => {
         OWL_PLATFORM: args.platform,
         OWL_DEBUG: String(!!config.debug),
         OWL_UPDATE_BASELINE: String(!!args.update),
-        ...(args.platform === 'ios'
-          ? {
-              OWL_IOS_SIMULATOR: config.ios?.device,
-            }
-          : {}),
+        OWL_IOS_SIMULATOR: config.ios?.device,
       },
     });
   } catch (error) {
+    // Throw the error again, so that ci will fail when the jest tests fail
+    throw error;
+  } finally {
     if (config.report) {
       await generateReport(logger, args.platform);
     }
 
-    // Throw the error again, so that ci will fail when the jest tests fail
-    throw error;
-  } finally {
     webSocketProcess.kill();
 
     await cleanupProject(config, logger);

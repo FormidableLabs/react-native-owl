@@ -38,6 +38,7 @@ export const toMatchBaseline = (latestPath: string) => {
       platform,
       path.basename(latestPath)
     );
+    fs.mkdirSync(path.dirname(diffPath), { recursive: true });
 
     const baselineData = fs.readFileSync(baselinePath);
     const baselineImage = PNG.sync.read(baselineData);
@@ -67,7 +68,6 @@ export const toMatchBaseline = (latestPath: string) => {
     }
 
     // Create and save the diff image
-    fs.mkdirSync(path.dirname(diffPath), { recursive: true });
     fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
 
     return {

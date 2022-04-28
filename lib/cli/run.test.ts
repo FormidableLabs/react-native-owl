@@ -334,6 +334,7 @@ describe('run.ts', () => {
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
         env: {
           OWL_DEBUG: 'false',
+          OWL_IOS_SIMULATOR: 'iPhone Simulator',
           OWL_PLATFORM: 'android',
           OWL_UPDATE_BASELINE: 'false',
         },
@@ -409,22 +410,6 @@ describe('run.ts', () => {
         await expect(commandSyncMock).toHaveBeenCalledTimes(1);
         await expect(mockGenerateReport).not.toHaveBeenCalled();
       }
-    });
-
-    it('does not generate the report if the tests pass', async () => {
-      const caseConfig: Config = {
-        ...config,
-        report: true,
-      };
-
-      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(caseConfig);
-      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
-
-      await run.runHandler({ ...args, update: true });
-
-      await expect(mockRunIOS).toHaveBeenCalled();
-      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(mockGenerateReport).not.toHaveBeenCalled();
     });
   });
 });

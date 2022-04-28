@@ -45,7 +45,9 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
       ? `xcrun simctl io ${iosSimulator} screenshot ${screenshotFilename}`
       : `adb exec-out screencap -p > ${screenshotFilename}`;
 
-  logger.info(`[OWL] Will run the screenshot command: ${screenshotCommand}.`);
+  logger.info(
+    `[OWL - CLI] Will run the screenshot command: ${screenshotCommand}.`
+  );
   await execa.command(screenshotCommand, {
     stdio,
     cwd,
@@ -53,6 +55,6 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
   });
 
   const screenshotPath = `${cwd}/${screenshotFilename}`;
-  logger.info(`[OWL] Screenshot saved to ${screenshotPath}.`);
+  logger.info(`[OWL - CLI] Screenshot saved to ${screenshotPath}.`);
   return screenshotPath;
 };

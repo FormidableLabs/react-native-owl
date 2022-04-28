@@ -38,12 +38,16 @@ describe('report.ts', () => {
 
   it('should get the screenshots and create the html report', async () => {
     readFileMock.mockResolvedValueOnce(htmlTemplate);
-    mkdirMock.mockResolvedValueOnce(undefined);
+    mkdirMock.mockResolvedValue(undefined);
+    readdirMock.mockResolvedValue([]);
 
     await generateReport(logger, 'ios');
 
     expect(readdirMock).toHaveBeenCalledWith(
       '/Users/johndoe/Projects/my-project/.owl/diff/ios'
+    );
+    expect(readdirMock).toHaveBeenCalledWith(
+      '/Users/johndoe/Projects/my-project/.owl/baseline/ios'
     );
     expect(handlebarsCompileMock).toHaveBeenCalledTimes(1);
     expect(writeFileMock).toHaveBeenCalledWith(

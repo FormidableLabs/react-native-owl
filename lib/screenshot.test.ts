@@ -33,6 +33,7 @@ describe('screenshot.ts', () => {
   describe('Baseline', () => {
     beforeAll(() => {
       process.env.OWL_UPDATE_BASELINE = 'true';
+      process.env.OWL_IOS_SIMULATOR = undefined;
     });
 
     describe('iOS', () => {
@@ -106,6 +107,7 @@ describe('screenshot.ts', () => {
       beforeAll(() => {
         process.env.OWL_PLATFORM = 'ios';
         process.env.OWL_DEBUG = 'false';
+        process.env.OWL_IOS_SIMULATOR = 'iPhone Simulator';
       });
 
       it('should take a screenshot', async () => {
