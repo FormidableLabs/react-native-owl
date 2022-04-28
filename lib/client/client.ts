@@ -2,20 +2,16 @@ import React from 'react';
 import { Logger } from '../logger';
 import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
 import { initWebSocket } from './websocket';
-import { SOCKET_EVENT } from '../actions/types';
+import { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
 
 import { add, get, TrackedElementData, exists } from './trackedElements';
 import { handleAction } from './handleAction';
 
 const logger = new Logger(true);
 
-let automateTimeout: number;
 let isReactUpdating = true;
 
 let owlClient: WebSocket;
-
-const originalReactCreateElement: typeof React.createElement =
-  React.createElement;
 
 export const initClient = () => {
   logger.info('[OWL - Client] Initialising OWL client');
@@ -24,7 +20,15 @@ export const initClient = () => {
   waitForWebSocket();
 };
 
+/**
+ * We patch react so that we can maintain a list of elements that have testID's
+ * We can then use this list to find the element when we receive an action
+ */
 const patchReact = () => {
+  const originalReactCreateElement: typeof React.createElement =
+    React.createElement;
+  let automateTimeout: number;
+
   // @ts-ignore
   React.createElement = (type, props, ...children) => {
     const testID = props?.testID;
@@ -78,21 +82,25 @@ const waitForWebSocket = async () => {
   }
 };
 
+/**
+ * When we receive a message, we need to find the element that corresponds to the testID,
+ * then attempt to handle the requested action on it.
+ */
 const handleMessage = async (message: string) => {
-  const socketEvent = JSON.parse(message) as SOCKET_EVENT;
-  const testID = socketEvent.type === 'DONE' ? '' : socketEvent.testID;
+  const socketEvent = JSON.parse(message) as SOCKET_TEST_REQUEST;
+  const testID = socketEvent.testID;
 
   let element;
 
   try {
     element = await getElementByTestId(testID);
   } catch (error) {
-    sendEvent({ type: 'NOT_FOUND', testID });
+    sendNotFound(testID);
   }
 
   if (element) {
     try {
-      socketEvent.type === 'ACTION' &&
+      if (socketEvent.type === 'ACTION') {
         handleAction(
           logger,
           testID,
@@ -101,21 +109,36 @@ const handleMessage = async (message: string) => {
           socketEvent.value
         );
 
-      setTimeout(() => sendEvent({ type: 'DONE' }), 100);
+        setTimeout(sendDone, 100);
+      } else {
+        sendDone();
+      }
     } catch (error) {
       let message = 'Unknown error';
       if (error instanceof Error) {
         message = error.message;
       }
 
-      sendEvent({ type: 'ERROR', testID, message });
+      sendError(testID, message);
     }
   }
 };
 
-const sendEvent = (event: SOCKET_EVENT) =>
+const sendEvent = (event: SOCKET_CLIENT_RESPONSE) =>
   owlClient.send(JSON.stringify(event));
 
+const sendNotFound = (testID: string) =>
+  sendEvent({ type: 'NOT_FOUND', testID });
+
+const sendDone = () => sendEvent({ type: 'DONE' });
+
+const sendError = (testID: string, message: string) =>
+  sendEvent({ type: 'ERROR', testID, message });
+
+/**
+ * This function resolves the tracked element by its testID, so that we can handle events on it.
+ * If the element is not immedietly available, we wait for it to be available for some time.
+ */
 const getElementByTestId = async (testID: string) =>
   new Promise<TrackedElementData>((resolve, reject) => {
     logger.info(`[OWL - Client] Looking for Element with testID ${testID}`);

@@ -1,20 +1,25 @@
 import WebSocket from 'ws';
-import { Logger } from '../logger';
-import { createWebSocketClient } from '../websocket';
-import { SOCKET_EVENT, SOCKET_TYPE_SCROLL_TO_VALUE } from './types';
+import { Logger } from './logger';
+import { createWebSocketClient } from './websocket';
+import {
+  SOCKET_TEST_REQUEST,
+  SOCKET_SCROLL_TO_VALUE,
+  SOCKET_CLIENT_RESPONSE,
+} from './websocketTypes';
 
 const logger = new Logger(process.env.OWL_DEBUG === 'true');
 
-let actionsClient: WebSocket | undefined;
-let resolve: Function;
-let reject: Function;
+let actionsWebSocketClient: WebSocket | undefined;
+let resolve: (value: unknown) => void;
+let reject: (reason?: any) => void;
 
-const sendEvent = async (event: SOCKET_EVENT) => {
-  if (actionsClient === undefined) {
-    actionsClient = await createWebSocketClient(logger, handleMessage);
+const sendEvent = async (event: SOCKET_TEST_REQUEST) => {
+  // Make sure we have a websocket client setup
+  if (actionsWebSocketClient === undefined) {
+    actionsWebSocketClient = await createWebSocketClient(logger, handleMessage);
   }
 
-  actionsClient.send(JSON.stringify(event));
+  actionsWebSocketClient.send(JSON.stringify(event));
 
   return new Promise((res, rej) => {
     resolve = res;
@@ -23,18 +28,19 @@ const sendEvent = async (event: SOCKET_EVENT) => {
 };
 
 const handleMessage = (message: string) => {
-  const event = JSON.parse(message) as SOCKET_EVENT;
+  // The message received here indicates the outcome of the action we sent to the app client
+  const event = JSON.parse(message) as SOCKET_CLIENT_RESPONSE;
 
   switch (event.type) {
     case 'DONE':
-      resolve();
-      return;
+      resolve(true);
+      break;
     case 'NOT_FOUND':
       reject(new Error(`Element not found: ${event.testID}`));
-      return;
+      break;
     case 'ERROR':
       reject(new Error(`Element error: ${event.testID} - ${event.message}`));
-      return;
+      break;
   }
 };
 
@@ -47,7 +53,7 @@ export const longPress = (testID: string) =>
 export const enterText = (testID: string, value: string) =>
   sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });
 
-export const scrollTo = (testID: string, value: SOCKET_TYPE_SCROLL_TO_VALUE) =>
+export const scrollTo = (testID: string, value: SOCKET_SCROLL_TO_VALUE) =>
   sendEvent({ type: 'ACTION', action: 'SCROLL_TO', testID, value });
 
 export const scrollToEnd = (testID: string) =>
@@ -57,7 +63,7 @@ export const toExist = (testID: string) =>
   sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
 
 export const disconnectServer = () => {
-  actionsClient?.close();
+  actionsWebSocketClient?.close();
 
-  actionsClient = undefined;
+  actionsWebSocketClient = undefined;
 };

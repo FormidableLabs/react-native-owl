@@ -46,6 +46,7 @@ export const createWebSocketClient = async (
   return new Promise((resolve) => {
     wsClient.on('open', () => {
       logger.info(`[OWL - WebSocket] This client connected.`);
+
       return resolve(wsClient);
     });
 

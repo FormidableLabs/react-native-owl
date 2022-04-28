@@ -1,8 +1,15 @@
 import { GestureResponderEvent } from 'react-native';
-import { ACTION, SOCKET_TYPE_VALUE } from '../actions/types';
+import {
+  SOCKET_TEST_ACTION,
+  SOCKET_TEST_REQUEST_VALUE,
+} from '../websocketTypes';
 import { Logger } from '../logger';
 import { TrackedElementData } from './trackedElements';
 
+/**
+ * When we call onPress/onLongPress, the function expects an `event` arg of type `GestureResponderEvent`.
+ * To try to prevent errors in where the onPress/onLongPress function uses the event data, we create some mock event data.
+ */
 const getGestureResponderEvent = (): GestureResponderEvent => ({
   nativeEvent: {
     changedTouches: [],
@@ -31,18 +38,25 @@ const getGestureResponderEvent = (): GestureResponderEvent => ({
   type: 'RCTView',
 });
 
+/**
+ * This function handles the individual actions that are requested in the jest tests.
+ * For each action, we first check that we have the method and value required to perform the action.
+ * Then we perform it, normally by calling the callback being used for a specific element prop,
+ * or by calling a method on the element's ref.
+ * The thrown error message will be displayed in the jest test results.
+ */
 export const handleAction = (
   logger: Logger,
   testID: string,
   element: TrackedElementData,
-  action: ACTION,
-  value?: SOCKET_TYPE_VALUE
+  action: SOCKET_TEST_ACTION,
+  value?: SOCKET_TEST_REQUEST_VALUE
 ) => {
   logger.info(
     `[OWL - Client] Executing ${action} on element with testID ${testID}`
   );
 
-  switch (action as ACTION) {
+  switch (action) {
     case 'PRESS':
       if (!element.onPress) {
         throw new Error(`This element has no onPress prop`);

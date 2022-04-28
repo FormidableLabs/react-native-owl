@@ -4,6 +4,10 @@ import { WEBSOCKET_PORT } from '../constants';
 import { Logger } from '../logger';
 import { ANDROID_WS_HOST, IOS_WS_HOST } from './constants';
 
+/**
+ * Create a connection to the websocket server,
+ * and call the onMessage callback when it receives any messages.
+ */
 export const initWebSocket = (
   logger: Logger,
   onMessage: (message: string) => void

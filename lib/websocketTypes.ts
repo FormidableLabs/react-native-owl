@@ -1,4 +1,4 @@
-export type ACTION =
+export type SOCKET_TEST_ACTION =
   | 'PRESS'
   | 'LONG_PRESS'
   | 'ENTER_TEXT'
@@ -7,26 +7,28 @@ export type ACTION =
 
 export type LAYOUT_ACTION = 'EXISTS';
 
-export type SOCKET_TYPE_SCROLL_TO_VALUE = {
+export type SOCKET_SCROLL_TO_VALUE = {
   x?: number | undefined;
   y?: number | undefined;
   animated?: boolean | undefined;
 };
 
-export type SOCKET_TYPE_VALUE = string | SOCKET_TYPE_SCROLL_TO_VALUE;
+export type SOCKET_TEST_REQUEST_VALUE = string | SOCKET_SCROLL_TO_VALUE;
 
-export type SOCKET_EVENT =
+export type SOCKET_TEST_REQUEST =
   | {
       type: 'ACTION';
-      action: ACTION;
+      action: SOCKET_TEST_ACTION;
       testID: string;
-      value?: SOCKET_TYPE_VALUE;
+      value?: SOCKET_TEST_REQUEST_VALUE;
     }
   | {
       type: 'LAYOUT';
       action: LAYOUT_ACTION;
       testID: string;
-    }
+    };
+
+export type SOCKET_CLIENT_RESPONSE =
   | {
       type: 'DONE';
     }

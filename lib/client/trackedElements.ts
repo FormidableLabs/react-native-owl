@@ -17,6 +17,10 @@ export type TrackedElementData = {
   onChangeText?: TextInputProps['onChangeText'];
 };
 
+/**
+ * A masic map of tracked elements, that we use to keep track of elements
+ * so that we can perform actions on them in future
+ */
 const trackedElements: Record<string, TrackedElementData> = {};
 
 export const get = (ID: string) => trackedElements[ID];

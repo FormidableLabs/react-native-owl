@@ -9,4 +9,4 @@ export {
   scrollToEnd,
   toExist,
   disconnectServer,
-} from './actions/actions';
+} from './actions';
