@@ -69,7 +69,9 @@ export const readConfigFile = async (configPath: string) => {
     const parsedConfig = JSON.parse(configString);
     return parsedConfig;
   } catch (err) {
-    throw new Error(`Could not load the config at ${configPath}`);
+    throw new Error(
+      `Could not load the config at ${configPath}. For an example see https://formidable.com/open-source/react-native-owl/docs/introduction/config-file/`
+    );
   }
 };
 

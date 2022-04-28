@@ -36,6 +36,7 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
   const baselineExist = await fileExists(
     path.join(screenshotsDirPath, 'baseline', platform, screenshotFilename)
   );
+
   const DIR_NAME = updateBaseline || !baselineExist ? 'baseline' : 'latest';
   const cwd = path.join(screenshotsDirPath, DIR_NAME, platform);
   await fs.mkdir(cwd, { recursive: true });
@@ -53,6 +54,12 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
     cwd,
     shell: platform === 'android',
   });
+
+  if (!baselineExist) {
+    logger.print(
+      `[OWL - CLI] ${screenshotFilename} baseline screenshot created.`
+    );
+  }
 
   const screenshotPath = `${cwd}/${screenshotFilename}`;
   logger.info(`[OWL - CLI] Screenshot saved to ${screenshotPath}.`);
