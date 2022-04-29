@@ -55,5 +55,5 @@ export type Config = {
 };
 
 export type OwlTestProps = {
-  owlTestCallbacks: { [key: string]: () => any };
+  owlTestCallbacks?: { [key: string]: () => any };
 };
