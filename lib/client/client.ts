@@ -28,14 +28,20 @@ export const applyElementTracking = (
   props: any
 ): {
   [key: string]: any;
-  ref: React.RefObject<unknown>;
+  ref?: React.RefObject<unknown>;
   showsHorizontalScrollIndicator: false;
   showsVerticalScrollIndicator: false;
 } => {
   const testID = props?.testID;
 
+  const returnProps = {
+    ...props,
+    showsHorizontalScrollIndicator: false,
+    showsVerticalScrollIndicator: false,
+  };
+
   if (!testID) {
-    return props;
+    return returnProps;
   }
 
   const existingTrackedElement = get(testID);
@@ -55,10 +61,8 @@ export const applyElementTracking = (
   add(logger, testID, trackData);
 
   return {
-    ...props,
+    ...returnProps,
     ref,
-    showsHorizontalScrollIndicator: false,
-    showsVerticalScrollIndicator: false,
   };
 };
 
