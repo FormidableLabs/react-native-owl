@@ -4,6 +4,7 @@ import {
   TextInputProps,
   TouchableWithoutFeedbackProps,
 } from 'react-native';
+import { OwlTestProps } from '..';
 import { Logger } from '../logger';
 
 export type TrackedElementData = {
@@ -15,6 +16,7 @@ export type TrackedElementData = {
     | TouchableWithoutFeedbackProps['onLongPress']
     | PressableProps['onLongPress'];
   onChangeText?: TextInputProps['onChangeText'];
+  testCallbacks?: OwlTestProps['owlTestCallbacks'];
 };
 
 /**

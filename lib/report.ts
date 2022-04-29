@@ -4,6 +4,7 @@ import { promises as fs } from 'fs';
 
 import { Logger } from './logger';
 import { Platform } from './types';
+import { fileExists } from './utils/file-exists';
 
 export const removeReport = async () => {
   const cwd = process.cwd();
@@ -16,14 +17,27 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   const cwd = process.cwd();
   const reportDirPath = path.join(cwd, '.owl', 'report');
   const diffScreenshotsDirPath = path.join(cwd, '.owl', 'diff', platform);
-  const failingScreenshots = await fs.readdir(diffScreenshotsDirPath);
   const baselineScreenshotsDirPath = path.join(
     cwd,
     '.owl',
     'baseline',
     platform
   );
+
+  const baselineScreenshotsDirExists = await fileExists(
+    baselineScreenshotsDirPath
+  );
+  if (!baselineScreenshotsDirExists) {
+    logger.print(
+      `[OWL - CLI] Generating report skipped as is no baseline screenshots directory`
+    );
+
+    return;
+  }
+
   const baselineScreenshots = await fs.readdir(baselineScreenshotsDirPath);
+  const failingScreenshots = await fs.readdir(diffScreenshotsDirPath);
+
   const passingScreenshots = baselineScreenshots.filter(
     (screenshot) => !failingScreenshots.includes(screenshot)
   );
@@ -46,7 +60,7 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   const reportFilePath = path.join(reportDirPath, 'index.html');
   await fs.writeFile(reportFilePath, htmlContent);
 
-  logger.info(
+  logger.print(
     `[OWL - CLI] Report was built at ${reportDirPath}/${reportFilename}`
   );
 };
