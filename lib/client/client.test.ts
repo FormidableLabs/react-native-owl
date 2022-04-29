@@ -56,6 +56,8 @@ describe('client.ts', () => {
       expect(add).toHaveBeenCalledTimes(0);
       expect(newProps).toEqual({
         foo: 'bar',
+        showsHorizontalScrollIndicator: false,
+        showsVerticalScrollIndicator: false,
       });
     });
   });
