@@ -1,5 +1,4 @@
 import {
-  disconnectServer,
   takeScreenshot,
   press,
   toExist,
@@ -10,10 +9,6 @@ import {
 } from 'react-native-owl';
 
 jest.setTimeout(30000);
-
-afterAll(() => {
-  disconnectServer();
-});
 
 describe('App.tsx', () => {
   it('takes a screenshot of the initial screen', async () => {

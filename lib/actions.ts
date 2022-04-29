@@ -64,9 +64,3 @@ export const scrollToEnd = (testID: string) =>
 
 export const toExist = (testID: string) =>
   sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
-
-export const disconnectServer = () => {
-  actionsWebSocketClient?.close();
-
-  actionsWebSocketClient = undefined;
-};
