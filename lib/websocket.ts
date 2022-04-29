@@ -10,8 +10,6 @@ export const startWebSocketServer = async (
 
   return new Promise((resolve) => {
     wss.on('connection', (ws) => {
-      logger.info(`[OWL - WebSocket] A client has been connected.`);
-
       ws.on('message', (message) => {
         logger.info(
           `[OWL - WebSocket] The server received a message: ${message.toString()}`
@@ -44,11 +42,7 @@ export const createWebSocketClient = async (
   const wsClient = new WebSocket(`ws://localhost:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve) => {
-    wsClient.on('open', () => {
-      logger.info(`[OWL - WebSocket] This client connected.`);
-
-      return resolve(wsClient);
-    });
+    wsClient.on('open', () => resolve(wsClient));
 
     wsClient.on('message', (message) => {
       logger.info(

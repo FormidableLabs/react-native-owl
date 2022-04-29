@@ -43,10 +43,6 @@ describe('websocket.ts', () => {
       1,
       '[OWL - WebSocket] Listening on port 8123.'
     );
-    expect(mockServerLoggerInfo).toHaveBeenNthCalledWith(
-      2,
-      '[OWL - WebSocket] A client has been connected.'
-    );
   });
 
   it('should forward messages to other clients', async () => {

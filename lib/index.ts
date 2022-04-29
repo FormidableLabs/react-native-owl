@@ -11,5 +11,4 @@ export {
   scrollTo,
   scrollToEnd,
   toExist,
-  disconnectServer,
 } from './actions';

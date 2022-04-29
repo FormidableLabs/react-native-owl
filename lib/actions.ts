@@ -1,4 +1,3 @@
-import WebSocket from 'ws';
 import { Logger } from './logger';
 import { createWebSocketClient } from './websocket';
 import {
@@ -9,40 +8,36 @@ import {
 
 const logger = new Logger(process.env.OWL_DEBUG === 'true');
 
-let actionsWebSocketClient: WebSocket | undefined;
-let resolve: (value: unknown) => void;
-let reject: (reason?: any) => void;
+const sendEvent = async (event: SOCKET_TEST_REQUEST) =>
+  new Promise(async (resolve, reject) => {
+    // Create a websocket client just for this event request/response cycle.
+    const actionsWebSocketClient = await createWebSocketClient(
+      logger,
+      (message) => {
+        // The message received here indicates the outcome of the action we sent to the app client
+        const event = JSON.parse(message) as SOCKET_CLIENT_RESPONSE;
 
-const sendEvent = async (event: SOCKET_TEST_REQUEST) => {
-  // Make sure we have a websocket client setup
-  if (actionsWebSocketClient === undefined) {
-    actionsWebSocketClient = await createWebSocketClient(logger, handleMessage);
-  }
+        switch (event.type) {
+          case 'DONE':
+            resolve(true);
+            break;
+          case 'NOT_FOUND':
+            reject(new Error(`Element not found: ${event.testID}`));
+            break;
+          case 'ERROR':
+            reject(
+              new Error(`Element error: ${event.testID} - ${event.message}`)
+            );
+            break;
+        }
 
-  actionsWebSocketClient.send(JSON.stringify(event));
+        // Close this connection
+        actionsWebSocketClient.close();
+      }
+    );
 
-  return new Promise((res, rej) => {
-    resolve = res;
-    reject = rej;
+    actionsWebSocketClient.send(JSON.stringify(event));
   });
-};
-
-const handleMessage = (message: string) => {
-  // The message received here indicates the outcome of the action we sent to the app client
-  const event = JSON.parse(message) as SOCKET_CLIENT_RESPONSE;
-
-  switch (event.type) {
-    case 'DONE':
-      resolve(true);
-      break;
-    case 'NOT_FOUND':
-      reject(new Error(`Element not found: ${event.testID}`));
-      break;
-    case 'ERROR':
-      reject(new Error(`Element error: ${event.testID} - ${event.message}`));
-      break;
-  }
-};
 
 export const call = (testID: string, callbackKey: string) =>
   sendEvent({ type: 'ACTION', action: 'CALL', testID, value: callbackKey });
@@ -64,9 +59,3 @@ export const scrollToEnd = (testID: string) =>
 
 export const toExist = (testID: string) =>
   sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
-
-export const disconnectServer = () => {
-  actionsWebSocketClient?.close();
-
-  actionsWebSocketClient = undefined;
-};
