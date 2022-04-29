@@ -70,11 +70,11 @@ describe('App.tsx', () => {
 
 ### call(testID: string, callbackKey: string)
 
-Calls an arbitory callback specified by `callbackKey` in the `owlTestCallbacks` prop of the element where its `testID` prop matches the methods `testID` argument.
+Calls an arbitory callback specified by `callbackKey` in the [`owlTestCallbacks`](/docs/api/props#owltestcallbacks) prop of the element where its `testID` prop matches the methods `testID` argument.
 
 If there is no matching element, it will retry for 10 seconds before throwing an Error.
 
-The element must have a `owlTestCallbacks` prop, or an Error will be thrown.
+The element must have a [`owlTestCallbacks`](/docs/api/props#owltestcallbacks) prop, or an Error will be thrown.
 
 #### Example
 
