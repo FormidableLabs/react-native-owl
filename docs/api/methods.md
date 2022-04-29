@@ -68,6 +68,39 @@ describe('App.tsx', () => {
 });
 ```
 
+### call(testID: string, callbackKey: string)
+
+Calls an arbitory callback specified by `callbackKey` in the `owlTestCallbacks` prop of the element where its `testID` prop matches the methods `testID` argument.
+
+If there is no matching element, it will retry for 10 seconds before throwing an Error.
+
+The element must have a `owlTestCallbacks` prop, or an Error will be thrown.
+
+#### Example
+
+```js title="App.tsx"
+...
+<Button title="Login" testID="button" owlTestCallbacks={{mockLogin: () => {
+  // Mock a use having logged in, so that we can screenshot the user dashboard
+}}} onPress={handleLogin} />
+...
+```
+
+```js title="__tests__/App.owl.tsx"
+import { call, takeScreenshot } from 'react-native-owl';
+
+describe('App.tsx', () => {
+  it('calls mockLogin callback on element testID = `button` then takes a screenshot', async () => {
+    // highlight-next-line
+    await call('button', 'mockLogin');
+
+    const screen = await takeScreenshot('afterMockLogin');
+
+    expect(screen).toMatchBaseline();
+  });
+});
+```
+
 ### press(testID: string)
 
 Calls the `onPress` prop callback of the element where its `testID` prop matches the methods `testID` argument.
