@@ -55,7 +55,7 @@ describe('report.ts', () => {
     );
   });
 
-  it('should not generate the report if the is no baseline screenshots directory', async () => {
+  it('should not generate the report if there is no baseline screenshots directory', async () => {
     jest.spyOn(fileExists, 'fileExists').mockResolvedValue(false);
     const handlebarsCompileMock = jest
       .spyOn(handlebars, 'compile')

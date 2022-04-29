@@ -44,6 +44,9 @@ const handleMessage = (message: string) => {
   }
 };
 
+export const call = (testID: string, callbackKey: string) =>
+  sendEvent({ type: 'ACTION', action: 'CALL', testID, value: callbackKey });
+
 export const press = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'PRESS', testID });
 
