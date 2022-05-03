@@ -5,6 +5,7 @@ import {
   press,
   scrollTo,
   scrollToEnd,
+  toExist,
 } from './actions';
 import * as websocket from './websocket';
 
@@ -166,6 +167,18 @@ describe('actions.ts', () => {
         JSON.stringify({
           type: 'ACTION',
           action: 'SCROLL_TO_END',
+          testID: 'testID',
+        })
+      );
+    });
+
+    it('sends toExist event', async () => {
+      await toExist('testID');
+
+      expect(send).toHaveBeenCalledWith(
+        JSON.stringify({
+          type: 'LAYOUT',
+          action: 'EXISTS',
           testID: 'testID',
         })
       );
