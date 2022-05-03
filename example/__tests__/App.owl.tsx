@@ -1,6 +1,6 @@
 import {
-  disconnectServer,
   takeScreenshot,
+  call,
   press,
   toExist,
   enterText,
@@ -10,10 +10,6 @@ import {
 } from 'react-native-owl';
 
 jest.setTimeout(30000);
-
-afterAll(() => {
-  disconnectServer();
-});
 
 describe('App.tsx', () => {
   it('takes a screenshot of the initial screen', async () => {
@@ -60,6 +56,14 @@ describe('App.tsx', () => {
     await scrollToEnd('ScrollView');
 
     const screen = await takeScreenshot('scrollToEnd');
+
+    expect(screen).toMatchBaseline();
+  });
+
+  it('sets the app to darkmode and takes a screenshot', async () => {
+    await call('ScrollView', 'setToDarkMode');
+
+    const screen = await takeScreenshot('darkMode');
 
     expect(screen).toMatchBaseline();
   });

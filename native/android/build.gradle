@@ -25,8 +25,16 @@ android {
         targetSdkVersion safeExtGet('targetSdkVersion', 29)
         versionCode 1
         versionName "1.0"
-
     }
+
+     sourceSets {
+         main {
+             // If this build is triggered by react-native-owl, then include use AndroidManifest.owl.xml
+             if (project.hasProperty("isOwlTestBuild")) {
+                 manifest.srcFile 'src/main/AndroidManifest.owl.xml'
+             }
+         }
+     }
 
     buildTypes {
         release {

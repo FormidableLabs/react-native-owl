@@ -94,11 +94,14 @@ describe('build.ts', () => {
       await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(`./gradlew assembleRelease`, {
-        stdio: 'inherit',
-        cwd: path.join(process.cwd(), 'android'),
-        env,
-      });
+      expect(execMock).toHaveBeenCalledWith(
+        `./gradlew assembleRelease -PisOwlTestBuild=true`,
+        {
+          stdio: 'inherit',
+          cwd: path.join(process.cwd(), 'android'),
+          env,
+        }
+      );
     });
 
     it('builds an Android project with the default build command - with the quiet arg', async () => {
@@ -114,7 +117,7 @@ describe('build.ts', () => {
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(
-        `./gradlew assembleRelease --quiet`,
+        `./gradlew assembleRelease --quiet -PisOwlTestBuild=true`,
         {
           stdio: 'inherit',
           cwd: path.join(process.cwd(), 'android'),
@@ -135,10 +138,13 @@ describe('build.ts', () => {
       await buildAndroid(config, logger);
 
       expect(execMock).toHaveBeenCalledTimes(1);
-      expect(execMock).toHaveBeenCalledWith(`echo 'Hello World'`, {
-        stdio: 'inherit',
-        env,
-      });
+      expect(execMock).toHaveBeenCalledWith(
+        `echo 'Hello World' -PisOwlTestBuild=true`,
+        {
+          stdio: 'inherit',
+          env,
+        }
+      );
     });
   });
 

@@ -10,6 +10,7 @@ const SCREENSHOT_FILENAME = 'screen';
 describe('screenshot.ts', () => {
   const commandMock = jest.spyOn(execa, 'command');
   const mkdirMock = jest.spyOn(fs, 'mkdir').mockImplementation();
+  const writeFileMock = jest.spyOn(fs, 'writeFile').mockImplementation();
 
   const cwdMock = jest
     .spyOn(process, 'cwd')
@@ -24,6 +25,7 @@ describe('screenshot.ts', () => {
   beforeEach(() => {
     commandMock.mockReset();
     mkdirMock.mockReset();
+    writeFileMock.mockReset();
   });
 
   afterAll(() => {
@@ -111,7 +113,10 @@ describe('screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        jest.spyOn(fileExistsHelpers, 'fileExists').mockResolvedValueOnce(true);
+        jest
+          .spyOn(fileExistsHelpers, 'fileExists')
+          .mockResolvedValueOnce(true)
+          .mockResolvedValueOnce(true);
 
         await takeScreenshot(SCREENSHOT_FILENAME);
 
@@ -146,7 +151,10 @@ describe('screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        jest.spyOn(fileExistsHelpers, 'fileExists').mockResolvedValueOnce(true);
+        jest
+          .spyOn(fileExistsHelpers, 'fileExists')
+          .mockResolvedValueOnce(true)
+          .mockResolvedValueOnce(true);
 
         await takeScreenshot(SCREENSHOT_FILENAME);
 

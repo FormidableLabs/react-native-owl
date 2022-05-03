@@ -48,6 +48,10 @@ export const buildAndroid = async (
     buildCommand.push('--quiet');
   }
 
+  // Add a project environmental to tell build.gradle to use a specific Android Manifest that allows WebSocket usage.
+  // (https://docs.gradle.org/current/userguide/command_line_interface.html#sec:environment_options)
+  buildCommand.push('-PisOwlTestBuild=true');
+
   const cwd = config.android?.buildCommand
     ? undefined
     : path.join(process.cwd(), '/android');
