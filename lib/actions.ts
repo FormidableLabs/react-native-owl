@@ -14,6 +14,9 @@ const sendEvent = async (event: SOCKET_TEST_REQUEST) =>
     const actionsWebSocketClient = await createWebSocketClient(
       logger,
       (message) => {
+        // Close this connection
+        actionsWebSocketClient.close();
+
         // The message received here indicates the outcome of the action we sent to the app client
         const event = JSON.parse(message) as SOCKET_CLIENT_RESPONSE;
 
@@ -22,17 +25,15 @@ const sendEvent = async (event: SOCKET_TEST_REQUEST) =>
             resolve(true);
             break;
           case 'NOT_FOUND':
-            reject(new Error(`Element not found: ${event.testID}`));
+            reject(`Element not found: ${event.testID}`);
             break;
           case 'ERROR':
-            reject(
-              new Error(`Element error: ${event.testID} - ${event.message}`)
-            );
+            reject(`Element error: ${event.testID} - ${event.message}`);
+            break;
+          default:
+            reject('Unknown onMessage event type');
             break;
         }
-
-        // Close this connection
-        actionsWebSocketClient.close();
       }
     );
 
