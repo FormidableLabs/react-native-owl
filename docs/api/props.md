@@ -78,16 +78,22 @@ describe('App.tsx', () => {
 
 #### TypeScript
 
-If using TypeScript, you can import `OwlTestProps` and add to a Components Prop types, or wrap React Native's components.
+If using TypeScript, you can import `OwlTestProps` and add to a Components Prop types, or wrap React Native's components using `React.forwardRef`.
 
 ##### Example
 
 ```js title="App.tsx"
-import { View as RNView } from 'react-native';
+import { View as RNView, ViewProps } from 'react-native';
 import { OwlTestProps } from 'react-native-owl';
 ...
 // highlight-next-line
-const View = (props: ViewProps & OwlTestProps) => <RNView {...props} />;
+const View = React.forwardRef<
+// highlight-next-line
+  RNView,
+// highlight-next-line
+  ViewProps & OwlTestProps
+// highlight-next-line
+>((props, ref) => <RNView ref={ref} {...props} />);
 
 <View
   owlTestCallbacks={{
