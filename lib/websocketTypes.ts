@@ -1,5 +1,4 @@
 export type SOCKET_TEST_ACTION =
-  | 'CALL'
   | 'PRESS'
   | 'LONG_PRESS'
   | 'CHANGE_TEXT'

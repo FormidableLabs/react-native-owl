@@ -55,7 +55,6 @@ export const applyElementTracking = (
     onPress: props?.onPress,
     onLongPress: props?.onLongPress,
     onChangeText: props?.onChangeText,
-    testCallbacks: props?.owlTestCallbacks,
   };
 
   add(logger, testID, trackData);

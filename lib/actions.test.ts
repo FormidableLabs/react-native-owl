@@ -1,5 +1,4 @@
 import {
-  call,
   changeText,
   longPress,
   press,
@@ -101,19 +100,6 @@ describe('actions.ts', () => {
   });
 
   describe('actions', () => {
-    it('sends call event', async () => {
-      await call('testID', 'callbackKey');
-
-      expect(send).toHaveBeenCalledWith(
-        JSON.stringify({
-          type: 'ACTION',
-          action: 'CALL',
-          testID: 'testID',
-          value: 'callbackKey',
-        })
-      );
-    });
-
     it('sends press event', async () => {
       await press('testID');
 

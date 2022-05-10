@@ -40,9 +40,6 @@ const sendEvent = async (event: SOCKET_TEST_REQUEST) =>
     actionsWebSocketClient.send(JSON.stringify(event));
   });
 
-export const call = (testID: string, callbackKey: string) =>
-  sendEvent({ type: 'ACTION', action: 'CALL', testID, value: callbackKey });
-
 export const press = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'PRESS', testID });
 

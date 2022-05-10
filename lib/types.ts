@@ -53,7 +53,3 @@ export type Config = {
   /** Prevents the CLI/library from printing any logs/output. */
   debug?: boolean;
 };
-
-export type OwlTestProps = {
-  owlTestCallbacks?: { [key: string]: () => any };
-};
