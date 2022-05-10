@@ -91,7 +91,7 @@ export const handleAction = (
       element.onLongPress(getGestureResponderEvent());
       break;
 
-    case 'ENTER_TEXT':
+    case 'CHANGE_TEXT':
       if (!element.onChangeText) {
         throw new Error(`This element has no onChangeText prop`);
       }

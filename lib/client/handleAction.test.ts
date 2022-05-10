@@ -147,7 +147,7 @@ describe('handleAction.ts', () => {
     });
   });
 
-  describe('ENTER_TEXT', () => {
+  describe('CHANGE_TEXT', () => {
     it('throw error when onChangeText prop is not available', () => {
       const test = () =>
         handleAction(
@@ -156,7 +156,7 @@ describe('handleAction.ts', () => {
           {
             ref: { current: null },
           },
-          'ENTER_TEXT'
+          'CHANGE_TEXT'
         );
 
       expect(test).toThrow();
@@ -172,7 +172,7 @@ describe('handleAction.ts', () => {
           ref: { current: null },
           onChangeText,
         },
-        'ENTER_TEXT'
+        'CHANGE_TEXT'
       );
 
       expect(onChangeText).toHaveBeenCalledWith('');
@@ -188,7 +188,7 @@ describe('handleAction.ts', () => {
           ref: { current: null },
           onChangeText,
         },
-        'ENTER_TEXT',
+        'CHANGE_TEXT',
         'test text'
       );
 

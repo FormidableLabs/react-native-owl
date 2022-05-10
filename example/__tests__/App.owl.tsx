@@ -3,7 +3,7 @@ import {
   call,
   press,
   toExist,
-  enterText,
+  changeText,
   scrollTo,
   scrollToEnd,
   longPress,
@@ -37,7 +37,7 @@ describe('App.tsx', () => {
   });
 
   it('enters some text and takes a screenshot', async () => {
-    await enterText('TextInput', 'Entered text');
+    await changeText('TextInput', 'Entered text');
 
     const screen = await takeScreenshot('enteredText');
 

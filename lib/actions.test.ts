@@ -1,6 +1,6 @@
 import {
   call,
-  enterText,
+  changeText,
   longPress,
   press,
   scrollTo,
@@ -134,13 +134,13 @@ describe('actions.ts', () => {
       );
     });
 
-    it('sends enterText event', async () => {
-      await enterText('testID', 'text');
+    it('sends changeText event', async () => {
+      await changeText('testID', 'text');
 
       expect(send).toHaveBeenCalledWith(
         JSON.stringify({
           type: 'ACTION',
-          action: 'ENTER_TEXT',
+          action: 'CHATGE_TEXT',
           testID: 'testID',
           value: 'text',
         })

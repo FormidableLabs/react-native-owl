@@ -7,7 +7,7 @@ export {
   call,
   press,
   longPress,
-  enterText,
+  changeText,
   scrollTo,
   scrollToEnd,
   toExist,

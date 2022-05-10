@@ -49,8 +49,8 @@ export const press = (testID: string) =>
 export const longPress = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'LONG_PRESS', testID });
 
-export const enterText = (testID: string, value: string) =>
-  sendEvent({ type: 'ACTION', action: 'ENTER_TEXT', testID, value });
+export const changeText = (testID: string, value: string) =>
+  sendEvent({ type: 'ACTION', action: 'CHANGE_TEXT', testID, value });
 
 export const scrollTo = (testID: string, value: SOCKET_SCROLL_TO_VALUE) =>
   sendEvent({ type: 'ACTION', action: 'SCROLL_TO', testID, value });
