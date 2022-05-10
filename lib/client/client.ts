@@ -135,7 +135,7 @@ export const handleMessage = async (message: string) => {
           socketEvent.value
         );
 
-        setTimeout(sendDone, 100);
+        setTimeout(sendDone, 1000);
       } else {
         sendDone();
       }
