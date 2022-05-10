@@ -36,7 +36,9 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   }
 
   const baselineScreenshots = await fs.readdir(baselineScreenshotsDirPath);
-  const failingScreenshots = await fs.readdir(diffScreenshotsDirPath);
+  const failingScreenshots = (await fileExists(diffScreenshotsDirPath))
+    ? await fs.readdir(diffScreenshotsDirPath)
+    : [];
 
   const passingScreenshots = baselineScreenshots.filter(
     (screenshot) => !failingScreenshots.includes(screenshot)
