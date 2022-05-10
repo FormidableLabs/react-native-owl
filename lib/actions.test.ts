@@ -126,7 +126,7 @@ describe('actions.ts', () => {
       expect(send).toHaveBeenCalledWith(
         JSON.stringify({
           type: 'ACTION',
-          action: 'CHATGE_TEXT',
+          action: 'CHANGE_TEXT',
           testID: 'testID',
           value: 'text',
         })

@@ -1,6 +1,5 @@
 import {
   takeScreenshot,
-  call,
   press,
   toExist,
   changeText,
@@ -56,14 +55,6 @@ describe('App.tsx', () => {
     await scrollToEnd('ScrollView');
 
     const screen = await takeScreenshot('scrollToEnd');
-
-    expect(screen).toMatchBaseline();
-  });
-
-  it('sets the app to darkmode and takes a screenshot', async () => {
-    await call('ScrollView', 'setToDarkMode');
-
-    const screen = await takeScreenshot('darkMode');
 
     expect(screen).toMatchBaseline();
   });
