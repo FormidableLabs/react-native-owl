@@ -96,6 +96,10 @@ export const runAndroid = async (config: Config, logger: Logger) => {
     'adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941';
   await execa.command(setTimeCommand, { stdio });
 
+  const setWifiCommand =
+    'adb shell am broadcast -a com.android.systemui.demo -e command network -e wifi show -e level 4';
+  await execa.command(setWifiCommand, { stdio });
+
   const setBarsCommand =
     'adb shell am broadcast -a com.android.systemui.demo -e command bars -e mode translucent';
   await execa.command(setBarsCommand, { stdio });
