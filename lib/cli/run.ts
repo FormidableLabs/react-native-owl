@@ -21,7 +21,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
 
   const { stdout: bundleId } = await execa.command(
-    `/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
+    `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
     { shell: true, cwd: '/usr/libexec' }
   );
 
@@ -38,19 +38,9 @@ export const runIOS = async (config: Config, logger: Logger) => {
   await execa.command(launchCommand, { stdio });
 
   // Workaround to force the virtual home button's color to become consistent
-  await execa.command(`xcrun simctl ui ${simulator} appearance dark`, {
-    stdio,
-    cwd,
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  await execa.command(`xcrun simctl ui ${simulator} appearance light`, {
-    stdio,
-    cwd,
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const appearanceCommand = `xcrun simctl ui ${simulator} appearance`;
+  await execa.command(`${appearanceCommand} dark`, { stdio, cwd });
+  await execa.command(`${appearanceCommand} light`, { stdio, cwd });
 };
 
 export const cleanupIOS = async (config: Config, logger: Logger) => {
