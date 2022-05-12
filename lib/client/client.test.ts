@@ -1,9 +1,15 @@
+import React from 'react';
+
 describe('client.ts', () => {
   jest.mock('react-native', () => ({
     Platform: {
       OS: 'android',
     },
   }));
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
   const client = require('./client');
 
@@ -18,6 +24,26 @@ describe('client.ts', () => {
 
     expect(patchReact).toHaveBeenCalled();
     expect(waitForWebSocket).toHaveBeenCalled();
+  });
+
+  it('patches react', () => {
+    const createElement = jest
+      .spyOn(React, 'createElement')
+      .mockImplementation();
+
+    const applyElementTracking = jest.fn();
+
+    jest
+      .spyOn(client, 'applyElementTracking')
+      .mockImplementation(applyElementTracking);
+
+    client.patchReact();
+
+    const props = { testID: 'testID' };
+    React.createElement('View', props);
+
+    expect(createElement).toHaveBeenCalledTimes(1);
+    expect(applyElementTracking).toHaveBeenCalledWith(props);
   });
 
   describe('applyElementTracking', () => {

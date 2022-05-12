@@ -13,8 +13,7 @@ import {
   ActivityIndicator,
   Pressable,
   SafeAreaView,
-  ScrollView as RNScrollView,
-  ScrollViewProps,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -30,7 +29,6 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { OwlTestProps } from '../dist';
 
 const Section: React.FC<{
   title: string;
@@ -62,11 +60,6 @@ const Section: React.FC<{
   );
 };
 
-const ScrollView = React.forwardRef<
-  RNScrollView,
-  ScrollViewProps & OwlTestProps
->((props, ref) => <RNScrollView ref={ref} {...props} />);
-
 const App = () => {
   const [isDarkMode, setIsDarkMode] = React.useState(
     useColorScheme() === 'dark'
@@ -97,9 +90,6 @@ const App = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
         testID="ScrollView"
-        owlTestCallbacks={{
-          setToDarkMode: () => setIsDarkMode(true),
-        }}
       >
         <Header />
         <View

@@ -1,10 +1,10 @@
 import {
-  call,
-  enterText,
+  changeText,
   longPress,
   press,
   scrollTo,
   scrollToEnd,
+  toExist,
 } from './actions';
 import * as websocket from './websocket';
 
@@ -100,19 +100,6 @@ describe('actions.ts', () => {
   });
 
   describe('actions', () => {
-    it('sends call event', async () => {
-      await call('testID', 'callbackKey');
-
-      expect(send).toHaveBeenCalledWith(
-        JSON.stringify({
-          type: 'ACTION',
-          action: 'CALL',
-          testID: 'testID',
-          value: 'callbackKey',
-        })
-      );
-    });
-
     it('sends press event', async () => {
       await press('testID');
 
@@ -133,13 +120,13 @@ describe('actions.ts', () => {
       );
     });
 
-    it('sends enterText event', async () => {
-      await enterText('testID', 'text');
+    it('sends changeText event', async () => {
+      await changeText('testID', 'text');
 
       expect(send).toHaveBeenCalledWith(
         JSON.stringify({
           type: 'ACTION',
-          action: 'ENTER_TEXT',
+          action: 'CHANGE_TEXT',
           testID: 'testID',
           value: 'text',
         })
@@ -166,6 +153,18 @@ describe('actions.ts', () => {
         JSON.stringify({
           type: 'ACTION',
           action: 'SCROLL_TO_END',
+          testID: 'testID',
+        })
+      );
+    });
+
+    it('sends toExist event', async () => {
+      await toExist('testID');
+
+      expect(send).toHaveBeenCalledWith(
+        JSON.stringify({
+          type: 'LAYOUT',
+          action: 'EXISTS',
           testID: 'testID',
         })
       );

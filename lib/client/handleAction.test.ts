@@ -19,70 +19,6 @@ describe('handleAction.ts', () => {
     expect(test).toThrow();
   });
 
-  describe('CALL', () => {
-    it('throw error when owlTestCallbacks prop is not available', () => {
-      const test = () =>
-        handleAction(
-          logger,
-          'testID',
-          {
-            ref: { current: null },
-          },
-          'CALL'
-        );
-
-      expect(test).toThrow();
-    });
-
-    it('throw error when value is not supplied', () => {
-      const test = () =>
-        handleAction(
-          logger,
-          'testID',
-          {
-            ref: { current: null },
-            testCallbacks: { test: jest.fn() },
-          },
-          'CALL'
-        );
-
-      expect(test).toThrow();
-    });
-
-    it('throw error when value is not supplied', () => {
-      const test = () =>
-        handleAction(
-          logger,
-          'testID',
-          {
-            ref: { current: null },
-            testCallbacks: { test: jest.fn() },
-          },
-          'CALL',
-          'wrongTest'
-        );
-
-      expect(test).toThrow();
-    });
-
-    it('calls onPress function', () => {
-      const test = jest.fn();
-
-      handleAction(
-        logger,
-        'testID',
-        {
-          ref: { current: null },
-          testCallbacks: { test },
-        },
-        'CALL',
-        'test'
-      );
-
-      expect(test).toHaveBeenCalled();
-    });
-  });
-
   describe('PRESS', () => {
     it('throw error when onPress prop is not available', () => {
       const test = () =>
@@ -147,7 +83,7 @@ describe('handleAction.ts', () => {
     });
   });
 
-  describe('ENTER_TEXT', () => {
+  describe('CHANGE_TEXT', () => {
     it('throw error when onChangeText prop is not available', () => {
       const test = () =>
         handleAction(
@@ -156,7 +92,7 @@ describe('handleAction.ts', () => {
           {
             ref: { current: null },
           },
-          'ENTER_TEXT'
+          'CHANGE_TEXT'
         );
 
       expect(test).toThrow();
@@ -172,7 +108,7 @@ describe('handleAction.ts', () => {
           ref: { current: null },
           onChangeText,
         },
-        'ENTER_TEXT'
+        'CHANGE_TEXT'
       );
 
       expect(onChangeText).toHaveBeenCalledWith('');
@@ -188,7 +124,7 @@ describe('handleAction.ts', () => {
           ref: { current: null },
           onChangeText,
         },
-        'ENTER_TEXT',
+        'CHANGE_TEXT',
         'test text'
       );
 

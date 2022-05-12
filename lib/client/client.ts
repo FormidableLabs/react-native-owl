@@ -55,7 +55,6 @@ export const applyElementTracking = (
     onPress: props?.onPress,
     onLongPress: props?.onLongPress,
     onChangeText: props?.onChangeText,
-    testCallbacks: props?.owlTestCallbacks,
   };
 
   add(logger, testID, trackData);
@@ -135,7 +134,7 @@ export const handleMessage = async (message: string) => {
           socketEvent.value
         );
 
-        setTimeout(sendDone, 100);
+        setTimeout(sendDone, 1000);
       } else {
         sendDone();
       }

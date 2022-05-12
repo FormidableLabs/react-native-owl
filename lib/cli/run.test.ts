@@ -184,12 +184,20 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         5,
+        `adb shell am broadcast -a com.android.systemui.demo -e command network -e wifi show -e level 4`,
+        {
+          stdio: 'ignore',
+        }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        6,
         `adb shell am broadcast -a com.android.systemui.demo -e command bars -e mode translucent`,
         { stdio: 'ignore' }
       );
 
       expect(execMock).toHaveBeenNthCalledWith(
-        6,
+        7,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );

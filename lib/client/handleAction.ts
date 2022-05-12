@@ -57,24 +57,6 @@ export const handleAction = (
   );
 
   switch (action) {
-    case 'CALL':
-      if (!element.testCallbacks) {
-        throw new Error(`This element has no owlTestCallbacks prop`);
-      }
-      if (typeof value !== 'string' || value === '') {
-        throw new Error(
-          `Please specify which owlTestCallback to use by supplying its key`
-        );
-      }
-      if (!element.testCallbacks?.[value]) {
-        throw new Error(
-          `The callback with key ${value} does not exist in owlTestCallbacks`
-        );
-      }
-
-      element.testCallbacks[value]();
-      break;
-
     case 'PRESS':
       if (!element.onPress) {
         throw new Error(`This element has no onPress prop`);
@@ -91,7 +73,7 @@ export const handleAction = (
       element.onLongPress(getGestureResponderEvent());
       break;
 
-    case 'ENTER_TEXT':
+    case 'CHANGE_TEXT':
       if (!element.onChangeText) {
         throw new Error(`This element has no onChangeText prop`);
       }

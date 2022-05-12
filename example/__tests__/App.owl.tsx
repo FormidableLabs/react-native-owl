@@ -1,9 +1,8 @@
 import {
   takeScreenshot,
-  call,
   press,
   toExist,
-  enterText,
+  changeText,
   scrollTo,
   scrollToEnd,
   longPress,
@@ -21,7 +20,7 @@ describe('App.tsx', () => {
   it('longPress a Pressable, then takes a screenshot', async () => {
     await longPress('Pressable');
 
-    const screen = await takeScreenshot('longPress');
+    const screen = await takeScreenshot('long-press');
 
     expect(screen).toMatchBaseline();
   });
@@ -31,15 +30,15 @@ describe('App.tsx', () => {
 
     await toExist('TextInput');
 
-    const screen = await takeScreenshot('testInput');
+    const screen = await takeScreenshot('test-input');
 
     expect(screen).toMatchBaseline();
   });
 
   it('enters some text and takes a screenshot', async () => {
-    await enterText('TextInput', 'Entered text');
+    await changeText('TextInput', 'Entered text');
 
-    const screen = await takeScreenshot('enteredText');
+    const screen = await takeScreenshot('entered-text');
 
     expect(screen).toMatchBaseline();
   });
@@ -47,7 +46,7 @@ describe('App.tsx', () => {
   it('scrolls a bit and takes a screenshot', async () => {
     await scrollTo('ScrollView', { y: 50 });
 
-    const screen = await takeScreenshot('scrollTo');
+    const screen = await takeScreenshot('scroll-to');
 
     expect(screen).toMatchBaseline();
   });
@@ -55,15 +54,7 @@ describe('App.tsx', () => {
   it('scrolls to end and takes a screenshot', async () => {
     await scrollToEnd('ScrollView');
 
-    const screen = await takeScreenshot('scrollToEnd');
-
-    expect(screen).toMatchBaseline();
-  });
-
-  it('sets the app to darkmode and takes a screenshot', async () => {
-    await call('ScrollView', 'setToDarkMode');
-
-    const screen = await takeScreenshot('darkMode');
+    const screen = await takeScreenshot('scroll-to-end');
 
     expect(screen).toMatchBaseline();
   });
