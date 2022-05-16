@@ -44,7 +44,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
+        `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
         { cwd: '/usr/libexec', shell: true }
       );
 
@@ -85,7 +85,7 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
-        `/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' ${binaryPath}/Info.plist`,
+        `./PlistBuddy -c 'Print CFBundleIdentifier' ${binaryPath}/Info.plist`,
         { cwd: '/usr/libexec', shell: true }
       );
 
