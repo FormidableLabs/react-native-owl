@@ -30,7 +30,7 @@ android {
      sourceSets {
          main {
              // If this build is triggered by react-native-owl, then include use AndroidManifest.owl.xml
-             if (project.hasProperty("isOwlTestBuild")) {
+             if (project.hasProperty("isOwlBuild")) {
                  manifest.srcFile 'src/main/AndroidManifest.owl.xml'
              }
          }
