@@ -10,9 +10,9 @@ const path = require('path');
 // This will not be required by other projects using react-native-owl installed from a package repository.
 
 const extraNodeModules = {
-  'react-native-owl': path.resolve(path.join(__dirname, '/..')),
+  'react-native-owl': path.resolve(path.join(__dirname, '..')),
 };
-const watchFolders = [path.resolve(path.join(__dirname, '/..'))];
+const watchFolders = [path.resolve(path.join(__dirname, '..', 'dist'))];
 
 module.exports = {
   transformer: {
