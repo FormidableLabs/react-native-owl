@@ -42,14 +42,6 @@ export default function Home() {
           .
         </p>
 
-        <p className="intro">
-          <em>
-            Note: This library is work-in-progress. We are still working on
-            adding additional functionality to allow full control of the app
-            being tested.
-          </em>
-        </p>
-
         <HomepageFeatures />
       </main>
     </Layout>

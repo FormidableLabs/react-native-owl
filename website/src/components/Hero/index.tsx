@@ -9,7 +9,9 @@ import styles from './styles.module.css';
 const LogoBadge = require('../../../static/images/badge.svg').default;
 
 const heroExample = `describe('App.tsx', () => {
-  it('takes a screenshot of the first screen', async () => {
+  it('presses a button & takes a screenshot', async () => {
+    await press('button');
+
     const screen = await takeScreenshot('homescreen');
 
     expect(screen).toMatchBaseline();
@@ -39,9 +41,7 @@ export const Hero = () => {
           </div>
 
           <div className={clsx('col col--6', styles.codeSampleWrapper)}>
-            <CodeBlock title="App.owl.ts" className={styles.codeSample}>
-              {heroExample}
-            </CodeBlock>
+            <CodeBlock className={styles.codeSample}>{heroExample}</CodeBlock>
           </div>
         </div>
       </div>
