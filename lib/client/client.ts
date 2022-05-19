@@ -1,7 +1,11 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { Logger } from '../logger';
-import { CHECK_TIMEOUT, MAX_TIMEOUT, SOCKET_WAIT_TIMEOUT } from './constants';
+import {
+  CHECK_INTERVAL,
+  MAX_CHECK_TIMEOUT,
+  SOCKET_WAIT_TIMEOUT,
+} from './constants';
 import { initWebSocket } from './websocket';
 import { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
 
@@ -82,7 +86,7 @@ export const patchReact = () => {
 
     automateTimeout = setTimeout(() => {
       isReactUpdating = false;
-    }, CHECK_TIMEOUT);
+    }, CHECK_INTERVAL);
 
     isReactUpdating = true;
 
@@ -173,7 +177,7 @@ const getElementByTestId = async (testID: string) =>
 
       clearInterval(checkInterval);
       reject(new Error(`Element with testID ${testID} not found`));
-    }, MAX_TIMEOUT);
+    }, MAX_CHECK_TIMEOUT);
 
     const checkInterval = setInterval(() => {
       const element = get(testID);
@@ -186,5 +190,5 @@ const getElementByTestId = async (testID: string) =>
       clearInterval(checkInterval);
       clearTimeout(rejectTimeout);
       resolve(element);
-    }, CHECK_TIMEOUT);
+    }, CHECK_INTERVAL);
   });
