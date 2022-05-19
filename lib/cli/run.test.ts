@@ -198,6 +198,12 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         7,
+        `adb shell am broadcast -a com.android.systemui.demo -e command battery -e level 100`,
+        { stdio: 'ignore' }
+      );
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        8,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );

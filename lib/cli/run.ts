@@ -94,6 +94,10 @@ export const runAndroid = async (config: Config, logger: Logger) => {
     'adb shell am broadcast -a com.android.systemui.demo -e command bars -e mode translucent';
   await execa.command(setBarsCommand, { stdio });
 
+  const setBatteryCommand =
+    'adb shell am broadcast -a com.android.systemui.demo -e command battery -e level 100';
+  await execa.command(setBatteryCommand, { stdio });
+
   // Brief pause so the bars update
   await new Promise((resolve) => setTimeout(resolve, 500));
 
