@@ -1,14 +1,10 @@
 import path from 'path';
 import execa from 'execa';
 
-import { buildAndroid, buildHandler, buildIOS } from './build';
+import { buildAndroid, buildHandler, buildIOS, ENTRY_FILE } from './build';
 import { CliBuildOptions, Config, ConfigEnv } from '../types';
 import { Logger } from '../logger';
 import * as configHelpers from './config';
-
-const env: ConfigEnv = {
-  ENTRY_FILE: './node_modules/react-native-owl/dist/client/index.app.js',
-};
 
 describe('build.ts', () => {
   const logger = new Logger();
@@ -26,7 +22,7 @@ describe('build.ts', () => {
           scheme: 'RNDemo',
           configuration: 'Debug',
           device: 'iPhone Simulator',
-          env,
+          env: { ENTRY_FILE },
         },
       };
 
@@ -35,7 +31,7 @@ describe('build.ts', () => {
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build`,
-        { stdio: 'inherit', env }
+        { stdio: 'inherit', env: { ENTRY_FILE } }
       );
     });
 
@@ -47,7 +43,7 @@ describe('build.ts', () => {
           configuration: 'Debug',
           quiet: true,
           device: 'iPhone Simulator',
-          env,
+          env: { ENTRY_FILE },
         },
       };
 
@@ -58,7 +54,7 @@ describe('build.ts', () => {
         `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme RNDemo -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build -quiet`,
         {
           stdio: 'inherit',
-          env,
+          env: { ENTRY_FILE },
         }
       );
     });
@@ -68,7 +64,7 @@ describe('build.ts', () => {
         ios: {
           buildCommand: "echo 'Hello World'",
           device: 'iPhone Simulator',
-          env,
+          env: { ENTRY_FILE },
         },
       };
 
@@ -77,7 +73,7 @@ describe('build.ts', () => {
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(`echo 'Hello World'`, {
         stdio: 'inherit',
-        env,
+        env: { ENTRY_FILE },
       });
     });
   });
@@ -87,7 +83,7 @@ describe('build.ts', () => {
       const config: Config & { android: { env: ConfigEnv } } = {
         android: {
           packageName: 'com.rndemo',
-          env,
+          env: { ENTRY_FILE },
         },
       };
 
@@ -99,7 +95,7 @@ describe('build.ts', () => {
         {
           stdio: 'inherit',
           cwd: path.join(process.cwd(), 'android'),
-          env,
+          env: { ENTRY_FILE },
         }
       );
     });
@@ -109,7 +105,7 @@ describe('build.ts', () => {
         android: {
           packageName: 'com.rndemo',
           quiet: true,
-          env,
+          env: { ENTRY_FILE },
         },
       };
 
@@ -121,7 +117,7 @@ describe('build.ts', () => {
         {
           stdio: 'inherit',
           cwd: path.join(process.cwd(), 'android'),
-          env,
+          env: { ENTRY_FILE },
         }
       );
     });
@@ -131,7 +127,7 @@ describe('build.ts', () => {
         android: {
           packageName: 'com.rndemo',
           buildCommand: "echo 'Hello World'",
-          env,
+          env: { ENTRY_FILE },
         },
       };
 
@@ -142,7 +138,7 @@ describe('build.ts', () => {
         `echo 'Hello World' -PisOwlBuild=true`,
         {
           stdio: 'inherit',
-          env,
+          env: { ENTRY_FILE },
         }
       );
     });
