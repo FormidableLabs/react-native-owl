@@ -109,7 +109,7 @@ describe('run.ts', () => {
     });
   });
 
-  describe('cleanupIOS', () => {
+  describe('restoreIOSUI', () => {
     it('cleans up an iOS project', async () => {
       const cwd = path.join(
         process.cwd(),
@@ -127,7 +127,7 @@ describe('run.ts', () => {
         },
       };
 
-      await run.cleanupIOS(config, logger);
+      await run.restoreIOSUI(config, logger);
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
@@ -226,7 +226,7 @@ describe('run.ts', () => {
     });
   });
 
-  describe('cleanupAndroid', () => {
+  describe('restoreAndroidUI', () => {
     it('clean up an Android project', async () => {
       const config: Config = {
         android: {
@@ -234,7 +234,7 @@ describe('run.ts', () => {
         },
       };
 
-      await run.cleanupAndroid(config, logger);
+      await run.restoreAndroidUI(config, logger);
 
       expect(execMock).toHaveBeenNthCalledWith(
         1,
@@ -306,8 +306,8 @@ describe('run.ts', () => {
     it('runs an iOS project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
       const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
-      const mockCleanupIOS = jest
-        .spyOn(run, 'cleanupIOS')
+      const mockRestoreIOSUI = jest
+        .spyOn(run, 'restoreIOSUI')
         .mockResolvedValueOnce();
 
       await run.runHandler(args);
@@ -323,7 +323,7 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
-      await expect(mockCleanupIOS).toHaveBeenCalled();
+      await expect(mockRestoreIOSUI).toHaveBeenCalled();
     });
 
     it('runs an Android project', async () => {
@@ -331,8 +331,8 @@ describe('run.ts', () => {
       const mockRunAndroid = jest
         .spyOn(run, 'runAndroid')
         .mockResolvedValueOnce();
-      const mockCleanupAndroid = jest
-        .spyOn(run, 'cleanupAndroid')
+      const mockRestoreAndroidUI = jest
+        .spyOn(run, 'restoreAndroidUI')
         .mockResolvedValueOnce();
 
       await run.runHandler({ ...args, platform: 'android' });
@@ -348,7 +348,7 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
-      await expect(mockCleanupAndroid).toHaveBeenCalled();
+      await expect(mockRestoreAndroidUI).toHaveBeenCalled();
     });
 
     it('runs with the update baseline flag on', async () => {

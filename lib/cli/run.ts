@@ -2,7 +2,7 @@ import path from 'path';
 import execa from 'execa';
 
 import { CliRunOptions, Config } from '../types';
-import { generateReport, removeReport } from '../report';
+import { generateReport, cleanupReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
 import { cleanupScreenshots } from '../screenshot';
@@ -43,7 +43,7 @@ export const runIOS = async (config: Config, logger: Logger) => {
   await execa.command(`${appearanceCommand} light`, { stdio, cwd });
 };
 
-export const cleanupIOS = async (config: Config, logger: Logger) => {
+export const restoreIOSUI = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
   const DEFAULT_BINARY_DIR = `/ios/build/Build/Products/${config.ios?.configuration}-iphonesimulator`;
   const cwd = config.ios?.binaryPath
@@ -101,7 +101,7 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   await execa.command(launchCommand, { stdio });
 };
 
-export const cleanupAndroid = async (config: Config, logger: Logger) => {
+export const restoreAndroidUI = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
 
   const exitDemoModeCommand =
@@ -115,10 +115,11 @@ export const runHandler = async (args: CliRunOptions) => {
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
-  const cleanupProject = args.platform === 'ios' ? cleanupIOS : cleanupAndroid;
+  const restoreSimulatorUI =
+    args.platform === 'ios' ? restoreIOSUI : restoreAndroidUI;
 
   // Remove old report and screenshots
-  await removeReport();
+  await cleanupReport();
   await cleanupScreenshots();
 
   logger.print(`[OWL - CLI] Starting websocket server.`);
@@ -169,7 +170,7 @@ export const runHandler = async (args: CliRunOptions) => {
 
     webSocketProcess.kill();
 
-    await cleanupProject(config, logger);
+    await restoreSimulatorUI(config, logger);
 
     logger.print(`[OWL - CLI] Tests completed on ${args.platform}.`);
 

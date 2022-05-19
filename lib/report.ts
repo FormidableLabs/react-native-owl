@@ -6,7 +6,7 @@ import { Logger } from './logger';
 import { Platform } from './types';
 import { fileExists } from './utils/file-exists';
 
-export const removeReport = async () => {
+export const cleanupReport = async () => {
   const cwd = process.cwd();
   const reportDirPath = path.join(cwd, '.owl', 'report');
 
