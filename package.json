@@ -13,9 +13,11 @@
     "README.md"
   ],
   "scripts": {
-    "build": "yarn postbuild && tsc",
-    "postbuild": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
-    "watch": "yarn postbuild && tsc --watch",
+    "prepare:report": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
+    "prebuild": "yarn prepare:report",
+    "build": "tsc",
+    "prewatch": "yarn prepare:report",
+    "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
     "test": "yarn jest"
@@ -28,9 +30,6 @@
     "testEnvironment": "node",
     "testMatch": [
       "**/lib/**/*.test.[jt]s"
-    ],
-    "modulePaths": [
-      "<rootDir>/example/node_modules"
     ]
   },
   "dependencies": {
@@ -52,11 +51,9 @@
     "jest": "^26.6.3",
     "jest-websocket-mock": "^2.3.0",
     "prettier": "^2.4.1",
+    "react": "^18.1.0",
+    "react-native": "^0.68.2",
     "ts-jest": "^26.4.4",
     "typescript": "^4.4.4"
-  },
-  "peerDependencies": {
-    "react": "x",
-    "react-native": "x"
   }
 }
