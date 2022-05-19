@@ -47,7 +47,7 @@ To use a local version of react-native-owl, first, navigate to the top level of 
 yarn build # or watch
 ```
 
-Now, the example app will be using the local version of react-native-owl.
+Now, the _example_ app will be using the local version of react-native-owl.
 
 ## Scripts
 

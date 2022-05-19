@@ -1,11 +1,12 @@
 import path from 'path';
 import execa from 'execa';
 
+import { cleanupScreenshots } from '../screenshot';
 import { CliRunOptions, Config } from '../types';
 import { generateReport, cleanupReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
-import { cleanupScreenshots } from '../screenshot';
+import { waitFor } from '../utils/wait-for';
 
 export const runIOS = async (config: Config, logger: Logger) => {
   const stdio = config.debug ? 'inherit' : 'ignore';
@@ -99,7 +100,7 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   await execa.command(setBatteryCommand, { stdio });
 
   // Brief pause so the bars update
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  await waitFor(500);
 
   const launchCommand = `adb shell monkey -p "${packageName}" -c android.intent.category.LAUNCHER 1`;
   await execa.command(launchCommand, { stdio });
