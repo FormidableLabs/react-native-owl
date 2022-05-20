@@ -125,12 +125,12 @@ jobs:
       - name: Emulator - Boot
         run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_30_AOSP &
 
+      - name: ADB Wait For Device
+        run: timeout 60 adb wait-for-any-device
+
       - name: Run Owl Build
         run: yarn owl:build:android
         working-directory: ./example
-
-      - name: ADB Devices
-        run: adb devices
 
       - name: Run Owl Test
         run: yarn owl:test:android
