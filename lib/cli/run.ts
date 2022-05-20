@@ -74,36 +74,10 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   const installCommand = `adb install -r ${appPath}`;
   await execa.command(installCommand, { stdio });
 
-  // ADB demo mode
-  const enableDemoModeCommand =
-    'adb shell settings put global sysui_demo_allowed 1';
-  await execa.command(enableDemoModeCommand, { stdio });
-
-  const enterDemoModeCommand =
-    'adb shell am broadcast -a com.android.systemui.demo -e command enter';
-  await execa.command(enterDemoModeCommand, { stdio });
-
-  const setTimeCommand =
-    'adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941';
-  await execa.command(setTimeCommand, { stdio });
-
-  const setWifiCommand =
-    'adb shell am broadcast -a com.android.systemui.demo -e command network -e wifi show -e level 4';
-  await execa.command(setWifiCommand, { stdio });
-
-  const setBarsCommand =
-    'adb shell am broadcast -a com.android.systemui.demo -e command bars -e mode translucent';
-  await execa.command(setBarsCommand, { stdio });
-
-  const setBatteryCommand =
-    'adb shell am broadcast -a com.android.systemui.demo -e command battery -e level 100';
-  await execa.command(setBatteryCommand, { stdio });
-
-  // Brief pause so the bars update
-  await waitFor(500);
-
   const launchCommand = `adb shell monkey -p "${packageName}" -c android.intent.category.LAUNCHER 1`;
   await execa.command(launchCommand, { stdio });
+
+  await waitFor(500);
 };
 
 export const restoreAndroidUI = async (config: Config, logger: Logger) => {
