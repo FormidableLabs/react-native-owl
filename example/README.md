@@ -40,14 +40,14 @@ yarn android
 
 ## Development
 
-To use a local version of react-native-owl, first, navigate to the local directory of react-native-owl(one level up from the current directory) and run the following command:
+To use a local version of react-native-owl, first, navigate to the top level of the repository (one level up from the current directory) and run the following commands:
 
 ```sh
 # Assuming you are inside react-native-owl - ie. ~/Projects/react-native-owl
-yarn watch
+yarn build # or watch
 ```
 
-Now, this example/demo app will be using the local version of react-native-owl.
+Now, the _example_ app will be using the local version of react-native-owl.
 
 ## Scripts
 

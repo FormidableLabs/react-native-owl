@@ -3,15 +3,18 @@
  * and scoped locally.
  */
 
-.heroBanner {
+.hero {
+  color: var(--ifm-color-white);
+  background-color: var(--brand-blue);
   position: relative;
+  padding: 1.5rem;
+  margin-bottom: 5rem;
   z-index: 1;
-  padding: 2rem;
-  margin-bottom: 3rem;
 }
 
-.heroBanner:after {
+.hero:after {
   background: inherit;
+  border-bottom: 10px solid var(--brand-orange);
   content: '';
   display: block;
   height: 50%;
@@ -26,10 +29,36 @@
   -webkit-backface-visibility: hidden;
 }
 
-@media screen and (min-width: 966px) {
-  .heroBanner {
-    padding: 2rem 0 4rem;
-    margin-bottom: 5rem;
+@media (min-width: 1416px) {
+  .hero {
+    padding: 3rem 0 4rem;
+    margin-bottom: 10rem;
+  }
+}
+
+.heroSubtitle {
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.logoBadge {
+  max-width: 8rem;
+  margin-bottom: 0.75rem;
+}
+
+.codeSample {
+  width: 100%;
+}
+
+.codeSampleWrapper {
+  margin-top: 2rem;
+}
+
+@media (min-width: 1025px) {
+  .codeSampleWrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 0;
   }
 }
 
@@ -38,19 +67,10 @@
   align-items: center;
 }
 
-.logoBadge {
-  max-width: 8rem;
-  margin-bottom: 0.75rem;
-}
-
-.codeSampleWrapper {
-  margin-top: 2rem;
-}
-
-@media screen and (min-width: 1025px) {
-  .codeSampleWrapper {
-    display: flex;
-    align-items: center;
-    margin-top: 0;
-  }
+.buttons .ctaButton {
+  border-radius: 3px;
+  border-color: var(--brand-orange);
+  background-color: var(--brand-orange);
+  color: white;
+  padding: 0.75rem 1.75rem;
 }

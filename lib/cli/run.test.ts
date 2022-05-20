@@ -12,13 +12,16 @@ describe('run.ts', () => {
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
   const mockBundleIdResponse = { stdout: bundleIdIOS } as ExecaReturnValue<any>;
 
-  describe('runOS', () => {
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
+  const execKillMock = {
+    kill: jest.fn(),
+  } as unknown as execa.ExecaChildProcess<any>;
+  const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
-    beforeEach(() => {
-      execMock.mockReset();
-    });
+  beforeEach(() => {
+    execMock.mockReset().mockReturnValue(execKillMock);
+  });
 
+  describe('runIOS', () => {
     it('runs an iOS project - with the default build command', async () => {
       const cwd = path.join(
         process.cwd(),
@@ -106,20 +109,42 @@ describe('run.ts', () => {
     });
   });
 
+  describe('restoreIOSUI', () => {
+    it('cleans up an iOS project', async () => {
+      const cwd = path.join(
+        process.cwd(),
+        '/ios/build/Build/Products/Debug-iphonesimulator'
+      );
+
+      execMock.mockResolvedValueOnce(mockBundleIdResponse);
+
+      const config: Config = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'RNDemo',
+          configuration: 'Debug',
+          device: 'iPhone Simulator',
+        },
+      };
+
+      await run.restoreIOSUI(config, logger);
+
+      expect(execMock).toHaveBeenNthCalledWith(
+        1,
+        'xcrun simctl status_bar iPhone\\ Simulator clear',
+        { cwd, stdio: 'ignore' }
+      );
+    });
+  });
+
   describe('runAndroid', () => {
     const cwd = path.join(
       process.cwd(),
-      '/android/app/build/outputs/apk/debug'
+      '/android/app/build/outputs/apk/release'
     );
 
-    const execMock = jest.spyOn(execa, 'command').mockImplementation();
-
-    beforeEach(() => {
-      execMock.mockReset();
-    });
-
     it('runs an Android project - with the default build command', async () => {
-      const appPath = path.join(cwd, 'app-debug.apk');
+      const appPath = path.join(cwd, 'app-release.apk');
 
       const config: Config = {
         android: {
@@ -130,23 +155,19 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
-        stdio: 'ignore',
-      });
-
-      expect(execMock).toHaveBeenNthCalledWith(2, `adb install -r ${appPath}`, {
+      expect(execMock).toHaveBeenNthCalledWith(1, `adb install -r ${appPath}`, {
         stdio: 'ignore',
       });
 
       expect(execMock).toHaveBeenNthCalledWith(
-        3,
+        2,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );
     });
 
     it('runs an Android project - with a custom build command', async () => {
-      const binaryPath = '/Users/Demo/Desktop/app-debug.apk';
+      const binaryPath = '/Users/Demo/Desktop/app-release.apk';
 
       const config: Config = {
         android: {
@@ -158,22 +179,12 @@ describe('run.ts', () => {
 
       await run.runAndroid(config, logger);
 
-      expect(execMock).toHaveBeenNthCalledWith(1, `adb shell date 01010941`, {
-        stdio: 'ignore',
-      });
-
       expect(execMock).toHaveBeenNthCalledWith(
-        2,
+        1,
         `adb install -r ${binaryPath}`,
         {
           stdio: 'ignore',
         }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        3,
-        `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
-        { stdio: 'ignore' }
       );
     });
   });
@@ -216,6 +227,9 @@ describe('run.ts', () => {
     it('runs an iOS project', async () => {
       jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
       const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+      const mockRestoreIOSUI = jest
+        .spyOn(run, 'restoreIOSUI')
+        .mockResolvedValueOnce();
 
       await run.runHandler(args);
 
@@ -224,11 +238,13 @@ describe('run.ts', () => {
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
         env: {
           OWL_DEBUG: 'false',
+          OWL_IOS_SIMULATOR: 'iPhone Simulator',
           OWL_PLATFORM: 'ios',
           OWL_UPDATE_BASELINE: 'false',
         },
         stdio: 'inherit',
       });
+      await expect(mockRestoreIOSUI).toHaveBeenCalled();
     });
 
     it('runs an Android project', async () => {
@@ -244,6 +260,7 @@ describe('run.ts', () => {
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
         env: {
           OWL_DEBUG: 'false',
+          OWL_IOS_SIMULATOR: 'iPhone Simulator',
           OWL_PLATFORM: 'android',
           OWL_UPDATE_BASELINE: 'false',
         },
@@ -262,11 +279,22 @@ describe('run.ts', () => {
       await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
         env: {
           OWL_DEBUG: 'false',
+          OWL_IOS_SIMULATOR: 'iPhone Simulator',
           OWL_PLATFORM: 'ios',
           OWL_UPDATE_BASELINE: 'true',
         },
         stdio: 'inherit',
       });
+    });
+
+    it('runs the scripts/websocket-server.js script', async () => {
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+
+      await run.runHandler({ ...args });
+
+      await expect(execMock.mock.calls[0][0]).toEqual(
+        'node scripts/websocket-server.js'
+      );
     });
 
     it('runs generates the report if the config is set to on', async () => {
@@ -307,22 +335,6 @@ describe('run.ts', () => {
         await expect(commandSyncMock).toHaveBeenCalledTimes(1);
         await expect(mockGenerateReport).not.toHaveBeenCalled();
       }
-    });
-
-    it('does not generate the report if the tests pass', async () => {
-      const caseConfig: Config = {
-        ...config,
-        report: true,
-      };
-
-      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(caseConfig);
-      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
-
-      await run.runHandler({ ...args, update: true });
-
-      await expect(mockRunIOS).toHaveBeenCalled();
-      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(mockGenerateReport).not.toHaveBeenCalled();
     });
   });
 });

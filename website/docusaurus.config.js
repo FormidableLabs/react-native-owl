@@ -8,13 +8,13 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'React Native Owl',
   tagline: 'Visual Regression Testing for React Native',
-  url: 'https://formidable.com/open-source/react-native-owl/',
-  baseUrl: '/',
+  url: 'https://formidable.com',
+  baseUrl: '/open-source/react-native-owl/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'images/favicon.ico',
-  organizationName: 'FormidableLabs', // Usually your GitHub org/user name.
-  projectName: 'react-native-owl', // Usually your repo name.
+  organizationName: 'FormidableLabs',
+  projectName: 'react-native-owl',
 
   presets: [
     [
@@ -24,7 +24,6 @@ const config = {
         docs: {
           path: '../docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/FormidableLabs/react-native-owl/edit/main/website/',
           remarkPlugins: [
@@ -44,10 +43,16 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: '/images/social.png',
       colorMode: {
         defaultMode: 'light',
         disableSwitch: true,
         respectPrefersColorScheme: false,
+      },
+      announcementBar: {
+        id: 'announcement-blogpost',
+        content: `Read the announcement "<strong><a target="_blank" href="/blog/2022/react-native-owl/">We're Building a Visual Regression Testing Library for React Native</a></strong>" in our blog.`,
+        isCloseable: false,
       },
       navbar: {
         style: 'dark',
@@ -71,7 +76,7 @@ const config = {
               },
               {
                 label: 'CLI',
-                to: '/docs/cli/build/',
+                to: '/docs/cli/building-the-app/',
               },
               {
                 label: 'Methods',
@@ -85,18 +90,20 @@ const config = {
           },
           {
             href: 'https://github.com/FormidableLabs/react-native-owl',
-
             className: 'header-github-link',
             'aria-label': 'GitHub Repository',
+            position: 'right',
+          },
+          {
+            href: 'https://formidable.com',
+            className: 'header-formidable-link',
+            'aria-label': 'Formidable Website',
             position: 'right',
           },
         ],
       },
       footer: {
         style: 'dark',
-        logo: {
-          href: 'https://www.formidable.com/',
-        },
         links: [
           {
             title: null,
@@ -111,7 +118,7 @@ const config = {
               },
               {
                 label: 'CLI',
-                to: '/docs/cli/build/',
+                to: '/docs/cli/building-the-app/',
               },
               {
                 label: 'Methods',
@@ -126,6 +133,7 @@ const config = {
         ],
       },
       prism: {
+        defaultLanguage: 'javascript',
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },

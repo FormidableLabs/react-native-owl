@@ -31,7 +31,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
         properties: {
           packageName: { type: 'string' },
           buildCommand: { type: 'string', nullable: true },
-          buildType: { type: 'string', nullable: true, default: 'Debug' },
+          buildType: { type: 'string', nullable: true, default: 'Release' },
           binaryPath: { type: 'string', nullable: true },
           quiet: { type: 'boolean', nullable: true },
         },
@@ -70,7 +70,9 @@ export const readConfigFile = async (configPath: string) => {
     const parsedConfig = JSON.parse(configString);
     return parsedConfig;
   } catch (err) {
-    throw new Error(`Could not load the config at ${configPath}`);
+    throw new Error(
+      `Could not load the config at ${configPath}. For an example see https://formidable.com/open-source/react-native-owl/docs/introduction/config-file/`
+    );
   }
 };
 

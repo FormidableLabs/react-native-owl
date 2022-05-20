@@ -9,7 +9,9 @@ import styles from './styles.module.css';
 const LogoBadge = require('../../../static/images/badge.svg').default;
 
 const heroExample = `describe('App.tsx', () => {
-  it('takes a screenshot of the first screen', async () => {
+  it('presses a button & takes a screenshot', async () => {
+    await press('button');
+
     const screen = await takeScreenshot('homescreen');
 
     expect(screen).toMatchBaseline();
@@ -20,16 +22,17 @@ export const Hero = () => {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx('hero hero--dark', styles.heroBanner)}>
+    <header className={styles.hero}>
       <div className="container">
         <div className="row">
           <div className="col col--6">
             <LogoBadge className={styles.logoBadge} />
             <h1 className="hero__title">{siteConfig.title}</h1>
-            <p className="hero__subtitle">{siteConfig.tagline}</p>
+            <h2 className={styles.heroSubtitle}>{siteConfig.tagline}</h2>
+
             <div className={styles.buttons}>
               <Link
-                className="button button--secondary button--lg"
+                className={`button button--secondary button--lg ${styles.ctaButton}`}
                 to="/docs/introduction/getting-started"
               >
                 Get Started
@@ -38,9 +41,7 @@ export const Hero = () => {
           </div>
 
           <div className={clsx('col col--6', styles.codeSampleWrapper)}>
-            <CodeBlock title="App.owl.ts" className="typescript">
-              {heroExample}
-            </CodeBlock>
+            <CodeBlock className={styles.codeSample}>{heroExample}</CodeBlock>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 {
   "name": "react-native-owl",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Visual regression testing for React Native",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,11 +9,14 @@
   },
   "files": [
     "dist/",
+    "scripts/",
     "README.md"
   ],
   "scripts": {
+    "prepare:report": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
+    "prebuild": "yarn prepare:report",
     "build": "tsc",
-    "postbuild": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
+    "prewatch": "yarn prepare:report",
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
@@ -35,15 +38,21 @@
     "handlebars": "^4.7.7",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",
+    "ws": "^8.2.3",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.19",
     "@types/pixelmatch": "^5.2.4",
     "@types/pngjs": "^6.0.1",
+    "@types/react-native": "^0.65.x",
+    "@types/ws": "^8.2.0",
     "@types/yargs": "^17.0.5",
     "jest": "^26.6.3",
+    "jest-websocket-mock": "^2.3.0",
     "prettier": "^2.4.1",
+    "react": "^18.1.0",
+    "react-native": "^0.68.2",
     "ts-jest": "^26.4.4",
     "typescript": "^4.4.4"
   }

@@ -165,7 +165,7 @@ describe('config.ts', () => {
       const call = async () => await readConfigFile(filePath);
 
       await expect(call()).rejects.toThrow(
-        `Could not load the config at ${filePath}`
+        `Could not load the config at ${filePath}. For an example see https://formidable.com/open-source/react-native-owl/docs/introduction/config-file/`
       );
     });
   });
