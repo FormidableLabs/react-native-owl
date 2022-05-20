@@ -45,9 +45,9 @@ export const buildAndroid = async (
     ? [config.android?.buildCommand]
     : [
         `./gradlew`,
-        config.android?.buildType === 'Release'
-          ? `assembleRelease`
-          : 'assembleDebug',
+        config.android?.buildType === 'Debug'
+          ? `assembleDebug`
+          : 'assembleRelease',
         '--console plain',
       ];
 
