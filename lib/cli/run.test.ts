@@ -232,48 +232,6 @@ describe('run.ts', () => {
     });
   });
 
-  describe('restoreAndroidUI', () => {
-    it('clean up an Android project', async () => {
-      const config: Config = {
-        android: {
-          packageName: 'com.rndemo',
-        },
-      };
-
-      await run.restoreAndroidUI(config, logger);
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        1,
-        'adb shell am broadcast -a com.android.systemui.demo -e command exit',
-        {
-          stdio: 'ignore',
-        }
-      );
-    });
-
-    it('runs an Android project - with a custom build command', async () => {
-      const binaryPath = '/Users/Demo/Desktop/app-release.apk';
-
-      const config: Config = {
-        android: {
-          packageName: 'com.rndemo',
-          buildCommand: './gradlew example',
-          binaryPath,
-        },
-      };
-
-      await run.runAndroid(config, logger);
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        1,
-        `adb install -r ${binaryPath}`,
-        {
-          stdio: 'ignore',
-        }
-      );
-    });
-  });
-
   describe('runHandler', () => {
     const args = {
       platform: 'ios',
@@ -337,9 +295,6 @@ describe('run.ts', () => {
       const mockRunAndroid = jest
         .spyOn(run, 'runAndroid')
         .mockResolvedValueOnce();
-      const mockRestoreAndroidUI = jest
-        .spyOn(run, 'restoreAndroidUI')
-        .mockResolvedValueOnce();
 
       await run.runHandler({ ...args, platform: 'android' });
 
@@ -354,7 +309,6 @@ describe('run.ts', () => {
         },
         stdio: 'inherit',
       });
-      await expect(mockRestoreAndroidUI).toHaveBeenCalled();
     });
 
     it('runs with the update baseline flag on', async () => {

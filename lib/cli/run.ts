@@ -80,22 +80,11 @@ export const runAndroid = async (config: Config, logger: Logger) => {
   await waitFor(500);
 };
 
-export const restoreAndroidUI = async (config: Config, logger: Logger) => {
-  const stdio = config.debug ? 'inherit' : 'ignore';
-
-  const exitDemoModeCommand =
-    'adb shell am broadcast -a com.android.systemui.demo -e command exit';
-  await execa.command(exitDemoModeCommand, { stdio });
-
-  logger.print(`[OWL - CLI] Exited emulator demo mode`);
-};
-
 export const runHandler = async (args: CliRunOptions) => {
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
-  const restoreSimulatorUI =
-    args.platform === 'ios' ? restoreIOSUI : restoreAndroidUI;
+  const restoreSimulatorUI = args.platform === 'ios' && restoreIOSUI;
 
   // Remove old report and screenshots
   await cleanupReport();
@@ -149,7 +138,9 @@ export const runHandler = async (args: CliRunOptions) => {
 
     webSocketProcess.kill();
 
-    await restoreSimulatorUI(config, logger);
+    if (restoreSimulatorUI) {
+      await restoreSimulatorUI(config, logger);
+    }
 
     logger.print(`[OWL - CLI] Tests completed on ${args.platform}.`);
 
