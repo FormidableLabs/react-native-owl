@@ -129,9 +129,6 @@ jobs:
         run: yarn owl:build:android
         working-directory: ./example
 
-      - name: Emulator / ADB Root
-        run: adb root
-
       - name: Run Owl Test
         run: yarn owl:test:android
         working-directory: ./example
