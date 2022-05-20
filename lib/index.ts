@@ -1,3 +1,11 @@
 import './matchers';
 
-export { takeScreenshot } from './take-screenshot';
+export { takeScreenshot } from './screenshot';
+export {
+  press,
+  longPress,
+  changeText,
+  scrollTo,
+  scrollToEnd,
+  toExist,
+} from './actions';

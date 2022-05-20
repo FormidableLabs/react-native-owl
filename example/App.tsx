@@ -10,11 +10,14 @@
 
 import React from 'react';
 import {
+  ActivityIndicator,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -58,11 +61,27 @@ const Section: React.FC<{
 };
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [isDarkMode, setIsDarkMode] = React.useState(
+    useColorScheme() === 'dark'
+  );
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const [text, setText] = React.useState('');
+  const [isLongPressed, setIsLongPressed] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isLoading) {
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsLoaded(true);
+      }, 1500);
+    }
+  }, [isLoading]);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -70,6 +89,7 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
+        testID="ScrollView"
       >
         <Header />
         <View
@@ -77,6 +97,37 @@ const App = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}
         >
+          <View>
+            {!isLoaded && !isLoading && (
+              <Pressable
+                testID="Pressable"
+                onPress={() => setIsLoading(true)}
+                onLongPress={() => setIsLongPressed(true)}
+              >
+                <Text>PressMe</Text>
+              </Pressable>
+            )}
+
+            {isLoading && <ActivityIndicator />}
+
+            {isLongPressed && !isLoading && !isLoaded && (
+              <Text>Long Pressed</Text>
+            )}
+
+            {!isLoading && isLoaded && (
+              <View>
+                <Text>Some content and a TextInput</Text>
+
+                <TextInput
+                  testID="TextInput"
+                  placeholder="Type something here"
+                  onChangeText={setText}
+                  value={text}
+                  style={styles.textInput}
+                />
+              </View>
+            )}
+          </View>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
@@ -113,6 +164,9 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  textInput: {
+    borderWidth: 1,
   },
 });
 

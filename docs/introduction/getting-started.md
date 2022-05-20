@@ -39,11 +39,21 @@ Use the [takeScreenshot](/docs/api/methods#takescreenshotname-string) and [.toMa
 #### Example
 
 ```js
-import { takeScreenshot } from 'react-native-owl';
+import { press, takeScreenshot } from 'react-native-owl';
 
 describe('App.tsx', () => {
   it('takes a screenshot of the first screen', async () => {
     const screen = await takeScreenshot('homescreen');
+
+    expect(screen).toMatchBaseline();
+  });
+});
+
+describe('App.tsx', () => {
+  it('presses a button, then takes a screenshot', async () => {
+    await press('button')
+
+    const screen = await takeScreenshot('afterButtonPress');
 
     expect(screen).toMatchBaseline();
   });
@@ -70,8 +80,6 @@ yarn owl build --platform ios
 
   </TabItem>
 </Tabs>
-
-### Work-In-Progress
 
 :::info
 

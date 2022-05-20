@@ -13,6 +13,10 @@ export interface CliRunOptions extends Arguments {
   update: boolean;
 }
 
+export type ConfigEnv = {
+  ENTRY_FILE?: string;
+};
+
 type ConfigIOS = {
   /** The workspace to build. */
   workspace?: string;

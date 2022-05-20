@@ -31,48 +31,61 @@ export const toMatchBaseline = (latestPath: string) => {
     };
   }
 
-  const diffPath = path.join(
-    screenshotsDir,
-    'diff',
-    platform,
-    path.basename(latestPath)
-  );
+  try {
+    const diffPath = path.join(
+      screenshotsDir,
+      'diff',
+      platform,
+      path.basename(latestPath)
+    );
+    fs.mkdirSync(path.dirname(diffPath), { recursive: true });
 
-  const baselineData = fs.readFileSync(baselinePath);
-  const baselineImage = PNG.sync.read(baselineData);
+    const baselineData = fs.readFileSync(baselinePath);
+    const baselineImage = PNG.sync.read(baselineData);
 
-  const latestData = fs.readFileSync(latestPath);
-  const latestImage = PNG.sync.read(latestData);
+    const latestData = fs.readFileSync(latestPath);
+    const latestImage = PNG.sync.read(latestData);
 
-  const diffImage = new PNG({
-    width: baselineImage.width,
-    height: baselineImage.height,
-  });
+    const diffImage = new PNG({
+      width: baselineImage.width,
+      height: baselineImage.height,
+    });
 
-  const diffPixelsCount = pixelmatch(
-    baselineImage.data,
-    latestImage.data,
-    diffImage.data,
-    baselineImage.width,
-    baselineImage.height
-  );
+    const diffPixelsCount = pixelmatch(
+      baselineImage.data,
+      latestImage.data,
+      diffImage.data,
+      baselineImage.width,
+      baselineImage.height
+    );
 
-  if (diffPixelsCount === 0) {
+    if (diffPixelsCount === 0) {
+      return {
+        message: () =>
+          `Compared screenshot to match baseline. No differences were found.`,
+        pass: true,
+      };
+    }
+
+    // Create and save the diff image
+    fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
+
     return {
       message: () =>
-        `Compared screenshot to match baseline. No differences were found.`,
-      pass: true,
+        `Compared screenshot to match baseline. ${diffPixelsCount} were different.`,
+      pass: diffPixelsCount === 0,
+    };
+  } catch (error) {
+    let message = 'Unknown error';
+    if (error instanceof Error) {
+      message = error.message;
+    }
+
+    return {
+      message: () => `Screenshot diffing error - ${message}`,
+      pass: false,
     };
   }
-
-  fs.mkdirSync(path.dirname(diffPath), { recursive: true });
-  fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
-
-  return {
-    message: () =>
-      `Compared screenshot to match baseline. ${diffPixelsCount} were different.`,
-    pass: diffPixelsCount === 0,
-  };
 };
 
 expect.extend({ toMatchBaseline });

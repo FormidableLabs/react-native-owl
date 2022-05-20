@@ -8,7 +8,7 @@ const logger = new Logger(!!debug);
   try {
     await startWebSocketServer(logger);
   } catch (e) {
-    logger.error(`[OWL] Websocket server failed to start: ${e}`);
+    logger.error(`[OWL - Websocket] Websocket server failed to start: ${e}`);
     process.exit(1);
   }
 })();

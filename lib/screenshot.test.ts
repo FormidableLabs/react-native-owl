@@ -2,14 +2,15 @@ import execa from 'execa';
 import path from 'path';
 import { promises as fs } from 'fs';
 
-import { takeScreenshot } from './take-screenshot';
+import { takeScreenshot } from './screenshot';
 import * as fileExistsHelpers from './utils/file-exists';
 
 const SCREENSHOT_FILENAME = 'screen';
 
-describe('take-screenshot.ts', () => {
+describe('screenshot.ts', () => {
   const commandMock = jest.spyOn(execa, 'command');
   const mkdirMock = jest.spyOn(fs, 'mkdir').mockImplementation();
+  const writeFileMock = jest.spyOn(fs, 'writeFile').mockImplementation();
 
   const cwdMock = jest
     .spyOn(process, 'cwd')
@@ -18,11 +19,13 @@ describe('take-screenshot.ts', () => {
   beforeAll(() => {
     delete process.env.OWL_PLATFORM;
     delete process.env.OWL_DEBUG;
+    delete process.env.OWL_IOS_SIMULATOR;
   });
 
   beforeEach(() => {
     commandMock.mockReset();
     mkdirMock.mockReset();
+    writeFileMock.mockReset();
   });
 
   afterAll(() => {
@@ -32,19 +35,21 @@ describe('take-screenshot.ts', () => {
   describe('Baseline', () => {
     beforeAll(() => {
       process.env.OWL_UPDATE_BASELINE = 'true';
+      process.env.OWL_IOS_SIMULATOR = undefined;
     });
 
     describe('iOS', () => {
       beforeAll(() => {
         process.env.OWL_PLATFORM = 'ios';
         process.env.OWL_DEBUG = 'false';
+        process.env.OWL_IOS_SIMULATOR = 'iPhone Simulator';
       });
 
       it('should take a screenshot', async () => {
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
-          'xcrun simctl io booted screenshot screen.png',
+          'xcrun simctl io iPhone\\ Simulator screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'baseline', 'ios'),
             shell: false,
@@ -104,15 +109,19 @@ describe('take-screenshot.ts', () => {
       beforeAll(() => {
         process.env.OWL_PLATFORM = 'ios';
         process.env.OWL_DEBUG = 'false';
+        process.env.OWL_IOS_SIMULATOR = 'iPhone Simulator';
       });
 
       it('should take a screenshot', async () => {
-        jest.spyOn(fileExistsHelpers, 'fileExists').mockResolvedValueOnce(true);
+        jest
+          .spyOn(fileExistsHelpers, 'fileExists')
+          .mockResolvedValueOnce(true)
+          .mockResolvedValueOnce(true);
 
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
-          'xcrun simctl io booted screenshot screen.png',
+          'xcrun simctl io iPhone\\ Simulator screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'latest', 'ios'),
             shell: false,
@@ -125,7 +134,7 @@ describe('take-screenshot.ts', () => {
         await takeScreenshot(SCREENSHOT_FILENAME);
 
         expect(commandMock).toHaveBeenCalledWith(
-          'xcrun simctl io booted screenshot screen.png',
+          'xcrun simctl io iPhone\\ Simulator screenshot screen.png',
           {
             cwd: path.join(process.cwd(), '.owl', 'baseline', 'ios'),
             shell: false,
@@ -142,7 +151,10 @@ describe('take-screenshot.ts', () => {
       });
 
       it('should take a screenshot', async () => {
-        jest.spyOn(fileExistsHelpers, 'fileExists').mockResolvedValueOnce(true);
+        jest
+          .spyOn(fileExistsHelpers, 'fileExists')
+          .mockResolvedValueOnce(true)
+          .mockResolvedValueOnce(true);
 
         await takeScreenshot(SCREENSHOT_FILENAME);
 

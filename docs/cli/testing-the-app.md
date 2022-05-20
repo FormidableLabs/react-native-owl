@@ -108,7 +108,7 @@ The following will be included the the output of failed tests:
 
 ```
 ...
-[OWL] Generating Report
-[OWL] Report was built at /Users/username/Code/FormidableLabs/react-native-owl/example/.owl/report/index.html
+[OWL - CLI] Generating Report
+[OWL - CLI] Report was built at /Users/username/Code/FormidableLabs/react-native-owl/example/.owl/report/index.html
 ...
 ```
