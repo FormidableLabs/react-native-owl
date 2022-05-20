@@ -160,50 +160,6 @@ describe('run.ts', () => {
 
       expect(execMock).toHaveBeenNthCalledWith(
         2,
-        `adb shell settings put global sysui_demo_allowed 1`,
-        {
-          stdio: 'ignore',
-        }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        3,
-        `adb shell am broadcast -a com.android.systemui.demo -e command enter`,
-        {
-          stdio: 'ignore',
-        }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        4,
-        `adb shell am broadcast -a com.android.systemui.demo -e command clock -e hhmm 0941`,
-        {
-          stdio: 'ignore',
-        }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        5,
-        `adb shell am broadcast -a com.android.systemui.demo -e command network -e wifi show -e level 4`,
-        {
-          stdio: 'ignore',
-        }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        6,
-        `adb shell am broadcast -a com.android.systemui.demo -e command bars -e mode translucent`,
-        { stdio: 'ignore' }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        7,
-        `adb shell am broadcast -a com.android.systemui.demo -e command battery -e level 100`,
-        { stdio: 'ignore' }
-      );
-
-      expect(execMock).toHaveBeenNthCalledWith(
-        8,
         `adb shell monkey -p \"com.rndemo\" -c android.intent.category.LAUNCHER 1`,
         { stdio: 'ignore' }
       );
