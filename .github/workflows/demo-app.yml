@@ -126,7 +126,7 @@ jobs:
         run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_30_AOSP &
 
       - name: ADB Wait For Device
-        run: timeout 60 adb wait-for-any-device
+        run: adb wait-for-any-device
         timeout-minutes: 1
 
       - name: Run Owl Build
