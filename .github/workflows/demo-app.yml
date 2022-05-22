@@ -127,7 +127,7 @@ jobs:
 
       - name: ADB Wait For Device
         run: timeout 60 adb wait-for-any-device
-        shell: bash
+        timeout-minutes: 1
 
       - name: Run Owl Build
         run: yarn owl:build:android
