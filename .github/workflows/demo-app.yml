@@ -121,7 +121,7 @@ jobs:
           profile: Nexus 5X
           disable-animations: true
           script: yarn owl:test:android
-        working-directory: ./example
+          working-directory: ./example
 
       - name: Store screenshots as artifacts
         uses: actions/upload-artifact@v2
