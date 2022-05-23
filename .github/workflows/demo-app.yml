@@ -117,7 +117,7 @@ jobs:
         run: y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
       - name: Emulator - Create
-        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 --device 'Pixel 2' --package "system-images;android-30;default;x86_64" --sdcard 128M
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 -d 'Pixel 2' --package "system-images;android-30;default;x86_64" --sdcard 128M
 
       - name: Emulator - List
         run: $ANDROID_HOME/emulator/emulator -list-avds
