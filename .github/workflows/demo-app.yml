@@ -127,7 +127,7 @@ jobs:
 
       - name: ADB Wait For Device
         run: adb wait-for-any-device
-        timeout-minutes: 1
+        timeout-minutes: 3
 
       - name: Run Owl Build
         run: yarn owl:build:android
