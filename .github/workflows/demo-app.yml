@@ -117,10 +117,10 @@ jobs:
         run: y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
       - name: Emulator - Create
-        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 --device 'Nexus 5X' --package "system-images;android-30;default;x86_64" -memory 2048 --sdcard 512M
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 --device 'Nexus 5X' --package "system-images;android-30;default;x86_64" --sdcard 512M
 
       - name: Emulator - Boot
-        run: $ANDROID_HOME/emulator/emulator -avd Pixel_API_30 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
+        run: $ANDROID_HOME/emulator/emulator -memory 2048 -avd Pixel_API_30 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
 
       - name: ADB Wait For Device
         run: adb wait-for-any-device
