@@ -149,6 +149,7 @@ describe('run.ts', () => {
       const config: Config = {
         android: {
           packageName: 'com.rndemo',
+          buildType: 'Release',
         },
       };
 

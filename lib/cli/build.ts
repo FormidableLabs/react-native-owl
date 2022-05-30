@@ -43,7 +43,13 @@ export const buildAndroid = async (
 ): Promise<void> => {
   const buildCommand = config.android?.buildCommand
     ? [config.android?.buildCommand]
-    : [`./gradlew`, `assembleRelease`];
+    : [
+        `./gradlew`,
+        config.android?.buildType === 'Debug'
+          ? `assembleDebug`
+          : 'assembleRelease',
+        '--console plain',
+      ];
 
   if (!config.android?.buildCommand && config.android?.quiet) {
     buildCommand.push('--quiet');
@@ -55,7 +61,7 @@ export const buildAndroid = async (
 
   const cwd = config.android?.buildCommand
     ? undefined
-    : path.join(process.cwd(), '/android');
+    : path.join(process.cwd(), 'android');
 
   logger.info(`[OWL - CLI] Building the app with: ${buildCommand.join(' ')}.`);
 

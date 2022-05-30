@@ -8,6 +8,7 @@
   },
   "android": {
     "packageName": "com.owldemo",
+    "buildType": "Release",
     "quiet": true
   },
   "debug": true,

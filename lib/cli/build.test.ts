@@ -91,7 +91,7 @@ describe('build.ts', () => {
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(
-        `./gradlew assembleRelease -PisOwlBuild=true`,
+        `./gradlew assembleRelease --console plain -PisOwlBuild=true`,
         {
           stdio: 'inherit',
           cwd: path.join(process.cwd(), 'android'),
@@ -113,7 +113,7 @@ describe('build.ts', () => {
 
       expect(execMock).toHaveBeenCalledTimes(1);
       expect(execMock).toHaveBeenCalledWith(
-        `./gradlew assembleRelease --quiet -PisOwlBuild=true`,
+        `./gradlew assembleRelease --console plain --quiet -PisOwlBuild=true`,
         {
           stdio: 'inherit',
           cwd: path.join(process.cwd(), 'android'),
