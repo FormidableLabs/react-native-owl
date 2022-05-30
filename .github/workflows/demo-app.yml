@@ -111,7 +111,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: SKDs - download required images
-        run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-30;default;x86_64"
+        run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-30;google;x86_64"
 
       - name: SDKs - accept licenses
         run: y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
