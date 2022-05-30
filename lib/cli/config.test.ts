@@ -181,6 +181,7 @@ describe('config.ts', () => {
         },
         android: {
           packageName: 'com.rndemo',
+          buildType: 'Debug',
         },
         debug: false,
         report: true,

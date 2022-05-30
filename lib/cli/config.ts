@@ -31,6 +31,7 @@ export const validateSchema = (config: {}): Promise<Config> => {
         properties: {
           packageName: { type: 'string' },
           buildCommand: { type: 'string', nullable: true },
+          buildType: { type: 'string', nullable: true, default: 'Release' },
           binaryPath: { type: 'string', nullable: true },
           quiet: { type: 'boolean', nullable: true },
         },
