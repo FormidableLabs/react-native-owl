@@ -117,7 +117,7 @@ jobs:
         run: y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
       - name: Emulator - Create
-        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 --device 'Nexus 5X' --package "system-images;android-30;default;x86_64" --sdcard 512M
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 --device 'Nexus 5X' --package "system-images;android-30;default;x86_64" --sdcard 1024M
 
       - name: Emulator - Boot
         run: $ANDROID_HOME/emulator/emulator -memory 6144 -avd Pixel_API_30 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
