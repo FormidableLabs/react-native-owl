@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  Image,
   Pressable,
   ScrollView,
   StatusBar,
@@ -45,7 +46,7 @@ const App = () => {
     >
       <StatusBar barStyle="dark-content" />
 
-      <View style={styles.logo} />
+      <Image source={require('./assets/logo.png')} style={styles.logo} />
 
       <View style={styles.header}>
         {!isLoaded && !isLoading && (
@@ -124,12 +125,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   logo: {
-    width: 120,
-    height: 120,
-    borderRadius: 120 / 2,
+    width: 175,
+    height: 175,
     alignSelf: 'center',
-    marginBottom: 20,
-    backgroundColor: colors.SLATE_500,
   },
   header: {
     marginVertical: 35,
