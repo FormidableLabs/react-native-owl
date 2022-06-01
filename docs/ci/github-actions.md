@@ -1,4 +1,21 @@
-name: Demo App
+---
+sidebar_position: 1
+---
+
+# GitHub Actions
+
+:::info
+
+With visual regression testing, it is all about **consistency**. Please make sure that you use the same simulator across environments. ie. Use the same emulator to generate the baseline images and the same (model) one on CI so that the library can compare the screenshots.
+
+:::
+
+### iOS
+
+To run the tests on an iOS simulator, you will need to use a [macOS based runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources).
+
+```yaml title=".github/workflows/visual-regression-ios.yml"
+name: Visual Regression - iOS
 
 on: [pull_request]
 
@@ -24,31 +41,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Dependencies (Library)
+      - name: Install Dependencies
         run: yarn install --frozen-lockfile
-        working-directory: ./
 
-      - name: Compile the library
-        run: yarn build
-        working-directory: ./
-
-      - name: Install Dependencies (Example App)
-        run: yarn install --frozen-lockfile
-        working-directory: ./example
-
-      - name: Install CocoaPods Gem
+      - name: Install CocoaPods
         run: gem install cocoapods -v 1.11.0
 
       - uses: actions/cache@v2
         with:
-          path: ./example/ios/Pods
+          path: ./ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Install Pods
+      - name: Install CocoaPods
         run: pod install
-        working-directory: ./example/ios
+        working-directory: ./ios
 
       - uses: futureware-tech/simulator-action@v1
         with:
@@ -57,22 +65,28 @@ jobs:
 
       - name: Run Owl Build
         run: yarn owl:build:ios
-        working-directory: ./example
 
       - name: Run Owl Test
         run: yarn owl:test:ios
-        working-directory: ./example
 
       - name: Store screenshots and report as artifacts
         uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: owl-results
-          path: example/.owl
+          path: ./.owl
+```
 
+### Android
+
+```yaml title=".github/workflows/visual-regression-android.yml"
+name: Visual Regression - Android
+
+on: [pull_request]
+
+jobs:
   run-visual-regression-android:
     runs-on: macos-11
-    if: ${{ false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -89,17 +103,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Dependencies (Library)
+      - name: Install Dependencies
         run: yarn install --frozen-lockfile
-        working-directory: ./
-
-      - name: Compile the library
-        run: yarn build
-        working-directory: ./
-
-      - name: Install Dependencies (Example App)
-        run: yarn install --frozen-lockfile
-        working-directory: ./example
 
       - uses: actions/cache@v2
         with:
@@ -128,15 +133,14 @@ jobs:
 
       - name: Run Owl Build
         run: yarn owl:build:android
-        working-directory: ./example
 
       - name: Run Owl Test
         run: yarn owl:test:android
-        working-directory: ./example
 
       - name: Store screenshots as artifacts
         uses: actions/upload-artifact@v2
         if: failure()
         with:
           name: owl-screenshots
-          path: example/.owl
+          path: ./.owl
+```
