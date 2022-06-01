@@ -38,10 +38,14 @@ export const runIOS = async (config: Config, logger: Logger) => {
   const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
   await execa.command(launchCommand, { stdio });
 
+  await waitFor(1000);
+
   // Workaround to force the virtual home button's color to become consistent
   const appearanceCommand = `xcrun simctl ui ${simulator} appearance`;
   await execa.command(`${appearanceCommand} dark`, { stdio, cwd });
+  await waitFor(500);
   await execa.command(`${appearanceCommand} light`, { stdio, cwd });
+  await waitFor(500);
 };
 
 export const restoreIOSUI = async (config: Config, logger: Logger) => {
