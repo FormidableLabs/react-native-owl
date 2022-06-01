@@ -6,7 +6,7 @@ sidebar_position: 1
 
 :::info
 
-With visual regression testing, it is all about **consistency**. Please make sure that you use the same simulator across environments. ie. Use the same emulator to generate the baseline images and the same (model) one on CI so that the library can compare the screenshots.
+With visual regression testing, it is all about **consistency**. Please make sure that you use the same simulator across environments. Use the same emulator configuration to generate the baseline images and for running the test suite on CI so that the library can compare the screenshots. The library will not be able to compare different sizes and resolutions of screenshots.
 
 :::
 
