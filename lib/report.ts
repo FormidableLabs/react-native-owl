@@ -3,7 +3,7 @@ import handlebars from 'handlebars';
 import { promises as fs } from 'fs';
 
 import { Logger } from './logger';
-import { Platform } from './types';
+import { JestReport, Platform, ReportStats } from './types';
 import { fileExists } from './utils/file-exists';
 
 export const cleanupReport = async () => {
@@ -16,6 +16,11 @@ export const cleanupReport = async () => {
 export const generateReport = async (logger: Logger, platform: Platform) => {
   const cwd = process.cwd();
   const reportDirPath = path.join(cwd, '.owl', 'report');
+
+  const jestOutputFilepath = path.join(reportDirPath, 'jest-report.json');
+  const jestOutputText = await fs.readFile(jestOutputFilepath, 'utf8');
+  const jestOutput = JSON.parse(jestOutputText) as JestReport;
+
   const diffScreenshotsDirPath = path.join(cwd, '.owl', 'diff', platform);
   const baselineScreenshotsDirPath = path.join(
     cwd,
@@ -44,6 +49,20 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
     (screenshot) => !failingScreenshots.includes(screenshot)
   );
 
+  const duration = (Date.now() - jestOutput.startTime) / 1000;
+  const durationFormatted = parseFloat(`${duration}`).toFixed(2);
+
+  const stats: ReportStats = {
+    totalTestSuites: jestOutput.numTotalTestSuites,
+    totalTests: jestOutput.numTotalTests,
+    failedTestSuites: jestOutput.numFailedTestSuites,
+    failedTests: jestOutput.numFailedTests,
+    passedTestSuites: jestOutput.numPassedTestSuites,
+    passedTests: jestOutput.numPassedTests,
+    duration: durationFormatted,
+    success: jestOutput.success,
+  };
+
   logger.info(`[OWL - CLI] Generating Report`);
 
   const reportFilename = 'index.html';
@@ -52,10 +71,11 @@ export const generateReport = async (logger: Logger, platform: Platform) => {
   const templateScript = handlebars.compile(htmlTemplate);
   const htmlContent = templateScript({
     currentYear: new Date().getFullYear(),
-    currentDateTime: new Date().toISOString(),
+    currentDateTime: new Date().toUTCString(),
     platform,
     failingScreenshots,
     passingScreenshots,
+    stats,
   });
 
   await fs.mkdir(reportDirPath, { recursive: true });

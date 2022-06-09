@@ -1,5 +1,6 @@
 import path from 'path';
 import execa from 'execa';
+import { promises as fs } from 'fs';
 
 import { cleanupScreenshots } from '../screenshot';
 import { CliRunOptions, Config } from '../types';
@@ -86,6 +87,7 @@ export const runAndroid = async (config: Config, logger: Logger) => {
 };
 
 export const runHandler = async (args: CliRunOptions) => {
+  const cwd = process.cwd();
   const config = await getConfig(args.config);
   const logger = new Logger(config.debug);
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
@@ -108,7 +110,23 @@ export const runHandler = async (args: CliRunOptions) => {
   await runProject(config, logger);
 
   const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
-  const jestCommand = `jest --config=${jestConfigPath} --roots=${process.cwd()} --runInBand`;
+  const jestCommandArgs = [
+    'jest',
+    `--config=${jestConfigPath}`,
+    `--roots=${process.cwd()}`,
+    '--runInBand',
+  ];
+
+  if (config.report) {
+    const reportDirPath = path.join(cwd, '.owl', 'report');
+    const outputFile = path.join(reportDirPath, 'jest-report.json');
+
+    await fs.mkdir(reportDirPath, { recursive: true });
+
+    jestCommandArgs.push(`--json --outputFile=${outputFile}`);
+  }
+
+  const jestCommand = jestCommandArgs.join(' ');
 
   logger.print(
     `[OWL - CLI] ${
