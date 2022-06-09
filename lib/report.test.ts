@@ -36,7 +36,9 @@ describe('report.ts', () => {
       .spyOn(handlebars, 'compile')
       .mockImplementationOnce(() => () => '<h1>Hello World Compiled</h1>');
 
-    readFileMock.mockResolvedValue(htmlTemplate);
+    readFileMock
+      .mockResolvedValueOnce('{}')
+      .mockResolvedValueOnce(htmlTemplate);
     mkdirMock.mockResolvedValue(undefined);
     readdirMock.mockResolvedValue([]);
 
@@ -61,7 +63,9 @@ describe('report.ts', () => {
       .spyOn(handlebars, 'compile')
       .mockImplementationOnce(() => () => '<h1>Hello World Compiled</h1>');
 
-    readFileMock.mockResolvedValue(htmlTemplate);
+    readFileMock
+      .mockResolvedValueOnce('{}')
+      .mockResolvedValueOnce(htmlTemplate);
     mkdirMock.mockResolvedValue(undefined);
     readdirMock.mockResolvedValue([]);
 

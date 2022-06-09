@@ -55,3 +55,32 @@ export type Config = {
   /** Prevents the CLI/library from printing any logs/output. */
   debug?: boolean;
 };
+
+export type JestReport = {
+  numFailedTestSuites: number;
+  numFailedTests: number;
+  numPassedTestSuites: number;
+  numPassedTests: number;
+  numPendingTestSuites: number;
+  numPendingTests: number;
+  numRuntimeErrorTestSuites: number;
+  numTodoTests: number;
+  numTotalTestSuites: number;
+  numTotalTests: number;
+  openHandles: any[];
+  startTime: number;
+  success: boolean;
+  testResults: any[];
+  wasInterrupted: boolean;
+};
+
+export type ReportStats = {
+  totalTestSuites: number;
+  totalTests: number;
+  failedTestSuites: number;
+  failedTests: number;
+  passedTestSuites: number;
+  passedTests: number;
+  duration: string;
+  success: boolean;
+};
