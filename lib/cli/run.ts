@@ -113,7 +113,7 @@ export const runHandler = async (args: CliRunOptions) => {
   const jestCommandArgs = [
     'jest',
     `--config=${jestConfigPath}`,
-    `--roots=${process.cwd()}`,
+    `--roots=${cwd}`,
     '--runInBand',
   ];
 

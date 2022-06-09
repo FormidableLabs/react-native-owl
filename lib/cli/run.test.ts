@@ -1,4 +1,5 @@
 import path from 'path';
+import { promises as fs } from 'fs';
 import execa, { ExecaReturnValue } from 'execa';
 
 import { CliRunOptions, Config } from '../types';
@@ -12,12 +13,19 @@ describe('run.ts', () => {
   const bundleIdIOS = 'org.reactjs.native.example.RNDemo';
   const mockBundleIdResponse = { stdout: bundleIdIOS } as ExecaReturnValue<any>;
 
+  const mkdirMock = jest.spyOn(fs, 'mkdir');
+
+  jest
+    .spyOn(process, 'cwd')
+    .mockReturnValue('/Users/johndoe/Projects/my-project');
+
   const execKillMock = {
     kill: jest.fn(),
   } as unknown as execa.ExecaChildProcess<any>;
   const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
   beforeEach(() => {
+    mkdirMock.mockReset();
     execMock.mockReset().mockReturnValue(execKillMock);
   });
 
@@ -208,11 +216,13 @@ describe('run.ts', () => {
       },
     };
 
-    const expectedJestCommand = `jest --config=${path.join(
-      process.cwd(),
-      'lib',
-      'jest-config.json'
-    )} --roots=${path.join(process.cwd())} --runInBand`;
+    const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
+
+    const expectedJestCommand = `jest --config=${jestConfigPath} --roots=${path.join(
+      process.cwd()
+    )} --runInBand`;
+
+    const expectedJestCommandWithReport = `${expectedJestCommand} --json --outputFile=/Users/johndoe/Projects/my-project/.owl/report/jest-report.json`;
 
     const commandSyncMock = jest.spyOn(execa, 'commandSync');
     const mockGenerateReport = jest.spyOn(reportHelpers, 'generateReport');
@@ -225,25 +235,33 @@ describe('run.ts', () => {
     });
 
     it('runs an iOS project', async () => {
-      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+      jest
+        .spyOn(configHelpers, 'getConfig')
+        .mockResolvedValueOnce({ ...config, report: true });
       const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
       const mockRestoreIOSUI = jest
         .spyOn(run, 'restoreIOSUI')
         .mockResolvedValueOnce();
 
+      mkdirMock.mockResolvedValue(undefined);
+
       await run.runHandler(args);
 
+      await expect(mkdirMock).toHaveBeenCalled();
       await expect(mockRunIOS).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
-        env: {
-          OWL_DEBUG: 'false',
-          OWL_IOS_SIMULATOR: 'iPhone Simulator',
-          OWL_PLATFORM: 'ios',
-          OWL_UPDATE_BASELINE: 'false',
-        },
-        stdio: 'inherit',
-      });
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        expectedJestCommandWithReport,
+        {
+          env: {
+            OWL_DEBUG: 'false',
+            OWL_IOS_SIMULATOR: 'iPhone Simulator',
+            OWL_PLATFORM: 'ios',
+            OWL_UPDATE_BASELINE: 'false',
+          },
+          stdio: 'inherit',
+        }
+      );
       await expect(mockRestoreIOSUI).toHaveBeenCalled();
     });
 
@@ -329,10 +347,23 @@ describe('run.ts', () => {
       commandSyncMock.mockRejectedValueOnce(undefined!);
 
       try {
-        await run.runHandler({ ...args, update: true });
+        await run.runHandler({ ...args });
       } catch {
+        await expect(commandSyncMock).toHaveBeenCalledWith(
+          expectedJestCommand,
+          {
+            env: {
+              OWL_DEBUG: 'false',
+              OWL_IOS_SIMULATOR: 'iPhone Simulator',
+              OWL_PLATFORM: 'ios',
+              OWL_UPDATE_BASELINE: 'false',
+            },
+            stdio: 'inherit',
+          }
+        );
         await expect(mockRunIOS).toHaveBeenCalled();
         await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+        await expect(mkdirMock).not.toHaveBeenCalled();
         await expect(mockGenerateReport).not.toHaveBeenCalled();
       }
     });
