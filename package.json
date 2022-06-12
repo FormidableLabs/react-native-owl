@@ -9,6 +9,7 @@
   },
   "files": [
     "dist/",
+    "!dist/**/*.test.*",
     "scripts/",
     "README.md"
   ],
