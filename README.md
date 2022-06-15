@@ -2,7 +2,7 @@
 
 [![github][github-image]][github-url] [![npm][npm-image]][npm-url] [![docs][docs-image]][docs-url] [![Maintenance Status][maintenance-image]](#maintenance-status)
 
-> **Work In Progress**: Visual regression testing for React Native
+> Visual regression testing for React Native
 
 ## Installation
 

@@ -1,6 +1,6 @@
 {
   "name": "react-native-owl",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Visual regression testing for React Native",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,6 +26,15 @@
   "repository": "https://github.com/FormidableLabs/react-native-owl.git",
   "author": "Emmanouil Konstantinidis <hello@manos.im>",
   "license": "MIT",
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "mobile",
+    "visual regression",
+    "testing",
+    "tooling"
+  ],
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
