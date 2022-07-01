@@ -38,7 +38,7 @@ Use the [takeScreenshot](/docs/api/methods#takescreenshotname-string) and [.toMa
 
 #### Example
 
-```js
+```js title="app.owl.jsx"
 import { press, takeScreenshot } from 'react-native-owl';
 
 describe('App.tsx', () => {
