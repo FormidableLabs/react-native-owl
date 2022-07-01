@@ -19,7 +19,7 @@ when you first get started:
 
 - **[Getting started](https://formidable.com/open-source/react-native-owl/docs/introduction/getting-started)** — contains the "Getting Started" guide.
 - **[Configuration](https://formidable.com/open-source/react-native-owl/docs/introduction/config-file)** — explains all the configuration options for `react-native-owl`.
-- **[Running on CI](https://formidable.com/open-source/react-native-owl/docs/advanced/running-ci)** — example GitHub Action to run react-native-owl on CO.
+- **[Running on CI](https://formidable.com/open-source/react-native-owl/docs/advanced/running-ci)** — example GitHub Action to run react-native-owl on CI.
 
 _You can find the raw markdown files inside this repository's `docs` folder._
 
