@@ -34,7 +34,7 @@ Below you can find an example config (can also be found in the [example app](htt
 
 ### Add tests
 
-Use the [takeScreenshot](/docs/api/methods#takescreenshotname-string) and [.toMatchBaseline](/docs/api/matchers#tomatchbaselinename-string) api's to implement screenshot tests.
+Use the [takeScreenshot](/docs/api/methods#takescreenshotname-string) and [.toMatchBaseline](/docs/api/matchers#tomatchbaselinename-string) apis to implement screenshot tests. File names must end in `.owl.ts` or `.owl.tsx`. [See the example app](https://github.com/FormidableLabs/react-native-owl/tree/main/example) for a more complete example.
 
 #### Example
 
