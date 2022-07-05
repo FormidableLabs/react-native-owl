@@ -59,7 +59,7 @@ import { toExist, takeScreenshot } from 'react-native-owl';
 describe('App.tsx', () => {
   it('waits for an element, then takes a screenshot', async () => {
     // highlight-next-line
-    await toExist('textInput');
+    await toExist('testInput');
 
     const screen = await takeScreenshot('textInputExists');
 
