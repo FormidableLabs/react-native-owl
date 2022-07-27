@@ -41,7 +41,7 @@ The baseline images will be automatically generated. To regenerate the baseline 
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl test -- --platform ios
+npx owl test --platform ios
 ```
 
   </TabItem>
@@ -62,7 +62,7 @@ Update the baseline images
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl test -- --platform ios --update
+npx owl test --platform ios --update
 ```
 
   </TabItem>
@@ -83,7 +83,7 @@ Update the baseline images
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl test -- --platform ios --config ./owl.config.json
+npx owl test --platform ios --config ./owl.config.json
 ```
 
   </TabItem>

@@ -66,7 +66,7 @@ Before the app can be tested, it must be built.
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl build -- --platform ios
+npx owl build --platform ios
 ```
 
   </TabItem>
@@ -98,7 +98,7 @@ Test against the baseline images (will create the baseline images if they don't 
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl test -- --platform ios
+npx owl test --platform ios
 ```
 
   </TabItem>
@@ -117,7 +117,7 @@ Update the baseline images
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl test -- --platform ios --update
+npx owl test --platform ios --update
 ```
 
   </TabItem>
