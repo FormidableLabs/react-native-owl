@@ -28,7 +28,7 @@ Below you can find an example config (can also be found in the [example app](htt
   },
   "android": {
     "packageName": "com.owldemo"
-  },
+  }
 }
 ```
 
@@ -47,9 +47,7 @@ describe('App.tsx', () => {
 
     expect(screen).toMatchBaseline();
   });
-});
 
-describe('App.tsx', () => {
   it('presses a button, then takes a screenshot', async () => {
     await press('button')
 
