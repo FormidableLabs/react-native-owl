@@ -22,7 +22,7 @@ Before the app can be tested, it must be built.
   <TabItem value="npm" label="npm">
 
 ```bash
-npm run owl build -- --platform ios --config ./owl.config.json
+npx owl build --platform ios --config ./owl.config.json
 ```
 
   </TabItem>
