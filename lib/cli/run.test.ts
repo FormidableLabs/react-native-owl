@@ -155,8 +155,6 @@ describe('run.ts', () => {
       process.cwd()
     )} --runInBand`;
 
-    const expectedJestCommandWithReport = `${expectedJestCommand} --json --outputFile=/Users/johndoe/Projects/my-project/.owl/report/jest-report.json`;
-
     const commandSyncMock = jest.spyOn(execa, 'commandSync');
     const mockGenerateReport = jest.spyOn(reportHelpers, 'generateReport');
 
@@ -184,7 +182,7 @@ describe('run.ts', () => {
       await expect(mockRunIOS).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
       await expect(commandSyncMock).toHaveBeenCalledWith(
-        expectedJestCommandWithReport,
+        `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"ios\",\"config\":\"./owl.config.json\",\"update\":false}}' --json --outputFile=/Users/johndoe/Projects/my-project/.owl/report/jest-report.json`,
         {
           env: {
             OWL_DEBUG: 'false',
@@ -208,15 +206,18 @@ describe('run.ts', () => {
 
       await expect(mockRunAndroid).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
-        env: {
-          OWL_DEBUG: 'false',
-          OWL_IOS_SIMULATOR: 'iPhone Simulator',
-          OWL_PLATFORM: 'android',
-          OWL_UPDATE_BASELINE: 'false',
-        },
-        stdio: 'inherit',
-      });
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"android\",\"config\":\"./owl.config.json\",\"update\":false}}'`,
+        {
+          env: {
+            OWL_DEBUG: 'false',
+            OWL_IOS_SIMULATOR: 'iPhone Simulator',
+            OWL_PLATFORM: 'android',
+            OWL_UPDATE_BASELINE: 'false',
+          },
+          stdio: 'inherit',
+        }
+      );
     });
 
     it('runs with the update baseline flag on', async () => {
@@ -227,15 +228,18 @@ describe('run.ts', () => {
 
       await expect(mockRunIOS).toHaveBeenCalled();
       await expect(commandSyncMock).toHaveBeenCalledTimes(1);
-      await expect(commandSyncMock).toHaveBeenCalledWith(expectedJestCommand, {
-        env: {
-          OWL_DEBUG: 'false',
-          OWL_IOS_SIMULATOR: 'iPhone Simulator',
-          OWL_PLATFORM: 'ios',
-          OWL_UPDATE_BASELINE: 'true',
-        },
-        stdio: 'inherit',
-      });
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"ios\",\"config\":\"./owl.config.json\",\"update\":true}}'`,
+        {
+          env: {
+            OWL_DEBUG: 'false',
+            OWL_IOS_SIMULATOR: 'iPhone Simulator',
+            OWL_PLATFORM: 'ios',
+            OWL_UPDATE_BASELINE: 'true',
+          },
+          stdio: 'inherit',
+        }
+      );
     });
 
     it('runs the scripts/websocket-server.js script', async () => {
@@ -283,7 +287,7 @@ describe('run.ts', () => {
         await run.runHandler({ ...args });
       } catch {
         await expect(commandSyncMock).toHaveBeenCalledWith(
-          expectedJestCommand,
+          `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"ios\",\"config\":\"./owl.config.json\",\"update\":false}}'`,
           {
             env: {
               OWL_DEBUG: 'false',
