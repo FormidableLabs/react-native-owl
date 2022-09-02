@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Config File
 
-The config file - which unless specified in the cli should live in `./owl.config.json` - is used to describe how Owl should run your app and your tests. Below you can find all the options the can be specified.
+The config file - which unless specified in the cli should live in `./owl.config.json` - is used to describe how Owl should run your app and your tests. Below you can find all the options that can be specified.
 
 ### Options
 
