@@ -8,4 +8,5 @@ export {
   scrollTo,
   scrollToEnd,
   toExist,
+  reload,
 } from './actions';

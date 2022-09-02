@@ -6,6 +6,7 @@ import {
   scrollTo,
   scrollToEnd,
   longPress,
+  reload,
 } from 'react-native-owl';
 
 jest.setTimeout(30000);
@@ -55,6 +56,14 @@ describe('App.tsx', () => {
     await scrollToEnd('ScrollView');
 
     const screen = await takeScreenshot('scroll-to-end');
+
+    expect(screen).toMatchBaseline();
+  });
+
+  it('reloads app and takes a screenshot', async () => {
+    await reload();
+
+    const screen = await takeScreenshot('after-reload');
 
     expect(screen).toMatchBaseline();
   });

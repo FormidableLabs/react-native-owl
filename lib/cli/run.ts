@@ -120,6 +120,7 @@ export const runHandler = async (args: CliRunOptions) => {
     `--config=${jestConfigPath}`,
     `--roots=${cwd}`,
     '--runInBand',
+    `--globals='${JSON.stringify({ OWL_CLI_ARGS: args })}'`,
   ];
 
   if (config.report) {
