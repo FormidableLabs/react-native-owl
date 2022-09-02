@@ -235,3 +235,35 @@ describe('App.tsx', () => {
   });
 });
 ```
+
+### reload()
+
+Terminates the app in the emulator/simulator, and restarts it.
+
+This is useful when you want to complete a set of tests and nove onto a new set of tests.
+
+You could call this method in a `beforeAll` callback to get the app into a clean state before each set of tests for example.
+
+#### Example
+
+
+```js title="__tests__/App.owl.tsx"
+import { scrollToEnd, takeScreenshot } from 'react-native-owl';
+
+describe('App.tsx', () => {
+  describe('the checkout flow', () => {
+    beforeAll(async () => {
+      // highlight-next-line
+      await reload();
+    }),
+
+    it('adds product to cart', async () => {
+      ...
+    });
+
+    it('starts checkout flow', async () => {
+      ...
+    });
+  });
+});
+```
