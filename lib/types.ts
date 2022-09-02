@@ -17,7 +17,7 @@ export type ConfigEnv = {
   ENTRY_FILE?: string;
 };
 
-type ConfigIOS = {
+export type ConfigIOS = {
   /** The workspace to build. */
   workspace?: string;
   /** The scheme to build. */
@@ -34,7 +34,7 @@ type ConfigIOS = {
   device: string;
 };
 
-type ConfigAndroid = {
+export type ConfigAndroid = {
   /** The package name of your Android app. See Manifest.xml. */
   packageName: string;
   /** Overrides the `assembleDebug` gradle command. Should build the apk. */
