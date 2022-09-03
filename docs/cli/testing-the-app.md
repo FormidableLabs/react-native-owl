@@ -104,7 +104,7 @@ The report uri is included in the test output.
 
 #### Example:
 
-The following will be included the the output of failed tests:
+The following will be included in the output of failed tests:
 
 ```
 ...
