@@ -62,3 +62,6 @@ dist/
 # Expo Example prebuild generated files
 ExpoExample/android
 ExpoExample/ios
+
+# IntelliJ
+/.idea
