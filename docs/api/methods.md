@@ -242,13 +242,14 @@ Terminates the app in the emulator/simulator, and restarts it.
 
 This is useful when you want to complete a set of tests and nove onto a new set of tests.
 
-You could call this method in a `beforeAll` callback to get the app into a clean state before each set of tests for example.
+Depending on your use-case, you could call `reload` in a `beforeAll`, or `beforeEach` callback, or within a test case, to get the app into a clean state before each set of tests for example.
+
 
 #### Example
 
 
 ```js title="__tests__/App.owl.tsx"
-import { scrollToEnd, takeScreenshot } from 'react-native-owl';
+import { reload } from 'react-native-owl';
 
 describe('App.tsx', () => {
   describe('the checkout flow', () => {
