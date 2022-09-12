@@ -1,4 +1,10 @@
+import { getConfig } from './cli/config';
+
 import { Logger } from './logger';
+import { CliRunOptions } from './types';
+import { adbLaunch, adbTerminate } from './utils/adb';
+import { waitFor } from './utils/wait-for';
+import { xcrunLaunch, xcrunTerminate, xcrunUi } from './utils/xcrun';
 import { createWebSocketClient } from './websocket';
 import {
   SOCKET_TEST_REQUEST,
@@ -57,3 +63,62 @@ export const scrollToEnd = (testID: string) =>
 
 export const toExist = (testID: string) =>
   sendEvent({ type: 'LAYOUT', action: 'EXISTS', testID });
+
+export const reload = async () => {
+  const args = (global as any).OWL_CLI_ARGS as CliRunOptions;
+
+  if (!args) {
+    return;
+  }
+
+  const config = await getConfig(args.config);
+
+  if (args.platform === 'ios') {
+    if (!config.ios?.device) {
+      return Promise.reject('Missing device name');
+    }
+
+    await xcrunTerminate({
+      debug: config.debug,
+      binaryPath: config.ios?.binaryPath,
+      device: config.ios.device,
+      scheme: config.ios?.scheme,
+      configuration: config.ios?.configuration,
+    });
+
+    await xcrunLaunch({
+      debug: config.debug,
+      binaryPath: config.ios?.binaryPath,
+      device: config.ios.device,
+      scheme: config.ios?.scheme,
+      configuration: config.ios?.configuration,
+    });
+
+    await waitFor(1000);
+
+    await xcrunUi({
+      debug: config.debug,
+      device: config.ios.device,
+      configuration: config.ios.configuration,
+      binaryPath: config.ios.binaryPath,
+    });
+  }
+
+  if (args.platform === 'android') {
+    if (!config.android?.packageName) {
+      return Promise.reject('Missing package name');
+    }
+
+    await adbTerminate({
+      debug: config.debug,
+      packageName: config.android.packageName,
+    });
+
+    await adbLaunch({
+      debug: config.debug,
+      packageName: config.android.packageName,
+    });
+
+    await waitFor(500);
+  }
+};

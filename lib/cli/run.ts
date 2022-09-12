@@ -8,80 +8,84 @@ import { generateReport, cleanupReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';
 import { waitFor } from '../utils/wait-for';
+import { adbInstall, adbLaunch } from '../utils/adb';
+import {
+  xcrunInstall,
+  xcrunLaunch,
+  xcrunRestore,
+  xcrunStatusBar,
+  xcrunUi,
+} from '../utils/xcrun';
 
-export const runIOS = async (config: Config, logger: Logger) => {
-  const stdio = config.debug ? 'inherit' : 'ignore';
-  const DEFAULT_BINARY_DIR = `/ios/build/Build/Products/${config.ios?.configuration}-iphonesimulator`;
-  const cwd = config.ios?.binaryPath
-    ? path.dirname(config.ios?.binaryPath)
-    : path.join(process.cwd(), DEFAULT_BINARY_DIR);
+export const runIOS = async (config: Config) => {
+  if (!config.ios) {
+    return;
+  }
 
-  const appFilename = config.ios!.binaryPath
-    ? path.basename(config.ios!.binaryPath)
-    : `${config.ios!.scheme}.app`;
-  const plistPath = path.join(cwd, appFilename, 'Info.plist');
-  const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
+  await xcrunStatusBar({
+    debug: config.debug,
+    device: config.ios.device,
+    configuration: config.ios.configuration,
+    binaryPath: config.ios.binaryPath,
+  });
 
-  const { stdout: bundleId } = await execa.command(
-    `./PlistBuddy -c 'Print CFBundleIdentifier' ${plistPath}`,
-    { shell: true, cwd: '/usr/libexec' }
-  );
+  await xcrunInstall({
+    debug: config.debug,
+    device: config.ios.device,
+    configuration: config.ios.configuration,
+    binaryPath: config.ios.binaryPath,
+    scheme: config.ios.scheme,
+  });
 
-  logger.print(`[OWL - CLI] Found bundle id: ${bundleId}`);
-
-  const SIMULATOR_TIME = '9:41';
-  const setTimeCommand = `xcrun simctl status_bar ${simulator} override --time ${SIMULATOR_TIME}`;
-  await execa.command(setTimeCommand, { stdio, cwd });
-
-  const installCommand = `xcrun simctl install ${simulator} ${appFilename}`;
-  await execa.command(installCommand, { stdio, cwd });
-
-  const launchCommand = `xcrun simctl launch ${simulator} ${bundleId}`;
-  await execa.command(launchCommand, { stdio });
+  await xcrunLaunch({
+    debug: config.debug,
+    device: config.ios.device,
+    configuration: config.ios.configuration,
+    binaryPath: config.ios.binaryPath,
+    scheme: config.ios.scheme,
+  });
 
   await waitFor(1000);
 
   // Workaround to force the virtual home button's color to become consistent
-  const appearanceCommand = `xcrun simctl ui ${simulator} appearance`;
-  await execa.command(`${appearanceCommand} dark`, { stdio, cwd });
-  await waitFor(500);
-  await execa.command(`${appearanceCommand} light`, { stdio, cwd });
-  await waitFor(500);
+  await xcrunUi({
+    debug: config.debug,
+    device: config.ios.device,
+    configuration: config.ios.configuration,
+    binaryPath: config.ios.binaryPath,
+  });
 };
 
 export const restoreIOSUI = async (config: Config, logger: Logger) => {
-  const stdio = config.debug ? 'inherit' : 'ignore';
-  const DEFAULT_BINARY_DIR = `/ios/build/Build/Products/${config.ios?.configuration}-iphonesimulator`;
-  const cwd = config.ios?.binaryPath
-    ? path.dirname(config.ios?.binaryPath)
-    : path.join(process.cwd(), DEFAULT_BINARY_DIR);
-  const simulator = config.ios!.device.replace(/([ /])/g, '\\$1');
+  if (!config.ios) {
+    return;
+  }
 
-  const restoreTimeCommand = `xcrun simctl status_bar ${simulator} clear`;
-  await execa.command(restoreTimeCommand, { stdio, cwd });
+  await xcrunRestore({
+    debug: config.debug,
+    device: config.ios.device,
+    configuration: config.ios.configuration,
+    binaryPath: config.ios.binaryPath,
+  });
 
   logger.print(`[OWL - CLI] Restored status bar time`);
 };
 
-export const runAndroid = async (config: Config, logger: Logger) => {
-  const stdio = config.debug ? 'inherit' : 'ignore';
-  const buildType = config.android?.buildType?.toLowerCase();
-  const DEFAULT_APK_DIR = `/android/app/build/outputs/apk/${buildType}/`;
-  const cwd = config.android?.binaryPath
-    ? path.dirname(config.android?.binaryPath)
-    : path.join(process.cwd(), DEFAULT_APK_DIR);
+export const runAndroid = async (config: Config) => {
+  if (!config.android) {
+    return;
+  }
 
-  const appFilename = config.android!.binaryPath
-    ? path.basename(config.android!.binaryPath)
-    : `app-${buildType}.apk`;
-  const appPath = path.join(cwd, appFilename);
-  const { packageName } = config.android!;
+  await adbInstall({
+    debug: config.debug,
+    buildType: config.android.buildType,
+    binaryPath: config.android.binaryPath,
+  });
 
-  const installCommand = `adb install -r ${appPath}`;
-  await execa.command(installCommand, { stdio });
-
-  const launchCommand = `adb shell monkey -p "${packageName}" -c android.intent.category.LAUNCHER 1`;
-  await execa.command(launchCommand, { stdio });
+  await adbLaunch({
+    debug: config.debug,
+    packageName: config.android.packageName,
+  });
 
   await waitFor(500);
 };
@@ -107,7 +111,8 @@ export const runHandler = async (args: CliRunOptions) => {
   });
 
   logger.print(`[OWL - CLI] Running tests on ${args.platform}.`);
-  await runProject(config, logger);
+
+  await runProject(config);
 
   const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
   const jestCommandArgs = [
@@ -115,6 +120,7 @@ export const runHandler = async (args: CliRunOptions) => {
     `--config=${jestConfigPath}`,
     `--roots=${cwd}`,
     '--runInBand',
+    `--globals='${JSON.stringify({ OWL_CLI_ARGS: args })}'`,
   ];
 
   if (config.report) {
