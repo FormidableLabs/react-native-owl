@@ -12,7 +12,7 @@ import { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
 import { add, get, TrackedElementData } from './trackedElements';
 import { handleAction } from './handleAction';
 
-const logger = new Logger(true);
+const logger = new Logger(true, '🦻🏻');
 
 let isReactUpdating = true;
 
@@ -43,6 +43,8 @@ export const applyElementTracking = (
     showsHorizontalScrollIndicator: false,
     showsVerticalScrollIndicator: false,
   };
+
+  logger.info(`[OWL - Client] Applying tracking to element with testID ${testID}`);
 
   if (!testID) {
     return returnProps;
@@ -78,6 +80,8 @@ export const patchReact = () => {
     React.createElement;
   let automateTimeout: number;
 
+  logger.info('[OWL - Client] Patching React', React.createElement);
+
   // @ts-ignore
   React.createElement = (type, props, ...children) => {
     const newProps = applyElementTracking(props);
@@ -107,6 +111,8 @@ export const waitForWebSocket = async () => {
 
     logger.info('[OWL - Websocket] Connection established');
   } catch {
+    logger.info('[OWL - Websocket] Connection failed, retrying...');
+
     setTimeout(waitForWebSocket, SOCKET_WAIT_TIMEOUT);
   }
 };

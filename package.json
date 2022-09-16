@@ -42,6 +42,9 @@
       "**/lib/**/*.test.[jt]s"
     ]
   },
+  "peerDependencies": {
+    "react": ">=18.1.0"
+  },
   "dependencies": {
     "ajv": "^7.0.3",
     "execa": "^5.1.1",

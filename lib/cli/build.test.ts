@@ -7,7 +7,7 @@ import { Logger } from '../logger';
 import * as configHelpers from './config';
 
 describe('build.ts', () => {
-  const logger = new Logger();
+  const logger = new Logger(true, '⚙️');
   const execMock = jest.spyOn(execa, 'command').mockImplementation();
 
   beforeEach(() => {

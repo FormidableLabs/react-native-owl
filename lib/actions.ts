@@ -12,39 +12,42 @@ import {
   SOCKET_CLIENT_RESPONSE,
 } from './websocketTypes';
 
-const logger = new Logger(process.env.OWL_DEBUG === 'true');
+const logger = new Logger(process.env.OWL_DEBUG === 'true', '➡️ ');
 
-const sendEvent = async (event: SOCKET_TEST_REQUEST) =>
-  new Promise(async (resolve, reject) => {
-    // Create a websocket client just for this event request/response cycle.
-    const actionsWebSocketClient = await createWebSocketClient(
-      logger,
-      (message) => {
-        // Close this connection
-        actionsWebSocketClient.close();
+const sendEvent = async (event: SOCKET_TEST_REQUEST) => {
+    logger.info(`[OWL - Client] Sending event: ${JSON.stringify(event)}`);
 
-        // The message received here indicates the outcome of the action we sent to the app client
-        const event = JSON.parse(message) as SOCKET_CLIENT_RESPONSE;
+    return new Promise(async (resolve, reject) => {
+        // Create a websocket client just for this event request/response cycle.
+        const actionsWebSocketClient = await createWebSocketClient(
+            logger,
+            (message) => {
+                // Close this connection
+                actionsWebSocketClient.close();
 
-        switch (event.type) {
-          case 'DONE':
-            resolve(true);
-            break;
-          case 'NOT_FOUND':
-            reject(`Element not found: ${event.testID}`);
-            break;
-          case 'ERROR':
-            reject(`Element error: ${event.testID} - ${event.message}`);
-            break;
-          default:
-            reject('Unknown onMessage event type');
-            break;
-        }
-      }
-    );
+                // The message received here indicates the outcome of the action we sent to the app client
+                const event = JSON.parse(message) as SOCKET_CLIENT_RESPONSE;
 
-    actionsWebSocketClient.send(JSON.stringify(event));
-  });
+                switch (event.type) {
+                    case 'DONE':
+                        resolve(true);
+                        break;
+                    case 'NOT_FOUND':
+                        reject(`Element not found: ${event.testID}`);
+                        break;
+                    case 'ERROR':
+                        reject(`Element error: ${event.testID} - ${event.message}`);
+                        break;
+                    default:
+                        reject('Unknown onMessage event type');
+                        break;
+                }
+            }
+        );
+
+        actionsWebSocketClient.send(JSON.stringify(event));
+    });
+}
 
 export const press = (testID: string) =>
   sendEvent({ type: 'ACTION', action: 'PRESS', testID });

@@ -32,6 +32,14 @@ export const startWebSocketServer = async (
 
       return resolve(wss);
     });
+
+    wss.on('error', (error) => {
+      logger.error(`[OWL - WebSocket] Error:`, error);
+    });
+
+    wss.on('close', () => {
+      logger.error(`[OWL - WebSocket] Closed`);
+    });
   });
 };
 
@@ -42,7 +50,11 @@ export const createWebSocketClient = async (
   const wsClient = new WebSocket(`ws://localhost:${WEBSOCKET_PORT}`);
 
   return new Promise((resolve) => {
-    wsClient.on('open', () => resolve(wsClient));
+    wsClient.on('open', () => {
+      logger.info(`[OWL - WebSocket] Client connected.`);
+
+      resolve(wsClient)
+    });
 
     wsClient.on('message', (message) => {
       logger.info(

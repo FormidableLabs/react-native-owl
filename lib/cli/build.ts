@@ -76,7 +76,7 @@ export const buildAndroid = async (
 
 export const buildHandler = async (args: CliBuildOptions) => {
   const config = await getConfig(args.config);
-  const logger = new Logger(config.debug);
+  const logger = new Logger(config.debug, '🦉');
   const buildProject = args.platform === 'ios' ? buildIOS : buildAndroid;
 
   logger.print(`[OWL - CLI] Building the app on ${args.platform} platform.`);

@@ -93,7 +93,7 @@ export const runAndroid = async (config: Config) => {
 export const runHandler = async (args: CliRunOptions) => {
   const cwd = process.cwd();
   const config = await getConfig(args.config);
-  const logger = new Logger(config.debug);
+  const logger = new Logger(config.debug, '🏃');
   const runProject = args.platform === 'ios' ? runIOS : runAndroid;
   const restoreSimulatorUI = args.platform === 'ios' && restoreIOSUI;
 

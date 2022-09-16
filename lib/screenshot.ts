@@ -28,7 +28,7 @@ export const takeScreenshot = async (filename: string): Promise<string> => {
   const screenshotFilename = `${filename}.png`;
 
   const stdio = debug ? 'inherit' : 'ignore';
-  const logger = new Logger(!!debug);
+  const logger = new Logger(!!debug, '📸');
 
   const screenshotsDirPath = path.join(process.cwd(), '.owl');
   await fs.mkdir(screenshotsDirPath, { recursive: true });
