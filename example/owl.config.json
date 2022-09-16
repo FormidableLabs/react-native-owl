@@ -1,16 +1,11 @@
 {
-  "ios": {
-    "workspace": "ios/OwlDemo.xcworkspace",
-    "scheme": "OwlDemo",
-    "configuration": "Release",
-    "device": "iPhone 13 Pro",
-    "quiet": true
-  },
-  "android": {
-    "packageName": "com.owldemo",
-    "buildType": "Release",
-    "quiet": true
-  },
-  "debug": true,
-  "report": true
+    "ios": {
+        "workspace": "ios/RNSkia.xcworkspace",
+        "scheme": "RNSkia",
+        "configuration": "Release",
+        "device": "iPhone 14 Pro"
+    },
+    "android": {
+        "packageName": "com.shopify.reactnative.skia.example"
+    }
 }
