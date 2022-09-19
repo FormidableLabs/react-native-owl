@@ -72,7 +72,6 @@ jobs:
 
   run-visual-regression-android:
     runs-on: macos-11
-    if: ${{ false }}
 
     steps:
       - uses: actions/checkout@v2
