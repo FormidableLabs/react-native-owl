@@ -37,7 +37,7 @@ jobs:
         working-directory: ./example
 
       - name: Install CocoaPods Gem
-        run: gem install cocoapods -v 1.11.0
+        run: gem install cocoapods -v 1.11.3
 
       - uses: actions/cache@v2
         with:
