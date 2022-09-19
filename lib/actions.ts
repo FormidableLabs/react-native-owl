@@ -119,6 +119,6 @@ export const reload = async () => {
       packageName: config.android.packageName,
     });
 
-    await waitFor(500);
+    await waitFor(1000);
   }
 };
