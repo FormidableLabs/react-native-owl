@@ -31,12 +31,10 @@ public class ReactNativeOwlModule extends ReactContextBaseJavaModule {
     }
 
     private void hideNavigationBar() {
-        // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        final Activity activity = getCurrentActivity();
-
         UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                final Activity activity = getCurrentActivity();
                 activity.getWindow().getDecorView().setSystemUiVisibility(UI_FLAG_IMMERSIVE);
             }
         });
