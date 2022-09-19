@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "react-native-owl": {
-      "signature": "a064c96b84e3f3c000162c366fa6fa0b",
-      "file": true
-    }
-  }
-}
