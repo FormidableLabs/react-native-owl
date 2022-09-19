@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "preinstall": "yarn yalc add react-native-owl --dev",
+    "preinstall": "npx yalc add react-native-owl --dev",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "owl": "node ../dist/cli/index.js",
@@ -32,8 +32,7 @@
     "metro-react-native-babel-preset": "^0.70.3",
     "react-native-owl": "file:.yalc/react-native-owl",
     "react-test-renderer": "18.0.0",
-    "typescript": "^3.8.3",
-    "yalc": "^1.0.0-pre.53"
+    "typescript": "^3.8.3"
   },
   "jest": {
     "preset": "react-native",
