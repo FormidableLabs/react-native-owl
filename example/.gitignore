@@ -61,7 +61,3 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
-
-# yalc
-/.yalc
-yalc.lock

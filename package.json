@@ -18,7 +18,7 @@
   "scripts": {
     "prepare:report": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
     "prebuild": "yarn prepare:report",
-    "build": "tsc && npx yalc publish",
+    "build": "tsc",
     "prewatch": "yarn prepare:report",
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
