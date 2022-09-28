@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import yargs, { Options } from 'yargs';
+import { CliBuildOptions, CliRunOptions } from '../types';
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv));
 
@@ -40,13 +41,13 @@ const builderOptionsTest = {
 
 argv
   .usage('Usage: $0 <command> [options]')
-  .command({
+  .command<CliBuildOptions>({
     command: 'build',
     describe: 'Build the React Native project',
     builder: builderOptionsRun,
     handler: buildHandler,
   })
-  .command({
+  .command<CliRunOptions>({
     command: 'test',
     describe: 'Runs the test suite',
     builder: builderOptionsTest,

@@ -4,6 +4,11 @@ sidebar_position: 1
 
 # Getting Started
 
+### React Native Version Support
+
+React Native OWL currently supports React Native versions up to 0.69.x.
+We are working on React Native 0.70.x + support.
+
 ### Installation
 
 Install react-native-owl using either `yarn` or `npm`:
