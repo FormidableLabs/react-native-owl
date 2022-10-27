@@ -1,4 +1,4 @@
-# react-native-owl
+# `react-native-owl`
 
 > Visual regression testing for React Native
 
@@ -14,7 +14,7 @@ React Native Owl is a visual regression testing library for React Native that en
 
 While Detox focuses on end-to-end testing in general, React Native Owl focuses on visual regression testing and helping you catch unexpected changes to the visual appearance of your app over time.
 
-### [Check out the official documentation for more details!](https://formidable.com/open-source/react-native-owl/)
+### :rocket: [Check out the official documentation for more details!](https://formidable.com/open-source/react-native-owl/)
 
 ## Installation
 
