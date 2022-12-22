@@ -1,6 +1,6 @@
-# `react-native-owl`
+[![React Native Owl — Formidable, We build the modern web](./website/static/images/RNO-Hero.png)](https://formidable.com/open-source/)
 
-> Visual regression testing for React Native
+`react-native-owl` — Visual regression testing for React Native
 
 ![Sample of using React Native Owl to generate a visual regression diff](https://raw.githubusercontent.com/FormidableLabs/react-native-owl/main/website/static/images/homepage/mockup-bg.png)
 
