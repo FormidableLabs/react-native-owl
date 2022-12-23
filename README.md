@@ -1,4 +1,4 @@
-[![React Native Owl — Formidable, We build the modern web](./website/static/images/RNO-Hero.png)](https://formidable.com/open-source/)
+[![React Native Owl — Formidable, We build the modern web](https://raw.githubusercontent.com/FormidableLabs/react-native-owl/main/website/static/images/RNO-Hero.png)](https://formidable.com/open-source/)
 
 `react-native-owl` — Visual regression testing for React Native
 
