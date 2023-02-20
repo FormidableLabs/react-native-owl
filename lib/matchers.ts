@@ -14,7 +14,10 @@ declare global {
   }
 }
 
-export const toMatchBaseline = (latestPath: string, threshold?: number) => {
+export const toMatchBaseline = (
+  latestPath: string,
+  options?: { threshold?: number }
+) => {
   const platform = process.env.OWL_PLATFORM as Platform;
   const screenshotsDir = path.join(path.dirname(latestPath), '..', '..');
   const baselinePath = path.join(
@@ -57,7 +60,7 @@ export const toMatchBaseline = (latestPath: string, threshold?: number) => {
       diffImage.data,
       baselineImage.width,
       baselineImage.height,
-      { threshold }
+      { threshold: options?.threshold }
     );
 
     if (diffPixelsCount === 0) {
