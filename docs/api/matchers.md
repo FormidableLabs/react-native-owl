@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ### toMatchBaseline(options: {threshold?: number} = {threshold: 0.1})
 
-This custom matcher will try to find and compare the baseline screenshot by using the path of the latest screenshot (returned by `takeScreenshot()`). You will have to take a screenshot before using, and pass the path of that screenshot to the expect method.
+This custom Jest matcher will try to find and compare the baseline screenshot by using the path of the latest screenshot (returned by `takeScreenshot()`). You will have to take a screenshot before using, and pass the path of that screenshot to the expect method.
 
 #### Example
 
