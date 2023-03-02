@@ -60,6 +60,12 @@ describe('App.tsx', () => {
 
       expect(screen).toMatchBaseline();
     });
+
+    it('takes a screenshot with a custom threshold', async () => {
+      const screen = await takeScreenshot('custom-threshold');
+
+      expect(screen).toMatchBaseline({threshold: 0.25});
+    });
   });
 
   describe('Reload example', () => {
