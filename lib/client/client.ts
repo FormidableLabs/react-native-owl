@@ -12,8 +12,6 @@ import { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
 import { add, get, TrackedElementData } from './trackedElements';
 import { handleAction } from './handleAction';
 
-const jsxRuntime = require('react/jsx-runtime');
-
 const logger = new Logger(true);
 
 let isReactUpdating = true;
@@ -117,23 +115,27 @@ export const applyJsxChildrenElementTracking = (props: any): void => {
 export const patchReact = () => {
   const originalReactCreateElement: typeof React.createElement =
     React.createElement;
-  const origJsx = (jsxRuntime as any).jsx;
   let automateTimeout: number;
 
-  // @ts-ignore
-  jsxRuntime.jsx = (type: any, config: Object, maybeKey?: string) => {
-    const newProps = applyElementTracking(config, true);
+  if (parseInt(React.version.split('.')[0], 10) >= 18) {
+    const jsxRuntime = require('react/jsx-runtime');
+    const origJsx = jsxRuntime.jsx;
 
-    clearTimeout(automateTimeout);
+    // @ts-ignore
+    jsxRuntime.jsx = (type: any, config: Object, maybeKey?: string) => {
+      const newProps = applyElementTracking(config, true);
 
-    automateTimeout = setTimeout(() => {
-      isReactUpdating = false;
-    }, CHECK_INTERVAL);
+      clearTimeout(automateTimeout);
 
-    isReactUpdating = true;
+      automateTimeout = setTimeout(() => {
+        isReactUpdating = false;
+      }, CHECK_INTERVAL);
 
-    return origJsx(type, newProps, maybeKey);
-  };
+      isReactUpdating = true;
+
+      return origJsx(type, newProps, maybeKey);
+    };
+  }
 
   // @ts-ignore
   React.createElement = (type, props, ...children) => {
