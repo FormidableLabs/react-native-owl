@@ -9,12 +9,19 @@ declare global {
   namespace jest {
     interface Matchers<R> {
       /** Compares the image passed to the baseline one */
-      toMatchBaseline: () => CustomMatcherResult;
+      toMatchBaseline: ({
+        threshold,
+      }?: {
+        threshold?: number;
+      }) => CustomMatcherResult;
     }
   }
 }
 
-export const toMatchBaseline = (latestPath: string) => {
+export const toMatchBaseline = (
+  latestPath: string,
+  options: { threshold?: number } = { threshold: 0.1 }
+) => {
   const platform = process.env.OWL_PLATFORM as Platform;
   const screenshotsDir = path.join(path.dirname(latestPath), '..', '..');
   const baselinePath = path.join(
@@ -56,7 +63,8 @@ export const toMatchBaseline = (latestPath: string) => {
       latestImage.data,
       diffImage.data,
       baselineImage.width,
-      baselineImage.height
+      baselineImage.height,
+      { threshold: options?.threshold }
     );
 
     if (diffPixelsCount === 0) {
