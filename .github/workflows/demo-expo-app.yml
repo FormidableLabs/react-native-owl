@@ -32,8 +32,11 @@ jobs:
         run: yarn build
         working-directory: ./
 
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+
       - name: Expo prebuild
-        run: yarn expo prebuild
+        run: expo prebuild
         working-directory: ./ExpoExample
 
       - name: Install Dependencies (Example Expo App)
