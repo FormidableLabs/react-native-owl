@@ -32,6 +32,10 @@ jobs:
         run: yarn build
         working-directory: ./
 
+      - name: Expo prebuild
+        run: yarn expo prebuild
+        working-directory: ./ExpoExample
+
       - name: Install Dependencies (Example Expo App)
         run: yarn install --frozen-lockfile
         working-directory: ./ExpoExample
