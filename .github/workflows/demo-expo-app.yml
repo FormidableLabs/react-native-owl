@@ -37,7 +37,7 @@ jobs:
         working-directory: ./ExpoExample
 
       - name: Expo prebuild
-        run: expo prebuild
+        run: yarn expo prebuild
         working-directory: ./ExpoExample
 
       - name: Install CocoaPods Gem
