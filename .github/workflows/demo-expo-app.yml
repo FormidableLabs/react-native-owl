@@ -50,6 +50,10 @@ jobs:
         run: yarn expo prebuild --platform ios
         working-directory: ./ExpoExample
 
+      - name: Install Dependencies (Example Expo App) (again)
+        run: yarn install --frozen-lockfile
+        working-directory: ./ExpoExample
+
       - name: Install Pods
         run: pod install
         working-directory: ./ExpoExample/ios
