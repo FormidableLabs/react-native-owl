@@ -58,3 +58,6 @@ typings/
 
 # generated js
 dist/
+ExpoExample/android
+ExpoExample/ios
+ExpoExample/assets

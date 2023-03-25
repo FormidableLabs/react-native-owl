@@ -1,13 +1,13 @@
 {
   "ios": {
-    "workspace": "ios/OwlDemo.xcworkspace",
-    "scheme": "OwlDemo",
+    "workspace": "ios/ExpoExample.xcworkspace",
+    "scheme": "ExpoExample",
     "configuration": "Release",
     "device": "iPhone 13 Pro",
     "quiet": true
   },
   "android": {
-    "packageName": "com.owldemo",
+    "packageName": "com.ExpoExample",
     "buildType": "Release",
     "quiet": true
   },
