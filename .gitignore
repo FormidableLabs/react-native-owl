@@ -58,6 +58,8 @@ typings/
 
 # generated js
 dist/
+
+# Expo Example prebuild generated files
 ExpoExample/android
 ExpoExample/ios
 ExpoExample/assets
