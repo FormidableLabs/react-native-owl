@@ -36,10 +36,6 @@ jobs:
         run: yarn install --frozen-lockfile
         working-directory: ./ExpoExample
 
-      - name: Expo prebuild
-        run: yarn expo prebuild
-        working-directory: ./ExpoExample
-
       - name: Install CocoaPods Gem
         run: gem install cocoapods -v 1.11.0
 
@@ -49,6 +45,10 @@ jobs:
           key: ${{ runner.os }}-expo-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-expo-pods-
+
+      - name: Expo prebuild
+        run: yarn expo prebuild --platform ios
+        working-directory: ./ExpoExample
 
       - name: Install Pods
         run: pod install
@@ -103,6 +103,10 @@ jobs:
 
       - name: Install Dependencies (Example Expo App)
         run: yarn install --frozen-lockfile
+        working-directory: ./ExpoExample
+
+      - name: Expo prebuild
+        run: yarn expo prebuild --platform android
         working-directory: ./ExpoExample
 
       - uses: actions/cache@v2
