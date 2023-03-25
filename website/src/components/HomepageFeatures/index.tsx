@@ -15,7 +15,7 @@ const FeatureList = [
     imageSource: '/images/homepage/mockup.png',
     description: (
       <>
-        Owl was designed make it easy to add visual regression testing to your
+        Owl was designed to make it easy to add visual regression testing to your
         react native app.
       </>
     ),
