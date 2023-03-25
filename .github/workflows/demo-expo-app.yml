@@ -1,0 +1,142 @@
+name: Demo Expo App
+
+on: [pull_request]
+
+jobs:
+  run-visual-regression-ios:
+    runs-on: macos-11
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Runner Information
+        run: /usr/bin/xcodebuild -version
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-expo-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-expo-yarn-
+
+      - name: Install Dependencies (Library)
+        run: yarn install --frozen-lockfile
+        working-directory: ./
+
+      - name: Compile the library
+        run: yarn build
+        working-directory: ./
+
+      - name: Install Dependencies (Example Expo App)
+        run: yarn install --frozen-lockfile
+        working-directory: ./ExpoExample
+
+      - name: Install CocoaPods Gem
+        run: gem install cocoapods -v 1.11.0
+
+      - uses: actions/cache@v2
+        with:
+          path: ./example/ios/Pods
+          key: ${{ runner.os }}-expo-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-expo-pods-
+
+      - name: Install Pods
+        run: pod install
+        working-directory: ./ExpoExample/ios
+
+      - uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 13 Pro'
+          os_version: '>=15.0'
+
+      - name: Run Owl Build
+        run: yarn owl:build:ios
+        working-directory: ./ExpoExample
+
+      - name: Run Owl Test
+        run: yarn owl:test:ios
+        working-directory: ./ExpoExample
+
+      - name: Store screenshots and report as artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: owl-results
+          path: ExpoExample/.owl
+
+  run-visual-regression-android:
+    runs-on: macos-11
+    if: ${{ false }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-expo-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-expo-yarn-
+
+      - name: Install Dependencies (Library)
+        run: yarn install --frozen-lockfile
+        working-directory: ./
+
+      - name: Compile the library
+        run: yarn build
+        working-directory: ./
+
+      - name: Install Dependencies (Example Expo App)
+        run: yarn install --frozen-lockfile
+        working-directory: ./ExpoExample
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-expo-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-expo-gradle-
+
+      - name: SKDs - download required images
+        run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-30;default;x86_64"
+
+      - name: SDKs - accept licenses
+        run: y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
+      - name: Emulator - Create
+        run: $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_30 --device 'Nexus 5X' --package "system-images;android-30;default;x86_64" --sdcard 512M
+
+      - name: Emulator - Boot
+        run: $ANDROID_HOME/emulator/emulator -memory 4096 -avd Pixel_API_30 -wipe-data -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
+
+      - name: ADB Wait For Device
+        run: adb wait-for-any-device
+        timeout-minutes: 3
+
+      - name: Run Owl Build
+        run: yarn owl:build:android
+        working-directory: ./ExpoExample
+
+      - name: Run Owl Test
+        run: yarn owl:test:android
+        working-directory: ./ExpoExample
+
+      - name: Store screenshots as artifacts
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: owl-screenshots
+          path: ExpoExample/.owl
