@@ -46,8 +46,3 @@ _You can find the raw markdown files inside this repository's `docs` folder._
 [docs-image]: https://img.shields.io/badge/docs-visit%20site-blue
 [docs-url]: https://formidable.com/open-source/react-native-owl/
 [maintenance-image]: https://img.shields.io/badge/maintenance-active-green.svg?color=brightgreen&style=flat
-
-## React Native Version Support
-
-React Native OWL currently supports React Native versions up to 0.69.x.
-We are working on React Native 0.70.x + support.

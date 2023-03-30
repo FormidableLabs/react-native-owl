@@ -29,13 +29,18 @@ export const initClient = () => {
  * Based on an elements props, store element tracking data and return updated props
  */
 export const applyElementTracking = (
-  props: any
+  props: any,
+  isJsx: boolean = false
 ): {
   [key: string]: any;
   ref?: React.RefObject<unknown>;
   showsHorizontalScrollIndicator: false;
   showsVerticalScrollIndicator: false;
 } => {
+  if (isJsx) {
+    applyJsxChildrenElementTracking(props);
+  }
+
   const testID = props?.testID;
 
   const returnProps = {
@@ -51,14 +56,15 @@ export const applyElementTracking = (
   const existingTrackedElement = get(testID);
 
   const ref =
-    (props?.ref as React.RefObject<unknown> | undefined) || React.createRef();
+    (props?.ref as React.RefObject<unknown> | undefined) ||
+    existingTrackedElement?.ref ||
+    React.createRef();
 
-  // Either use the already tracked data, if we have any, otherwise create new tracking data
-  const trackData: TrackedElementData = existingTrackedElement || {
-    ref,
-    onPress: props?.onPress,
-    onLongPress: props?.onLongPress,
-    onChangeText: props?.onChangeText,
+  const trackData: TrackedElementData = {
+    ref: existingTrackedElement?.ref || ref,
+    onPress: existingTrackedElement?.onPress || props?.onPress,
+    onLongPress: existingTrackedElement?.onLongPress || props?.onLongPress,
+    onChangeText: existingTrackedElement?.onChangeText || props?.onChangeText,
   };
 
   add(logger, testID, trackData);
@@ -70,6 +76,39 @@ export const applyElementTracking = (
 };
 
 /**
+ * To get access to the prop callbacks when the element is created, we need to check the children
+ */
+export const applyJsxChildrenElementTracking = (props: any): void => {
+  if (props.children && Array.isArray(props.children)) {
+    props.children.forEach((child: any) => {
+      const testID = child?.props?.testID;
+
+      if (!testID) {
+        return;
+      }
+
+      const existingTrackedElement = get(testID);
+
+      const ref =
+        (child?.props?.ref as React.RefObject<unknown> | undefined) ||
+        existingTrackedElement?.ref ||
+        React.createRef();
+
+      const trackData: TrackedElementData = {
+        ref: existingTrackedElement?.ref || ref,
+        onPress: existingTrackedElement?.onPress || child?.props?.onPress,
+        onLongPress:
+          existingTrackedElement?.onLongPress || child?.props?.onLongPress,
+        onChangeText:
+          existingTrackedElement?.onChangeText || child?.props?.onChangeText,
+      };
+
+      add(logger, testID, trackData);
+    });
+  }
+};
+
+/**
  * We patch react so that we can maintain a list of elements that have testID's
  * We can then use this list to find the element when we receive an action
  */
@@ -77,6 +116,26 @@ export const patchReact = () => {
   const originalReactCreateElement: typeof React.createElement =
     React.createElement;
   let automateTimeout: number;
+
+  if (parseInt(React.version.split('.')[0], 10) >= 18) {
+    const jsxRuntime = require('react/jsx-runtime');
+    const origJsx = jsxRuntime.jsx;
+
+    // @ts-ignore
+    jsxRuntime.jsx = (type: any, config: Object, maybeKey?: string) => {
+      const newProps = applyElementTracking(config, true);
+
+      clearTimeout(automateTimeout);
+
+      automateTimeout = setTimeout(() => {
+        isReactUpdating = false;
+      }, CHECK_INTERVAL);
+
+      isReactUpdating = true;
+
+      return origJsx(type, newProps, maybeKey);
+    };
+  }
 
   // @ts-ignore
   React.createElement = (type, props, ...children) => {
