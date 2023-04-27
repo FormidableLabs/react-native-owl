@@ -17,7 +17,7 @@ export const buildIOS = async (
     : [
         `xcodebuild`,
         `-workspace ${config.ios?.workspace}`,
-        `-scheme ${config.ios?.scheme}`,
+        `-scheme ${config.ios?.scheme?.split(' ').join('\\ ')}`,
         `-configuration ${config.ios?.configuration}`,
         `-sdk iphonesimulator`,
         `-derivedDataPath ios/build`,

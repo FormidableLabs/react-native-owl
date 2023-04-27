@@ -35,6 +35,26 @@ describe('build.ts', () => {
       );
     });
 
+    it('builds an iOS project with scheme with a space in it', async () => {
+      const config: Config & { ios: { env: ConfigEnv } } = {
+        ios: {
+          workspace: 'ios/RNDemo.xcworkspace',
+          scheme: 'Demo With Space',
+          configuration: 'Debug',
+          device: 'iPhone Simulator',
+          env: { ENTRY_FILE },
+        },
+      };
+
+      await buildIOS(config, logger);
+
+      expect(execMock).toHaveBeenCalledTimes(1);
+      expect(execMock).toHaveBeenCalledWith(
+        `xcodebuild -workspace ios/RNDemo.xcworkspace -scheme Demo\\ With\\ Space -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build`,
+        { stdio: 'inherit', env: { ENTRY_FILE } }
+      );
+    });
+
     it('builds an iOS project with workspace/scheme - with the quiet arg', async () => {
       const config: Config & { ios: { env: ConfigEnv } } = {
         ios: {
