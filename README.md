@@ -35,7 +35,7 @@ when you first get started:
 
 _You can find the raw markdown files inside this repository's `docs` folder._
 
-## Maintenance Status
+## Maintenance Status  
 
 **Active:** Formidable is actively working on this project, and we expect to continue work on this project for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
 
