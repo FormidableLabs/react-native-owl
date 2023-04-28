@@ -10,6 +10,10 @@ jobs:
     if: ${{ false }}
 
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.0
+
       - uses: actions/checkout@v2
 
       - name: Get Runner Information

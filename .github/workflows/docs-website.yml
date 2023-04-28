@@ -17,10 +17,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.0
+
       - uses: actions/checkout@v2
 
       - name: AWS CLI version
-        run: "aws --version"
+        run: 'aws --version'
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
