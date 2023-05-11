@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './styles.module.css';
+import {useBaseUrlUtils} from "@docusaurus/useBaseUrl";
 
 const FeatureList = [
   {
@@ -33,6 +34,7 @@ const FeatureList = [
 ];
 
 export const HomepageFeatures: React.FC = () => {
+  const { withBaseUrl } = useBaseUrlUtils()
   return (
     <>
       {FeatureList.map(({ title, description, imageSource }, idx) => {
@@ -44,7 +46,7 @@ export const HomepageFeatures: React.FC = () => {
             <div>
               {!!imageSource && (
                 <img
-                  src={`/open-source/react-native-owl${imageSource}`}
+                  src={withBaseUrl(imageSource)}
                   className={styles.sectionImageMockup}
                 />
               )}
