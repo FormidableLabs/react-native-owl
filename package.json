@@ -25,7 +25,7 @@
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
     "test": "yarn jest"
   },
-  "repository": "https://github.com/FormidableLabs/react-native-owl.git",
+  "repository": "https://github.com/FormidableLabs/react-native-owl",
   "author": "Emmanouil Konstantinidis <hello@manos.im>",
   "license": "MIT",
   "keywords": [
@@ -45,6 +45,7 @@
     ]
   },
   "dependencies": {
+    "@changesets/cli": "^2.26.1",
     "ajv": "^7.0.3",
     "execa": "^5.1.1",
     "handlebars": "^4.7.7",
@@ -58,6 +59,7 @@
     "react-native": "^0"
   },
   "devDependencies": {
+    "@svitejs/changesets-changelog-github-compact": "^0.1.1",
     "@types/jest": "^26.0.19",
     "@types/pixelmatch": "^5.2.4",
     "@types/pngjs": "^6.0.1",
