@@ -36,6 +36,14 @@ Below you can find an example config (can also be found in the [example app](htt
 }
 ```
 
+You'll also need to add the `ts-jest` preset to your Jest config if you plan to
+write your tests in Typescript:
+
+```bash npm2yarn
+npm install --save-dev ts-jest
+ts-jest config:init
+```
+
 ### Add tests
 
 Use the [takeScreenshot](/docs/api/methods#takescreenshotname-string) and [.toMatchBaseline](/docs/api/matchers#tomatchbaselinename-string) apis to implement screenshot tests. File names must end in `.owl.ts`, `.owl.tsx`, `.owl.js` or `.owl.jsx`. [See the example app](https://github.com/FormidableLabs/react-native-owl/tree/main/example) for a more complete example.
