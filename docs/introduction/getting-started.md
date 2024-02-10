@@ -36,12 +36,24 @@ Below you can find an example config (can also be found in the [example app](htt
 }
 ```
 
-You'll also need to add the `ts-jest` preset to your Jest config if you plan to
+#### ts-jest
+
+You'll also need to add the [`ts-jest` preset](https://huafu.github.io/ts-jest/user/config/) to your Jest config if you plan to
 write your tests in Typescript:
 
 ```bash npm2yarn
 npm install --save-dev ts-jest
-ts-jest config:init
+```
+
+Then update your Jest config to use the `ts-jest` preset:
+```json title="jest.config.js"
+"preset": "ts-jest"
+```
+or
+```json title="package.json"
+"jest": {
+  "preset": "ts-jest"
+}
 ```
 
 ### Add tests
