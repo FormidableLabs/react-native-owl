@@ -1,5 +1,16 @@
 # react-native-owl
 
+## 1.3.0
+
+### Minor Changes
+
+- Switch Jest config to CLI options for Jest 28+ support ([#168](https://github.com/FormidableLabs/react-native-owl/pull/168))
+
+### Patch Changes
+
+- Disable Flipper on the example iOS app to allow for faster builds ([#170](https://github.com/FormidableLabs/react-native-owl/pull/170))
+- Update getting Started docs ([#171](https://github.com/FormidableLabs/react-native-owl/pull/171))
+
 ## 1.2.3
 
 ### Patch Changes
