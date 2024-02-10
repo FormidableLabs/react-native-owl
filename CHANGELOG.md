@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- Switch Jest config to CLI options for Jext 28+ support ([#168](https://github.com/FormidableLabs/react-native-owl/pull/168))
+- Switch Jest config to CLI options for Jest 28+ support ([#168](https://github.com/FormidableLabs/react-native-owl/pull/168))
 
 ### Patch Changes
 
