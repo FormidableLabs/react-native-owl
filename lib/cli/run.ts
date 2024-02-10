@@ -114,10 +114,10 @@ export const runHandler = async (args: CliRunOptions) => {
 
   await runProject(config);
 
-  const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
   const jestCommandArgs = [
     'jest',
-    `--config=${jestConfigPath}`,
+    `--testMatch="**/?(*.)+(owl).[jt]s?(x)"`,
+    '--verbose',
     `--roots=${cwd}`,
     '--runInBand',
     `--globals='${JSON.stringify({ OWL_CLI_ARGS: args })}'`,
@@ -142,9 +142,6 @@ export const runHandler = async (args: CliRunOptions) => {
     }.`
   );
 
-  logger.info(
-    `[OWL - CLI] Will use the jest config localed at ${jestConfigPath}.`
-  );
   logger.info(`[OWL - CLI] Will set the jest root to ${process.cwd()}.`);
 
   try {

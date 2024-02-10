@@ -149,9 +149,7 @@ describe('run.ts', () => {
       },
     };
 
-    const jestConfigPath = path.join(__dirname, '..', 'jest-config.json');
-
-    const expectedJestCommand = `jest --config=${jestConfigPath} --roots=${path.join(
+    const expectedJestCommand = `jest --testMatch="**/?(*.)+(owl).[jt]s?(x)" --verbose --roots=${path.join(
       process.cwd()
     )} --runInBand`;
 

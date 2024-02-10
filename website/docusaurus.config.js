@@ -9,7 +9,7 @@ const config = {
   title: 'React Native Owl',
   tagline: 'Visual Regression Testing for React Native',
   url: 'https://formidable.com',
-  baseUrl: '/open-source/react-native-owl/',
+  baseUrl: process.env.VERCEL_ENV === "preview" ? '/' : '/open-source/react-native-owl/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'images/favicon.ico',
@@ -36,6 +36,15 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        ...(process.env.VERCEL_ENV === 'production' && {
+          gtag: {
+            trackingID: process.env.GTAG_TRACKING_ID,
+            anonymizeIP: true,
+          },
+          googleTagManager: {
+            containerId: process.env.GTM_CONTAINER_ID,
+          },
+        }),
       }),
     ],
   ],

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './styles.module.css';
+import {useBaseUrlUtils} from "@docusaurus/useBaseUrl";
 
 const FeatureList = [
   {
@@ -15,7 +16,7 @@ const FeatureList = [
     imageSource: '/images/homepage/mockup.png',
     description: (
       <>
-        Owl was designed make it easy to add visual regression testing to your
+        Owl was designed to make it easy to add visual regression testing to your
         react native app.
       </>
     ),
@@ -33,6 +34,7 @@ const FeatureList = [
 ];
 
 export const HomepageFeatures: React.FC = () => {
+  const { withBaseUrl } = useBaseUrlUtils()
   return (
     <>
       {FeatureList.map(({ title, description, imageSource }, idx) => {
@@ -44,7 +46,7 @@ export const HomepageFeatures: React.FC = () => {
             <div>
               {!!imageSource && (
                 <img
-                  src={`/open-source/react-native-owl${imageSource}`}
+                  src={withBaseUrl(imageSource)}
                   className={styles.sectionImageMockup}
                 />
               )}

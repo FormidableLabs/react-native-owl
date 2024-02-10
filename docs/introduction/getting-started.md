@@ -6,8 +6,7 @@ sidebar_position: 1
 
 ### React Native Version Support
 
-React Native OWL currently supports React Native versions up to 0.69.x.
-We are working on React Native 0.70.x + support.
+React Native OWL currently supports React Native versions up to 0.70.x.
 
 ### Installation
 
@@ -34,6 +33,26 @@ Below you can find an example config (can also be found in the [example app](htt
   "android": {
     "packageName": "com.owldemo"
   }
+}
+```
+
+#### ts-jest
+
+You'll also need to add the [`ts-jest` preset](https://huafu.github.io/ts-jest/user/config/) to your Jest config if you plan to
+write your tests in Typescript:
+
+```bash npm2yarn
+npm install --save-dev ts-jest
+```
+
+Then update your Jest config to use the `ts-jest` preset:
+```json title="jest.config.js"
+"preset": "ts-jest"
+```
+or
+```json title="package.json"
+"jest": {
+  "preset": "ts-jest"
 }
 ```
 

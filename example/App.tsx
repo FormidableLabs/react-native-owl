@@ -11,9 +11,11 @@ import {
   View,
 } from 'react-native';
 
-const Section: React.FC<{
-  title: string;
-}> = ({ children, title }) => {
+const Section: React.FC<
+  React.PropsWithChildren<{
+    title: string;
+  }>
+> = ({children, title}) => {
   return (
     <View style={styles.sectionContainer}>
       <Text style={styles.sectionTitle}>{title}</Text>
@@ -42,8 +44,7 @@ const App = () => {
       contentInsetAdjustmentBehavior="automatic"
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
-      testID="ScrollView"
-    >
+      testID="ScrollView">
       <StatusBar barStyle="dark-content" />
 
       <Image source={require('./assets/logo.png')} style={styles.logo} />
@@ -54,8 +55,7 @@ const App = () => {
             testID="Pressable"
             onPress={() => setIsLoading(true)}
             onLongPress={() => setIsLongPressed(true)}
-            style={styles.button}
-          >
+            style={styles.button}>
             <Text style={styles.buttonText}>Press Me</Text>
             <Text style={styles.buttonArrow}>&#8594;</Text>
           </Pressable>

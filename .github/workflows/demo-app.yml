@@ -8,6 +8,10 @@ jobs:
     if: ${{ false }} # FIXME: Remove before merging
 
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - uses: actions/checkout@v3
 
       - name: Get Runner Information
