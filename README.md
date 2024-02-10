@@ -37,7 +37,7 @@ _You can find the raw markdown files inside this repository's `docs` folder._
 
 ## Contributing
 
-Please see our [contributing guide](./.github/CONTRIBUTING.MD).
+Please see our [contributing guide](./.github/CONTRIBUTING.MD)
 
 ## Maintenance Status
 
