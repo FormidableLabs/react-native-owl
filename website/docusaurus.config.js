@@ -99,9 +99,9 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://formidable.com',
-            className: 'header-formidable-link',
-            'aria-label': 'Formidable Website',
+            href: 'https://commerce.nearform.com/',
+            className: 'header-nearform-link',
+            'aria-label': 'Nearform Commerce Website',
             position: 'right',
           },
         ],
