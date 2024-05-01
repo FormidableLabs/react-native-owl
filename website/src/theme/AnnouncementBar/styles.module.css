@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   height: var(--docusaurus-announcement-bar-height);
-  background-color: var(--brand-orange);
+  background-color: var(--brand-primary);
   color: var(--ifm-color-white);
 }
 
