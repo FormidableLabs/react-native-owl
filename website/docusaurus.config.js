@@ -108,33 +108,14 @@ const config = {
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: null,
-            items: [
-              {
-                label: 'Getting Started',
-                to: '/docs/introduction/getting-started',
-              },
-              {
-                label: 'Config File',
-                to: '/docs/introduction/config-file/',
-              },
-              {
-                label: 'CLI',
-                to: '/docs/cli/building-the-app/',
-              },
-              {
-                label: 'Methods',
-                to: '/docs/api/methods/',
-              },
-              {
-                label: 'Matchers',
-                to: '/docs/api/matchers/',
-              },
-            ],
-          },
-        ],
+        logo: {
+          alt: "Nearform logo",
+          src: "images/nearform-logo-white.svg",
+          href: "https://commerce.nearform.com",
+          width: 100,
+          height: 100,
+        },
+        copyright: `Copyright © ${new Date().getFullYear()} Nearform`,
       },
       prism: {
         defaultLanguage: 'javascript',

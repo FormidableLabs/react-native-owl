@@ -8,15 +8,14 @@
 :root {
   --brand-blue: #000e38;
   --brand-primary: #95dd77;
-  --brand-neutral: #d9d9d9;
+  --brand-neutral: #f6f8fa;
 
   --ifm-navbar-height: 4.25rem;
 
   --ifm-h3-font-size: 2.2rem;
   --ifm-code-font-size: 95%;
 
-  --ifm-footer-padding-horizontal: 2rem;
-  --ifm-footer-padding-vertical: 3.5rem;
+  --ifm-footer-padding-vertical: 1rem;
 }
 
 html[data-theme='dark'] {
@@ -112,19 +111,16 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 /* Footer */
-
-.footer {
-  margin-top: 3rem;
+.footer__bottom.text--center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (max-width: 996px) {
-  .footer {
-    --ifm-footer-padding-horizontal: 2rem;
-  }
+.footer__bottom.text--center a {
+  opacity: 1 !important;
 }
 
-@media (min-width: 1416px) {
-  .footer {
-    margin-top: 5rem;
-  }
+.footer__copyright {
+  color: white;
 }
