@@ -14,7 +14,7 @@
 
 .hero:after {
   background: inherit;
-  border-bottom: 10px solid var(--brand-orange);
+  border-bottom: 11px solid var(--brand-primary);
   content: '';
   display: block;
   height: 50%;
@@ -69,8 +69,7 @@
 
 .buttons .ctaButton {
   border-radius: 3px;
-  border-color: var(--brand-orange);
-  background-color: var(--brand-orange);
-  color: white;
+  border-color: var(--brand-primary);
+  background-color: var(--brand-primary);
   padding: 0.75rem 1.75rem;
 }

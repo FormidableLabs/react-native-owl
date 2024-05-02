@@ -58,11 +58,6 @@ const config = {
         disableSwitch: true,
         respectPrefersColorScheme: false,
       },
-      announcementBar: {
-        id: 'announcement-blogpost',
-        content: `Read the announcement "<strong><a target="_blank" href="/blog/2022/react-native-owl/">We're Building a Visual Regression Testing Library for React Native</a></strong>" in our blog.`,
-        isCloseable: false,
-      },
       navbar: {
         style: 'dark',
         title: 'React Native Owl',
@@ -104,42 +99,23 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://formidable.com',
-            className: 'header-formidable-link',
-            'aria-label': 'Formidable Website',
+            href: 'https://commerce.nearform.com/',
+            className: 'header-nearform-link',
+            'aria-label': 'Nearform Commerce Website',
             position: 'right',
           },
         ],
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: null,
-            items: [
-              {
-                label: 'Getting Started',
-                to: '/docs/introduction/getting-started',
-              },
-              {
-                label: 'Config File',
-                to: '/docs/introduction/config-file/',
-              },
-              {
-                label: 'CLI',
-                to: '/docs/cli/building-the-app/',
-              },
-              {
-                label: 'Methods',
-                to: '/docs/api/methods/',
-              },
-              {
-                label: 'Matchers',
-                to: '/docs/api/matchers/',
-              },
-            ],
-          },
-        ],
+        logo: {
+          alt: "Nearform logo",
+          src: "images/nearform-logo-white.svg",
+          href: "https://commerce.nearform.com",
+          width: 100,
+          height: 100,
+        },
+        copyright: `Copyright © ${new Date().getFullYear()} Nearform`,
       },
       prism: {
         defaultLanguage: 'javascript',
