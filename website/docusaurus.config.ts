@@ -6,7 +6,7 @@ const config: Config = {
   title: 'React Native Owl',
   tagline: 'Visual Regression Testing for React Native',
   url: 'https://commerce.nearform.com/',
-  baseUrl: process.env.VERCEL_ENV === "preview" ? '/' : '/open-source/react-native-owl/',
+  baseUrl: '/open-source/react-native-owl/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'images/favicon.ico',
