@@ -30,3 +30,7 @@
   max-width: 40rem;
   width: 100%;
 }
+
+[data-theme="dark"] .feature {
+  background-color: var(--ifm-color-gray-800);
+}
