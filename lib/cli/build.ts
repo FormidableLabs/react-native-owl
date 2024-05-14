@@ -15,7 +15,7 @@ export const buildIOS = async (
   const buildCommand = config.ios?.buildCommand
     ? [config.ios?.buildCommand]
     : [
-        `xcodebuild`,
+        `env OWL_BUILD=1 xcodebuild`,
         `-workspace ${config.ios?.workspace}`,
         `-scheme ${config.ios?.scheme?.split(' ').join('\\ ')}`,
         `-configuration ${config.ios?.configuration}`,

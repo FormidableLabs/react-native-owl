@@ -23,7 +23,8 @@
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
     "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
-    "test": "yarn jest"
+    "test": "yarn jest",
+    "example": "yarn --cwd example"
   },
   "repository": "https://github.com/FormidableLabs/react-native-owl",
   "author": "Emmanouil Konstantinidis <hello@manos.im>",

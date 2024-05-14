@@ -14,6 +14,28 @@ const extraNodeModules = {
 };
 const watchFolders = [path.resolve(path.join(__dirname, '..', 'dist'))];
 
+const resolver = {
+  extraNodeModules: new Proxy(extraNodeModules, {
+    get: (target, name) =>
+      name in target
+        ? target[name]
+        : path.join(process.cwd(), `node_modules/${name}`),
+  }),
+};
+
+if (process.env.OWL_BUILD) {
+  resolver.sourceExts = [
+    'owl.ts',
+    'owl.tsx',
+    'owl.js',
+    'owl.jsx',
+    'ts',
+    'tsx',
+    'js',
+    'jsx',
+  ];
+}
+
 module.exports = {
   transformer: {
     getTransformOptions: async () => ({
@@ -23,13 +45,6 @@ module.exports = {
       },
     }),
   },
-  resolver: {
-    extraNodeModules: new Proxy(extraNodeModules, {
-      get: (target, name) =>
-        name in target
-          ? target[name]
-          : path.join(process.cwd(), `node_modules/${name}`),
-    }),
-  },
+  resolver,
   watchFolders,
 };
