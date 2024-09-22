@@ -123,8 +123,8 @@ export const runHandler = async (args: CliRunOptions) => {
     `--globals='${JSON.stringify({ OWL_CLI_ARGS: args })}'`,
   ];
 
-  if(args.testPathPattern){
-    jestCommandArgs.push('--testPathPattern=\"' + args.testPathPattern  + '\"');
+  if (args.testPathPattern) {
+    jestCommandArgs.push('--testPathPattern="' + args.testPathPattern + '"');
   }
 
   if (config.report) {
