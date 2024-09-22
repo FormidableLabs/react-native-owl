@@ -28,6 +28,13 @@ const updateOption: Options = {
   default: false,
 };
 
+const testPathPatternOption: Options = {
+  alias: 't',
+  describe: 'Run Test for a matching path pattern',
+  type: 'string',
+  default: '',
+};
+
 const builderOptionsRun = {
   config: configOption,
   platform: plaformOption,
@@ -37,6 +44,7 @@ const builderOptionsTest = {
   config: configOption,
   platform: plaformOption,
   update: updateOption,
+  testPathPattern: testPathPatternOption,
 };
 
 argv
