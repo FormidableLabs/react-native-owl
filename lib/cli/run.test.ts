@@ -302,5 +302,34 @@ describe('run.ts', () => {
         await expect(mockGenerateReport).not.toHaveBeenCalled();
       }
     });
+
+    it('runs with a specific testPathPattern', async () => {
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      const testPathPattern = '*';
+      await run.runHandler({ ...args, testPathPattern });
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"ios\",\"config\":\"./owl.config.json\",\"update\":false,\"testPathPattern\":\"${testPathPattern}\"}}' --testPathPattern="${testPathPattern}"`,
+        expect.anything()
+      );
+    });
+
+    it('runs without a testPathPattern', async () => {
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      await run.runHandler(args);
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"ios\",\"config\":\"./owl.config.json\",\"update\":false}}'`,
+        expect.anything()
+      );
+    });
   });
 });
