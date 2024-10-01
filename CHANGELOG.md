@@ -1,5 +1,11 @@
 # react-native-owl
 
+## 1.4.0
+
+### Minor Changes
+
+- implements a new `testPathPattern` option for the CLI, allowing users to run tests for specific path patterns. ([#180](https://github.com/FormidableLabs/react-native-owl/pull/180))
+
 ## 1.3.0
 
 ### Minor Changes
