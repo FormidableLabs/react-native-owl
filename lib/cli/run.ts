@@ -132,6 +132,10 @@ export const runHandler = async (args: CliRunOptions) => {
     jestCommandArgs.push(`--json --outputFile=${outputFile}`);
   }
 
+  if (args.testNamePattern) {
+    jestCommandArgs.push(`-t`, `${args.testNamePattern}`);
+  }
+
   const jestCommand = jestCommandArgs.join(' ');
 
   logger.print(

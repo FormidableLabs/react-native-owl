@@ -28,6 +28,12 @@ const updateOption: Options = {
   default: false,
 };
 
+const testNamePattern: Options = {
+  alias: 't',
+  describe: 'Run only tests with a name that matches the regex',
+  type: 'string',
+};
+
 const builderOptionsRun = {
   config: configOption,
   platform: plaformOption,
@@ -37,6 +43,7 @@ const builderOptionsTest = {
   config: configOption,
   platform: plaformOption,
   update: updateOption,
+  testNamePattern: testNamePattern,
 };
 
 argv

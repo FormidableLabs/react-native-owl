@@ -302,5 +302,27 @@ describe('run.ts', () => {
         await expect(mockGenerateReport).not.toHaveBeenCalled();
       }
     });
+
+    it('runs Jest with the correct testNamePattern when the argument is provided', async () => {
+      jest.spyOn(configHelpers, 'getConfig').mockResolvedValueOnce(config);
+      const mockRunIOS = jest.spyOn(run, 'runIOS').mockResolvedValueOnce();
+
+      await run.runHandler({ ...args, testNamePattern: 'MyTest' });
+
+      await expect(mockRunIOS).toHaveBeenCalled();
+      await expect(commandSyncMock).toHaveBeenCalledTimes(1);
+      await expect(commandSyncMock).toHaveBeenCalledWith(
+        `${expectedJestCommand} --globals='{\"OWL_CLI_ARGS\":{\"platform\":\"ios\",\"config\":\"./owl.config.json\",\"update\":false,\"testNamePattern\":\"MyTest\"}}' -t MyTest`,
+        {
+          env: {
+            OWL_DEBUG: 'false',
+            OWL_IOS_SIMULATOR: 'iPhone Simulator',
+            OWL_PLATFORM: 'ios',
+            OWL_UPDATE_BASELINE: 'false',
+          },
+          stdio: 'inherit',
+        }
+      );
+    });
   });
 });
