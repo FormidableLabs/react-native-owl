@@ -12,6 +12,7 @@ export interface CliRunOptions extends Arguments {
   config: string;
   update: boolean;
   testNamePattern: string;
+  testPathPattern: string;
 }
 
 export type ConfigEnv = {
