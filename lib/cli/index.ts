@@ -28,8 +28,14 @@ const updateOption: Options = {
   default: false,
 };
 
-const testPathPatternOption: Options = {
+const testNamePattern: Options = {
   alias: 't',
+  describe: 'Run only tests with a name that matches the regex',
+  type: 'string',
+};
+
+const testPathPatternOption: Options = {
+  alias: 'p',
   describe: 'Run Test for a matching path pattern',
   type: 'string',
   default: '',
@@ -44,6 +50,7 @@ const builderOptionsTest = {
   config: configOption,
   platform: plaformOption,
   update: updateOption,
+  testNamePattern: testNamePattern,
   testPathPattern: testPathPatternOption,
 };
 
