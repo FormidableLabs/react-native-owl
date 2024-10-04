@@ -35,7 +35,7 @@ const testNamePattern: Options = {
 };
 
 const testPathPatternOption: Options = {
-  alias: 'p',
+  alias: 'tp',
   describe: 'Run Test for a matching path pattern',
   type: 'string',
   default: '',

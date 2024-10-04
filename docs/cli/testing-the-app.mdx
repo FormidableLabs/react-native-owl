@@ -11,13 +11,13 @@ Use the `test` command to run the app on the simulator, either comparing screens
 
 #### Options
 
-| Name                      | Required | Default           | Options/Types   | Description                                       |
-| ------------------------- | -------- | ----------------- | --------------- | ------------------------------------------------- |
-| `--config`, `-c`          | false    | ./owl.config.json | String          | Path to the configuration file                    |
-| `--platform`, `-p`        | true     | -                 | `ios`,`android` | The platform the app should be built on           |
-| `--update`, `-u`          | true     | false             | Boolean         | A flag about rewriting existing baseline images   |
-| `--testNamePattern`, `-t` | false    | false             | String          | Run only tests with a name that matches the regex |
-| `--testPathPattern`, `-p` | false    | false             | String          | A regexp string matched against all tests path    |
+| Name                       | Required | Default           | Options/Types   | Description                                       |
+| -------------------------- | -------- | ----------------- | --------------- | ------------------------------------------------- |
+| `--config`, `-c`           | false    | ./owl.config.json | String          | Path to the configuration file                    |
+| `--platform`, `-p`         | true     | -                 | `ios`,`android` | The platform the app should be built on           |
+| `--update`, `-u`           | true     | false             | Boolean         | A flag about rewriting existing baseline images   |
+| `--testNamePattern`, `-t`  | false    | false             | String          | Run only tests with a name that matches the regex |
+| `--testPathPattern`, `-tp` | false    | false             | String          | A regexp string matched against all tests path    |
 
 When comparing images, any difference in the current vs baseline will fail the test.
 
