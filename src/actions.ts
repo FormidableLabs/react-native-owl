@@ -1,12 +1,12 @@
 import { getConfig } from './cli/config';
 
 import { Logger } from './logger';
-import { CliRunOptions } from './types';
+import type { CliRunOptions } from './types';
 import { adbLaunch, adbTerminate } from './utils/adb';
 import { waitFor } from './utils/wait-for';
 import { xcrunLaunch, xcrunTerminate, xcrunUi } from './utils/xcrun';
 import { createWebSocketClient } from './websocket';
-import {
+import type {
   SOCKET_TEST_REQUEST,
   SOCKET_SCROLL_TO_VALUE,
   SOCKET_CLIENT_RESPONSE,

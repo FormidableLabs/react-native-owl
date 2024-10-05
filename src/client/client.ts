@@ -7,9 +7,9 @@ import {
   SOCKET_WAIT_TIMEOUT,
 } from './constants';
 import { initWebSocket } from './websocket';
-import { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
+import type { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTypes';
 
-import { add, get, TrackedElementData } from './trackedElements';
+import { add, get, type TrackedElementData } from './trackedElements';
 import { handleAction } from './handleAction';
 
 const logger = new Logger(true);
@@ -115,9 +115,9 @@ export const applyJsxChildrenElementTracking = (props: any): void => {
 export const patchReact = () => {
   const originalReactCreateElement: typeof React.createElement =
     React.createElement;
-  let automateTimeout: number;
+  let automateTimeout: NodeJS.Timeout;
 
-  if (parseInt(React.version.split('.')[0], 10) >= 18) {
+  if (parseInt(React.version.split('.')?.[0] || '0', 10) >= 18) {
     const jsxRuntime = require('react/jsx-runtime');
     const origJsx = jsxRuntime.jsx;
 

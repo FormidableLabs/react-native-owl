@@ -1,6 +1,6 @@
 import path from 'path';
 import execa from 'execa';
-import { ConfigAndroid } from '../types';
+import type { ConfigAndroid } from '../types';
 
 export const adbInstall = async ({
   debug,

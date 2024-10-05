@@ -1,10 +1,10 @@
-import { GestureResponderEvent } from 'react-native';
-import {
+import type { GestureResponderEvent } from 'react-native';
+import type {
   SOCKET_TEST_ACTION,
   SOCKET_TEST_REQUEST_VALUE,
 } from '../websocketTypes';
 import { Logger } from '../logger';
-import { TrackedElementData } from './trackedElements';
+import type { TrackedElementData } from './trackedElements';
 
 /**
  * When we call onPress/onLongPress, the function expects an `event` arg of type `GestureResponderEvent`.
@@ -22,7 +22,9 @@ const getGestureResponderEvent = (): GestureResponderEvent => ({
     timestamp: Date.now(),
     touches: [],
   },
+  // @ts-expect-error - We're mocking the event object, so we don't need to match the full type
   currentTarget: 0,
+  // @ts-expect-error - We're mocking the event object, so we don't need to match the full type
   target: 0,
   bubbles: false,
   cancelable: false,

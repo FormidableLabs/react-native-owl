@@ -3,7 +3,7 @@ import handlebars from 'handlebars';
 import { promises as fs } from 'fs';
 
 import { Logger } from './logger';
-import { JestReport, Platform, ReportStats } from './types';
+import type { JestReport, Platform, ReportStats } from './types';
 import { fileExists } from './utils/file-exists';
 
 export const cleanupReport = async () => {

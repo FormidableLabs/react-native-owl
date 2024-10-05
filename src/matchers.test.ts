@@ -1,13 +1,13 @@
 import fs from 'fs';
 import pixelmatch from 'pixelmatch';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 
 import { toMatchBaseline } from './matchers';
 
 jest.mock('pixelmatch');
 
 describe('matchers.ts', () => {
-  const mockedPixelmatch = mocked(pixelmatch, true);
+  const mockedPixelmatch = mocked(pixelmatch, { shallow: false });
 
   const imageHello1Data = `iVBORw0KGgoAAAANSUhEUgAAACUAAAALCAYAAAD4OERFAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAJaADAAQAAAABAAAACwAAAADN8bJQAAABcElEQVQ4Ec2UvytGURjHr1/lHd5JlF9leMNAiQzKbqCMBt5ikUEWMhkMDGZ/gEHZDMqCsr6JQel9yW8Dg4lBJvL5ck7dTudw3UG+9el5nvM859znnnPujaIoKoMq+Ffqo5uTFB1dMacLuuEixXxNaYRNd26lO/BHcZbnjEEecu4zy82AjnARbuEIOsBqEqdkmLGDAav1luAB7mEBtLYrNdUKd27Cxjq+d1iFTtiALZCG4QYGQLlTGAXJd3zTjB9CM7SB6schpF4Sj76kmnoCu2v9+OemcBc7Z3yZKbAN+5o6Jj+hQiM1uWMDj/U2Ze+Utlu7Jb1A5tP7Om9NnDexvtIz4/tMC4MHscQ1fm0sTuTa3XkLVD8zrretM9RjByGkIommWFJHWIjFiVzbVKh4n8QIVBvWsLMQ0jaJPKheF3wI9uBX+qmpZVarAV12fSnyVyCkdRI9cAm65K/w3Z0inU56Y/1LRBJVUNQODUmKfTUfKJc7FJ+heOgAAAAASUVORK5CYII=`;
   const imageHello1Buffer = Buffer.from(imageHello1Data, 'base64');

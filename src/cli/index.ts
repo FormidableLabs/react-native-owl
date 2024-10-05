@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-import yargs, { Options } from 'yargs';
-import { CliBuildOptions, CliRunOptions } from '../types';
-const { hideBin } = require('yargs/helpers');
-const argv = yargs(hideBin(process.argv));
+import yargs, { type Options } from 'yargs';
+import type { CliBuildOptions, CliRunOptions } from '../types';
+import { hideBin } from 'yargs/helpers';
 
 import { buildHandler } from './build';
 import { runHandler } from './run';
+
+const argv = yargs(hideBin(process.argv));
 
 const plaformOption: Options = {
   alias: 'p',

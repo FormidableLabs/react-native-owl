@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   PressableProps,
   TextInputProps,
   TouchableWithoutFeedbackProps,

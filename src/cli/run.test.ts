@@ -3,7 +3,7 @@ import path from 'path';
 import * as reportHelpers from '../report';
 import * as configHelpers from './config';
 
-import { CliRunOptions, Config } from '../types';
+import type { CliRunOptions, Config } from '../types';
 import * as run from './run';
 import * as xcrun from '../utils/xcrun';
 import * as adb from '../utils/adb';
@@ -245,7 +245,7 @@ describe('run.ts', () => {
 
       await run.runHandler({ ...args });
 
-      await expect(execMock.mock.calls[0][0]).toEqual(
+      await expect(execMock.mock.calls[0]?.[0]).toEqual(
         'node scripts/websocket-server.js'
       );
     });

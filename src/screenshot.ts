@@ -4,7 +4,7 @@ import path from 'path';
 
 import { fileExists } from './utils/file-exists';
 import { Logger } from './logger';
-import { Platform } from './types';
+import type { Platform } from './types';
 
 export const cleanupScreenshots = async () => {
   const latestDirPath = path.join(process.cwd(), '.owl', 'latest');

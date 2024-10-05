@@ -1,6 +1,6 @@
 import path from 'path';
 import execa from 'execa';
-import { ConfigIOS } from '../types';
+import type { ConfigIOS } from '../types';
 import { waitFor } from './wait-for';
 
 export const xcrunStatusBar = async ({

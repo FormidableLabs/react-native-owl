@@ -3,7 +3,7 @@ import execa from 'execa';
 import { promises as fs } from 'fs';
 
 import { cleanupScreenshots } from '../screenshot';
-import { CliRunOptions, Config } from '../types';
+import type { CliRunOptions, Config } from '../types';
 import { generateReport, cleanupReport } from '../report';
 import { getConfig } from './config';
 import { Logger } from '../logger';

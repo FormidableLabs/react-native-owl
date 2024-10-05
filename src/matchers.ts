@@ -3,7 +3,7 @@ import path from 'path';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 
-import { Platform } from './types';
+import type { Platform } from './types';
 
 declare global {
   namespace jest {
@@ -76,7 +76,7 @@ export const toMatchBaseline = (
     }
 
     // Create and save the diff image
-    fs.writeFileSync(diffPath, PNG.sync.write(diffImage));
+    fs.writeFileSync(diffPath, PNG.sync.write(diffImage).toString());
 
     return {
       message: () =>
