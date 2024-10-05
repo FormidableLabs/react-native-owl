@@ -2,80 +2,193 @@
   "name": "react-native-owl",
   "version": "1.4.0",
   "description": "Visual regression testing for React Native",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/typescript/module/src/index.d.ts",
+        "default": "./lib/module/index.js"
+      },
+      "require": {
+        "types": "./lib/typescript/commonjs/src/index.d.ts",
+        "default": "./lib/commonjs/index.js"
+      }
+    }
+  },
   "bin": {
-    "owl": "./dist/cli/index.js"
+    "owl": "./lib/commonjs/cli/index.js"
   },
   "files": [
-    "dist/",
-    "!dist/**/*.test.*",
-    "native/",
-    "scripts/",
-    "react-native.config.js",
-    "README.md"
+    "src",
+    "lib",
+    "android",
+    "scripts",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*",
+    "FIXME README.md"
   ],
   "scripts": {
+    "example": "yarn workspace react-native-owl-example",
+    "test": "jest",
+    "typecheck": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "prepare": "bob build",
+    "release": "release-it",
     "prepare:report": "mkdir -p dist/report && cp lib/report/index.html dist/report/",
     "prebuild": "yarn prepare:report",
-    "build": "tsc",
     "prewatch": "yarn prepare:report",
     "watch": "tsc --watch",
     "prettier:check": "prettier --check 'lib/**/*.{js,ts,tsx}'",
-    "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'",
-    "test": "yarn jest"
+    "prettier:apply": "prettier --write 'lib/**/*.{js,ts,tsx}'"
   },
-  "repository": "https://github.com/FormidableLabs/react-native-owl",
-  "author": "Emmanouil Konstantinidis <hello@manos.im>",
-  "license": "MIT",
   "keywords": [
     "react-native",
-    "ios",
     "android",
     "mobile",
     "visual regression",
     "testing",
     "tooling"
   ],
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/lib/**/*.test.[jt]s"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FormidableLabs/react-native-owl.git"
+  },
+  "author": "Emmanouil Konstantinidis <hello@manos.im>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FormidableLabs/react-native-owl/issues"
+  },
+  "homepage": "https://github.com/FormidableLabs/react-native-owl#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
   },
   "dependencies": {
-    "ajv": "^7.0.3",
+    "ajv": "^7.2.4",
     "execa": "^5.1.1",
-    "handlebars": "^4.7.7",
-    "pixelmatch": "^5.2.1",
-    "pngjs": "^6.0.0",
-    "ws": "^8.2.3",
-    "yargs": "^17.2.1"
-  },
-  "peerDependencies": {
-    "react": "^17 || ^18",
-    "react-native": "^0"
+    "handlebars": "^4.7.8",
+    "pixelmatch": "^5.3.0",
+    "pngjs": "^7.0.0",
+    "ws": "^8.18.0",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.1",
-    "@svitejs/changesets-changelog-github-compact": "^0.1.1",
-    "@types/jest": "^26.0.19",
-    "@types/pixelmatch": "^5.2.4",
-    "@types/pngjs": "^6.0.1",
-    "@types/react": "^18.0.20",
-    "@types/react-native": "^0.65.x",
-    "@types/ws": "^8.2.0",
-    "@types/yargs": "^17.0.5",
-    "jest": "^26.6.3",
-    "jest-websocket-mock": "^2.3.0",
-    "prettier": "^2.4.1",
-    "react": "^18.1.0",
-    "react-native": "^0.68.2",
-    "ts-jest": "^26.4.4",
-    "typescript": "^4.4.4"
+    "@changesets/cli": "^2.27.9",
+    "@react-native/eslint-config": "^0.75.4",
+    "@svitejs/changesets-changelog-github-compact": "^1.1.0",
+    "@types/jest": "^29.5.13",
+    "@types/pixelmatch": "^5.2.6",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^18.3.11",
+    "@types/react-native": "^0.73.0",
+    "@types/ws": "^8.5.12",
+    "@types/yargs": "^17.0.33",
+    "del-cli": "^5.1.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "jest": "^29.7.0",
+    "jest-websocket-mock": "^2.5.0",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-native": "0.75.4",
+    "react-native-builder-bob": "^0.30.2",
+    "turbo": "^1.13.4",
+    "typescript": "^5.6.2"
   },
-  "publishConfig": {
-    "provenance": true
+  "resolutions": {
+    "@types/react": "^18.2.44"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "workspaces": [
+    "example"
+  ],
+  "packageManager": "yarn@4.5.0",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native",
+      "prettier"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "codegen",
+      [
+        "commonjs",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json",
+          "esm": true
+        }
+      ]
+    ]
+  },
+  "codegenConfig": {
+    "name": "RNOwlSpec",
+    "type": "all",
+    "jsSrcsDir": "src",
+    "outputDir": {
+      "android": "android/generated",
+      "ios": "ios/generated"
+    },
+    "android": {
+      "javaPackageName": "com.formidable.reactnativeowl"
+    }
+  },
+  "create-react-native-library": {
+    "type": "module-mixed",
+    "languages": "kotlin-objc",
+    "version": "0.41.2"
   }
 }

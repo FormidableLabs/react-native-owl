@@ -1,8 +1,11 @@
+/**
+ * @type {import('@react-native-community/cli-types').UserDependencyConfig}
+ */
 module.exports = {
   dependency: {
     platforms: {
       android: {
-        sourceDir: './native/android',
+        cmakeListsPath: 'build/generated/source/codegen/jni/CMakeLists.txt',
       },
     },
   },

@@ -1,5 +1,5 @@
-const { startWebSocketServer } = require('../dist/websocket');
-const { Logger } = require('../dist/logger');
+const { startWebSocketServer } = require('../lib/commonjs/websocket');
+const { Logger } = require('../lib/commonjs/logger');
 
 const debug = process.env.OWL_DEBUG === 'true';
 const logger = new Logger(!!debug);
