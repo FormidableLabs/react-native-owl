@@ -5,6 +5,9 @@ describe('client.ts', () => {
     Platform: {
       OS: 'android',
     },
+    TurboModuleRegistry: {
+      get: jest.fn(),
+    },
   }));
 
   afterEach(() => {
