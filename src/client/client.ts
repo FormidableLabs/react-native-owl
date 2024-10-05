@@ -12,6 +12,9 @@ import type { SOCKET_CLIENT_RESPONSE, SOCKET_TEST_REQUEST } from '../websocketTy
 import { add, get, type TrackedElementData } from './trackedElements';
 import { handleAction } from './handleAction';
 
+// NOTE: On new arch the module isn't autoloaded
+import '../NativeOwl';
+
 const logger = new Logger(true);
 
 let isReactUpdating = true;
