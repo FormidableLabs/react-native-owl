@@ -1,5 +1,15 @@
 # react-native-owl
 
+## 1.5.0
+
+### Minor Changes
+
+- Ability to pass along Jest testNamePattern when the argument is provided ([#182](https://github.com/FormidableLabs/react-native-owl/pull/182))
+
+### Patch Changes
+
+- fix alias to avoid collision ([#184](https://github.com/FormidableLabs/react-native-owl/pull/184))
+
 ## 1.4.0
 
 ### Minor Changes
