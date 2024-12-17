@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
 
       - uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'yarn'
 
       - name: Install Dependencies (Library)

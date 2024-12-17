@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
-          cache: yarn
+          node-version: 20
+          cache: 'yarn'
 
       - uses: actions/checkout@v2
 
