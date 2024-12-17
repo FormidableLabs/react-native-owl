@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - run: ls
+      - run: pwd
+      - run: ls ../
       - uses: actions/setup-node@v4
         with:
           node-version: 20
