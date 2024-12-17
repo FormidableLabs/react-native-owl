@@ -10,15 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: ls
-      - run: pwd
-      - run: ls ../
+      - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'yarn'
-
-      - uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
