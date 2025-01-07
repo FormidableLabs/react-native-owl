@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.71.7",
+    "react-native": "0.71.19",
     "ts-jest": "^29.1.2"
   },
   "devDependencies": {
