@@ -21,7 +21,7 @@ on: [pull_request]
 
 jobs:
   run-visual-regression-ios:
-    runs-on: macos-11
+    runs-on: macos-13
 
     steps:
       - uses: actions/checkout@v4
@@ -80,7 +80,7 @@ on: [pull_request]
 
 jobs:
   run-visual-regression-android:
-    runs-on: macos-11
+    runs-on: macos-13
 
     steps:
       - uses: actions/checkout@v4
