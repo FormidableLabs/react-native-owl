@@ -24,7 +24,7 @@ jobs:
     runs-on: macos-11
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Get Runner Information
         run: /usr/bin/xcodebuild -version
@@ -83,7 +83,7 @@ jobs:
     runs-on: macos-11
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Node
         uses: actions/setup-node@v4
