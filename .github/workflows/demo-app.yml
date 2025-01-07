@@ -57,7 +57,7 @@ jobs:
         working-directory: ./example
 
       - name: Store screenshots and report as artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: owl-results
@@ -68,7 +68,7 @@ jobs:
     if: ${{ false }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
@@ -121,7 +121,7 @@ jobs:
         working-directory: ./example
 
       - name: Store screenshots as artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: owl-screenshots
