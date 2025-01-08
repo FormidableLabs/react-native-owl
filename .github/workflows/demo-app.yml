@@ -43,10 +43,10 @@ jobs:
         run: pod install
         working-directory: ./example/ios
 
-      - uses: futureware-tech/simulator-action@v1
+      - uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 13 Pro'
-          os_version: '>=15.0'
+          model: 'iPhone 14 Pro'
+          os_version: '>=17.0'
 
       - name: Run Owl Build
         run: yarn owl:build:ios
