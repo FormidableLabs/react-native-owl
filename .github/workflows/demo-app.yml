@@ -47,6 +47,9 @@ jobs:
         with:
           model: 'iPhone 14 Pro'
           os_version: '>=17.0'
+          erase_before_boot: true
+          wait_for_boot: true
+          shutdown_after_job: true
 
       - name: Run Owl Build
         run: yarn owl:build:ios
