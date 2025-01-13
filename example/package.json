@@ -8,6 +8,8 @@
     "owl": "node ../dist/cli/index.js",
     "owl:build:ios": "yarn owl build --platform ios",
     "owl:test:ios": "yarn owl test --platform ios",
+    "owl:test:update:ios": "yarn owl test --platform ios --update",
+    "owl:test:update:android": "yarn owl test --platform android --update",
     "owl:build:android": "yarn owl build --platform android",
     "owl:test:android": "yarn owl test --platform android",
     "lint": "eslint .",
