@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   run-visual-regression-ios:
-    runs-on: macos-13
+    runs-on: macos-14
 
     steps:
       - uses: actions/checkout@v4
@@ -45,8 +45,8 @@ jobs:
 
       - uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 14 Pro'
-          os_version: '>=17.0'
+          model: 'iPhone 15 Pro'
+          os_version: '18.1'
           erase_before_boot: true
           wait_for_boot: true
           shutdown_after_job: true
@@ -67,7 +67,7 @@ jobs:
           path: example/.owl
 
   run-visual-regression-android:
-    runs-on: macos-13
+    runs-on: macos-14
     if: ${{ false }}
 
     steps:
