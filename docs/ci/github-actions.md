@@ -54,8 +54,8 @@ jobs:
 
       - uses: futureware-tech/simulator-action@v1
         with:
-          model: 'iPhone 14 Pro'
-          os_version: '>=17.0'
+          model: 'iPhone 15 Pro'
+          os_version: '18.1'
 
       - name: Run Owl Build
         run: yarn owl:build:ios
