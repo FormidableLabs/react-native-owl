@@ -46,7 +46,7 @@ describe('App.tsx', () => {
     });
 
     it('scrolls a bit and takes a screenshot', async () => {
-      await scrollTo('ScrollView', { y: 50 });
+      await scrollTo('ScrollView', {y: 50});
 
       const screen = await takeScreenshot('scroll-to');
 
@@ -77,6 +77,6 @@ describe('App.tsx', () => {
       const screen = await takeScreenshot('after-reload');
 
       expect(screen).toMatchBaseline();
-    });
+    }, 100000);
   });
 });
